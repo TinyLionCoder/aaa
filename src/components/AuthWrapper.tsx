@@ -6,17 +6,17 @@ import Dashboard from "./Dashboard";
 const AuthWrapper = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [referralCode, setReferralCode] = useState(""); // Default to an empty string
-  const [userId, setUserId] = useState(null); // Store the user ID
+  const [referralCode, setReferralCode] = useState("");
+  const [walletAddress, setWalletAddress] = useState(""); // New state for wallet address
+  const [userId, setUserId] = useState(null);
   const [userReferralCode, setUserReferralCode] = useState("");
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [userReferrals, setUserReferrals] = useState([]);
   const [aaaBalance, setAaaBalance] = useState(0);
-  const [token, setToken] = useState<string | null>(null); // Store the JWT token
+  const [token, setToken] = useState<string | null>(null);
 
-  // Axios instance with interceptor for Authorization header
   const apiClient = axios.create({
-    baseURL: "https://aaa-api.onrender.com/api/v1", // Update with your backend URL
+    baseURL: "https://aaa-api.onrender.com/api/v1",
     headers: { "Content-Type": "application/json" },
   });
 
@@ -29,22 +29,25 @@ const AuthWrapper = () => {
 
   const signUp = async () => {
     try {
-      const safeReferralCode = referralCode || ""; // Ensure referralCode is always a string
+      const safeReferralCode = referralCode || "";
       console.log("Sign-up data:", {
         email,
         password,
         referralCode: safeReferralCode,
+        walletAddress, // Include walletAddress in logs
       });
 
       const response = await apiClient.post("/signup", {
         email,
         password,
         referralCode: safeReferralCode,
+        walletAddress, // Include walletAddress in request
       });
 
       const {
         userId,
         referralCode: returnedReferralCode,
+        walletAddress: returnedWalletAddress, // Get walletAddress from response
         aaaBalance,
         token,
       } = response.data;
@@ -52,12 +55,13 @@ const AuthWrapper = () => {
       setUserLoggedIn(true);
       setUserId(userId);
       setUserReferralCode(returnedReferralCode);
+      setWalletAddress(returnedWalletAddress); // Set walletAddress state
       setAaaBalance(aaaBalance);
       setToken(token);
-      localStorage.setItem("token", token); // Persist token in localStorage
+      localStorage.setItem("token", token);
 
-      // Clear referral code after successful signup
-      setReferralCode(""); // Reset the referral code state
+      setReferralCode("");
+      setWalletAddress(""); // Reset walletAddress after successful signup
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error(
@@ -73,12 +77,19 @@ const AuthWrapper = () => {
   const logIn = async () => {
     try {
       const response = await apiClient.post("/login", { email, password });
-      const { userId, referralCode, aaaBalance, referrals, token } =
-        response.data;
+      const {
+        userId,
+        referralCode,
+        walletAddress: returnedWalletAddress, // Get walletAddress from response
+        aaaBalance,
+        referrals,
+        token,
+      } = response.data;
 
       setUserLoggedIn(true);
       setUserId(userId);
       setUserReferralCode(referralCode);
+      setWalletAddress(returnedWalletAddress); // Set walletAddress state
       setAaaBalance(aaaBalance);
       setUserReferrals(referrals);
       setToken(token);
@@ -101,7 +112,9 @@ const AuthWrapper = () => {
       const response = await apiClient.post("/withdraw");
       setAaaBalance(response.data.aaaBalance);
       alert("Withdrawal successful!");
-    } catch (error) {}
+    } catch (error) {
+      console.error("Withdrawal failed:", error);
+    }
   };
 
   const logout = () => {
@@ -109,9 +122,10 @@ const AuthWrapper = () => {
     setUserId(null);
     setUserReferralCode("");
     setUserReferrals([]);
+    setWalletAddress("");
     setAaaBalance(0);
     setToken(null);
-    localStorage.removeItem("token"); // Clear token from localStorage
+    localStorage.removeItem("token");
   };
 
   useEffect(() => {
@@ -126,6 +140,7 @@ const AuthWrapper = () => {
       {userLoggedIn ? (
         <Dashboard
           userReferralCode={userReferralCode}
+          walletAddress={walletAddress} // Pass walletAddress to Dashboard
           aaaBalance={aaaBalance}
           userReferrals={userReferrals}
           onWithdrawTokens={withdrawTokens}
@@ -138,6 +153,7 @@ const AuthWrapper = () => {
           setEmail={setEmail}
           setPassword={setPassword}
           setReferralCode={setReferralCode}
+          setWalletAddress={setWalletAddress} // Pass walletAddress setter
         />
       )}
     </div>

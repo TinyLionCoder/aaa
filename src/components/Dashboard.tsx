@@ -2,6 +2,7 @@ import React from "react";
 
 interface DashboardProps {
   userReferralCode: string;
+  walletAddress: string; // Add walletAddress to props
   aaaBalance: number;
   userReferrals: string[];
   onWithdrawTokens: () => void;
@@ -10,6 +11,7 @@ interface DashboardProps {
 
 const Dashboard: React.FC<DashboardProps> = ({
   userReferralCode,
+  walletAddress, // Destructure walletAddress
   aaaBalance,
   userReferrals,
   onWithdrawTokens,
@@ -20,6 +22,9 @@ const Dashboard: React.FC<DashboardProps> = ({
       <h2>Welcome back!</h2>
       <p>
         Your Referral Code: <strong>{userReferralCode}</strong>
+      </p>
+      <p>
+        Your Wallet Address: <strong>{walletAddress}</strong>
       </p>
       <p>
         Your Balance: <strong>{aaaBalance} AAA Tokens</strong>
