@@ -16,7 +16,7 @@ const AuthWrapper = () => {
 
   // Axios instance with interceptor for Authorization header
   const apiClient = axios.create({
-    baseURL: "http://localhost:5000/api/v1", // Update with your backend URL
+    baseURL: "https://aaa-api.onrender.com/api/v1", // Update with your backend URL
     headers: { "Content-Type": "application/json" },
   });
 
