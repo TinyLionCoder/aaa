@@ -2,6 +2,7 @@
   width: 100%;
   min-height: 100vh;
   display: flex;
+  flex-direction: column; /* Adjust layout to include the wallet button at the top */
   align-items: center;
   justify-content: center;
   background: linear-gradient(to bottom, #007bff, #0056b3);
@@ -25,6 +26,46 @@
   font-weight: bold;
   margin-bottom: 20px;
   color: #333;
+}
+
+/* Wallet button container */
+.walletButtonContainer {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 20px; /* Space between wallet button and form */
+  text-align: center;
+}
+
+/* Wallet button styling */
+.walletButton {
+  width: auto;
+  padding: 10px 20px;
+  background: #ffffff;
+  color: #007bff;
+  border: 2px solid #007bff;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.walletButton:hover {
+  background: #007bff;
+  color: white;
+  border-color: #0056b3;
+}
+
+.walletButton:active {
+  background: #0056b3;
+  color: white;
+  border-color: #003f88;
+}
+
+.walletButton:disabled {
+  background: #ccc;
+  color: #666;
+  border-color: #999;
+  cursor: not-allowed;
 }
 
 .authWrapper button {

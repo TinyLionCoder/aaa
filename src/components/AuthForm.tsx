@@ -7,7 +7,6 @@ interface AuthFormProps {
   setEmail: (email: string) => void;
   setPassword: (password: string) => void;
   setReferralCode: (code: string) => void;
-  setWalletAddress: (wallet: string) => void; // Add walletAddress setter
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({
@@ -16,7 +15,6 @@ const AuthForm: React.FC<AuthFormProps> = ({
   setEmail,
   setPassword,
   setReferralCode,
-  setWalletAddress,
 }) => {
   return (
     <div className={styles.authForm}>
@@ -39,18 +37,13 @@ const AuthForm: React.FC<AuthFormProps> = ({
           placeholder="Referral Code..."
           onChange={(e) => setReferralCode(e.target.value)}
         />
-        <input
-          className={styles.authInput}
-          placeholder="Wallet Address..."
-          onChange={(e) => setWalletAddress(e.target.value)}
-        />
       </div>
       <div className={styles.authFormButtons}>
         <button className={styles.authButton} onClick={onSignUp}>
           Sign Up
         </button>
         <button className={styles.authButton} onClick={onLogIn}>
-          Log In
+          Log In with Email and Password
         </button>
       </div>
     </div>

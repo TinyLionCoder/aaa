@@ -1,12 +1,14 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
 import AuthWrapper from "./components/AuthWrapper";
+import { PeraWalletProvider } from "./components/PeraWalletProvider";
+
 
 function App() {
   return (
     <div className="App">
-      <AuthWrapper />
+      <PeraWalletProvider>
+        <AuthWrapper />
+      </PeraWalletProvider>
     </div>
   );
 }

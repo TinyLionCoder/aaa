@@ -6,7 +6,6 @@ interface DashboardProps {
   walletAddress: string; // Add walletAddress to props
   aaaBalance: number;
   userReferrals: string[];
-  onWithdrawTokens: () => void;
   onLogout: () => void;
 }
 
@@ -15,7 +14,6 @@ const Dashboard: React.FC<DashboardProps> = ({
   walletAddress, // Destructure walletAddress
   aaaBalance,
   userReferrals,
-  onWithdrawTokens,
   onLogout,
 }) => {
   return (
@@ -49,9 +47,6 @@ const Dashboard: React.FC<DashboardProps> = ({
         )}
       </div>
       <div className={styles.dashboardActions}>
-        <button className={styles.actionButton} onClick={onWithdrawTokens}>
-          Withdraw Tokens
-        </button>
         <button className={styles.actionButton} onClick={onLogout}>
           Log Out
         </button>
