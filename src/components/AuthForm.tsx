@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import styles from "../css_modules/AuthFormStyles.module.css";
 
 interface AuthFormProps {
   onSignUp: () => void;
@@ -18,32 +19,40 @@ const AuthForm: React.FC<AuthFormProps> = ({
   setWalletAddress,
 }) => {
   return (
-    <div>
-      <br></br>
-      <input
-        placeholder="Email..."
-        type="email"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        placeholder="Password..."
-        type="password"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <br></br>
-      <br></br>
-      <input
-        placeholder="Referral Code..."
-        onChange={(e) => setReferralCode(e.target.value)}
-      />
-      <input
-        placeholder="Wallet Address..."
-        onChange={(e) => setWalletAddress(e.target.value)} // New field for wallet address
-      />
-      <br></br>
-      <br></br>
-      <button onClick={onSignUp}>Sign Up</button>
-      <button onClick={onLogIn}>Log In</button>
+    <div className={styles.authForm}>
+      <h1 className={styles.authFormTitle}>Welcome</h1>
+      <div className={styles.authFormInputs}>
+        <input
+          className={styles.authInput}
+          placeholder="Email..."
+          type="email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          className={styles.authInput}
+          placeholder="Password..."
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <input
+          className={styles.authInput}
+          placeholder="Referral Code..."
+          onChange={(e) => setReferralCode(e.target.value)}
+        />
+        <input
+          className={styles.authInput}
+          placeholder="Wallet Address..."
+          onChange={(e) => setWalletAddress(e.target.value)}
+        />
+      </div>
+      <div className={styles.authFormButtons}>
+        <button className={styles.authButton} onClick={onSignUp}>
+          Sign Up
+        </button>
+        <button className={styles.authButton} onClick={onLogIn}>
+          Log In
+        </button>
+      </div>
     </div>
   );
 };
