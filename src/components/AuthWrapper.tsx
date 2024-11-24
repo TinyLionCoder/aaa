@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AuthForm from "./AuthForm";
 import Dashboard from "./Dashboard";
+import styles from "../css_modules/AuthWrapperStyles.module.css";
 
 const AuthWrapper = () => {
   const [email, setEmail] = useState("");
@@ -136,11 +137,11 @@ const AuthWrapper = () => {
   }, []);
 
   return (
-    <div>
+    <div className={styles.authWrapper}>
       {userLoggedIn ? (
         <Dashboard
           userReferralCode={userReferralCode}
-          walletAddress={walletAddress} // Pass walletAddress to Dashboard
+          walletAddress={walletAddress}
           aaaBalance={aaaBalance}
           userReferrals={userReferrals}
           onWithdrawTokens={withdrawTokens}
@@ -153,7 +154,7 @@ const AuthWrapper = () => {
           setEmail={setEmail}
           setPassword={setPassword}
           setReferralCode={setReferralCode}
-          setWalletAddress={setWalletAddress} // Pass walletAddress setter
+          setWalletAddress={setWalletAddress}
         />
       )}
     </div>
