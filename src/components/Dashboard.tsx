@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "../css_modules/DashboardStyles.module.css";
 
 interface DashboardProps {
   userReferralCode: string;
@@ -18,29 +19,43 @@ const Dashboard: React.FC<DashboardProps> = ({
   onLogout,
 }) => {
   return (
-    <div>
-      <h2>Welcome back!</h2>
-      <p>
-        Your Referral Code: <strong>{userReferralCode}</strong>
-      </p>
-      <p>
-        Your Wallet Address: <strong>{walletAddress}</strong>
-      </p>
-      <p>
-        Your Balance: <strong>{aaaBalance} AAA Tokens</strong>
-      </p>
-      <h3>Your Referrals:</h3>
-      {userReferrals.length > 0 ? (
-        <ul>
-          {userReferrals.map((referralId) => (
-            <li key={referralId}>{referralId}</li>
-          ))}
-        </ul>
-      ) : (
-        <p>No referrals yet. Share your code to start earning rewards!</p>
-      )}
-      <button onClick={onWithdrawTokens}>Withdraw Tokens</button>
-      <button onClick={onLogout}>Log Out</button>
+    <div className={styles.dashboard}>
+      <h2 className={styles.dashboardTitle}>Welcome Back!</h2>
+      <div className={styles.dashboardInfo}>
+        <p>
+          <strong>Referral Code:</strong> {userReferralCode}
+        </p>
+        <p>
+          <strong>Wallet Address:</strong> {walletAddress}
+        </p>
+        <p>
+          <strong>Balance:</strong> {aaaBalance} AAA Tokens
+        </p>
+      </div>
+      <div className={styles.dashboardReferrals}>
+        <h3>Your Referrals</h3>
+        {userReferrals.length > 0 ? (
+          <ul className={styles.referralList}>
+            {userReferrals.map((referralId) => (
+              <li key={referralId} className={styles.referralItem}>
+                {referralId}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className={styles.noReferrals}>
+            No referrals yet. Share your code to start earning rewards!
+          </p>
+        )}
+      </div>
+      <div className={styles.dashboardActions}>
+        <button className={styles.actionButton} onClick={onWithdrawTokens}>
+          Withdraw Tokens
+        </button>
+        <button className={styles.actionButton} onClick={onLogout}>
+          Log Out
+        </button>
+      </div>
     </div>
   );
 };
