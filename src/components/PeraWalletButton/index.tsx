@@ -69,6 +69,7 @@ const PeraWalletButton = forwardRef(({ onConnect, onDisconnect }: any, ref) => {
         borderRadius: "8px",
         cursor: "pointer",
         border: "none",
+        marginBottom: "1.25em",
       }}
       onClick={
         isConnectedToPeraWallet

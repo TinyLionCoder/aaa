@@ -189,7 +189,6 @@ const AuthWrapper = () => {
         onConnect={handleWalletConnect}
         onDisconnect={handleWalletDisconnect}
       />
-      <br />
       {userLoggedIn ? (
         <Dashboard
           userReferralCode={userReferralCode}
