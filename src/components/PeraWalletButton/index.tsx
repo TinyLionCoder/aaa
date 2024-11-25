@@ -7,18 +7,18 @@ import {
 } from "react";
 import { PeraWalletContext } from "../PeraWalletContext";
 
-const PeraWalletButton = forwardRef(({ onConnect }: any, ref) => {
-  const [accountAddress, setAccountAddress] = useState<string | null>(null);
-  const isConnectedToPeraWallet = !!accountAddress;
+const PeraWalletButton = forwardRef(
+  ({ onConnect, onDisconnect }: any, ref) => {
+    const [accountAddress, setAccountAddress] = useState<string | null>(null);
+    const isConnectedToPeraWallet = !!accountAddress;
 
-  const peraWallet = useContext(PeraWalletContext);
+    const peraWallet = useContext(PeraWalletContext);
 
-  useImperativeHandle(ref, () => ({
-    disconnectWallet: handleDisconnectWalletClick, // Expose the disconnect function
-  }));
+    useImperativeHandle(ref, () => ({
+      disconnectWallet: handleDisconnectWalletClick, // Expose the disconnect function
+    }));
 
-  useEffect(() => {
-    try {
+    useEffect(() => {
       if (peraWallet) {
         peraWallet
           .reconnectSession()
@@ -31,74 +31,67 @@ const PeraWalletButton = forwardRef(({ onConnect }: any, ref) => {
               onConnect(address);
             }
           })
-          .catch((e: any) => console.log(e));
+          .catch((e: any) => console.error(e));
       }
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+    }, []);
 
-  function handleConnectWalletClick() {
-    try {
+    function handleConnectWalletClick() {
       if (peraWallet) {
         peraWallet
           .connect()
           .then((newAccounts: any) => {
             peraWallet.connector?.on("disconnect", handleDisconnectWalletClick);
-
             const address = newAccounts[0];
             setAccountAddress(address);
             onConnect(address);
           })
           .catch((error: any) => {
             if (error?.data?.type !== "CONNECT_MODAL_CLOSED") {
-              console.log(error);
+              console.error(error);
             }
           });
       }
-    } catch (error) {
-      console.log(error);
     }
-  }
 
-  function handleDisconnectWalletClick() {
-    if (peraWallet) {
-      peraWallet.disconnect();
-    }
-    setAccountAddress(null);
-    onConnect(null);
-  }
-
-  return (
-    <button
-      style={{
-        width: "25%",
-        padding: "10px",
-        backgroundColor: isConnectedToPeraWallet ? "red" : "black",
-        borderRadius: "8px",
-        cursor: "pointer",
-        border: "none",
-      }}
-      onClick={
-        isConnectedToPeraWallet
-          ? handleDisconnectWalletClick
-          : handleConnectWalletClick
+    function handleDisconnectWalletClick() {
+      if (peraWallet) {
+        peraWallet.disconnect();
       }
-    >
-      <h2
+      setAccountAddress(null);
+      onDisconnect(); // Notify AuthWrapper of the disconnection
+    }
+
+    return (
+      <button
         style={{
-          color: "white",
-          fontSize: "16px",
-          margin: "0",
-          textAlign: "center",
+          width: "25%",
+          padding: "10px",
+          backgroundColor: isConnectedToPeraWallet ? "red" : "black",
+          borderRadius: "8px",
+          cursor: "pointer",
+          border: "none",
         }}
+        onClick={
+          isConnectedToPeraWallet
+            ? handleDisconnectWalletClick
+            : handleConnectWalletClick
+        }
       >
-        {isConnectedToPeraWallet
-          ? "Disconnect Wallet"
-          : "Connect Wallet to Log in / Sign up"}
-      </h2>
-    </button>
-  );
-});
+        <h2
+          style={{
+            color: "white",
+            fontSize: "16px",
+            margin: "0",
+            textAlign: "center",
+          }}
+        >
+          {isConnectedToPeraWallet
+            ? "Disconnect Wallet"
+            : "Connect Wallet to Log in / Sign up"}
+        </h2>
+      </button>
+    );
+  }
+);
 
 export default PeraWalletButton;

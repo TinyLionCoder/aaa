@@ -18,6 +18,7 @@ const AuthWrapper = () => {
   const [token, setToken] = useState<string | null>(null);
 
   const peraWalletRef = useRef<{ disconnectWallet: () => void } | null>(null);
+  const [disconnecting, setDisconnecting] = useState(false); // New state to handle recursion
 
   const apiClient = axios.create({
     baseURL: "https://aaa-api.onrender.com/api/v1",
@@ -49,6 +50,12 @@ const AuthWrapper = () => {
       } catch (error) {
         console.error("Auto-login with wallet failed:", error);
       }
+    }
+  };
+
+  const handleWalletDisconnect = () => {
+    if (!disconnecting) {
+      logout(false); // Pass `false` to avoid triggering wallet disconnect again
     }
   };
 
@@ -154,7 +161,8 @@ const AuthWrapper = () => {
     }
   };
 
-  const logout = () => {
+  const logout = (triggerWalletDisconnect = true) => {
+    setDisconnecting(true); // Prevent recursive calls
     setUserLoggedIn(false);
     setUserId(null);
     setUserReferralCode("");
@@ -167,13 +175,20 @@ const AuthWrapper = () => {
     setReferralCode("");
     localStorage.removeItem("token");
 
-    // Disconnect wallet
-    peraWalletRef.current?.disconnectWallet();
+    if (triggerWalletDisconnect) {
+      peraWalletRef.current?.disconnectWallet();
+    }
+
+    setTimeout(() => setDisconnecting(false), 100); // Reset disconnecting guard after a short delay
   };
 
   return (
     <div className={styles.authWrapper}>
-      <PeraWalletButton ref={peraWalletRef} onConnect={handleWalletConnect} />
+      <PeraWalletButton
+        ref={peraWalletRef}
+        onConnect={handleWalletConnect}
+        onDisconnect={handleWalletDisconnect}
+      />
       <br />
       {userLoggedIn ? (
         <Dashboard
