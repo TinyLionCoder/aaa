@@ -95,7 +95,7 @@ const PeraWalletButton = forwardRef(({ onConnect }: any, ref) => {
       >
         {isConnectedToPeraWallet
           ? "Disconnect Wallet"
-          : "Connect Wallet to Sign up / Log in"}
+          : "Connect Wallet to Log in / Sign up"}
       </h2>
     </button>
   );
