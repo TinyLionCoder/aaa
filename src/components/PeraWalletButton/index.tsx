@@ -7,91 +7,89 @@ import {
 } from "react";
 import { PeraWalletContext } from "../PeraWalletContext";
 
-const PeraWalletButton = forwardRef(
-  ({ onConnect, onDisconnect }: any, ref) => {
-    const [accountAddress, setAccountAddress] = useState<string | null>(null);
-    const isConnectedToPeraWallet = !!accountAddress;
+const PeraWalletButton = forwardRef(({ onConnect, onDisconnect }: any, ref) => {
+  const [accountAddress, setAccountAddress] = useState<string | null>(null);
+  const isConnectedToPeraWallet = !!accountAddress;
 
-    const peraWallet = useContext(PeraWalletContext);
+  const peraWallet = useContext(PeraWalletContext);
 
-    useImperativeHandle(ref, () => ({
-      disconnectWallet: handleDisconnectWalletClick, // Expose the disconnect function
-    }));
+  useImperativeHandle(ref, () => ({
+    disconnectWallet: handleDisconnectWalletClick, // Expose the disconnect function
+  }));
 
-    useEffect(() => {
-      if (peraWallet) {
-        peraWallet
-          .reconnectSession()
-          .then((accounts) => {
-            peraWallet.connector?.on("disconnect", handleDisconnectWalletClick);
+  useEffect(() => {
+    if (peraWallet) {
+      peraWallet
+        .reconnectSession()
+        .then((accounts) => {
+          peraWallet.connector?.on("disconnect", handleDisconnectWalletClick);
 
-            if (accounts.length) {
-              const address = accounts[0];
-              setAccountAddress(address);
-              onConnect(address);
-            }
-          })
-          .catch((e: any) => console.error(e));
-      }
-    }, []);
-
-    function handleConnectWalletClick() {
-      if (peraWallet) {
-        peraWallet
-          .connect()
-          .then((newAccounts: any) => {
-            peraWallet.connector?.on("disconnect", handleDisconnectWalletClick);
-            const address = newAccounts[0];
+          if (accounts.length) {
+            const address = accounts[0];
             setAccountAddress(address);
             onConnect(address);
-          })
-          .catch((error: any) => {
-            if (error?.data?.type !== "CONNECT_MODAL_CLOSED") {
-              console.error(error);
-            }
-          });
-      }
+          }
+        })
+        .catch((e: any) => console.error(e));
     }
+  }, []);
 
-    function handleDisconnectWalletClick() {
-      if (peraWallet) {
-        peraWallet.disconnect();
-      }
-      setAccountAddress(null);
-      onDisconnect(); // Notify AuthWrapper of the disconnection
+  function handleConnectWalletClick() {
+    if (peraWallet) {
+      peraWallet
+        .connect()
+        .then((newAccounts: any) => {
+          peraWallet.connector?.on("disconnect", handleDisconnectWalletClick);
+          const address = newAccounts[0];
+          setAccountAddress(address);
+          onConnect(address);
+        })
+        .catch((error: any) => {
+          if (error?.data?.type !== "CONNECT_MODAL_CLOSED") {
+            console.error(error);
+          }
+        });
     }
-
-    return (
-      <button
-        style={{
-          width: "25%",
-          padding: "10px",
-          backgroundColor: isConnectedToPeraWallet ? "red" : "black",
-          borderRadius: "8px",
-          cursor: "pointer",
-          border: "none",
-        }}
-        onClick={
-          isConnectedToPeraWallet
-            ? handleDisconnectWalletClick
-            : handleConnectWalletClick
-        }
-      >
-        <h2
-          style={{
-            color: "white",
-            fontSize: "16px",
-            margin: "0",
-            textAlign: "center",
-          }}
-        >
-          {isConnectedToPeraWallet
-            ? "Disconnect Wallet"
-            : "Connect Wallet to Log in / Sign up"}
-        </h2>
-      </button>
-    );
   }
-);
+
+  function handleDisconnectWalletClick() {
+    if (peraWallet) {
+      peraWallet.disconnect();
+    }
+    setAccountAddress(null);
+    onDisconnect(); // Notify AuthWrapper of the disconnection
+  }
+
+  return (
+    <button
+      style={{
+        width: "35%",
+        padding: "18px",
+        backgroundColor: isConnectedToPeraWallet ? "purple" : "blue",
+        borderRadius: "8px",
+        cursor: "pointer",
+        border: "none",
+      }}
+      onClick={
+        isConnectedToPeraWallet
+          ? handleDisconnectWalletClick
+          : handleConnectWalletClick
+      }
+    >
+      <h2
+        style={{
+          color: "white",
+          fontSize: "16px",
+          margin: "0",
+          textAlign: "center",
+        }}
+      >
+        {isConnectedToPeraWallet
+          ? "Disconnect Wallet"
+          : "Connect Wallet to Log in / Sign up"}
+      </h2>
+    </button>
+  );
+});
 
 export default PeraWalletButton;

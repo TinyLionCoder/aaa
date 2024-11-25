@@ -5,7 +5,7 @@
   flex-direction: column; /* Keep column layout for mobile and desktop */
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to bottom, #007bff, #0056b3);
+  background: linear-gradient(to bottom, black, #0056b3);
   padding: 20px;
   box-sizing: border-box;
 }
