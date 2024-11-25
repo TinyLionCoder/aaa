@@ -10,6 +10,7 @@
   font-family: Arial, sans-serif;
 }
 
+/* Dashboard Title */
 .dashboardTitle {
   font-size: 28px;
   font-weight: bold;
@@ -17,6 +18,7 @@
   margin-bottom: 20px;
 }
 
+/* Dashboard Info Section */
 .dashboardInfo {
   margin-bottom: 20px;
   font-size: 16px;
@@ -25,6 +27,7 @@
   overflow-wrap: break-word;
 }
 
+/* Referrals Section */
 .dashboardReferrals {
   margin: 20px 0;
 }
@@ -35,6 +38,7 @@
   color: #333;
 }
 
+/* Referral List */
 .referralList {
   list-style: none;
   padding: 0;
@@ -55,6 +59,7 @@
   font-style: italic;
 }
 
+/* Action Buttons Section */
 .dashboardActions {
   margin-top: 20px;
   display: flex;
@@ -79,4 +84,42 @@
 
 .actionButton:active {
   background: #003f88;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 15px; /* Reduce padding for smaller screens */
+    margin: 1em auto; /* Adjust spacing */
+  }
+
+  .dashboardTitle {
+    font-size: 24px; /* Reduce font size for smaller screens */
+    margin-bottom: 15px; /* Adjust spacing */
+  }
+
+  .dashboardInfo {
+    font-size: 14px; /* Reduce font size */
+    margin-bottom: 15px; /* Adjust spacing */
+  }
+
+  .dashboardReferrals h3 {
+    font-size: 18px; /* Adjust referral section title font size */
+    margin-bottom: 8px; /* Reduce spacing */
+  }
+
+  .referralItem {
+    padding: 6px 8px; /* Reduce padding for compact view */
+    font-size: 14px; /* Adjust font size for smaller screens */
+  }
+
+  .dashboardActions {
+    flex-direction: column; /* Stack buttons vertically for mobile */
+    gap: 10px; /* Maintain consistent spacing */
+  }
+
+  .actionButton {
+    font-size: 14px; /* Adjust font size */
+    padding: 8px; /* Reduce padding */
+  }
 }

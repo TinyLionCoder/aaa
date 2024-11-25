@@ -1,71 +1,136 @@
-.authForm {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background: #f7f7f7;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    font-family: Arial, sans-serif;
-  }
-  
-  .authFormTitle {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .authFormInputs {
-    display: flex;
+.authFormContainer {
+  display: flex;
+  flex-wrap: wrap;
+  /* Allow wrapping on smaller screens */
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+  /* Add padding for mobile */
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.authFormInputs {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.authInput {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  /* Adjust font size for readability */
+}
+
+.authButton {
+  padding: 10px;
+  margin-top: 15px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  /* Adjust font size */
+  transition: background 0.3s;
+}
+
+.authButton:hover {
+  background: #0056b3;
+}
+
+.toggleContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.toggleButton {
+  padding: 10px 20px;
+  background: transparent;
+  border: 2px solid #007bff;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 10px;
+  font-size: 1rem;
+  /* Adjust font size */
+  transition: background 0.3s, color 0.3s;
+}
+
+.toggleButton.active {
+  background: #007bff;
+  color: white;
+}
+
+.walletMessage {
+  text-align: center;
+  color: #333;
+  margin-top: 10px;
+  font-size: 1rem;
+  /* Adjust font size */
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .authFormContainer {
     flex-direction: column;
+    /* Stack the cards vertically on smaller screens */
+    align-items: center;
     gap: 15px;
   }
-  
+
+  .card {
+    max-width: 90%;
+    /* Reduce card width for smaller screens */
+    padding: 15px;
+    /* Reduce padding for compact view */
+  }
+
+  .cardTitle {
+    font-size: 1.25rem;
+    /* Adjust font size */
+    margin-bottom: 15px;
+    /* Adjust spacing */
+  }
+
   .authInput {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: border-color 0.2s;
+    font-size: 0.9rem;
+    /* Slightly smaller font size */
   }
-  
-  .authInput:focus {
-    border-color: #007bff;
-    outline: none;
-  }
-  
-  .authFormButtons {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-  }
-  
+
   .authButton {
-    width: 100%;
+    font-size: 0.9rem;
+    /* Adjust button font size */
     padding: 10px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.2s;
   }
-  
-  .authButton:hover {
-    background: #0056b3;
+
+  .toggleButton {
+    padding: 8px 15px;
+    /* Reduce padding */
+    font-size: 0.9rem;
+    /* Smaller font size */
+    margin: 0 5px;
+    /* Reduce gap between buttons */
   }
-  
-  .authButton:active {
-    background: #003f88;
+
+  .walletMessage {
+    font-size: 0.9rem;
+    /* Adjust font size */
   }
-  
-  .authButton:disabled {
-    background: #cccccc;
-    cursor: not-allowed;
-  }
-  
+}

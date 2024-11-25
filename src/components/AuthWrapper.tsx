@@ -40,10 +40,15 @@ const AuthWrapper = () => {
     }
   }, []);
 
-  const handleWalletConnect = (connectedAddress: string | null) => {
+  const handleWalletConnect = async (connectedAddress: string | null) => {
     setWalletAddress(connectedAddress);
     if (connectedAddress) {
-      logInWithWallet(connectedAddress); // Attempt login automatically if wallet connects
+      // Automatically trigger login upon wallet connection
+      try {
+        await logInWithWallet(connectedAddress);
+      } catch (error) {
+        console.error("Auto-login with wallet failed:", error);
+      }
     }
   };
 
@@ -144,7 +149,9 @@ const AuthWrapper = () => {
       setToken(token);
       localStorage.setItem("token", token);
     } catch (error) {
-      console.error("Login with wallet failed:", error);    }
+      console.error("Login with wallet failed:", error);
+      throw new Error("Wallet login failed. Please sign up or try again.");
+    }
   };
 
   const logout = () => {
@@ -179,7 +186,7 @@ const AuthWrapper = () => {
       ) : (
         <AuthForm
           onSignUp={signUp}
-          onLogIn={logInWithEmail} // Use email login for the form
+          onLogInWithEmail={logInWithEmail}
           setEmail={setEmail}
           setPassword={setPassword}
           setReferralCode={setReferralCode}

@@ -2,30 +2,12 @@
   width: 100%;
   min-height: 100vh;
   display: flex;
-  flex-direction: column; /* Adjust layout to include the wallet button at the top */
+  flex-direction: column; /* Keep column layout for mobile and desktop */
   align-items: center;
   justify-content: center;
   background: linear-gradient(to bottom, #007bff, #0056b3);
   padding: 20px;
   box-sizing: border-box;
-}
-
-.authWrapper > div {
-  width: 100%;
-  max-width: 500px;
-  padding: 30px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  font-family: Arial, sans-serif;
-}
-
-.authWrapper h1 {
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #333;
 }
 
 /* Wallet button container */
@@ -68,6 +50,24 @@
   cursor: not-allowed;
 }
 
+.authWrapper > div {
+  width: 100%;
+  max-width: 500px;
+  padding: 30px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.authWrapper h1 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
 .authWrapper button {
   width: 100%;
   padding: 10px;
@@ -88,4 +88,35 @@
 .authWrapper button:disabled {
   background: #ccc;
   cursor: not-allowed;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .authWrapper {
+    padding: 15px; /* Reduce padding for compact view */
+  }
+
+  .walletButtonContainer {
+    max-width: 90%; /* Adjust width for smaller screens */
+    margin-bottom: 15px; /* Reduce space for compact view */
+  }
+
+  .walletButton {
+    font-size: 14px; /* Adjust font size for smaller screens */
+    padding: 8px 15px; /* Reduce padding */
+  }
+
+  .authWrapper > div {
+    max-width: 90%; /* Adjust width for smaller screens */
+    padding: 20px; /* Adjust padding for mobile */
+  }
+
+  .authWrapper h1 {
+    font-size: 24px; /* Reduce font size for readability */
+  }
+
+  .authWrapper button {
+    font-size: 14px; /* Adjust button font size */
+    padding: 8px; /* Adjust padding for smaller screens */
+  }
 }
