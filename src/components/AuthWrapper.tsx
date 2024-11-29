@@ -17,6 +17,7 @@ const AuthWrapper = () => {
   const [userReferrals, setUserReferrals] = useState([]);
   const [aaaBalance, setAaaBalance] = useState(0);
   const [token, setToken] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false); // New loading state
 
   const peraWalletRef = useRef<{ disconnectWallet: () => void } | null>(null);
   const [disconnecting, setDisconnecting] = useState(false); // New state to handle recursion
@@ -71,6 +72,7 @@ const AuthWrapper = () => {
       return;
     }
 
+    setLoading(true); // Show "Processing..." feedback
     try {
       const safeReferralCode = referralCode || "";
       const response = await apiClient.post("/signup", {
@@ -86,6 +88,8 @@ const AuthWrapper = () => {
     } catch (error) {
       console.error("Sign up failed:", error);
       alert("Signup failed. Please try again.");
+    } finally {
+      setLoading(false); // Hide "Processing..." feedback
     }
   };
 
@@ -95,6 +99,7 @@ const AuthWrapper = () => {
       return;
     }
 
+    setLoading(true); // Show "Processing..." feedback
     try {
       const response = await apiClient.post("/login", { email, password });
 
@@ -127,10 +132,13 @@ const AuthWrapper = () => {
       const errorMessage =
         (error as any).response?.data?.message || "An error occurred";
       alert(`${errorMessage}`);
+    } finally {
+      setLoading(false); // Hide "Processing..." feedback
     }
   };
 
   const logInWithWallet = async (connectedWallet: string) => {
+    setLoading(true); // Show "Processing..." feedback
     try {
       const response = await apiClient.post("/login", { walletAddress: connectedWallet });
 
@@ -161,6 +169,8 @@ const AuthWrapper = () => {
     } catch (error) {
       console.error("Login with wallet failed:", error);
       throw new Error("Wallet login failed. Please sign up or try again.");
+    } finally {
+      setLoading(false); // Hide "Processing..." feedback
     }
   };
 
@@ -188,6 +198,7 @@ const AuthWrapper = () => {
 
   return (
     <div className={styles.authWrapper}>
+      {loading && <p className={styles.loadingMessage}>Processing request...</p>}
       <PeraWalletButton
         ref={peraWalletRef}
         onConnect={handleWalletConnect}
