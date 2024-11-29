@@ -140,7 +140,9 @@ const AuthWrapper = () => {
   const logInWithWallet = async (connectedWallet: string) => {
     setLoading(true); // Show "Processing..." feedback
     try {
-      const response = await apiClient.post("/login", { walletAddress: connectedWallet });
+      const response = await apiClient.post("/login", {
+        walletAddress: connectedWallet,
+      });
 
       const {
         userId,
@@ -198,12 +200,14 @@ const AuthWrapper = () => {
 
   return (
     <div className={styles.authWrapper}>
-      {loading && <p className={styles.loadingMessage}>Processing request...</p>}
       <PeraWalletButton
         ref={peraWalletRef}
         onConnect={handleWalletConnect}
         onDisconnect={handleWalletDisconnect}
       />
+      {loading && (
+        <p className={styles.loadingMessage}>Processing request...</p>
+      )}
       {userLoggedIn && isEmailVerified ? ( // Check email verification status
         <Dashboard
           userReferralCode={userReferralCode}

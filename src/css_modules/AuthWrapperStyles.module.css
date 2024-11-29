@@ -90,6 +90,12 @@
   cursor: not-allowed;
 }
 
+.loadingMessage{
+  color: white;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
 /* Mobile-specific styles */
 @media (max-width: 768px) {
   .authWrapper {
