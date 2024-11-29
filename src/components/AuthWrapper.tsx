@@ -80,7 +80,9 @@ const AuthWrapper = () => {
         walletAddress,
       });
 
-      alert("Signup successful! Please check your email to verify your account.");
+      alert(
+        "Signup successful! Please check your email to verify your account."
+      );
     } catch (error) {
       console.error("Sign up failed:", error);
       alert("Signup failed. Please try again.");
@@ -122,7 +124,9 @@ const AuthWrapper = () => {
       localStorage.setItem("token", token);
     } catch (error) {
       console.error("Login with email failed:", error);
-      alert("Login failed. Please check your email and password.");
+      const errorMessage =
+        (error as any).response?.data?.message || "An error occurred";
+      alert(`${errorMessage}`);
     }
   };
 
