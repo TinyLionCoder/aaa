@@ -13,6 +13,7 @@ const AuthWrapper = () => {
   const [userId, setUserId] = useState(null);
   const [userReferralCode, setUserReferralCode] = useState("");
   const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [isEmailVerified, setIsEmailVerified] = useState(false); // New state for email verification
   const [userReferrals, setUserReferrals] = useState([]);
   const [aaaBalance, setAaaBalance] = useState(0);
   const [token, setToken] = useState<string | null>(null);
@@ -79,23 +80,7 @@ const AuthWrapper = () => {
         walletAddress,
       });
 
-      const {
-        userId,
-        referralCode: returnedReferralCode,
-        walletAddress: returnedWalletAddress,
-        aaaBalance,
-        token,
-      } = response.data;
-
-      setUserLoggedIn(true);
-      setUserId(userId);
-      setUserReferralCode(returnedReferralCode);
-      setWalletAddress(returnedWalletAddress);
-      setAaaBalance(aaaBalance);
-      setToken(token);
-      localStorage.setItem("token", token);
-
-      setReferralCode("");
+      alert("Signup successful! Please check your email to verify your account.");
     } catch (error) {
       console.error("Sign up failed:", error);
       alert("Signup failed. Please try again.");
@@ -118,9 +103,16 @@ const AuthWrapper = () => {
         aaaBalance,
         referrals,
         token,
+        emailVerified, // Add email verification status from the backend
       } = response.data;
 
+      if (emailVerified) {
+        alert("Please verify your email before logging in.");
+        return;
+      }
+
       setUserLoggedIn(true);
+      setIsEmailVerified(true); // Set email verification status
       setUserId(userId);
       setUserReferralCode(referralCode);
       setWalletAddress(returnedWalletAddress);
@@ -145,9 +137,16 @@ const AuthWrapper = () => {
         aaaBalance,
         referrals,
         token,
+        emailVerified, // Add email verification status from the backend
       } = response.data;
 
+      if (!emailVerified) {
+        alert("Please verify your email before logging in.");
+        return;
+      }
+
       setUserLoggedIn(true);
+      setIsEmailVerified(true); // Set email verification status
       setUserId(userId);
       setUserReferralCode(referralCode);
       setWalletAddress(returnedWalletAddress);
@@ -164,6 +163,7 @@ const AuthWrapper = () => {
   const logout = (triggerWalletDisconnect = true) => {
     setDisconnecting(true); // Prevent recursive calls
     setUserLoggedIn(false);
+    setIsEmailVerified(false); // Reset email verification status
     setUserId(null);
     setUserReferralCode("");
     setUserReferrals([]);
@@ -189,7 +189,7 @@ const AuthWrapper = () => {
         onConnect={handleWalletConnect}
         onDisconnect={handleWalletDisconnect}
       />
-      {userLoggedIn ? (
+      {userLoggedIn && isEmailVerified ? ( // Check email verification status
         <Dashboard
           userReferralCode={userReferralCode}
           walletAddress={walletAddress || ""}
