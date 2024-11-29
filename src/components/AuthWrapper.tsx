@@ -106,7 +106,7 @@ const AuthWrapper = () => {
         emailVerified, // Add email verification status from the backend
       } = response.data;
 
-      if (emailVerified) {
+      if (!emailVerified) {
         alert("Please verify your email before logging in.");
         return;
       }
