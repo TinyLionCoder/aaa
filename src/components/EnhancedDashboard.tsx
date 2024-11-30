@@ -48,7 +48,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
         {/* User Info */}
         <div className={styles.userInfo}>
           <img src={userImage} alt="User" className={styles.userImage} />
-          <h2>{userName}</h2>
+          <h2>Hi {userName}</h2>
         </div>
 
         {/* Stats Cards */}

@@ -11,7 +11,7 @@ const AuthWrapper = () => {
   const [referralCode, setReferralCode] = useState("");
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [userId, setUserId] = useState(null);
-  const [userName, setUserName] = useState("John Doe"); // Replace with dynamic name from API
+  const [userName, setUserName] = useState("John Doe"); // Dynamically updated with email
   const [userImage, setUserImage] = useState("https://via.placeholder.com/150"); // Replace with user image URL from API
   const [userReferralCode, setUserReferralCode] = useState("");
   const [userLoggedIn, setUserLoggedIn] = useState(false);
@@ -123,7 +123,8 @@ const AuthWrapper = () => {
         alert("Please verify your email before logging in.");
         return;
       }
-
+      const username = email.split("@")[0];
+      setUserName(username); // Set the username to the email
       setUserLoggedIn(true);
       setIsEmailVerified(true); // Set email verification status
       setUserId(userId);
@@ -158,13 +159,15 @@ const AuthWrapper = () => {
         referrals,
         token,
         emailVerified, // Add email verification status from the backend
+        email,
       } = response.data;
 
       if (!emailVerified) {
         alert("Please verify your email before logging in.");
         return;
       }
-
+      const username = email.split("@")[0];
+      setUserName(username); // Set the username to the email
       setUserLoggedIn(true);
       setIsEmailVerified(true); // Set email verification status
       setUserId(userId);
