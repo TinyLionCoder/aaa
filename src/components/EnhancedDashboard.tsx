@@ -28,11 +28,56 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
         <h3 className={styles.appName}>Dashboard</h3>
         <nav>
           <ul>
-            <li className={styles.navItem}>
-              <Link to="/dashboard">Dashboard</Link>
+            {/* Dropdown: Best Algo Defi */}
+            <li className={`${styles.navItem} ${styles.dropdown}`}>
+              <span>Best Algo Defi</span>
+              <ul className={styles.dropdownMenu}>
+                <li>Coming Soon</li>
+              </ul>
             </li>
+
+            {/* Dropdown: Staking and Farms */}
+            <li className={`${styles.navItem} ${styles.dropdown}`}>
+              <span>Staking and Farms</span>
+              <ul className={styles.dropdownMenu}>
+                <li>Coming Soon</li>
+              </ul>
+            </li>
+
+            {/* Normal Link: Buy & Sell AAA */}
             <li className={styles.navItem}>
-              <Link to="/settings">Settings</Link>
+              <span>Buy & Sell AAA</span>
+              <span>(Coming Soon)</span>
+            </li>
+
+            {/* Dropdown: AAA Team */}
+            <li className={`${styles.navItem} ${styles.dropdown}`}>
+              <span>AAA Team</span>
+              <ul className={styles.dropdownMenu}>
+                <li>Coming Soon</li>
+              </ul>
+            </li>
+
+            {/* Dropdown: Donate AAA */}
+            <li className={`${styles.navItem} ${styles.dropdown}`}>
+              <span>Donate AAA</span>
+              <ul className={styles.dropdownMenu}>
+                <li>Coming Soon</li>
+              </ul>
+            </li>
+
+            {/* Dropdown: My Wallet */}
+            <li className={`${styles.navItem} ${styles.dropdown}`}>
+              <span>My Wallet</span>
+              <ul className={styles.dropdownMenu}>
+                <li>Coming Soon</li>
+              </ul>
+            </li>
+
+            {/* Normal Link: My Team */}
+            <li className={styles.navItem}>
+              <span>My Team</span>
+              <span>(Coming Soon)</span>
             </li>
           </ul>
         </nav>
@@ -59,7 +104,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
           </div>
           <div className={styles.statCard}>
             <h3>Company Sponsor</h3>
-            <p>Example Sponsor</p>
+            <p>Coming Soon</p>
           </div>
           <div className={styles.statCard}>
             <h3>Referrals</h3>
@@ -80,13 +125,13 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
           </div>
           <div className={styles.detailCard}>
             <h3>Account Balance</h3>
-            <p>Total Payouts: $500</p>
-            <p>AAA Balance: {aaaBalance}</p>
+            <p>Coming Soon</p>
           </div>
           <div className={styles.detailCard}>
             <h3>AAA Stats</h3>
-            <p>Team Members: 20</p>
-            <p>Other Stats...</p>
+            <p>Coming Soon</p>
+            {/* <p>Team Members: 20</p>
+            <p>Other Stats...</p> */}
           </div>
         </div>
 
@@ -99,9 +144,10 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
         {/* Calculator */}
         <div className={styles.calculator}>
           <h3>Referral Calculator</h3>
-          <p>Enter the number of referrals to estimate payouts:</p>
-          <input type="number" placeholder="Number of Referrals" />
-          <button>Calculate</button>
+          <p>Coming Soon</p>
+          {/* <p>Enter the number of referrals to estimate payouts:</p>
+          <input type="number" placeholder="Number of Referrals" /> */}
+          {/* <button>Calculate</button> */}
         </div>
 
         <button onClick={onLogout} className={styles.logoutButton}>

@@ -7,19 +7,22 @@
   width: 250px;
   background-color: white;
   color: #2c3e50;
-  padding: 16px; /* Added more padding for better spacing */
-  border-right: 3px solid rgba(0, 0, 0, 0.1); /* Subtle border for shadow effect */
-  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.1); /* Left shadow effect */
+  padding: 16px;
+  /* Added more padding for better spacing */
+  border-right: 3px solid rgba(0, 0, 0, 0.1);
+  /* Subtle border for shadow effect */
+  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Left shadow effect */
+}
 
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
+.sideNav ul {
+  list-style-type: none;
+  padding: 0;
+}
 
-  nav {
-    display: flex;
-    flex-direction: column;
-  }
+.sideNav nav {
+  display: flex;
+  flex-direction: column;
 }
 
 .appName {
@@ -28,32 +31,70 @@
   text-align: center;
   padding: 10px 20px;
   background: linear-gradient(to right, #a29bfe, #720abc);
-  /* Light purple to bluish gradient */
   color: white;
-  border-top-right-radius: 50px; /* Optional: Add a slight curve on the top-right */
-  border-bottom-right-radius: 50px; /* Optional: Add a slight curve on the bottom-right */
-  /* Makes the background oval */
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  /* Optional shadow for emphasis */
   font-weight: bold;
-  /* Makes the text stand out */
   text-transform: uppercase;
-  /* Optional: Makes the text all caps */
 }
-
 
 .navItem {
   margin: 20px 0;
   padding: 10px;
+  position: relative;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-  border-top-right-radius: 10px; /* Optional: Add a slight curve on the top-right */
-  border-bottom-right-radius: 10px; /* Optional: Add a slight curve on the bottom-right */
-  transition: background 0.3s; /* Smooth color transition */
+  transition: background 0.3s;
+  cursor: pointer;
 }
 
-.navItem a {
+.navItem a,
+.navItem span {
   color: #2c3e50;
   text-decoration: none;
+  display: block;
+}
+
+.navItem:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.dropdownMenu {
+  display: none;
+  list-style: none;
+  margin: 15px 0 0;
+  /* More spacing from the parent item */
+  padding: 15px;
+  /* Increased padding for better spacing */
+  background: #ecf0f1;
+  border-radius: 5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  /* Increased shadow for better visibility */
+  position: absolute;
+  z-index: 100;
+  left: 100%;
+  /* Ensure dropdown expands to the right */
+  top: 0;
+  min-width: 200px;
+  /* Ensures dropdown has sufficient width */
+}
+
+.dropdownMenu li {
+  padding: 10px 15px;
+  /* Increased padding for better spacing */
+  color: #2c3e50;
+  cursor: pointer;
+}
+
+.dropdownMenu li:hover {
+  background: #f1c40f;
+  color: white;
+}
+
+.navItem.dropdown:hover .dropdownMenu {
+  display: block;
 }
 
 .dashboardContent {
@@ -72,7 +113,6 @@
   align-items: center;
   margin-bottom: 20px;
   justify-content: flex-end;
-
 }
 
 .userImage {
@@ -144,22 +184,27 @@
 @media (max-width: 768px) {
   .dashboardContainer {
     flex-direction: column;
-    /* Stack navigation and content */
   }
 
   .sideNav {
-    width: 94%;
-    /* Full-width side navigation for mobile */
+    width: 100%;
     padding: 10px;
     text-align: center;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    /* Drop shadow below for mobile */
     border-radius: 10px;
-    /* Add full rounding for mobile screens */
   }
 
   .navItem {
     margin: 10px 0;
+  }
+
+  .dropdownMenu {
+    left: 0;
+    /* Align dropdown directly below the parent on mobile */
+    top: 100%;
+    position: relative;
+    margin: 10px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   }
 
   .dashboardContent {
@@ -169,7 +214,6 @@
   .statsCards,
   .detailCards {
     flex-direction: column;
-    /* Stack cards vertically */
   }
 
   .statCard,
@@ -179,9 +223,7 @@
 
   .userInfo {
     justify-content: center;
-    /* Center user info for smaller screens */
     flex-direction: column;
-    /* Stack image and name vertically */
   }
 
   .userImage {
@@ -191,17 +233,25 @@
 
   .calculator {
     width: 90%;
-    /* Constrain calculator width */
   }
 
   .logoutButton {
     width: 100%;
-    /* Full-width button for mobile */
   }
 }
 
 /* Responsive Design for Extra Small Screens */
 @media (max-width: 480px) {
+
+  .dropdownMenu {
+    left: 0;
+    /* Align dropdown directly below the parent on mobile */
+    top: 100%;
+    position: relative;
+    margin: 10px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
   .appName {
     font-size: 1.2rem;
   }
@@ -209,17 +259,14 @@
   .statCard,
   .detailCard {
     font-size: 14px;
-    /* Adjust text size for smaller screens */
   }
 
   .userImage {
     width: 30px;
     height: 30px;
-    /* Smaller profile picture for extra small screens */
   }
 
   .calculator input {
     width: 80%;
-    /* Smaller input for compact screens */
   }
 }
