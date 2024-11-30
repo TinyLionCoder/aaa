@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import AuthForm from "./AuthForm";
-import Dashboard from "./Dashboard";
+import EnhancedDashboard from "./EnhancedDashboard";
 import PeraWalletButton from "./PeraWalletButton";
 import styles from "../css_modules/AuthWrapperStyles.module.css";
 
@@ -11,14 +11,16 @@ const AuthWrapper = () => {
   const [referralCode, setReferralCode] = useState("");
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [userId, setUserId] = useState(null);
+  const [userName, setUserName] = useState("John Doe"); // Replace with dynamic name from API
+  const [userImage, setUserImage] = useState("https://via.placeholder.com/150"); // Replace with user image URL from API
   const [userReferralCode, setUserReferralCode] = useState("");
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [isEmailVerified, setIsEmailVerified] = useState(false); // New state for email verification
-  const [userReferrals, setUserReferrals] = useState([]);
+  const [userReferrals, setUserReferrals] = useState<number>(0);
   const [aaaBalance, setAaaBalance] = useState(0);
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(false); // New loading state
-
+  const referralLink = `${userReferralCode}`;
   const peraWalletRef = useRef<{ disconnectWallet: () => void } | null>(null);
   const [disconnecting, setDisconnecting] = useState(false); // New state to handle recursion
 
@@ -128,7 +130,7 @@ const AuthWrapper = () => {
       setUserReferralCode(referralCode);
       setWalletAddress(returnedWalletAddress);
       setAaaBalance(aaaBalance);
-      setUserReferrals(referrals);
+      setUserReferrals(referrals.length);
       setToken(token);
       localStorage.setItem("token", token);
     } catch (error) {
@@ -169,12 +171,12 @@ const AuthWrapper = () => {
       setUserReferralCode(referralCode);
       setWalletAddress(returnedWalletAddress);
       setAaaBalance(aaaBalance);
-      setUserReferrals(referrals);
+      setUserReferrals(referrals.length);
       setToken(token);
       localStorage.setItem("token", token);
     } catch (error) {
-      console.error("Login with wallet failed:", error);
-      throw new Error("Wallet login failed. Please sign up or try again.");
+      console.error("Wallet login failed:", error);
+      throw new Error("Wallet login failed. Please try again.");
     } finally {
       setLoading(false); // Hide "Processing..." feedback
     }
@@ -186,7 +188,7 @@ const AuthWrapper = () => {
     setIsEmailVerified(false); // Reset email verification status
     setUserId(null);
     setUserReferralCode("");
-    setUserReferrals([]);
+    setUserReferrals(0);
     setWalletAddress(null);
     setAaaBalance(0);
     setToken(null);
@@ -212,12 +214,14 @@ const AuthWrapper = () => {
       {loading && (
         <p className={styles.loadingMessage}>Processing request...</p>
       )}
-      {userLoggedIn && isEmailVerified ? ( // Check email verification status
-        <Dashboard
-          userReferralCode={userReferralCode}
-          walletAddress={walletAddress || ""}
+      {userLoggedIn && isEmailVerified ? (
+        <EnhancedDashboard
+          userName={userName}
+          userImage={userImage}
           aaaBalance={aaaBalance}
-          userReferrals={userReferrals}
+          referrals={userReferrals}
+          verified={isEmailVerified}
+          referralLink={referralLink}
           onLogout={logout}
         />
       ) : (
