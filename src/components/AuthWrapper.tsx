@@ -75,7 +75,7 @@ const AuthWrapper = () => {
     setLoading(true); // Show "Processing..." feedback
     try {
       const safeReferralCode = referralCode || "";
-      const response = await apiClient.post("/signup", {
+      await apiClient.post("/signup", {
         email,
         password,
         referralCode: safeReferralCode,
@@ -85,6 +85,10 @@ const AuthWrapper = () => {
       alert(
         "Signup successful! Please check your email to verify your account."
       );
+
+      // Disconnect wallet and reload page after successful signup
+      peraWalletRef.current?.disconnectWallet();
+      window.location.reload();
     } catch (error) {
       console.error("Sign up failed:", error);
       alert("Signup failed. Please try again.");
