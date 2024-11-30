@@ -25,7 +25,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
     <div className={styles.dashboardContainer}>
       {/* Side Navigation */}
       <aside className={styles.sideNav}>
-        <h2 className={styles.appName}>My App</h2>
+        <h3 className={styles.appName}>Dashboard</h3>
         <nav>
           <ul>
             <li className={styles.navItem}>
@@ -42,7 +42,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
       <main className={styles.dashboardContent}>
         {/* Header */}
         <header className={styles.dashboardHeader}>
-          <h1>Dashboard</h1>
+          <h1>Algo Airdrop Adopt</h1>
         </header>
 
         {/* User Info */}

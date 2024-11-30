@@ -6,9 +6,12 @@
   /* Keep column layout for mobile and desktop */
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to bottom, black, #0a4d95);
+  /* background: linear-gradient(to bottom, black, #0a4d95); */
+  background-color: white;
   padding: 2px;
   box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 

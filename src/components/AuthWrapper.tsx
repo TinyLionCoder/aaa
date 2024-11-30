@@ -196,6 +196,8 @@ const AuthWrapper = () => {
     setPassword("");
     setReferralCode("");
     localStorage.removeItem("token");
+    localStorage.removeItem("PeraWallet.Wallet");
+    localStorage.removeItem("walletconnect");
 
     if (triggerWalletDisconnect) {
       peraWalletRef.current?.disconnectWallet();
@@ -206,11 +208,13 @@ const AuthWrapper = () => {
 
   return (
     <div className={styles.authWrapper}>
-      <PeraWalletButton
-        ref={peraWalletRef}
-        onConnect={handleWalletConnect}
-        onDisconnect={handleWalletDisconnect}
-      />
+      {!userLoggedIn && !isEmailVerified ? (
+        <PeraWalletButton
+          ref={peraWalletRef}
+          onConnect={handleWalletConnect}
+          onDisconnect={handleWalletDisconnect}
+        />
+      ) : null}
       {loading && (
         <p className={styles.loadingMessage}>Processing request...</p>
       )}

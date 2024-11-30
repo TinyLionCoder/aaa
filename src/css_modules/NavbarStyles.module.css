@@ -3,8 +3,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background: linear-gradient(to bottom, black, #0056b3);
-    color: white;
+    /* background: linear-gradient(to bottom, black, #0056b3); */
+    background-color: white;
+    color: purple;
+    border: 0.1px solid gray;
 }
 
 .logo {
@@ -14,7 +16,7 @@
 
 .navLinks a {
     margin-left: 15px;
-    color: white;
+    color: purple;
     text-decoration: none;
 }
 
