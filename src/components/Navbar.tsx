@@ -8,9 +8,9 @@ const Navbar = () => {
       <div className={styles.navLinks}>
         <Link to="/">AAA</Link>
       </div>
-      <div className={styles.navLinks}>
+      {/* <div className={styles.navLinks}>
         <Link to="/auth">Login / Sign Up</Link>
-      </div>
+      </div> */}
     </nav>
   );
 };
