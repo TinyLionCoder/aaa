@@ -40,6 +40,12 @@
 }
 
 .navItem {
+  display: flex;
+  /* Ensure content is in a row */
+  align-items: center;
+  /* Center text and icon vertically */
+  justify-content: center;
+  /* Space between label and icon */
   margin: 20px 0;
   padding: 10px;
   position: relative;
@@ -47,8 +53,20 @@
   border-bottom-right-radius: 10px;
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
   transition: background 0.3s;
-  cursor: pointer;
 }
+
+.icon {
+  margin-right: auto;
+  color: #2c3e50;
+  font-size: 1.2rem;
+  transition: color 0.3s;
+}
+
+.navItem:hover .icon {
+  color: #3498db;
+  /* Highlight color on hover */
+}
+
 
 .navItem a,
 .navItem span {
@@ -60,6 +78,7 @@
 .navItem:hover {
   background: rgba(0, 0, 0, 0.05);
 }
+
 
 .dropdownMenu {
   display: none;

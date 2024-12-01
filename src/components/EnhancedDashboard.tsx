@@ -1,5 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {
+  FaWallet,
+  FaUsers,
+  FaChartBar,
+  FaDonate,
+  FaCogs,
+  FaShoppingCart,
+} from "react-icons/fa"; // Example icons
 import styles from "../css_modules/EnhancedDashboardStyles.module.css";
 
 interface EnhancedDashboardProps {
@@ -30,6 +38,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
           <ul>
             {/* Dropdown: Best Algo Defi */}
             <li className={`${styles.navItem} ${styles.dropdown}`}>
+              <FaChartBar className={styles.icon} />
               <span>Best Algo Defi</span>
               <ul className={styles.dropdownMenu}>
                 <li>Coming Soon</li>
@@ -38,6 +47,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
 
             {/* Dropdown: Staking and Farms */}
             <li className={`${styles.navItem} ${styles.dropdown}`}>
+              <FaCogs className={styles.icon} />
               <span>Staking and Farms</span>
               <ul className={styles.dropdownMenu}>
                 <li>Coming Soon</li>
@@ -46,12 +56,13 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
 
             {/* Normal Link: Buy & Sell AAA */}
             <li className={styles.navItem}>
+              <FaShoppingCart className={styles.icon} />
               <span>Buy & Sell AAA</span>
-              <span>(Coming Soon)</span>
             </li>
 
             {/* Dropdown: AAA Team */}
             <li className={`${styles.navItem} ${styles.dropdown}`}>
+              <FaUsers className={styles.icon} />
               <span>AAA Team</span>
               <ul className={styles.dropdownMenu}>
                 <li>Coming Soon</li>
@@ -60,6 +71,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
 
             {/* Dropdown: Donate AAA */}
             <li className={`${styles.navItem} ${styles.dropdown}`}>
+              <FaDonate className={styles.icon} />
               <span>Donate AAA</span>
               <ul className={styles.dropdownMenu}>
                 <li>Coming Soon</li>
@@ -68,6 +80,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
 
             {/* Dropdown: My Wallet */}
             <li className={`${styles.navItem} ${styles.dropdown}`}>
+              <FaWallet className={styles.icon} />
               <span>My Wallet</span>
               <ul className={styles.dropdownMenu}>
                 <li>Coming Soon</li>
@@ -76,8 +89,8 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
 
             {/* Normal Link: My Team */}
             <li className={styles.navItem}>
+              <FaUsers className={styles.icon} />
               <span>My Team</span>
-              <span>(Coming Soon)</span>
             </li>
           </ul>
         </nav>
