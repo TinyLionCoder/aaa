@@ -11,67 +11,61 @@ import styles from "../css_modules/SidebarStyles.module.css";
 
 interface SidebarProps {
   onLogout: () => void;
+  setActiveComponent: (component: string) => void; // Add prop for setting the active component
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ onLogout }) => {
+const Sidebar: React.FC<SidebarProps> = ({ onLogout, setActiveComponent }) => {
   return (
     <aside className={styles.sideNav}>
-      <h3 className={styles.appName}>Dashboard</h3>
+      <h3 onClick={() => setActiveComponent("dashboard")} className={styles.appName}>Dashboard</h3>
       <nav>
         <ul>
-          {/* Dropdown: Best Algo Defi */}
-          <li className={`${styles.navItem} ${styles.dropdown}`}>
+          <li
+            className={`${styles.navItem} ${styles.dropdown}`}
+            onClick={() => setActiveComponent("bestAlgoDefi")}
+          >
             <FaChartBar className={styles.icon} />
             <span>Best Algo Defi</span>
-            <ul className={styles.dropdownMenu}>
-              <li>Coming Soon</li>
-            </ul>
           </li>
-
-          {/* Dropdown: Staking and Farms */}
-          <li className={`${styles.navItem} ${styles.dropdown}`}>
+          <li
+            className={`${styles.navItem} ${styles.dropdown}`}
+            onClick={() => setActiveComponent("stakingAndFarms")}
+          >
             <FaCogs className={styles.icon} />
             <span>Staking and Farms</span>
-            <ul className={styles.dropdownMenu}>
-              <li>Coming Soon</li>
-            </ul>
           </li>
-
-          {/* Normal Link: Buy & Sell AAA */}
-          <li className={styles.navItem}>
+          <li
+            className={styles.navItem}
+            onClick={() => setActiveComponent("buySellAAA")}
+          >
             <FaShoppingCart className={styles.icon} />
             <span>Buy & Sell AAA</span>
           </li>
-
-          {/* Dropdown: AAA Team */}
-          <li className={`${styles.navItem} ${styles.dropdown}`}>
+          <li
+            className={`${styles.navItem} ${styles.dropdown}`}
+            onClick={() => setActiveComponent("aaaTeam")}
+          >
             <FaUsers className={styles.icon} />
             <span>AAA Team</span>
-            <ul className={styles.dropdownMenu}>
-              <li>Coming Soon</li>
-            </ul>
           </li>
-
-          {/* Dropdown: Donate AAA */}
-          <li className={`${styles.navItem} ${styles.dropdown}`}>
+          <li
+            className={`${styles.navItem} ${styles.dropdown}`}
+            onClick={() => setActiveComponent("donateAAA")}
+          >
             <FaDonate className={styles.icon} />
             <span>Donate AAA</span>
-            <ul className={styles.dropdownMenu}>
-              <li>Coming Soon</li>
-            </ul>
           </li>
-
-          {/* Dropdown: My Wallet */}
-          <li className={`${styles.navItem} ${styles.dropdown}`}>
+          <li
+            className={`${styles.navItem} ${styles.dropdown}`}
+            onClick={() => setActiveComponent("myWallet")}
+          >
             <FaWallet className={styles.icon} />
             <span>My Wallet</span>
-            <ul className={styles.dropdownMenu}>
-              <li>Coming Soon</li>
-            </ul>
           </li>
-
-          {/* Normal Link: My Team */}
-          <li className={styles.navItem}>
+          <li
+            className={styles.navItem}
+            onClick={() => setActiveComponent("myTeam")}
+          >
             <FaUsers className={styles.icon} />
             <span>My Team</span>
           </li>
