@@ -82,7 +82,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
       {/* Main Dashboard Content */}
       <main className={styles.dashboardContent}>
         <header className={styles.dashboardHeader}>
-          <h1>Algo Airdrop Adopt</h1>
+          <h1>Algo Adopt Airdrop</h1>
         </header>
 
         {/* User Info */}
