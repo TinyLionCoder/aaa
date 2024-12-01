@@ -186,8 +186,14 @@
     flex-direction: column;
   }
 
+  .dashboardContent {
+    margin-top: 1em;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+  }
+
   .sideNav {
-    width: 100%;
+    width: 94%;
     padding: 10px;
     text-align: center;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
@@ -243,6 +249,14 @@
 /* Responsive Design for Extra Small Screens */
 @media (max-width: 480px) {
 
+  .sideNav {
+    width: 94%;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+  }
+
   .dropdownMenu {
     left: 0;
     /* Align dropdown directly below the parent on mobile */
@@ -250,6 +264,12 @@
     position: relative;
     margin: 10px 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .dashboardContent {
+    margin-top: 1em;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
   }
 
   .appName {
