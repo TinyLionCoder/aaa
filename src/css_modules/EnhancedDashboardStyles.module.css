@@ -156,6 +156,14 @@
   text-align: center;
 }
 
+.statCard .icon {
+  margin-right: 8px;
+  /* Add space between the icon and text */
+  color: #2c3e50;
+  font-size: 1.2rem;
+  vertical-align: middle;
+}
+
 .detailCards {
   display: flex;
   gap: 20px;
@@ -168,6 +176,14 @@
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.detailCard .icon {
+  margin-right: 8px;
+  /* Add space between the icon and text */
+  color: #2c3e50;
+  font-size: 2rem;
+  vertical-align: middle;
 }
 
 .referralSection {
