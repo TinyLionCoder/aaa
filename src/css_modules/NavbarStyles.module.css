@@ -5,7 +5,7 @@
     padding: 10px 20px;
     /* background: linear-gradient(to bottom, black, #0056b3); */
     background-color: white;
-    color: purple;
+    color: rebeccapurple;
     border: 0.1px solid gray;
 }
 
@@ -16,7 +16,7 @@
 
 .navLinks a {
     margin-left: 15px;
-    color: purple;
+    color: rebeccapurple;
     text-decoration: none;
 }
 
