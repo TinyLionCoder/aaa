@@ -13,6 +13,7 @@ import {
   FaInfoCircle,
   FaShieldAlt,
   FaUserFriends,
+  FaLongArrowAltUp,
 } from "react-icons/fa"; // Example icons
 import styles from "../css_modules/EnhancedDashboardStyles.module.css";
 
@@ -98,6 +99,12 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
               <FaUsers className={styles.icon} />
               <span>My Team</span>
             </li>
+
+            <li className={styles.navItem}>
+              <button onClick={onLogout} className={styles.logoutButton}>
+                Log Out
+              </button>
+            </li>
           </ul>
         </nav>
       </aside>
@@ -180,10 +187,6 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
           <input type="number" placeholder="Number of Referrals" /> */}
           {/* <button>Calculate</button> */}
         </div>
-
-        <button onClick={onLogout} className={styles.logoutButton}>
-          Log Out
-        </button>
       </main>
     </div>
   );
