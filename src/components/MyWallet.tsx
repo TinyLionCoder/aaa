@@ -1,0 +1,1 @@
+export const MyWallet = () => <div>My Wallet Coming Soon</div>;

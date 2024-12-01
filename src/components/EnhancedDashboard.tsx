@@ -2,6 +2,13 @@ import React, { useState } from "react";
 import Sidebar from "./Sidebar"; // Import the new Sidebar component
 import DashboardContent from "./DashboardContent";
 import styles from "../css_modules/EnhancedDashboardStyles.module.css";
+import { BestAlgoDefi } from "./BestAlgoDefi";
+import { StakingAndFarms } from "./StakingAndFarms";
+import { BuySellAAA } from "./BuySellAAA";
+import { AAATeam } from "./AAATeam";
+import { DonateAAA } from "./DonateAAA";
+import { MyWallet } from "./MyWallet";
+import { MyTeam } from "./MyTeam";
 
 interface EnhancedDashboardProps {
   userName: string;
@@ -12,15 +19,6 @@ interface EnhancedDashboardProps {
   referralLink: string;
   onLogout: () => void;
 }
-
-// Example components for sidebar items
-const BestAlgoDefi = () => <div>Best Algo Defi Coming Soon</div>;
-const StakingAndFarms = () => <div>Staking and Farms Coming Soon</div>;
-const BuySellAAA = () => <div>Buy & Sell AAA Coming Soon</div>;
-const AAATeam = () => <div>AAA Team Coming Soon</div>;
-const DonateAAA = () => <div>Donate AAA Coming Soon</div>;
-const MyWallet = () => <div>My Wallet Coming Soon</div>;
-const MyTeam = () => <div>My Team Coming Soon</div>;
 
 const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
   userName,
