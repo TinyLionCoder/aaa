@@ -9,7 +9,7 @@ const Navbar = () => {
         <Link to="/">AAA</Link>
       </div>
       {/* <div className={styles.navLinks}>
-        <Link to="/auth">Login / Sign Up</Link>
+        <Link to="/dashboard">Login / Sign Up</Link>
       </div> */}
     </nav>
   );

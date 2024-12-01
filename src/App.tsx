@@ -11,8 +11,8 @@ const App = () => {
       <PeraWalletProvider>
         <Navbar />
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/auth" element={<AuthWrapper />} />
+          {/* <Route path="/" element={<LandingPage />} /> */}
+          <Route path="/" element={<AuthWrapper />} />
         </Routes>
       </PeraWalletProvider>
     </Router>

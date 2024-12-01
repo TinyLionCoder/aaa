@@ -9,7 +9,7 @@ const LandingPage = () => {
       <p>
         The ultimate platform for seamless authentication and wallet integration.
       </p>
-      <Link to="/auth" className={styles.ctaButton}>
+      <Link to="/dashboard" className={styles.ctaButton}>
         Get Started
       </Link>
     </div>
