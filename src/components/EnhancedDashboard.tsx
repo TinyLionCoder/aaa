@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import {
   FaWallet,
   FaUsers,
@@ -7,15 +6,9 @@ import {
   FaDonate,
   FaCogs,
   FaShoppingCart,
-  FaChartLine,
-  FaBuilding,
-  FaCoins,
-  FaInfoCircle,
-  FaShieldAlt,
-  FaUserFriends,
-  FaLongArrowAltUp,
 } from "react-icons/fa"; // Example icons
 import styles from "../css_modules/EnhancedDashboardStyles.module.css";
+import DashboardContent from "./DashboardContent";
 
 interface EnhancedDashboardProps {
   userName: string;
@@ -122,71 +115,14 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
           <h2>Hi {userName}</h2>
         </div>
 
-        {/* Stats Cards */}
-        <div className={styles.statsCards}>
-          <div className={styles.statCard}>
-            <h3>
-              <FaCoins className={styles.icon} /> AAA Balance
-            </h3>
-            <p>{aaaBalance} AAA</p>
-          </div>
-          <div className={styles.statCard}>
-            <h3>
-              <FaBuilding className={styles.icon} /> Company Sponsor
-            </h3>
-            <p>Coming Soon</p>
-          </div>
-          <div className={styles.statCard}>
-            <h3>
-              <FaUserFriends className={styles.icon} /> Referrals
-            </h3>
-            <p>{referrals}</p>
-          </div>
-          <div className={styles.statCard}>
-            <h3>
-              <FaShieldAlt className={styles.icon} /> Status
-            </h3>
-            <p>{verified ? "Verified" : "Not Verified"}</p>
-          </div>
-        </div>
-
-        {/* Detailed Cards */}
-        <div className={styles.detailCards}>
-          <div className={styles.detailCard}>
-            <h3>
-              <FaInfoCircle className={styles.icon} /> Account Info
-            </h3>
-            <p>Name: {userName}</p>
-            <p>Status: {verified ? "Verified" : "Not Verified"}</p>
-          </div>
-          <div className={styles.detailCard}>
-            <h3>
-              <FaWallet className={styles.icon} /> Account Balance
-            </h3>
-            <p>Coming Soon</p>
-          </div>
-          <div className={styles.detailCard}>
-            <h3>
-              <FaChartLine className={styles.icon} /> AAA Stats
-            </h3>
-            <p>Coming Soon</p>
-          </div>
-        </div>
-
-        {/* Referral Link */}
-        <div className={styles.referralSection}>
-          <h3>Your Referral Code</h3>
-          <p>{referralLink}</p>
-        </div>
-
-        {/* Calculator */}
-        <div className={styles.calculator}>
-          <h3>Referral Calculator</h3>
-          <p>Coming Soon</p>
-          {/* <p>Enter the number of referrals to estimate payouts:</p>
-          <input type="number" placeholder="Number of Referrals" /> */}
-          {/* <button>Calculate</button> */}
-        </div>
+        {/* Load DashboardContent Component */}
+        <DashboardContent
+          aaaBalance={aaaBalance}
+          referrals={referrals}
+          verified={verified}
+          userName={userName}
+          referralLink={referralLink}
+        />
       </main>
     </div>
   );
