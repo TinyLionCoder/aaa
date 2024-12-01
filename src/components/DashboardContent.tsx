@@ -29,25 +29,25 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
     <div>
       {/* Stats Cards */}
       <div className={styles.statsCards}>
-        <div className={styles.statCard}>
+        <div className={`${styles.statCard} ${styles["statCard-balance"]}`}>
           <h3>
             <FaCoins className={styles.icon} /> AAA Balance
           </h3>
           <p>{aaaBalance} AAA</p>
         </div>
-        <div className={styles.statCard}>
+        <div className={`${styles.statCard} ${styles["statCard-sponsor"]}`}>
           <h3>
             <FaBuilding className={styles.icon} /> Company Sponsor
           </h3>
           <p>Coming Soon</p>
         </div>
-        <div className={styles.statCard}>
+        <div className={`${styles.statCard} ${styles["statCard-referrals"]}`}>
           <h3>
             <FaUserFriends className={styles.icon} /> Referrals
           </h3>
           <p>{referrals}</p>
         </div>
-        <div className={styles.statCard}>
+        <div className={`${styles.statCard} ${styles["statCard-status"]}`}>
           <h3>
             <FaShieldAlt className={styles.icon} /> Status
           </h3>
@@ -58,22 +58,19 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
       {/* Detailed Cards */}
       <div className={styles.detailCards}>
         <div className={styles.detailCard}>
-          <h3>
-            <FaInfoCircle className={styles.icon} /> Account Info
-          </h3>
+          <FaInfoCircle className={styles.icon} />
+          <h3>Account Info</h3>
           <p>Name: {userName}</p>
           <p>Status: {verified ? "Verified" : "Not Verified"}</p>
         </div>
         <div className={styles.detailCard}>
-          <h3>
-            <FaWallet className={styles.icon} /> Account Balance
-          </h3>
+          <FaWallet className={styles.icon} />
+          <h3>Account Balance</h3>
           <p>Coming Soon</p>
         </div>
         <div className={styles.detailCard}>
-          <h3>
-            <FaChartLine className={styles.icon} /> AAA Stats
-          </h3>
+          <FaChartLine className={styles.icon} />
+          <h3>AAA Stats</h3>
           <p>Coming Soon</p>
         </div>
       </div>
