@@ -123,7 +123,8 @@ const AuthWrapper = () => {
         alert("Please verify your email before logging in.");
         return;
       }
-      setUserName(email); // Set the username to the email
+      const userName = email.split("@")[0]; // Extract username from email
+      setUserName(userName); // Set the username to the email
       setUserLoggedIn(true);
       setIsEmailVerified(true); // Set email verification status
       setUserId(userId);
@@ -165,7 +166,8 @@ const AuthWrapper = () => {
         alert("Please verify your email before logging in.");
         return;
       }
-      setUserName(email); // Set the username to the email
+      const userName = email.split("@")[0]; // Extract username from email
+      setUserName(userName); // Set the username to the email
       setUserLoggedIn(true);
       setIsEmailVerified(true); // Set email verification status
       setUserId(userId);
