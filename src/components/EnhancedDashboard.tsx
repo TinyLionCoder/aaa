@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Sidebar from "./Sidebar"; // Import the new Sidebar component
 import DashboardContent from "./DashboardContent";
 import styles from "../css_modules/EnhancedDashboardStyles.module.css";
-import { BestAlgoDefi } from "./BestAlgoDefi";
+import BestAlgoDefi from "./BestAlgoDefi";
 import { StakingAndFarms } from "./StakingAndFarms";
 import { BuySellAAA } from "./BuySellAAA";
 import { AAATeam } from "./AAATeam";

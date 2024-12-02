@@ -1,0 +1,95 @@
+.container {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .tokenGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .tokenCard {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .tokenCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  .tokenLogo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+  
+  .tokenName {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .tokenActions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .vestigeButton,
+  .buyButton,
+  .xButton {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+  
+  .vestigeButton {
+    background-color: #3498db;
+  }
+  
+  .vestigeButton:hover {
+    background-color: #2980b9;
+  }
+  
+  .buyButton {
+    background-color: #2ecc71;
+  }
+  
+  .buyButton:hover {
+    background-color: #27ae60;
+  }
+  
+  .xButton {
+    background-color: black;
+  }
+  
+  .xButton:hover {
+    background-color: #0d95e8;
+  }
+  
