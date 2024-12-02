@@ -10,9 +10,9 @@ const tokenData = [
   {
     name: "TDLD",
     logo: tdld, // Replace with actual logo path
-    vestigeLink: "https://vestige.fi/token/TDLD",
+    vestigeLink: "https://vestige.fi/asset/2176744157",
     buyLink: "https://example.com/buy-tdld", // Replace with actual buy link
-    xLink: "https://twitter.com/TDLD",
+    xLink: "https://x.com/TinyDickLion",
   },
   {
     name: "NMI",
