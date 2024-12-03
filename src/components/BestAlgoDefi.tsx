@@ -5,6 +5,7 @@ import nmi from "../images/nmi.png";
 import tlp from "../images/tlp.png";
 import rea from "../images/rea.png";
 import rear from "../images/rear.png";
+import bwom from "../images/bwom.png";
 
 const tokenData = [
   {
@@ -20,6 +21,13 @@ const tokenData = [
     vestigeLink: "https://vestige.fi/asset/2279886826",
     buyLink: "https://example.com/buy-nmi", // Replace with actual buy link
     xLink: "https://x.com/ConnectionMach",
+  },
+  {
+    name: "BWOM",
+    logo: bwom, // Replace with actual logo path
+    vestigeLink: "https://vestige.fi/asset/2327984798",
+    buyLink: "https://example.com/buy-nmi", // Replace with actual buy link
+    xLink: "https://x.com/bwombus",
   },
   {
     name: "TLP",
