@@ -120,7 +120,7 @@
 .dashboardContent {
   flex: 1;
   padding: 20px;
-  background-color: white;
+  background: linear-gradient(to bottom right, #f3f4f6, #e0e7ff);
 }
 
 .dashboardHeader {
