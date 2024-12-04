@@ -1,0 +1,79 @@
+.buySellContainer {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.pageHeader {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.sectionIcon {
+  color: #3498db;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.walletList,
+.guideList {
+  list-style: none;
+  padding: 0;
+}
+
+.walletList li,
+.guideList li {
+  margin-bottom: 10px;
+}
+
+.walletList a,
+.guideList a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.walletList a:hover,
+.guideList a:hover {
+  text-decoration: underline;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #3498db;
+  color: white;
+  border-radius: 5px;
+  margin-right: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.button:hover {
+  background: #1d6fa5;
+}
+
+.videoContainer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.videoContainer h3 {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.video {
+  width: 100%;
+  max-width: 800px;
+  height: 450px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}

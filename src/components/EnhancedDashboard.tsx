@@ -4,7 +4,7 @@ import DashboardContent from "./DashboardContent";
 import styles from "../css_modules/EnhancedDashboardStyles.module.css";
 import BestAlgoDefi from "./BestAlgoDefi";
 import { StakingAndFarms } from "./StakingAndFarms";
-import { BuySellAAA } from "./BuySellAAA";
+import BuySellAAA from "./BuySellAAA";
 import { AAATeam } from "./AAATeam";
 import { DonateAAA } from "./DonateAAA";
 import { MyWallet } from "./MyWallet";
