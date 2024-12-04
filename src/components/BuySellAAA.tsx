@@ -149,22 +149,24 @@ const BuySellAAA: React.FC = () => {
           Use a decentralized exchange such as Tinyman or AlgoFi to swap ALGO
           for AAA tokens. Always verify the token ID before transacting.
         </p>
-        <a
-          href="https://app.tinyman.org/swap?asset_in=0&asset_out=2004387843&use_router=true"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.button}
-        >
-          Swap on Tinyman <FaExchangeAlt className={styles.icon} />
-        </a>
-        <a
-          href="https://vestige.fi/asset/2004387843"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.button}
-        >
-          Swap on Vestige <FaExchangeAlt className={styles.icon} />
-        </a>
+        <div className={styles.swapButtonContainer}>
+          <a
+            href="https://app.tinyman.org/swap?asset_in=0&asset_out=2004387843&use_router=true"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.button}
+          >
+            Swap on Tinyman <FaExchangeAlt className={styles.icon} />
+          </a>
+          <a
+            href="https://vestige.fi/asset/2004387843"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.button}
+          >
+            Swap on Vestige <FaExchangeAlt className={styles.icon} />
+          </a>
+        </div>
         <div className={styles.videoContainer}>
           <h3>Video Tutorial: Swapping Tokens</h3>
           <iframe

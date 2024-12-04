@@ -58,6 +58,14 @@
   background: #1d6fa5;
 }
 
+/* Add spacing between buttons */
+.swapButtonContainer {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
 .videoContainer {
   margin-top: 20px;
   text-align: center;
@@ -76,4 +84,95 @@
   border: none;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Styles for screens 768px and below */
+@media (max-width: 768px) {
+  .pageHeader {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+
+  .section h2 {
+    font-size: 1.2rem;
+  }
+
+  .walletList li,
+  .guideList li {
+    margin-bottom: 8px;
+  }
+
+  .walletList a,
+  .guideList a {
+    font-size: 0.9rem;
+  }
+
+  .button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .swapButtonContainer {
+    flex-direction: column;
+    gap: 15px; /* Add vertical spacing between buttons */
+    margin-top: 15px;
+  }
+
+  .videoContainer h3 {
+    font-size: 1rem;
+  }
+
+  .video {
+    height: 300px;
+  }
+}
+
+/* Extra Small Screens for 480px and below */
+@media (max-width: 480px) {
+  .buySellContainer {
+    padding: 10px;
+  }
+
+  .pageHeader {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+
+  .section {
+    margin-bottom: 20px;
+  }
+
+  .sectionIcon {
+    font-size: 1rem;
+    margin-right: 5px;
+  }
+
+  .walletList li,
+  .guideList li {
+    font-size: 0.85rem;
+  }
+
+  .walletList a,
+  .guideList a {
+    font-size: 0.85rem;
+  }
+
+  .button {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .swapButtonContainer {
+    flex-direction: column;
+    gap: 20px; /* Increase spacing for smaller screens */
+    margin-top: 10px;
+  }
+
+  .videoContainer h3 {
+    font-size: 0.9rem;
+  }
+
+  .video {
+    height: 200px;
+  }
 }
