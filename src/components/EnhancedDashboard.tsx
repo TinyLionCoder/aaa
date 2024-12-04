@@ -17,6 +17,7 @@ interface EnhancedDashboardProps {
   referrals: number;
   verified: boolean;
   referralLink: string;
+  userId: string | null;
   onLogout: () => void;
 }
 
@@ -27,6 +28,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
   referrals,
   verified,
   referralLink,
+  userId,
   onLogout,
 }) => {
   const [activeComponent, setActiveComponent] = useState<string>("dashboard"); // Default to dashboard content
@@ -56,6 +58,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
             verified={verified}
             userName={userName}
             referralLink={referralLink}
+            userId={userId}
           />
         );
       default:
@@ -66,6 +69,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
             verified={verified}
             userName={userName}
             referralLink={referralLink}
+            userId={userId}
           />
         );
     }

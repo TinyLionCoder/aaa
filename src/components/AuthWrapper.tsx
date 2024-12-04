@@ -10,7 +10,7 @@ const AuthWrapper = () => {
   const [password, setPassword] = useState("");
   const [referralCode, setReferralCode] = useState("");
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
-  const [userId, setUserId] = useState(null);
+  const [userId, setUserId] = useState<string | null>(null);
   const [userName, setUserName] = useState("John Doe"); // Dynamically updated with email
   const [userImage, setUserImage] = useState("https://via.placeholder.com/150"); // Replace with user image URL from API
   const [userReferralCode, setUserReferralCode] = useState("");
@@ -229,6 +229,7 @@ const AuthWrapper = () => {
           referrals={userReferrals}
           verified={isEmailVerified}
           referralLink={referralLink}
+          userId={userId}
           onLogout={logout}
         />
       ) : (

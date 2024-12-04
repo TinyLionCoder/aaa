@@ -9,6 +9,7 @@ import {
   FaChartLine,
 } from "react-icons/fa";
 import styles from "../css_modules/DashboardContentStyles.module.css";
+import { AccountBalance } from "./AccountBalance";
 
 interface DashboardContentProps {
   aaaBalance: number;
@@ -16,6 +17,7 @@ interface DashboardContentProps {
   verified: boolean;
   userName: string;
   referralLink: string;
+  userId: string | null;
 }
 
 const DashboardContent: React.FC<DashboardContentProps> = ({
@@ -24,6 +26,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
   verified,
   userName,
   referralLink,
+  userId,
 }) => {
   return (
     <div>
@@ -65,8 +68,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
         </div>
         <div className={styles.detailCard}>
           <FaWallet className={styles.icon} />
-          <h3>Account Balance</h3>
-          <p>Coming Soon</p>
+          <AccountBalance userId={userId} />
         </div>
         <div className={styles.detailCard}>
           <FaChartLine className={styles.icon} />
