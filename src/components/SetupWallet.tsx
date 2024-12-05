@@ -47,7 +47,9 @@ export const SetupWallet = ({ userId }: SetupWalletProps) => {
   return (
     <div style={{ textAlign: "center", padding: "20px" }}>
       <h1>Setup Wallet</h1>
-      <p>Connect your wallet to add your wallet address to your account.</p>
+      <p>
+        Connect your wallet to add / update your wallet address to your account.
+      </p>
 
       <PeraWalletButton
         onConnect={handleConnect}
