@@ -58,7 +58,11 @@ export const SetupWallet = ({ userId }: SetupWalletProps) => {
 
       {walletAddress && (
         <div>
-          <p>
+          <p
+            style={{
+              overflowWrap: "break-word",
+            }}
+          >
             Connected Wallet Address: <strong>{walletAddress}</strong>
           </p>
         </div>
@@ -72,11 +76,31 @@ export const SetupWallet = ({ userId }: SetupWalletProps) => {
             backgroundColor: "#f8f9fa",
             border: "1px solid #ced4da",
             borderRadius: "5px",
+            overflowWrap: "break-word",
           }}
         >
           <p>{message}</p>
         </div>
       )}
+
+      <div style={{ marginTop: "30px" }}>
+        <p>
+          Don’t have a Pera Wallet?{" "}
+          <a
+            href="https://perawallet.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: "#007bff",
+              textDecoration: "underline",
+              fontWeight: "bold",
+            }}
+          >
+            Download Pera Wallet
+          </a>{" "}
+          to get started.
+        </p>
+      </div>
     </div>
   );
 };

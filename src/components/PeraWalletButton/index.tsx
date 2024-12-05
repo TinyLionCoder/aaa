@@ -63,7 +63,7 @@ const PeraWalletButton = forwardRef(({ onConnect, onDisconnect }: any, ref) => {
   return (
     <button
       style={{
-        width: "35%",
+        width: "45%",
         padding: "18px",
         backgroundColor: isConnectedToPeraWallet ? "purple" : "blue",
         borderRadius: "8px",
