@@ -9,6 +9,7 @@ import { AAATeam } from "./AAATeam";
 import { DonateAAA } from "./DonateAAA";
 import { MyWallet } from "./MyWallet";
 import { MyTeam } from "./MyTeam";
+import { SetupWallet } from "./SetupWallet";
 
 interface EnhancedDashboardProps {
   userName: string;
@@ -48,6 +49,8 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
         return <DonateAAA />;
       case "myWallet":
         return <MyWallet />;
+      case "setupWallet":
+        return <SetupWallet userId={userId} />;
       case "myTeam":
         return <MyTeam />;
       case "dashboard":

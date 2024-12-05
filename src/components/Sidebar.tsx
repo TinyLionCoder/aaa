@@ -17,7 +17,12 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ onLogout, setActiveComponent }) => {
   return (
     <aside className={styles.sideNav}>
-      <h3 onClick={() => setActiveComponent("dashboard")} className={styles.appName}>Dashboard</h3>
+      <h3
+        onClick={() => setActiveComponent("dashboard")}
+        className={styles.appName}
+      >
+        Dashboard
+      </h3>
       <nav>
         <ul>
           <li
@@ -54,6 +59,14 @@ const Sidebar: React.FC<SidebarProps> = ({ onLogout, setActiveComponent }) => {
           >
             <FaDonate className={styles.icon} />
             <span>Donate AAA</span>
+          </li>
+          <li
+            className={`${styles.navItem} ${styles.dropdown}`}
+            style={{ backgroundColor: "aquamarine" }}
+            onClick={() => setActiveComponent("setupWallet")}
+          >
+            <FaCogs className={styles.icon} />
+            <span>Setup Wallet</span>
           </li>
           <li
             className={`${styles.navItem} ${styles.dropdown}`}

@@ -64,11 +64,6 @@ const AuthWrapper = () => {
   };
 
   const signUp = async () => {
-    if (!walletAddress) {
-      alert("Please connect your wallet before signing up.");
-      return;
-    }
-
     if (!email || !password) {
       alert("Please fill in your email and password.");
       return;
@@ -81,15 +76,12 @@ const AuthWrapper = () => {
         email,
         password,
         referralCode: safeReferralCode,
-        walletAddress,
       });
 
       alert(
         "Signup successful! Please check your email to verify your account."
       );
 
-      // Disconnect wallet and reload page after successful signup
-      peraWalletRef.current?.disconnectWallet();
       window.location.reload();
     } catch (error) {
       console.error("Sign up failed:", error);
