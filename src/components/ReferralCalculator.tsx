@@ -22,8 +22,10 @@ export const ReferralCalculator: React.FC = () => {
       const earnings = downstreamReferrals * referrals[level] * rewardPerReferral;
       levelEarnings.push(earnings);
 
-      // Update total earnings dynamically (only consider the current level)
-      totalEarnings = earnings;
+      // Update total earnings to reflect the latest non-zero value
+      if (earnings > 0) {
+        totalEarnings = earnings;
+      }
 
       // Propagate referrals downstream
       downstreamReferrals *= referrals[level];
@@ -66,10 +68,10 @@ export const ReferralCalculator: React.FC = () => {
           </div>
         ))}
       </div>
-      {/* <div className={styles.totalEarningsContainer}>
+      <div className={styles.totalEarningsContainer}>
         <h4 className={styles.totalHeading}>Total Earnings</h4>
         <p className={styles.totalAmount}>{totalEarnings} AAA Tokens</p>
-      </div> */}
+      </div>
     </div>
   );
 };
