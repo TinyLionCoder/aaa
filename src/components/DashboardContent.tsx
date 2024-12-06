@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa";
 import styles from "../css_modules/DashboardContentStyles.module.css";
 import { AccountBalance } from "./AccountBalance";
+import { ReferralCalculator } from "./ReferralCalculator";
 
 interface DashboardContentProps {
   aaaBalance: number;
@@ -85,8 +86,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
 
       {/* Calculator */}
       <div className={styles.calculator}>
-        <h3>Referral Calculator</h3>
-        <p>Coming Soon</p>
+        <ReferralCalculator />
         {/* <p>Enter the number of referrals to estimate payouts:</p>
         <input type="number" placeholder="Number of Referrals" /> */}
         {/* <button>Calculate</button> */}
