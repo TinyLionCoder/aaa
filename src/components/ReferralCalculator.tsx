@@ -11,25 +11,28 @@ export const ReferralCalculator: React.FC = () => {
     "Your Referrals' Referrals' Referrals' Referrals' Referrals",
   ];
 
-  const [referrals, setReferrals] = useState<number[]>([5, 5, 5, 5, 5]); // Default referrals for each level
+  const [referrals, setReferrals] = useState<number[]>([0, 0, 0, 0, 0]); // Start referrals at 0
 
-  const calculateEarnings = (): number[] => {
+  const calculateEarnings = (): { levelEarnings: number[]; totalEarnings: number } => {
     let downstreamReferrals = 1; // Start with yourself (1 referral unit)
     const levelEarnings: number[] = [];
+    let totalEarnings = 0;
 
     for (let level = 0; level < referrals.length; level++) {
       const earnings = downstreamReferrals * referrals[level] * rewardPerReferral;
       levelEarnings.push(earnings);
 
+      // Update total earnings dynamically (only consider the current level)
+      totalEarnings = earnings;
+
       // Propagate referrals downstream
       downstreamReferrals *= referrals[level];
     }
 
-    return levelEarnings;
+    return { levelEarnings, totalEarnings };
   };
 
-  const levelEarnings = calculateEarnings();
-  const totalEarnings = levelEarnings[levelEarnings.length - 1]; // Total earnings is the last level
+  const { levelEarnings, totalEarnings } = calculateEarnings();
 
   const handleReferralChange = (level: number, value: number) => {
     const updatedReferrals = [...referrals];
@@ -63,10 +66,10 @@ export const ReferralCalculator: React.FC = () => {
           </div>
         ))}
       </div>
-      <div className={styles.totalEarningsContainer}>
+      {/* <div className={styles.totalEarningsContainer}>
         <h4 className={styles.totalHeading}>Total Earnings</h4>
         <p className={styles.totalAmount}>{totalEarnings} AAA Tokens</p>
-      </div>
+      </div> */}
     </div>
   );
 };
