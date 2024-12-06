@@ -4,11 +4,11 @@ import styles from "../css_modules/ReferralCalculatorStyles.module.css";
 export const ReferralCalculator: React.FC = () => {
   const rewardPerReferral = 5; // Tokens earned per referral at each level
   const referralLabels = [
-    "Your Referrals",
-    "Your Referrals' Referrals",
-    "Your Referrals' Referrals' Referrals",
-    "Your Referrals' Referrals' Referrals' Referrals",
-    "Your Referrals' Referrals' Referrals' Referrals' Referrals",
+    "Your Friends",
+    "Your Friends' Friends",
+    "Your Friends' Friends' Friends",
+    "Your Friends' Friends' Friends' Friends",
+    "Your Friends' Friends' Friends' Friends' Friends",
   ];
 
   const [referrals, setReferrals] = useState<number[]>([0, 0, 0, 0, 0]); // Start referrals at 0
