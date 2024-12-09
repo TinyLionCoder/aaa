@@ -1,1 +1,51 @@
-export const AAATeam = () => <div>AAA Team Coming Soon</div>;
+import React from "react";
+import styles from "../css_modules/AAATeamStyles.module.css";
+
+const teamMembers = [
+  {
+    name: "Scott Gerrad",
+    role: "Founder & CEO",
+    image: "https://via.placeholder.com/150",
+    bio: "Scott is the visionary behind AAA. With years of experience in the tech industry, he leads the team with passion and expertise.",
+  },
+  {
+    name: "HR Mandiv",
+    role: "Lead Developer",
+    image: "https://via.placeholder.com/150",
+    bio: "HR is in charge of the technical architecture, ensuring everything runs seamlessly.",
+  },
+  {
+    name: "Shawn Zeim",
+    role: "Marketing Lead",
+    image: "https://via.placeholder.com/150",
+    bio: "Shawn drives the marketing strategy, helping AAA reach new heights and a broader audience.",
+  },
+  //   {
+  //     name: "Emily Johnson",
+  //     role: "Community Manager",
+  //     image: "https://via.placeholder.com/150",
+  //     bio: "Emily ensures our community remains engaged and informed, fostering a strong connection between the team and users.",
+  //   },
+];
+
+export const AAATeam: React.FC = () => (
+  <div className={styles.container}>
+    <h1 className={styles.heading}>Meet the AAA Team</h1>
+    <p className={styles.description}>
+      Our dedicated team works tirelessly to make AAA a success. Get to know the
+      people behind the project!
+    </p>
+    <div className={styles.teamGrid}>
+      {teamMembers.map((member, index) => (
+        <div key={index} className={styles.teamMember}>
+          <img src={member.image} alt={member.name} className={styles.image} />
+          <h2 className={styles.name}>{member.name}</h2>
+          <h3 className={styles.role}>{member.role}</h3>
+          <p className={styles.bio}>{member.bio}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+export default AAATeam;
