@@ -40,7 +40,7 @@
     }
 
     .footer .links a {
-      color: white;
+      color: black;
       text-decoration: none;
       font-size: 16px;
       transition: color 0.3s;
@@ -95,6 +95,15 @@
         font-size: 12px;
       }
     }
+
+    .footer .social-icons svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .footer .social-icons a:hover svg {
+      transform: scale(1.4);
+    }
   </style>
 
 </head>
@@ -106,19 +115,28 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="links">
-      <a href="/about">About Us</a>
-      <a href="/contact">Contact</a>
-      <a href="/privacy">Privacy Policy</a>
-      <a href="/terms">Terms of Service</a>
+      <a href="">About Us</a>
+      <a href="">Contact</a>
+      <a href="">Privacy Policy</a>
+      <a href="">Terms of Service</a>
     </div>
     <div class="social-icons">
-      <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">🐦</a>
-      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">📘</a>
+      <a href="https://x.com/TLPCoin" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="footer-icon" aria-hidden="true">
+          <g>
+            <path
+              d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z">
+            </path>
+          </g>
+        </svg>
+      </a>
+      <!-- <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">📘</a>
       <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">📸</a>
-      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">🔗</a>
+      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">🔗</a> -->
     </div>
     <p>© 2024 AAA App. All rights reserved.</p>
   </footer>
+
 </body>
 
 </html>
