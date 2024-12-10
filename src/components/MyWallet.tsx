@@ -82,6 +82,18 @@ export const MyWallet = () => {
     }
   };
 
+  // Generate distinct colors for each asset
+  const generateColors = (count: number) => {
+    const colors = [];
+    for (let i = 0; i < count; i++) {
+      const hue = (i * 137.5) % 360; // Distribute colors evenly across the hue spectrum
+      colors.push(`hsl(${hue}, 70%, 50%)`);
+    }
+    return colors;
+  };
+
+  const colors = generateColors(assets.length);
+
   const pieData = {
     labels: assets.map(
       (asset) => `${asset.name} (${asset.unitName})` || "Unknown"
@@ -89,22 +101,8 @@ export const MyWallet = () => {
     datasets: [
       {
         data: assets.map(() => 1), // Equal value for each asset
-        backgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#4BC0C0",
-          "#9966FF",
-          "#FF9F40",
-        ],
-        hoverBackgroundColor: [
-          "#FF6384AA",
-          "#36A2EBAA",
-          "#FFCE56AA",
-          "#4BC0C0AA",
-          "#9966FFAA",
-          "#FF9F40AA",
-        ],
+        backgroundColor: colors,
+        hoverBackgroundColor: colors.map((color) => `${color}AA`), // Add transparency for hover
       },
     ],
   };
