@@ -48,6 +48,19 @@ export const MyWallet = () => {
     }
   };
 
+  const fetchPeraVerification = async (assetId: number) => {
+    try {
+      const response = await fetch(
+        `https://mainnet.api.perawallet.app/v1/public/assets/${assetId}`
+      );
+      const data = await response.json();
+      return data.verification_tier === "verified";
+    } catch (error) {
+      console.error(`Error verifying asset ID ${assetId}:`, error);
+      return false;
+    }
+  };
+
   const formatAmount = (amount: number, decimals: number) => {
     return parseFloat((amount / Math.pow(10, decimals)).toFixed(2));
   };
@@ -60,17 +73,27 @@ export const MyWallet = () => {
         .do();
 
       const assetPromises = accountInfo.assets.map(async (asset: any) => {
-        const { name, unitName, decimals } = await fetchAssetDetails(asset["asset-id"]);
-        return {
-          assetId: asset["asset-id"],
-          amount: formatAmount(asset.amount, decimals),
-          name,
-          unitName,
-          decimals,
-        };
+        const { name, unitName, decimals } = await fetchAssetDetails(
+          asset["asset-id"]
+        );
+        const isVerified = await fetchPeraVerification(asset["asset-id"]);
+
+        if (isVerified) {
+          return {
+            assetId: asset["asset-id"],
+            amount: formatAmount(asset.amount, decimals),
+            name,
+            unitName,
+            decimals,
+          };
+        }
+
+        return null;
       });
 
-      const resolvedAssets: Asset[] = await Promise.all(assetPromises);
+      const resolvedAssets = (await Promise.all(assetPromises)).filter(
+        (asset) => asset !== null
+      ) as Asset[];
 
       // Filter out assets with zero amounts
       const nonZeroAssets = resolvedAssets.filter((asset) => asset.amount > 0);
@@ -133,9 +156,12 @@ export const MyWallet = () => {
           ) : assets.length > 0 ? (
             <div className={styles.chartWrapper}>
               <Pie data={pieData} options={pieOptions} />
+              <p>Data provided by Pera</p>
             </div>
           ) : (
-            <p className={styles.noAssets}>No assets found in this wallet.</p>
+            <p className={styles.noAssets}>
+              No verified assets found in this wallet.
+            </p>
           )}
         </>
       ) : (
