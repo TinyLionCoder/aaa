@@ -80,26 +80,28 @@ export const MyWallet = () => {
           {loading ? (
             <p className={styles.loading}>Loading assets...</p>
           ) : assets.length > 0 ? (
-            <table className={styles.assetTable}>
-              <thead>
-                <tr>
-                  <th>Asset ID</th>
-                  <th>Asset Name</th>
-                  <th>Unit Name</th>
-                  <th>Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                {assets.map((asset) => (
-                  <tr key={asset.assetId}>
-                    <td>{asset.assetId}</td>
-                    <td>{asset.name}</td>
-                    <td>{asset.unitName}</td>
-                    <td>{asset.amount}</td>
+            <div className={styles.assetTableWrapper}>
+              <table className={styles.assetTable}>
+                <thead>
+                  <tr>
+                    <th>Asset ID</th>
+                    <th>Asset Name</th>
+                    <th>Unit Name</th>
+                    <th>Amount</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {assets.map((asset) => (
+                    <tr key={asset.assetId}>
+                      <td>{asset.assetId}</td>
+                      <td>{asset.name}</td>
+                      <td>{asset.unitName}</td>
+                      <td>{asset.amount}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           ) : (
             <p className={styles.noAssets}>No assets found in this wallet.</p>
           )}
