@@ -71,7 +71,10 @@ export const MyWallet = () => {
       });
 
       const resolvedAssets: Asset[] = await Promise.all(assetPromises);
-      setAssets(resolvedAssets);
+
+      // Filter out assets with zero amounts
+      const nonZeroAssets = resolvedAssets.filter((asset) => asset.amount > 0);
+      setAssets(nonZeroAssets);
     } catch (error) {
       console.error("Error fetching assets:", error);
     } finally {
@@ -79,7 +82,6 @@ export const MyWallet = () => {
     }
   };
 
-  // Set equal value for each asset
   const pieData = {
     labels: assets.map(
       (asset) => `${asset.name} (${asset.unitName})` || "Unknown"
