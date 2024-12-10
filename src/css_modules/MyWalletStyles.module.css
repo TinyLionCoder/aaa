@@ -24,7 +24,8 @@
   padding: 10px;
   border-radius: 8px;
   display: inline-block;
-  word-break: break-word; /* Ensure long wallet addresses wrap properly */
+  word-break: break-word;
+  /* Ensure long wallet addresses wrap properly */
 }
 
 .walletAddress span {
@@ -40,7 +41,8 @@
 
 .assetTableWrapper {
   width: 100%;
-  overflow-x: auto; /* Enable horizontal scrolling */
+  overflow-x: auto;
+  /* Enable horizontal scrolling */
   margin: 20px 0;
 }
 
@@ -60,7 +62,8 @@
   padding: 12px 15px;
   text-align: center;
   color: #333;
-  white-space: nowrap; /* Prevent text wrapping */
+  white-space: nowrap;
+  /* Prevent text wrapping */
 }
 
 .assetTable th {
@@ -97,6 +100,18 @@
 .noWallet {
   color: #ff4d4f;
 }
+
+.chartWrapper {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.loading {
+  font-size: 20px;
+  font-style: italic;
+  color: #555;
+}
+
 
 /* Responsive Styles */
 

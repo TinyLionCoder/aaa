@@ -1,6 +1,16 @@
 import { useEffect, useState } from "react";
 import { algoIndexerClient } from "../algorand/config";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Pie } from "react-chartjs-2";
 import styles from "../css_modules/MyWalletStyles.module.css";
+
+// Register required Chart.js components
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface Asset {
   assetId: number;
@@ -39,7 +49,7 @@ export const MyWallet = () => {
   };
 
   const formatAmount = (amount: number, decimals: number) => {
-    return (amount / Math.pow(10, decimals)).toFixed(2);
+    return parseFloat((amount / Math.pow(10, decimals)).toFixed(2));
   };
 
   const fetchAssets = async (address: string) => {
@@ -69,6 +79,47 @@ export const MyWallet = () => {
     }
   };
 
+  // Set equal value for each asset
+  const pieData = {
+    labels: assets.map(
+      (asset) => `${asset.name} (${asset.unitName})` || "Unknown"
+    ),
+    datasets: [
+      {
+        data: assets.map(() => 1), // Equal value for each asset
+        backgroundColor: [
+          "#FF6384",
+          "#36A2EB",
+          "#FFCE56",
+          "#4BC0C0",
+          "#9966FF",
+          "#FF9F40",
+        ],
+        hoverBackgroundColor: [
+          "#FF6384AA",
+          "#36A2EBAA",
+          "#FFCE56AA",
+          "#4BC0C0AA",
+          "#9966FFAA",
+          "#FF9F40AA",
+        ],
+      },
+    ],
+  };
+
+  const pieOptions = {
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: (tooltipItem: any) => {
+            const asset = assets[tooltipItem.dataIndex];
+            return `Asset ID: ${asset.assetId}\nUnit: ${asset.unitName}\nAmount: ${asset.amount}`;
+          },
+        },
+      },
+    },
+  };
+
   return (
     <div className={styles.container}>
       <h2 className={styles.heading}>My Wallet</h2>
@@ -80,27 +131,8 @@ export const MyWallet = () => {
           {loading ? (
             <p className={styles.loading}>Loading assets...</p>
           ) : assets.length > 0 ? (
-            <div className={styles.assetTableWrapper}>
-              <table className={styles.assetTable}>
-                <thead>
-                  <tr>
-                    <th>Asset ID</th>
-                    <th>Asset Name</th>
-                    <th>Unit Name</th>
-                    <th>Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {assets.map((asset) => (
-                    <tr key={asset.assetId}>
-                      <td>{asset.assetId}</td>
-                      <td>{asset.name}</td>
-                      <td>{asset.unitName}</td>
-                      <td>{asset.amount}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div className={styles.chartWrapper}>
+              <Pie data={pieData} options={pieOptions} />
             </div>
           ) : (
             <p className={styles.noAssets}>No assets found in this wallet.</p>
