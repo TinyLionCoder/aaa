@@ -12,7 +12,7 @@ const teamMembers = [
     name: "HR Mandiv",
     role: "Lead Developer",
     image: "https://via.placeholder.com/150",
-    bio: "HR is in charge of the technical architecture, ensuring everything runs seamlessly.",
+    bio: "HR is in charge of the technical architecture, ensuring everything runs smoothly.",
   },
   {
     name: "Shawn Zeim",
