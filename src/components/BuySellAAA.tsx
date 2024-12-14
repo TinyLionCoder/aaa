@@ -33,6 +33,41 @@ const BuySellAAA: React.FC = () => {
         </p>
         <div className={styles.videoContainer}>
           <h3>Video Tutorial: How to Acquire ALGO</h3>
+          <ul className={styles.walletList}>
+            <li>
+              <FaAddressBook className={styles.sectionIcon} />
+              <a
+                href="https://www.coinbase.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontSize: "1.2rem" }}
+              >
+                Coinbase
+              </a>
+            </li>
+            <li>
+              <FaAddressBook className={styles.sectionIcon} />
+              <a
+                href="https://www.binance.com/en/activity/referral/offers/claim?ref=CPA_00FH2TEHT2"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontSize: "1.2rem" }}
+              >
+                Binance
+              </a>
+            </li>
+            <li>
+              <FaAddressBook className={styles.sectionIcon} />
+              <a
+                href="https://coinspot.com.au/join/REFNJKR95"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontSize: "1.2rem" }}
+              >
+                CoinSpot
+              </a>
+            </li>
+          </ul>
           <iframe
             className={styles.video}
             src="https://www.youtube.com/embed/hk1nU2eS3Ss"
@@ -41,41 +76,6 @@ const BuySellAAA: React.FC = () => {
             allowFullScreen
           ></iframe>
         </div>
-        <ul className={styles.walletList}>
-          <li>
-            <FaAddressBook className={styles.sectionIcon} />
-            <a
-              href="https://www.coinbase.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ fontSize: "1.5rem" }}
-            >
-              Coinbase
-            </a>
-          </li>
-          <li>
-            <FaAddressBook className={styles.sectionIcon} />
-            <a
-              href="https://www.binance.com/en/activity/referral/offers/claim?ref=CPA_00FH2TEHT2"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ fontSize: "1.5rem" }}
-            >
-              Binance
-            </a>
-          </li>
-          <li>
-            <FaAddressBook className={styles.sectionIcon} />
-            <a
-              href="https://coinspot.com.au/join/REFNJKR95"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ fontSize: "1.5rem" }}
-            >
-              CoinSpot
-            </a>
-          </li>
-        </ul>
       </section>
 
       {/* Step 2: Download a Wallet */}
