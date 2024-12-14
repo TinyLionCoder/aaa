@@ -7,6 +7,7 @@ import rea from "../images/rea.png";
 import rear from "../images/rear.png";
 import bwom from "../images/bwom.png";
 import ipt from "../images/ipt.png";
+import wkh from "../images/wkh.png";
 
 const tokenData = [
   {
@@ -32,6 +33,12 @@ const tokenData = [
     logo: ipt, // Replace with actual logo path
     vestigeLink: "https://vestige.fi/asset/2342621554",
     xLink: "https://x.com/1nfinite0ne",
+  },
+  {
+    name: "WKH",
+    logo: wkh, // Replace with actual logo path
+    vestigeLink: "https://vestige.fi/asset/2573477873",
+    xLink: "https://x.com/HODL_TLP",
   },
   {
     name: "TLP",

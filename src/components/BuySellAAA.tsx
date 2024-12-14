@@ -4,6 +4,7 @@ import {
   FaExchangeAlt,
   FaDownload,
   FaHandPointRight,
+  FaAddressBook,
 } from "react-icons/fa";
 import styles from "../css_modules/BuySellAAAStyles.module.css";
 
@@ -34,12 +35,47 @@ const BuySellAAA: React.FC = () => {
           <h3>Video Tutorial: How to Acquire ALGO</h3>
           <iframe
             className={styles.video}
-            src="https://www.youtube.com/embed/exampleVideo1"
+            src="https://www.youtube.com/embed/hk1nU2eS3Ss"
             title="Acquire ALGO"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
         </div>
+        <ul className={styles.walletList}>
+          <li>
+            <FaAddressBook className={styles.sectionIcon} />
+            <a
+              href="https://www.coinbase.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontSize: "1.5rem" }}
+            >
+              Coinbase
+            </a>
+          </li>
+          <li>
+            <FaAddressBook className={styles.sectionIcon} />
+            <a
+              href="https://www.binance.com/en/activity/referral/offers/claim?ref=CPA_00FH2TEHT2"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontSize: "1.5rem" }}
+            >
+              Binance
+            </a>
+          </li>
+          <li>
+            <FaAddressBook className={styles.sectionIcon} />
+            <a
+              href="https://coinspot.com.au/join/REFNJKR95"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontSize: "1.5rem" }}
+            >
+              CoinSpot
+            </a>
+          </li>
+        </ul>
       </section>
 
       {/* Step 2: Download a Wallet */}
@@ -64,7 +100,7 @@ const BuySellAAA: React.FC = () => {
               Pera Wallet
             </a>
           </li>
-          <li>
+          {/* <li>
             <FaWallet className={styles.icon} />{" "}
             <a
               href="https://defly.app/"
@@ -103,13 +139,13 @@ const BuySellAAA: React.FC = () => {
             >
               Lute Wallet
             </a>
-          </li>
+          </li> */}
         </ul>
         <div className={styles.videoContainer}>
           <h3>Video Tutorial: Wallet Setup</h3>
           <iframe
             className={styles.video}
-            src="https://www.youtube.com/embed/exampleVideo2"
+            src="https://www.youtube.com/embed/lF4wZHo81R0"
             title="Wallet Setup"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
