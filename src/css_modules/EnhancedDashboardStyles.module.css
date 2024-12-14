@@ -139,6 +139,12 @@
   justify-content: flex-end;
 }
 
+.totalMembers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .userImage {
   width: 40px;
   height: 40px;

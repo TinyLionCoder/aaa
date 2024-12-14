@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar"; // Import the new Sidebar component
 import DashboardContent from "./DashboardContent";
 import styles from "../css_modules/EnhancedDashboardStyles.module.css";
@@ -10,6 +10,7 @@ import { DonateAAA } from "./DonateAAA";
 import { MyWallet } from "./MyWallet";
 import { MyTeam } from "./MyTeam";
 import { SetupWallet } from "./SetupWallet";
+import axios from "axios";
 
 interface EnhancedDashboardProps {
   userName: string;
@@ -33,6 +34,34 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
   onLogout,
 }) => {
   const [activeComponent, setActiveComponent] = useState<string>("dashboard"); // Default to dashboard content
+  const [totalMembers, setTotalMembers] = useState<number>(0);
+  const [loadingTotalMembers, setLoadingTotalMembers] = useState<boolean>(true);
+
+  const apiClient = axios.create({
+    baseURL: "https://aaa-api.onrender.com/api/v1",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  useEffect(() => {
+    getTotalMembers();
+  }, []);
+
+  const getTotalMembers = async () => {
+    try {
+      setLoadingTotalMembers(true);
+      const response = await apiClient.post("/get-total-members");
+      if (response.data && typeof response.data.totalMembers === "number") {
+        setTotalMembers(response.data.totalMembers);
+      } else {
+        throw new Error("Invalid response format.");
+      }
+    } catch (error) {
+      console.error("Failed to fetch total members:", error);
+      setTotalMembers(0); // Fallback to 0 if the API fails
+    } finally {
+      setLoadingTotalMembers(false);
+    }
+  };
 
   // Map active component to corresponding JSX
   const renderActiveComponent = () => {
@@ -90,6 +119,11 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
       <main className={styles.dashboardContent}>
         <header className={styles.dashboardHeader}>
           <h1>Algo Adopt Airdrop</h1>
+          <h2 className={styles.totalMembers}>
+            {loadingTotalMembers
+              ? "Loading Members..."
+              : `Total Members: ${totalMembers}`}
+          </h2>
         </header>
 
         {/* User Info */}
