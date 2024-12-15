@@ -33,18 +33,18 @@ const Sidebar: React.FC<SidebarProps> = ({ onLogout, setActiveComponent }) => {
             <span>Best Algo Defi</span>
           </li>
           <li
-            className={`${styles.navItem} ${styles.dropdown}`}
-            onClick={() => setActiveComponent("stakingAndFarms")}
-          >
-            <FaCogs className={styles.icon} />
-            <span>Staking and Farms</span>
-          </li>
-          <li
             className={styles.navItem}
             onClick={() => setActiveComponent("buySellAAA")}
           >
             <FaShoppingCart className={styles.icon} />
             <span>Buy & Sell AAA</span>
+          </li>
+          <li
+            className={`${styles.navItem} ${styles.dropdown}`}
+            onClick={() => setActiveComponent("stakingAndFarms")}
+          >
+            <FaCogs className={styles.icon} />
+            <span>Staking and Farms</span>
           </li>
           <li
             className={`${styles.navItem} ${styles.dropdown}`}

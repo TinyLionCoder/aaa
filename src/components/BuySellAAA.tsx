@@ -167,7 +167,7 @@ const BuySellAAA: React.FC = () => {
           <h3>Video Tutorial: Opt Into ASA</h3>
           <iframe
             className={styles.video}
-            src="https://www.youtube.com/embed/exampleVideo3"
+            src="https://www.youtube.com/embed/4Mw4ukJ2wAY"
             title="Opt Into ASA"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
@@ -207,7 +207,7 @@ const BuySellAAA: React.FC = () => {
           <h3>Video Tutorial: Swapping Tokens</h3>
           <iframe
             className={styles.video}
-            src="https://www.youtube.com/embed/exampleVideo4"
+            src="https://www.youtube.com/embed/uIl-WxV_6tM"
             title="Swapping Tokens"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
