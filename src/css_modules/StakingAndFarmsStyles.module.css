@@ -1,0 +1,169 @@
+/* Main container styles */
+.container {
+    padding: 30px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #f9fafb;
+    font-family: "Arial", sans-serif;
+}
+
+/* Heading */
+.heading {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.introText {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+/* Sections */
+.section {
+    margin-bottom: 30px;
+}
+
+.description {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Card styling */
+.card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.subHeading {
+    font-size: 1.8rem;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.cardText {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+/* Video iframe wrapper for responsive display */
+.videoWrapper {
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    margin: 20px 0;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.videoWrapper iframe {
+    width: 100%;
+    max-width: 800px;
+    height: 450px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px 10px;
+        /* Reduce padding */
+    }
+
+    .heading {
+        font-size: 2rem;
+        /* Smaller heading size */
+        margin-bottom: 10px;
+    }
+
+    .introText {
+        font-size: 1rem;
+        /* Reduce font size */
+        margin-bottom: 20px;
+    }
+
+    .description {
+        font-size: 0.9rem;
+        /* Smaller font size */
+        line-height: 1.4;
+        margin-bottom: 15px;
+        padding: 0 10px;
+        /* Add horizontal padding */
+    }
+
+    .card {
+        padding: 15px;
+        /* Reduce padding in cards */
+        margin-bottom: 20px;
+    }
+
+    .subHeading {
+        font-size: 1.5rem;
+        /* Smaller subheading */
+    }
+
+    .cardText {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+
+    .videoWrapper {
+        margin: 15px 0;
+        /* Reduce margin for videos */
+    }
+}
+
+@media (max-width: 480px) {
+    .heading {
+        font-size: 1.8rem;
+        /* Even smaller heading for small devices */
+    }
+
+    .introText {
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+    }
+
+    .description {
+        font-size: 0.85rem;
+        padding: 0 5px;
+        /* Add tighter padding */
+    }
+
+    .card {
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+
+    .subHeading {
+        font-size: 1.3rem;
+        /* Adjust subheading further */
+        margin-bottom: 5px;
+    }
+
+    .cardText {
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+    }
+
+    .videoWrapper {
+        margin: 10px 0;
+    }
+}
