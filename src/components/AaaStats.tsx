@@ -41,7 +41,7 @@ export const AaaStats = () => {
       <h1 className={styles.heading}>AAA Token Growth</h1>
       <p className={styles.statValue}>
         {percentageIncrease !== null
-          ? `${percentageIncrease.toFixed(2)}%`
+          ? `$${currentPrice?.toFixed(4)} (${percentageIncrease.toFixed(2)}%)`
           : "Loading..."}
       </p>
     </div>
