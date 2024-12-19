@@ -7,32 +7,42 @@ interface AccountBalanceProps {
 
 export const AccountBalance = ({ userId }: AccountBalanceProps) => {
   const [totalPayout, setTotalPayout] = useState<number | null>(null);
-  const [payoutHistory, setPayoutHistory] = useState<
-    { payoutAmount: number; txId: string; timestamp: string }[]
-  >([]);
+  const [totalValueUSD, setTotalValueUSD] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const BASE_URL = "https://aaa-api.onrender.com/api/v1";
+  const assetId = "2004387843"; // AAA Token Asset ID
+  const vestigeApiUrl = `https://free-api.vestige.fi/asset/${assetId}/price?currency=usd`;
 
   useEffect(() => {
     if (userId) {
-      const fetchPayouts = async () => {
+      const fetchData = async () => {
         setLoading(true);
         try {
-          const response = await axios.get(
+          // Fetch total payout data
+          const payoutResponse = await axios.get(
             `${BASE_URL}/payouts/total/${userId}`
           );
-          setTotalPayout(response.data.totalPayout);
-          setPayoutHistory(response.data.payouts);
+          const totalPayout = payoutResponse.data.totalPayout;
+          setTotalPayout(totalPayout);
+
+          // Fetch current AAA price
+          const priceResponse = await axios.get(vestigeApiUrl);
+          const currentPrice = priceResponse.data?.price || 0;
+
+          // Calculate total value in USD
+          if (totalPayout && currentPrice) {
+            setTotalValueUSD(totalPayout * currentPrice);
+          }
         } catch (err: any) {
-          setError("An error occurred while fetching payouts.");
+          setError("An error occurred while fetching data.");
         } finally {
           setLoading(false);
         }
       };
 
-      fetchPayouts();
+      fetchData();
     }
   }, [userId]);
 
@@ -42,10 +52,16 @@ export const AccountBalance = ({ userId }: AccountBalanceProps) => {
       {loading && <p>Loading...</p>}
       {/* {error && <p style={{ color: "red" }}>{error}</p>} */}
       {/* {!loading && !error && totalPayout !== null && ( */}
-        <div>
-          <p>Coming Soon</p>
-          {/* <p>Total Payout: {totalPayout} AAA Tokens</p> */}
-        </div>
+      <div>
+        <p>Coming Soon</p>
+        {/* <p>Total Payout: {totalPayout} AAA Tokens</p>
+          <p>
+            Total Value in USD:{" "}
+            {totalValueUSD !== null
+              ? `$${totalValueUSD.toFixed(6)}`
+              : "Calculating..."}
+          </p> */}
+      </div>
       {/* )} */}
     </div>
   );

@@ -40,7 +40,7 @@ export const AaaStats = () => {
     <div>
       <h1 className={styles.heading}>AAA Lifetime</h1>
       <p className={styles.statValue}>
-        {`$${currentPrice?.toFixed(4)}`}
+        {`$${currentPrice?.toFixed(6)}`}
         {percentageIncrease !== null && percentageIncrease > 0 && (
           <span className={styles.upArrow}>&#x2B06;</span> // Unicode for up arrow
         )}
