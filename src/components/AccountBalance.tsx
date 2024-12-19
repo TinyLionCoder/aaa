@@ -51,18 +51,17 @@ export const AccountBalance = ({ userId }: AccountBalanceProps) => {
       <h2>Payments Received</h2>
       {loading && <p>Loading...</p>}
       {/* {error && <p style={{ color: "red" }}>{error}</p>} */}
-      {/* {!loading && !error && totalPayout !== null && ( */}
-      <div>
-        <p>Coming Soon</p>
-        {/* <p>Total Payout: {totalPayout} AAA Tokens</p>
+      {!loading && (
+        <div>
+          <p>
+            Total Payout: {totalPayout === null ? 0 : totalPayout} AAA Tokens
+          </p>
           <p>
             Total Value in USD:{" "}
-            {totalValueUSD !== null
-              ? `$${totalValueUSD.toFixed(6)}`
-              : "Calculating..."}
-          </p> */}
-      </div>
-      {/* )} */}
+            {totalValueUSD !== null ? `$${totalValueUSD.toFixed(6)}` : "$0.00"}
+          </p>
+        </div>
+      )}
     </div>
   );
 };
