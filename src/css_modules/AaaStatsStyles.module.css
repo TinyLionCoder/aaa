@@ -1,0 +1,10 @@
+  .heading {
+      font-size: 1.25rem !important;
+      color: #333;
+      margin-bottom: 20px;
+  }
+
+  .statValue {
+      font-size: 1.5rem;
+      color: darkcyan;
+  }

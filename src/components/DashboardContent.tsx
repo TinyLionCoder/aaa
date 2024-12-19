@@ -11,6 +11,7 @@ import {
 import styles from "../css_modules/DashboardContentStyles.module.css";
 import { AccountBalance } from "./AccountBalance";
 import { ReferralCalculator } from "./ReferralCalculator";
+import { AaaStats } from "./AaaStats";
 
 interface DashboardContentProps {
   aaaBalance: number;
@@ -73,8 +74,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
         </div>
         <div className={styles.detailCard}>
           <FaChartLine className={styles.icon} />
-          <h3>AAA Stats</h3>
-          <p>Coming Soon</p>
+          <AaaStats />
         </div>
       </div>
 
