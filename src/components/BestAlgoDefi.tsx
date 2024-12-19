@@ -8,6 +8,7 @@ import rear from "../images/rear.png";
 import bwom from "../images/bwom.png";
 import ipt from "../images/ipt.png";
 import wkh from "../images/wkh.png";
+import memo from "../images/memo.png";
 
 const tokenData = [
   {
@@ -39,6 +40,12 @@ const tokenData = [
     logo: wkh, // Replace with actual logo path
     vestigeLink: "https://vestige.fi/asset/2573477873",
     xLink: "https://x.com/HODL_TLP",
+  },
+  {
+    name: "MEMO",
+    logo: memo, // Replace with actual logo path
+    vestigeLink: "https://vestige.fi/asset/885835936",
+    xLink: "https://x.com/AlgoMembers",
   },
   {
     name: "TLP",
