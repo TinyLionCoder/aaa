@@ -53,7 +53,7 @@ export const StakingAndFarms: React.FC = () => {
         </p>
         <div className={styles.videoWrapper}>
           <iframe
-            src="https://www.youtube.com/embed/YOUR_VIDEO_ID_3"
+            src="https://www.youtube.com/embed/S-UvtvQ3WhM"
             title="Participating in Farms"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
