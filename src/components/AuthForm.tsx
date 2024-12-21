@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../css_modules/AuthFormStyles.module.css";
+import { useParams } from "react-router-dom";
 
 interface AuthFormProps {
   onSignUp: () => void;
@@ -7,6 +8,7 @@ interface AuthFormProps {
   setEmail: (email: string) => void;
   setPassword: (password: string) => void;
   setReferralCode: (code: string) => void;
+  initialReferralCode?: string;
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({
@@ -15,8 +17,28 @@ const AuthForm: React.FC<AuthFormProps> = ({
   setEmail,
   setPassword,
   setReferralCode,
+  initialReferralCode = "",
 }) => {
+  const { referralCode: referralCodeParam } = useParams<{
+    referralCode?: string;
+  }>();
   const [useWalletLogin, setUseWalletLogin] = useState(true);
+  const [referralCode, setLocalReferralCode] = useState(
+    initialReferralCode || referralCodeParam || ""
+  );
+
+  // Update the referral code state from the route parameter
+  useEffect(() => {
+    if (referralCodeParam) {
+      setLocalReferralCode(referralCodeParam);
+      setReferralCode(referralCodeParam); // Update parent state
+    }
+  }, [referralCodeParam, setReferralCode]);
+
+  const handleReferralCodeChange = (code: string) => {
+    setLocalReferralCode(code);
+    setReferralCode(code); // Update parent state
+  };
 
   return (
     <div className={styles.authFormContainer}>
@@ -39,8 +61,9 @@ const AuthForm: React.FC<AuthFormProps> = ({
           <input
             className={styles.authInput}
             placeholder="Referral Code..."
+            value={referralCode}
             type="text"
-            onChange={(e) => setReferralCode(e.target.value)}
+            onChange={(e) => handleReferralCodeChange(e.target.value)}
           />
         </div>
         <button className={styles.authButton} onClick={onSignUp}>

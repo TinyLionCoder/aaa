@@ -15,6 +15,7 @@ const App = () => {
         <Routes>
           {/* <Route path="/" element={<LandingPage />} /> */}
           <Route path="/" element={<AuthWrapper />} />
+          <Route path="/referral/:referralCode" element={<AuthWrapper />} />
           <Route path="/terms-of-services" element={<TermsOfServices />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Routes>

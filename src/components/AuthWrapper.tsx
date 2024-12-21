@@ -20,7 +20,7 @@ const AuthWrapper = () => {
   const [aaaBalance, setAaaBalance] = useState(0);
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(false); // New loading state
-  const referralLink = `${userReferralCode}`;
+  const referralLink = `${window.location.origin}/referral/${userReferralCode}`;
   const peraWalletRef = useRef<{ disconnectWallet: () => void } | null>(null);
   const [disconnecting, setDisconnecting] = useState(false); // New state to handle recursion
 
@@ -231,6 +231,7 @@ const AuthWrapper = () => {
           setEmail={setEmail}
           setPassword={setPassword}
           setReferralCode={setReferralCode}
+          initialReferralCode={referralCode}
         />
       )}
     </div>

@@ -81,7 +81,14 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
       {/* Referral Link */}
       <div className={styles.referralSection}>
         <h3>Your Referral Code</h3>
-        <p>{referralLink}</p>
+        <a
+          href={referralLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.referralLink}
+        >
+          {referralLink}
+        </a>
       </div>
 
       {/* Calculator */}
