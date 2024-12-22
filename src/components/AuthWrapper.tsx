@@ -3,6 +3,7 @@ import axios from "axios";
 import AuthForm from "./AuthForm";
 import EnhancedDashboard from "./EnhancedDashboard";
 import PeraWalletButton from "./PeraWalletButton";
+import { toast, Toaster } from "react-hot-toast";
 import styles from "../css_modules/AuthWrapperStyles.module.css";
 
 const AuthWrapper = () => {
@@ -15,7 +16,7 @@ const AuthWrapper = () => {
   const [userImage, setUserImage] = useState("https://via.placeholder.com/150"); // Replace with user image URL from API
   const [userReferralCode, setUserReferralCode] = useState("");
   const [userLoggedIn, setUserLoggedIn] = useState(false);
-  const [isEmailVerified, setIsEmailVerified] = useState(false); // New state for email verification
+  const [isVerified, setIsVerified] = useState(false); // New state for email verification
   const [userReferrals, setUserReferrals] = useState<number>(0);
   const [aaaBalance, setAaaBalance] = useState(0);
   const [token, setToken] = useState<string | null>(null);
@@ -65,7 +66,7 @@ const AuthWrapper = () => {
 
   const signUp = async () => {
     if (!email || !password) {
-      alert("Please fill in your email and password.");
+      toast.error("Please fill in your email and password.");
       return;
     }
 
@@ -78,14 +79,14 @@ const AuthWrapper = () => {
         referralCode: safeReferralCode,
       });
 
-      alert(
-        "Signup successful! Please check your email to verify your account."
-      );
+      toast.success("Signup successful! Please login with your email account.");
 
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 4000);
     } catch (error) {
       console.error("Sign up failed:", error);
-      alert("Signup failed. Please try again.");
+      toast.error("Signup failed. Please try again.");
     } finally {
       setLoading(false); // Hide "Processing..." feedback
     }
@@ -93,7 +94,7 @@ const AuthWrapper = () => {
 
   const logInWithEmail = async () => {
     if (!email || !password) {
-      alert("Please fill in your email and password.");
+      toast.error("Please fill in your email and password.");
       return;
     }
 
@@ -108,17 +109,12 @@ const AuthWrapper = () => {
         aaaBalance,
         referrals,
         token,
-        emailVerified, // Add email verification status from the backend
+        verified, // Add email verification status from the backend
       } = response.data;
-
-      if (!emailVerified) {
-        alert("Please verify your email before logging in.");
-        return;
-      }
       const userName = email.split("@")[0]; // Extract username from email
       setUserName(userName); // Set the username to the email
       setUserLoggedIn(true);
-      setIsEmailVerified(true); // Set email verification status
+      setIsVerified(verified); // Set email verification status
       setUserId(userId);
       setUserReferralCode(referralCode);
       setWalletAddress(returnedWalletAddress);
@@ -130,7 +126,7 @@ const AuthWrapper = () => {
       console.error("Login with email failed:", error);
       const errorMessage =
         (error as any).response?.data?.message || "An error occurred";
-      alert(`${errorMessage}`);
+      toast.error(`${errorMessage}`);
     } finally {
       setLoading(false); // Hide "Processing..." feedback
     }
@@ -150,18 +146,14 @@ const AuthWrapper = () => {
         aaaBalance,
         referrals,
         token,
-        emailVerified, // Add email verification status from the backend
+        verified, // Add email verification status from the backend
         email,
       } = response.data;
 
-      if (!emailVerified) {
-        alert("Please verify your email before logging in.");
-        return;
-      }
       const userName = email.split("@")[0]; // Extract username from email
       setUserName(userName); // Set the username to the email
       setUserLoggedIn(true);
-      setIsEmailVerified(true); // Set email verification status
+      setIsVerified(verified); // Set email verification status
       setUserId(userId);
       setUserReferralCode(referralCode);
       setWalletAddress(returnedWalletAddress);
@@ -180,7 +172,7 @@ const AuthWrapper = () => {
   const logout = (triggerWalletDisconnect = true) => {
     setDisconnecting(true); // Prevent recursive calls
     setUserLoggedIn(false);
-    setIsEmailVerified(false); // Reset email verification status
+    setIsVerified(false); // Reset email verification status
     setUserId(null);
     setUserReferralCode("");
     setUserReferrals(0);
@@ -203,7 +195,8 @@ const AuthWrapper = () => {
 
   return (
     <div className={styles.authWrapper}>
-      {!userLoggedIn && !isEmailVerified ? (
+      <Toaster toastOptions={{ duration: 4000 }} />
+      {!userLoggedIn ? (
         <PeraWalletButton
           ref={peraWalletRef}
           onConnect={handleWalletConnect}
@@ -213,13 +206,13 @@ const AuthWrapper = () => {
       {loading && (
         <p className={styles.loadingMessage}>Processing request...</p>
       )}
-      {userLoggedIn && isEmailVerified ? (
+      {userLoggedIn ? (
         <EnhancedDashboard
           userName={userName}
           userImage={userImage}
           aaaBalance={aaaBalance}
           referrals={userReferrals}
-          verified={isEmailVerified}
+          verified={isVerified}
           referralLink={referralLink}
           userId={userId}
           onLogout={logout}
