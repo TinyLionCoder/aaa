@@ -61,8 +61,11 @@ const VerificationPage = ({ userId }: VerificationPageProps) => {
       // Wait for transaction confirmation
       await algosdk.waitForConfirmation(algodClient, txId, 4);
 
+      // call the api to update the user's verification status
+
       console.log("Transaction confirmed with ID:", txId);
       setTransactionStatus(`Transaction successful! ID: ${txId}`);
+
     } catch (error) {
       console.error("Transaction failed:", error);
       setTransactionStatus("Transaction failed. Please try again.");
