@@ -6,6 +6,7 @@ import {
   FaDonate,
   FaCogs,
   FaShoppingCart,
+  FaCheck,
 } from "react-icons/fa";
 import styles from "../css_modules/SidebarStyles.module.css";
 
@@ -59,6 +60,13 @@ const Sidebar: React.FC<SidebarProps> = ({ onLogout, setActiveComponent }) => {
           >
             <FaDonate className={styles.icon} />
             <span>Donate AAA</span>
+          </li>
+          <li
+            className={`${styles.navItem} ${styles.dropdown}`}
+            onClick={() => setActiveComponent("verifyAccount")}
+          >
+            <FaCheck className={styles.icon} />
+            <span>Verify Account</span>
           </li>
           <li
             className={`${styles.navItem} ${styles.dropdown}`}

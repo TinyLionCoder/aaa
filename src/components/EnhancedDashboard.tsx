@@ -11,6 +11,7 @@ import { MyWallet } from "./MyWallet";
 import { MyTeam } from "./MyTeam";
 import { SetupWallet } from "./SetupWallet";
 import axios from "axios";
+import VerificationPage from "./VerifyAccount";
 
 interface EnhancedDashboardProps {
   userName: string;
@@ -78,6 +79,8 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
         return <DonateAAA />;
       case "myWallet":
         return <MyWallet />;
+      case "verifyAccount":
+        return <VerificationPage userId={userId} />;
       case "setupWallet":
         return <SetupWallet userId={userId} />;
       case "myTeam":
