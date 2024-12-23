@@ -1,13 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { algodClient } from "../algorand/config";
 import { PeraWalletContext } from "./PeraWalletContext";
 import algosdk from "algosdk";
 import PeraWalletButton from "./PeraWalletButton";
+import axios from "axios";
 import styles from "../css_modules/VerificationPageStyles.module.css";
 
 interface VerificationPageProps {
-    userId: string | null;
-  }
+  userId: string | null;
+}
 
 const VerificationPage = ({ userId }: VerificationPageProps) => {
   const peraWallet = useContext(PeraWalletContext);
@@ -15,8 +16,26 @@ const VerificationPage = ({ userId }: VerificationPageProps) => {
   const [transactionStatus, setTransactionStatus] = useState<string | null>(
     null
   );
+  const [isVerified, setIsVerified] = useState(false);
   const [processing, setProcessing] = useState(false);
-  const verificationAddress = ""; // Replace with the wallet address to receive fees
+  const verificationAddress =
+    "SJDMEUSIKIU4LIJIMH4F7ZVMJOGF6PO4RNTPLISOVBLG6LOPG4HMWGVIKU"; 
+  const BASE_URL = "https://aaa-api.onrender.com/api/v1";
+
+  useEffect(() => {
+    if (userId) {
+      fetchVerificationStatus();
+    }
+  }, [userId]);
+
+  const fetchVerificationStatus = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/verification-status/${userId}`);
+      setIsVerified(response.data.verified);
+    } catch (error) {
+      console.error("Error fetching verification status:", error);
+    }
+  };
 
   const handleWalletConnect = (address: string) => {
     setWalletAddress(address);
@@ -29,13 +48,14 @@ const VerificationPage = ({ userId }: VerificationPageProps) => {
   };
 
   const handleVerification = async () => {
-    if (!walletAddress) {
-      alert("Please connect your wallet first.");
+    if (!walletAddress || !userId) {
+      alert("Please connect your wallet and ensure you are logged in.");
       return;
     }
 
     try {
       setProcessing(true);
+
       // Fetch transaction parameters
       const suggestedParams = await algodClient.getTransactionParams().do();
 
@@ -52,8 +72,8 @@ const VerificationPage = ({ userId }: VerificationPageProps) => {
       if (!peraWallet) {
         throw new Error("PeraWallet is not available.");
       }
-      const singleTxnGroups = [{ txn, signers: [walletAddress] }];
-      const signedTxn = await peraWallet.signTransaction([singleTxnGroups]);
+      const singleTxnGroup = [{ txn, signers: [walletAddress] }];
+      const signedTxn = await peraWallet.signTransaction([singleTxnGroup]);
 
       // Send the signed transaction
       const { txId } = await algodClient.sendRawTransaction(signedTxn).do();
@@ -61,11 +81,22 @@ const VerificationPage = ({ userId }: VerificationPageProps) => {
       // Wait for transaction confirmation
       await algosdk.waitForConfirmation(algodClient, txId, 4);
 
-      // call the api to update the user's verification status
+      // Call the backend API to update the user's verification status
+      const response = await axios.post(`${BASE_URL}/verify`, {
+        userId,
+        walletAddress,
+        txId,
+      });
 
-      console.log("Transaction confirmed with ID:", txId);
-      setTransactionStatus(`Transaction successful! ID: ${txId}`);
-
+      if (response.status === 200) {
+        setTransactionStatus("Verification successful!");
+        setIsVerified(true);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      } else {
+        setTransactionStatus("Verification failed. Please try again.");
+      }
     } catch (error) {
       console.error("Transaction failed:", error);
       setTransactionStatus("Transaction failed. Please try again.");
@@ -86,13 +117,17 @@ const VerificationPage = ({ userId }: VerificationPageProps) => {
         onDisconnect={handleWalletDisconnect}
       />
       {walletAddress && <p>Connected Wallet: {walletAddress}</p>}
-      {/* <button
+      <button
         onClick={handleVerification}
-        disabled={!walletAddress || processing}
+        disabled={!walletAddress || isVerified || processing}
         className={styles.verifyButton}
       >
-        {processing ? "Processing..." : "Verify Now"}
-      </button> */}
+        {isVerified
+          ? "Already Verified"
+          : processing
+          ? "Processing..."
+          : "Verify Now"}
+      </button>
       {transactionStatus && <p>{transactionStatus}</p>}
     </div>
   );
