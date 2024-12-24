@@ -30,7 +30,9 @@ const VerificationPage = ({ userId }: VerificationPageProps) => {
 
   const fetchVerificationStatus = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/verification-status/${userId}`);
+      const response = await axios.get(
+        `${BASE_URL}/verification-status/${userId}`
+      );
       setIsVerified(response.data.verified);
     } catch (error) {
       console.error("Error fetching verification status:", error);
@@ -107,20 +109,24 @@ const VerificationPage = ({ userId }: VerificationPageProps) => {
 
   return (
     <div className={styles.container}>
-      <h1>Verify Your Account</h1>
-      <p>
+      <h1 className={styles.title}>Verify Your Account</h1>
+      <p className={styles.description}>
         To verify your account, please pay a verification fee of{" "}
-        <strong>0.5 ALGO</strong>.
+        <strong>0.5 ALGO with your registered wallet address</strong>.
       </p>
       <PeraWalletButton
         onConnect={handleWalletConnect}
         onDisconnect={handleWalletDisconnect}
       />
-      {walletAddress && <p>Connected Wallet: {walletAddress}</p>}
+      {walletAddress && (
+        <p className={styles.walletInfo}>Connected Wallet: {walletAddress}</p>
+      )}
       <button
         onClick={handleVerification}
         disabled={!walletAddress || isVerified || processing}
-        className={styles.verifyButton}
+        className={`${styles.verifyButton} ${
+          processing || isVerified ? styles.disabledButton : ""
+        }`}
       >
         {isVerified
           ? "Already Verified"
@@ -128,7 +134,17 @@ const VerificationPage = ({ userId }: VerificationPageProps) => {
           ? "Processing..."
           : "Verify Now"}
       </button>
-      {transactionStatus && <p>{transactionStatus}</p>}
+      {transactionStatus && (
+        <p
+          className={`${styles.transactionStatus} ${
+            transactionStatus.includes("successful")
+              ? styles.success
+              : styles.error
+          }`}
+        >
+          {transactionStatus}
+        </p>
+      )}
     </div>
   );
 };
