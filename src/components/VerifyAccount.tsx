@@ -19,7 +19,7 @@ const VerificationPage = ({ userId }: VerificationPageProps) => {
   const [isVerified, setIsVerified] = useState(false);
   const [processing, setProcessing] = useState(false);
   const verificationAddress =
-    "SJDMEUSIKIU4LIJIMH4F7ZVMJOGF6PO4RNTPLISOVBLG6LOPG4HMWGVIKU"; 
+    "HE7225SD6ZKYO45QWYCE4BZ3ITFEK7WI7XGMAVAMB56FZREJVPMHNRSL2E"; 
   const BASE_URL = "https://aaa-api.onrender.com/api/v1";
 
   useEffect(() => {
