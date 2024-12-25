@@ -52,7 +52,7 @@
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-  transition: background 0.3s;
+  transition: background 0.3s, color 0.3s;
 }
 
 .icon {
@@ -78,6 +78,16 @@
 .navItem:hover {
   background: rgba(0, 0, 0, 0.05);
   cursor: pointer;
+}
+
+/* Highlight active item */
+.activeNavItem {
+  background: #6cb5e7 !important;
+  color: white;
+}
+
+.activeNavItem .icon {
+  color: white;
 }
 
 .logoutButton {
