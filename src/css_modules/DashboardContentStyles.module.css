@@ -96,6 +96,13 @@
   margin-bottom: 20px;
 }
 
+.pendingMessage {
+  font-size: 0.9rem;
+  color: #d9534f;
+  /* Bootstrap's danger red */
+}
+
+
 .icon {
   color: var(--icon-color-default);
   font-size: 1.2rem;

@@ -38,7 +38,19 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
           <h3>
             <FaCoins className={styles.icon} /> AAA Balance
           </h3>
-          <p>{aaaBalance} AAA</p>
+          {verified ? (
+            <p>{aaaBalance} AAA</p>
+          ) : (
+            <p>
+              <strong>
+                {aaaBalance} AAA (Pending)
+              </strong>
+              <br />
+              <span className={styles.pendingMessage}>
+                Requires verification to claim rewards.
+              </span>
+            </p>
+          )}
         </div>
         <div className={`${styles.statCard} ${styles["statCard-sponsor"]}`}>
           <h3>
@@ -96,9 +108,6 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
       {/* Calculator */}
       <div className={styles.calculator}>
         <ReferralCalculator />
-        {/* <p>Enter the number of referrals to estimate payouts:</p>
-        <input type="number" placeholder="Number of Referrals" /> */}
-        {/* <button>Calculate</button> */}
       </div>
     </div>
   );
