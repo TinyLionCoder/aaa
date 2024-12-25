@@ -26,6 +26,7 @@
 
 .appName {
   font-size: 1.5rem;
+  margin-top: 2rem;
   margin-bottom: 1rem;
   text-align: center;
   padding: 10px 20px;
@@ -133,13 +134,12 @@
   position: absolute;
   top: -4px;
   right: 4px;
-  background-color: #6cb5e7;
+  background-color: black !important;
   border: none;
   color: white;
   font-size: 1.2rem;
   width: 30px !important;
   height: 24px;
-  border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
