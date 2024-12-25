@@ -10,6 +10,7 @@ import ipt from "../images/ipt.png";
 import wkh from "../images/wkh.png";
 import memo from "../images/memo.png";
 import ogs from "../images/ogs.png";
+import cat from "../images/cat.png";
 
 const tokenData = [
   {
@@ -53,6 +54,12 @@ const tokenData = [
     logo: ogs, // Replace with actual logo path
     vestigeLink: "https://vestige.fi/asset/1421321088",
     xLink: "https://x.com/OG_Squad_ALGO",
+  },
+  {
+    name: "CAT",
+    logo: cat, // Replace with actual logo path
+    vestigeLink: "https://vestige.fi/asset/1691166331",
+    xLink: "https://x.com/algo_cats",
   },
   {
     name: "TLP",
