@@ -7,6 +7,8 @@ import {
   FaCogs,
   FaShoppingCart,
   FaCheck,
+  FaArrowLeft,
+  FaArrowRight,
 } from "react-icons/fa";
 import styles from "../css_modules/SidebarStyles.module.css";
 
@@ -17,14 +19,24 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ onLogout, setActiveComponent }) => {
   const [activeItem, setActiveItem] = useState<string>("dashboard");
+  const [isOpen, setIsOpen] = useState<boolean>(true);
 
   const handleItemClick = (component: string) => {
     setActiveItem(component);
     setActiveComponent(component);
   };
 
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <aside className={styles.sideNav}>
+    <aside
+      className={`${styles.sideNav} ${isOpen ? styles.open : styles.closed}`}
+    >
+      <button onClick={toggleSidebar} className={styles.toggleButton}>
+        {isOpen ? <FaArrowLeft /> : <FaArrowRight />}
+      </button>
       <h3
         onClick={() => handleItemClick("dashboard")}
         className={`${styles.appName} ${
