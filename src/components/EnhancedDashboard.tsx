@@ -84,7 +84,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
       case "setupWallet":
         return <SetupWallet userId={userId} />;
       case "myTeam":
-        return <MyTeam />;
+        return <MyTeam userId={userId} />;
       case "dashboard":
         return (
           <DashboardContent
