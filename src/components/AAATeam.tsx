@@ -3,7 +3,7 @@ import styles from "../css_modules/AAATeamStyles.module.css";
 
 const teamMembers = [
   {
-    name: "Scott Gerrad",
+    name: "Scott Gerrard",
     role: "Founder & CEO",
     image: "https://via.placeholder.com/150",
     bio: "Scott is the visionary behind AAA. With years of experience in the tech industry, he leads the team with passion and expertise.",
