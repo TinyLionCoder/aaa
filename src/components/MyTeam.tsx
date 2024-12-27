@@ -25,6 +25,13 @@ export const MyTeam = ({ userId }: MyTeamProps) => {
         "https://aaa-api.onrender.com/api/v1/my-team",
         {
           userId,
+          email: localStorage.getItem("email"),
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
 

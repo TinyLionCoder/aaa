@@ -122,6 +122,7 @@ const AuthWrapper = () => {
       setUserReferrals(referrals.length);
       setToken(token);
       localStorage.setItem("token", token);
+      localStorage.setItem("userEmail", email);
     } catch (error) {
       console.error("Login with email failed:", error);
       const errorMessage =
@@ -161,6 +162,7 @@ const AuthWrapper = () => {
       setUserReferrals(referrals.length);
       setToken(token);
       localStorage.setItem("token", token);
+      localStorage.setItem("userEmail", email);
     } catch (error) {
       console.error("Wallet login failed:", error);
       throw new Error("Wallet login failed. Please try again.");

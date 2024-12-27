@@ -23,10 +23,20 @@ export const SetupWallet = ({ userId }: SetupWalletProps) => {
       }
 
       // Call the setup-wallet API to update the wallet address
-      const response = await axios.post(`${BASE_URL}/setup-wallet`, {
-        userId,
-        walletAddress: address,
-      });
+      const response = await axios.post(
+        `${BASE_URL}/setup-wallet`,
+        {
+          userId,
+          email: localStorage.getItem("email"),
+          walletAddress: address,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
       setMessage(
         response.data.message || "Wallet address updated successfully."

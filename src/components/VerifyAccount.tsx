@@ -84,11 +84,21 @@ const VerificationPage = ({ userId }: VerificationPageProps) => {
       await algosdk.waitForConfirmation(algodClient, txId, 4);
 
       // Call the backend API to update the user's verification status
-      const response = await axios.post(`${BASE_URL}/verify`, {
-        userId,
-        walletAddress,
-        txId,
-      });
+      const response = await axios.post(
+        `${BASE_URL}/verify`,
+        {
+          userId,
+          email: localStorage.getItem("userEmail"),
+          walletAddress,
+          txId,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
       if (response.status === 200) {
         setTransactionStatus("Verification successful!");
