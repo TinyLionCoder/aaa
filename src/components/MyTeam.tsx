@@ -22,7 +22,7 @@ export const MyTeam = ({ userId }: MyTeamProps) => {
       setError(null);
 
       const response = await axios.post(
-        "https://aaa-api.onrender.com/api/v1/my-team",
+        "https://aaa-api.onrender.com/api/v1/referrals/my-team",
         {
           userId,
           email: localStorage.getItem("email"),

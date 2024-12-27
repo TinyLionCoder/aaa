@@ -39,7 +39,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
   const [loadingTotalMembers, setLoadingTotalMembers] = useState<boolean>(true);
 
   const apiClient = axios.create({
-    baseURL: "https://aaa-api.onrender.com/api/v1",
+    baseURL: "https://aaa-api.onrender.com/api/v1/members",
     headers: { "Content-Type": "application/json" },
   });
 

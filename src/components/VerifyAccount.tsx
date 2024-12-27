@@ -19,8 +19,8 @@ const VerificationPage = ({ userId }: VerificationPageProps) => {
   const [isVerified, setIsVerified] = useState(false);
   const [processing, setProcessing] = useState(false);
   const verificationAddress =
-    "HE7225SD6ZKYO45QWYCE4BZ3ITFEK7WI7XGMAVAMB56FZREJVPMHNRSL2E"; 
-  const BASE_URL = "https://aaa-api.onrender.com/api/v1";
+    "HE7225SD6ZKYO45QWYCE4BZ3ITFEK7WI7XGMAVAMB56FZREJVPMHNRSL2E";
+  const BASE_URL = "https://aaa-api.onrender.com/api/v1/verify";
 
   useEffect(() => {
     if (userId) {
@@ -144,6 +144,10 @@ const VerificationPage = ({ userId }: VerificationPageProps) => {
           ? "Processing..."
           : "Verify Now"}
       </button>
+      <strong className={styles.walletInfo}>
+        (Please ensure you are not already verified by checking your dashboard
+        to prevent loss of funds)
+      </strong>
       {transactionStatus && (
         <p
           className={`${styles.transactionStatus} ${

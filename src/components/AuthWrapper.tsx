@@ -73,7 +73,7 @@ const AuthWrapper = () => {
     setLoading(true); // Show "Processing..." feedback
     try {
       const safeReferralCode = referralCode || "";
-      await apiClient.post("/signup", {
+      await apiClient.post("/signup/signup", {
         email,
         password,
         referralCode: safeReferralCode,
@@ -100,7 +100,10 @@ const AuthWrapper = () => {
 
     setLoading(true); // Show "Processing..." feedback
     try {
-      const response = await apiClient.post("/login", { email, password });
+      const response = await apiClient.post("/login/login", {
+        email,
+        password,
+      });
 
       const {
         userId,
@@ -136,7 +139,7 @@ const AuthWrapper = () => {
   const logInWithWallet = async (connectedWallet: string) => {
     setLoading(true); // Show "Processing..." feedback
     try {
-      const response = await apiClient.post("/login", {
+      const response = await apiClient.post("/login/login", {
         walletAddress: connectedWallet,
       });
 
