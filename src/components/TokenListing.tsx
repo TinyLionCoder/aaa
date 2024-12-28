@@ -57,7 +57,7 @@ export const TokenListing: React.FC = () => {
         Please provide all the necessary details for your token listing,
         including the Algorand payment transaction ID for a fee of $250 sent to
         wallet{" "}
-        <strong>
+        <strong style={{wordBreak:"break-word"}}>
           HE7225SD6ZKYO45QWYCE4BZ3ITFEK7WI7XGMAVAMB56FZREJVPMHNRSL2E
         </strong>
         .
