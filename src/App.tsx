@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import { PeraWalletProvider } from "./components/PeraWalletProvider";
 import { TermsOfServices } from "./components/TermsOfServices";
 import { PrivacyPolicy } from "./components/PrivacyPolicy";
+import { TokenListing } from "./components/TokenListing";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/referral/:referralCode" element={<AuthWrapper />} />
           <Route path="/terms-of-services" element={<TermsOfServices />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="token-listing" element={<TokenListing/>} />
         </Routes>
       </PeraWalletProvider>
     </Router>
