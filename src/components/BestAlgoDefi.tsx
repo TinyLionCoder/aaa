@@ -11,6 +11,7 @@ import wkh from "../images/wkh.png";
 import memo from "../images/memo.png";
 import ogs from "../images/ogs.png";
 import cat from "../images/cat.png";
+import { FaStamp } from "react-icons/fa";
 
 const tokenData = [
   {
@@ -18,66 +19,77 @@ const tokenData = [
     logo: tdld, // Replace with actual logo path
     vestigeLink: "https://vestige.fi/asset/2176744157",
     xLink: "https://x.com/TinyDickLion",
+    stableTVL: true,
   },
   {
     name: "NMI",
     logo: nmi, // Replace with actual logo path
     vestigeLink: "https://vestige.fi/asset/2279886826",
     xLink: "https://x.com/ConnectionMach",
+    stableTVL: true,
   },
   {
     name: "BWOM",
     logo: bwom, // Replace with actual logo path
     vestigeLink: "https://vestige.fi/asset/2327984798",
     xLink: "https://x.com/bwombus",
+    stableTVL: true,
   },
   {
     name: "IPT",
     logo: ipt, // Replace with actual logo path
     vestigeLink: "https://vestige.fi/asset/2342621554",
     xLink: "https://x.com/1nfinite0ne",
+    stableTVL: true,
   },
   {
     name: "WKH",
     logo: wkh, // Replace with actual logo path
     vestigeLink: "https://vestige.fi/asset/2573477873",
     xLink: "https://x.com/HODL_TLP",
+    stableTVL: true,
   },
   {
     name: "MEMO",
     logo: memo, // Replace with actual logo path
     vestigeLink: "https://vestige.fi/asset/885835936",
     xLink: "https://x.com/AlgoMembers",
+    stableTVL: true,
   },
   {
     name: "SQUAD",
     logo: ogs, // Replace with actual logo path
     vestigeLink: "https://vestige.fi/asset/1421321088",
     xLink: "https://x.com/OG_Squad_ALGO",
+    stableTVL: true,
   },
   {
     name: "CAT",
     logo: cat, // Replace with actual logo path
     vestigeLink: "https://vestige.fi/asset/1691166331",
     xLink: "https://x.com/algo_cats",
+    stableTVL: true,
   },
   {
     name: "TLP",
     logo: tlp, // Replace with actual logo path
     vestigeLink: "https://vestige.fi/asset/987374809",
     xLink: "https://x.com/TLPCoin",
+    stableTVL: true,
   },
   {
     name: "REAR",
     logo: rear, // Replace with actual logo path
     vestigeLink: "https://vestige.fi/asset/2413037774",
     xLink: "https://x.com/TLPCoin",
+    stableTVL: true,
   },
   {
     name: "REA",
     logo: rea, // Replace with actual logo path
     vestigeLink: "https://vestige.fi/asset/1753483231",
     xLink: "https://x.com/TLPCoin",
+    stableTVL: true,
   },
 ];
 
@@ -112,6 +124,16 @@ const BestAlgoDefi: React.FC = () => {
                 Follow on X
               </a>
             </div>
+            {token.stableTVL && (
+              <div className={styles.stableTVL}>
+                <div className={styles.tooltipWrapper}>
+                  <FaStamp className={styles.stableTVLIcon} />
+                  <span className={styles.tooltipText}>
+                    Build LP with this token to rank higher
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         ))}
       </div>

@@ -1,95 +1,155 @@
 .container {
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.tooltipWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltipText {
+  visibility: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  /* Position above the icon */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tooltipWrapper:hover .tooltipText {
+  visibility: visible;
+  opacity: 1;
+}
+
+.stableTVL {
+  font-size: 1rem;
+  font-weight: bolder;
+  margin-top: 10px;
+  color: #333;
+}
+
+.stableTVLIcon {
+  font-size: 1.5rem;
+  margin-top: 10px;
+  color: gold;
+}
+
+.tokenGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.tokenCard {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tokenCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.tokenLogo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.tokenName {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.tokenActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.vestigeButton,
+.buyButton,
+.xButton {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.vestigeButton {
+  background-color: #3498db;
+}
+
+.vestigeButton:hover {
+  background-color: #2980b9;
+}
+
+.buyButton {
+  background-color: #2ecc71;
+}
+
+.buyButton:hover {
+  background-color: #27ae60;
+}
+
+.xButton {
+  background-color: black;
+}
+
+.xButton:hover {
+  background-color: #0d95e8;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .tooltipText {
+    width: 150px; /* Slightly smaller width for mobile */
+    padding: 8px; /* Adjust padding for smaller screens */
+    font-size: 0.8rem; /* Smaller font size for mobile */
+    bottom: 100%; /* Position closer to the icon */
+    left: 50%;
+    transform: translateX(-50%);
   }
-  
-  .title {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: #333;
+}
+
+@media (max-width: 480px) {
+  .tooltipText {
+    width: 120px; /* Further reduce width for very small screens */
+    padding: 6px; /* Adjust padding */
+    font-size: 0.75rem; /* Smaller font size */
   }
-  
-  .tokenGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-  }
-  
-  .tokenCard {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .tokenCard:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-  }
-  
-  .tokenLogo {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 10px;
-    object-fit: contain;
-    border-radius: 50%;
-  }
-  
-  .tokenName {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-  }
-  
-  .tokenActions {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .vestigeButton,
-  .buyButton,
-  .xButton {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    transition: background 0.3s ease;
-  }
-  
-  .vestigeButton {
-    background-color: #3498db;
-  }
-  
-  .vestigeButton:hover {
-    background-color: #2980b9;
-  }
-  
-  .buyButton {
-    background-color: #2ecc71;
-  }
-  
-  .buyButton:hover {
-    background-color: #27ae60;
-  }
-  
-  .xButton {
-    background-color: black;
-  }
-  
-  .xButton:hover {
-    background-color: #0d95e8;
-  }
-  
+}
