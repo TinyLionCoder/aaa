@@ -49,9 +49,21 @@
 
 .stableTVLIcon {
   font-size: 1.5rem;
+  border-radius: 1rem;
+  border: 2px dashed #000;
+  /* Adds a solid black border */
   margin-top: 10px;
   color: gold;
+  display: inline-flex;
+  /* Ensures proper alignment */
+  align-items: center;
+  /* Centers content vertically */
+  justify-content: center;
+  /* Centers content horizontally */
+  padding: 2px;
+  /* Optional: Adds spacing inside the border */
 }
+
 
 .tokenGrid {
   display: grid;
@@ -137,10 +149,14 @@
 /* Mobile Styles */
 @media (max-width: 768px) {
   .tooltipText {
-    width: 150px; /* Slightly smaller width for mobile */
-    padding: 8px; /* Adjust padding for smaller screens */
-    font-size: 0.8rem; /* Smaller font size for mobile */
-    bottom: 100%; /* Position closer to the icon */
+    width: 150px;
+    /* Slightly smaller width for mobile */
+    padding: 8px;
+    /* Adjust padding for smaller screens */
+    font-size: 0.8rem;
+    /* Smaller font size for mobile */
+    bottom: 100%;
+    /* Position closer to the icon */
     left: 50%;
     transform: translateX(-50%);
   }
@@ -148,8 +164,11 @@
 
 @media (max-width: 480px) {
   .tooltipText {
-    width: 120px; /* Further reduce width for very small screens */
-    padding: 6px; /* Adjust padding */
-    font-size: 0.75rem; /* Smaller font size */
+    width: 120px;
+    /* Further reduce width for very small screens */
+    padding: 6px;
+    /* Adjust padding */
+    font-size: 0.75rem;
+    /* Smaller font size */
   }
 }

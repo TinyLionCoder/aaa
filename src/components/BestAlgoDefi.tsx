@@ -11,7 +11,7 @@ import wkh from "../images/wkh.png";
 import memo from "../images/memo.png";
 import ogs from "../images/ogs.png";
 import cat from "../images/cat.png";
-import { FaStamp } from "react-icons/fa";
+import { FaPlane } from "react-icons/fa";
 
 const tokenData = [
   {
@@ -127,7 +127,7 @@ const BestAlgoDefi: React.FC = () => {
             {token.stableTVL && (
               <div className={styles.stableTVL}>
                 <div className={styles.tooltipWrapper}>
-                  <FaStamp className={styles.stableTVLIcon} />
+                  <FaPlane className={styles.stableTVLIcon} />
                   <span className={styles.tooltipText}>
                     Build LP with this token to rank higher
                   </span>
