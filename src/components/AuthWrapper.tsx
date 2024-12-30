@@ -40,9 +40,56 @@ const AuthWrapper = () => {
 
   // Load token from localStorage on initial render
   useEffect(() => {
-    const savedToken = localStorage.getItem("token");
-    if (savedToken) {
-      setToken(savedToken);
+    const fetchData = async () => {
+      const savedToken = localStorage.getItem("token");
+      const savedEmail = localStorage.getItem("userEmail");
+      const savedUserId = localStorage.getItem("userId");
+      if (savedToken) {
+        setToken(savedToken);
+        setEmail(savedEmail || "");
+      }
+      const response = await axios.post(
+        `https://aaa-api.onrender.com/api/v1/userDetails/get-user-details`,
+        {
+          userId: savedUserId,
+          email: savedEmail,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${savedToken}`,
+          },
+        }
+      );
+
+      const {
+        referralCode,
+        walletAddress: returnedWalletAddress,
+        aaaBalance,
+        referrals,
+        verified, // Add email verification status from the backend
+      } = response.data;
+
+      const userName = savedEmail ? savedEmail.split("@")[0] : "Unknown"; // Extract username from email
+      setUserName(userName); // Set the username to the email
+      setUserLoggedIn(true);
+      setIsVerified(verified);
+      setUserReferralCode(referralCode);
+      setWalletAddress(returnedWalletAddress);
+      setAaaBalance(aaaBalance);
+      setUserReferrals(referrals.length);
+    };
+
+    try {
+      fetchData();
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+      if (axios.isAxiosError(error) && error.response?.status === 403) {
+        logout();
+        toast.error("Session expired. Please log in again.");
+      } else {
+        toast.error("Error loading user data. Please try again.");
+      }
     }
   }, []);
 
@@ -125,6 +172,7 @@ const AuthWrapper = () => {
       setUserReferrals(referrals.length);
       setToken(token);
       localStorage.setItem("token", token);
+      localStorage.setItem("userId", userId);
       localStorage.setItem("userEmail", email);
     } catch (error) {
       console.error("Login with email failed:", error);
@@ -165,6 +213,7 @@ const AuthWrapper = () => {
       setUserReferrals(referrals.length);
       setToken(token);
       localStorage.setItem("token", token);
+      localStorage.setItem("userId", userId);
       localStorage.setItem("userEmail", email);
     } catch (error) {
       console.error("Wallet login failed:", error);
@@ -190,6 +239,8 @@ const AuthWrapper = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("PeraWallet.Wallet");
     localStorage.removeItem("walletconnect");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userEmail");
 
     if (triggerWalletDisconnect) {
       peraWalletRef.current?.disconnectWallet();
