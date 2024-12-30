@@ -18,7 +18,7 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ onLogout, setActiveComponent }) => {
-  const [activeItem, setActiveItem] = useState<string>("dashboard");
+  const [activeItem, setActiveItem] = useState<string>("bestAlgoDefi");
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
   const handleItemClick = (component: string) => {

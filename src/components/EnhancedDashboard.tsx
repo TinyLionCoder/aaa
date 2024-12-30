@@ -34,7 +34,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
   userId,
   onLogout,
 }) => {
-  const [activeComponent, setActiveComponent] = useState<string>("dashboard"); // Default to dashboard content
+  const [activeComponent, setActiveComponent] = useState<string>("bestAlgoDefi"); // Default to dashboard content
   const [totalMembers, setTotalMembers] = useState<number>(0);
   const [loadingTotalMembers, setLoadingTotalMembers] = useState<boolean>(true);
 
