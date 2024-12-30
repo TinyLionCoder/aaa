@@ -41,11 +41,11 @@ const AuthWrapper = () => {
   // Load token from localStorage on initial render
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true); // Show "Processing..." feedback
       const savedToken = localStorage.getItem("token");
       const savedEmail = localStorage.getItem("userEmail");
       const savedUserId = localStorage.getItem("userId");
       if (savedToken) {
+        setLoading(true); // Show "Processing..." feedback
         setToken(savedToken);
         setEmail(savedEmail || "");
       }
