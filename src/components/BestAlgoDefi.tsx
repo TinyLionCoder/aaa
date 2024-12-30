@@ -128,19 +128,26 @@ const BestAlgoDefi: React.FC = () => {
       const poolUSDValues: { [key: string]: number } = {};
       const tokenTVL: { [key: string]: number } = {};
 
-      for (const token of tokenData) {
-        try {
-          const response = await fetch(
-            `https://free-api.vestige.fi/asset/${token.assetID}/pools?include_all=true`
-          );
-          const pools = await response.json();
+      try {
+        // Fetch all pools for all tokens in parallel
+        const poolResponses = await Promise.all(
+          tokenData.map((token) =>
+            fetch(
+              `https://free-api.vestige.fi/asset/${token.assetID}/pools?include_all=true`
+            ).then((res) => res.json())
+          )
+        );
+
+        // Process pool data
+        tokenData.forEach((token, index) => {
+          const pools = poolResponses[index];
 
           stableTVLAssetIDs.forEach((stableID) => {
             const pairKey = `${token.name.toLowerCase()}/${tokenData
               .find((t) => t.assetID === stableID)
               ?.name.toLowerCase()}`;
 
-            // Find all relevant pools for the pair from T3, T2, and TM
+            // Collect all relevant pool addresses for T3, T2, and TM
             const relevantPools = pools.filter(
               (pool: any) =>
                 ["T3", "T2", "TM"].includes(pool.provider) &&
@@ -157,67 +164,68 @@ const BestAlgoDefi: React.FC = () => {
               );
             }
           });
-        } catch (error) {
-          console.error(`Error fetching pools for ${token.name}:`, error);
-        }
-      }
-
-      // console.log("Pool Addresses:", poolAddresses);
-
-      // Fetch USD values for the pool addresses
-      for (const [pairKey, addresses] of Object.entries(poolAddresses)) {
-        try {
-          const usdValues = await Promise.all(
-            addresses.map(async (address: string) => {
-              const poolResponse = await fetch(
-                `https://mainnet.analytics.tinyman.org/api/v1/pools/${address}`
-              );
-              const poolData = await poolResponse.json();
-              return parseFloat(poolData.liquidity_in_usd) || 0;
-            })
-          );
-          // Sum up all USD values for the token pair
-          poolUSDValues[pairKey] = usdValues.reduce(
-            (sum, value) => sum + value,
-            0
-          );
-        } catch (error) {
-          console.error(`Error fetching USD value for pool ${pairKey}:`, error);
-          poolUSDValues[pairKey] = 0;
-        }
-      }
-
-      // console.log("Pool USD Values:", poolUSDValues);
-
-      // Calculate total TVL for each token
-      tokenData.forEach((token) => {
-        const tokenPairs = Object.keys(poolUSDValues).filter((pairKey) =>
-          pairKey.startsWith(token.name.toLowerCase())
-        );
-        const totalTVL = tokenPairs.reduce(
-          (sum, pairKey) => sum + (poolUSDValues[pairKey] || 0),
-          0
-        );
-        tokenTVL[token.name] = totalTVL;
-      });
-
-      // console.log("Token Total Stable TVL:", tokenTVL);
-
-      // Sort tokens by stable TVL first, then by total TVL in descending order
-      const sorted = tokenData
-        .map((token) => ({
-          ...token,
-          totalTVL: tokenTVL[token.name] || 0,
-        }))
-        .sort((a, b) => {
-          if (a.stableTVL !== b.stableTVL) {
-            return a.stableTVL ? -1 : 1; // Stable TVL tokens first
-          }
-          return b.totalTVL - a.totalTVL; // Sort by total TVL
         });
 
-      setSortedTokens(sorted);
-      setIsLoading(false);
+        console.log("Pool Addresses:", poolAddresses);
+
+        // Fetch USD values for all pool addresses in parallel
+        const usdValuePromises = Object.entries(poolAddresses).map(
+          ([pairKey, addresses]) =>
+            Promise.all(
+              addresses.map((address) =>
+                fetch(
+                  `https://mainnet.analytics.tinyman.org/api/v1/pools/${address}`
+                )
+                  .then((res) => res.json())
+                  .then((data) => parseFloat(data.liquidity_in_usd) || 0)
+                  .catch(() => 0)
+              )
+            ).then((values) => {
+              // Sum up USD values for each pair
+              poolUSDValues[pairKey] = values.reduce(
+                (sum, value) => sum + value,
+                0
+              );
+            })
+        );
+
+        await Promise.all(usdValuePromises);
+
+        console.log("Pool USD Values:", poolUSDValues);
+        
+        // Calculate total TVL for each token
+        tokenData.forEach((token) => {
+          const tokenPairs = Object.keys(poolUSDValues).filter((pairKey) =>
+            pairKey.startsWith(token.name.toLowerCase())
+          );
+          const totalTVL = tokenPairs.reduce(
+            (sum, pairKey) => sum + (poolUSDValues[pairKey] || 0),
+            0
+          );
+          tokenTVL[token.name] = totalTVL;
+        });
+
+        // console.log("Token Total Stable TVL:", tokenTVL);
+
+        // Sort tokens by stable TVL first, then by total TVL in descending order
+        const sorted = tokenData
+          .map((token) => ({
+            ...token,
+            totalTVL: tokenTVL[token.name] || 0,
+          }))
+          .sort((a, b) => {
+            if (a.stableTVL !== b.stableTVL) {
+              return a.stableTVL ? -1 : 1; // Stable TVL tokens first
+            }
+            return b.totalTVL - a.totalTVL; // Sort by total TVL
+          });
+
+        setSortedTokens(sorted);
+      } catch (error) {
+        console.error("Error fetching TVL data:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     fetchStableTVL();
