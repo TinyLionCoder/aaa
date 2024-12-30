@@ -75,10 +75,15 @@ const AuthWrapper = () => {
       setUserName(userName); // Set the username to the email
       setUserLoggedIn(true);
       setIsVerified(verified);
+      setUserId(savedUserId);
       setUserReferralCode(referralCode);
       setWalletAddress(returnedWalletAddress);
       setAaaBalance(aaaBalance);
       setUserReferrals(referrals.length);
+      setAaaBalance(aaaBalance);
+      setUserReferrals(referrals.length);
+      setToken(savedToken);
+
       setLoading(false); // Hide "Processing..." feedback
     };
 
