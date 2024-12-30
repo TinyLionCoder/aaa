@@ -80,8 +80,6 @@ const AuthWrapper = () => {
       setWalletAddress(returnedWalletAddress);
       setAaaBalance(aaaBalance);
       setUserReferrals(referrals.length);
-      setAaaBalance(aaaBalance);
-      setUserReferrals(referrals.length);
       setToken(savedToken);
 
       setLoading(false); // Hide "Processing..." feedback
