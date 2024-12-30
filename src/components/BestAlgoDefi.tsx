@@ -11,9 +11,18 @@ import wkh from "../images/wkh.png";
 import memo from "../images/memo.png";
 import ogs from "../images/ogs.png";
 import cat from "../images/cat.png";
+import aaa from "../images/aaa.png";
 import { FaPlane, FaTruckLoading } from "react-icons/fa";
 
 const tokenData = [
+  {
+    name: "AAA",
+    assetID: "2004387843",
+    logo: aaa,
+    vestigeLink: "https://vestige.fi/asset/2004387843",
+    xLink: "https://x.com/algoadoptaaa",
+    stableTVL: true,
+  },
   {
     name: "TDLD",
     assetID: "2176744157",
@@ -127,27 +136,38 @@ const BestAlgoDefi: React.FC = () => {
       const poolAddresses: { [key: string]: string[] } = {}; // Store multiple addresses per pair
       const poolUSDValues: { [key: string]: number } = {};
       const tokenTVL: { [key: string]: number } = {};
+      const processedPairs = new Set(); // Track processed pairKeys to avoid duplicates
 
       try {
-        // Fetch all pools for all tokens in parallel
-        const poolResponses = await Promise.all(
-          tokenData.map((token) =>
-            fetch(
-              `https://free-api.vestige.fi/asset/${token.assetID}/pools?include_all=true`
-            ).then((res) => res.json())
-          )
-        );
+        const assetIDSet = new Set(tokenData.map((t) => t.assetID)); // Efficient assetID lookup
 
-        // Process pool data
+        // Fetch Tinyman and PactFi pools in parallel
+        const [tinymanPoolResponses, pactFiPoolResponses] = await Promise.all([
+          Promise.all(
+            tokenData.map((token) =>
+              fetch(
+                `https://free-api.vestige.fi/asset/${token.assetID}/pools?include_all=true`
+              ).then((res) => res.json())
+            )
+          ),
+          Promise.all(
+            tokenData.map((token) =>
+              fetch(
+                `https://api.pact.fi/api/internal/pools?limit=50&offset=0&search=${token.name}`
+              ).then((res) => res.json())
+            )
+          ),
+        ]);
+
+        // Process Tinyman pools
         tokenData.forEach((token, index) => {
-          const pools = poolResponses[index];
+          const pools = tinymanPoolResponses[index];
 
           stableTVLAssetIDs.forEach((stableID) => {
-            const pairKey = `${token.name.toLowerCase()}/${tokenData
-              .find((t) => t.assetID === stableID)
-              ?.name.toLowerCase()}`;
+            const pairKey = [token.assetID.toString(), stableID.toString()]
+              .sort()
+              .join("/");
 
-            // Collect all relevant pool addresses for T3, T2, and TM
             const relevantPools = pools.filter(
               (pool: any) =>
                 ["T3", "T2", "TM"].includes(pool.provider) &&
@@ -166,9 +186,27 @@ const BestAlgoDefi: React.FC = () => {
           });
         });
 
-        console.log("Pool Addresses:", poolAddresses);
+        // Process PactFi pools
+        tokenData.forEach((token, index) => {
+          const pools = pactFiPoolResponses[index]?.results || [];
 
-        // Fetch USD values for all pool addresses in parallel
+          pools.forEach((pool: any) => {
+            const [asset1, asset2] = pool.assets;
+            if (assetIDSet.has(asset1.id) && assetIDSet.has(asset2.id)) {
+              const pairKey = [asset1.id.toString(), asset2.id.toString()]
+                .sort()
+                .join("/");
+
+              if (!processedPairs.has(pairKey)) {
+                processedPairs.add(pairKey);
+                poolUSDValues[pairKey] =
+                  (poolUSDValues[pairKey] || 0) + parseFloat(pool.tvl_usd);
+              }
+            }
+          });
+        });
+
+        // Fetch Tinyman USD values
         const usdValuePromises = Object.entries(poolAddresses).map(
           ([pairKey, addresses]) =>
             Promise.all(
@@ -181,23 +219,24 @@ const BestAlgoDefi: React.FC = () => {
                   .catch(() => 0)
               )
             ).then((values) => {
-              // Sum up USD values for each pair
-              poolUSDValues[pairKey] = values.reduce(
-                (sum, value) => sum + value,
-                0
-              );
+              poolUSDValues[pairKey] =
+                (poolUSDValues[pairKey] || 0) +
+                values.reduce((sum, value) => sum + value, 0);
             })
         );
 
         await Promise.all(usdValuePromises);
 
-        console.log("Pool USD Values:", poolUSDValues);
-        
         // Calculate total TVL for each token
         tokenData.forEach((token) => {
-          const tokenPairs = Object.keys(poolUSDValues).filter((pairKey) =>
-            pairKey.startsWith(token.name.toLowerCase())
-          );
+          const tokenPairs = Object.keys(poolUSDValues).filter((pairKey) => {
+            const [id1, id2] = pairKey.split("/");
+            return (
+              id1 === token.assetID.toString() ||
+              id2 === token.assetID.toString()
+            );
+          });
+
           const totalTVL = tokenPairs.reduce(
             (sum, pairKey) => sum + (poolUSDValues[pairKey] || 0),
             0
@@ -205,9 +244,7 @@ const BestAlgoDefi: React.FC = () => {
           tokenTVL[token.name] = totalTVL;
         });
 
-        // console.log("Token Total Stable TVL:", tokenTVL);
-
-        // Sort tokens by stable TVL first, then by total TVL in descending order
+        // Sort tokens by stable TVL first, then by total TVL
         const sorted = tokenData
           .map((token) => ({
             ...token,
@@ -215,9 +252,9 @@ const BestAlgoDefi: React.FC = () => {
           }))
           .sort((a, b) => {
             if (a.stableTVL !== b.stableTVL) {
-              return a.stableTVL ? -1 : 1; // Stable TVL tokens first
+              return a.stableTVL ? -1 : 1;
             }
-            return b.totalTVL - a.totalTVL; // Sort by total TVL
+            return b.totalTVL - a.totalTVL;
           });
 
         setSortedTokens(sorted);
