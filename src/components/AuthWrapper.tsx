@@ -44,60 +44,59 @@ const AuthWrapper = () => {
       const savedToken = localStorage.getItem("token");
       const savedEmail = localStorage.getItem("userEmail");
       const savedUserId = localStorage.getItem("userId");
-      if (savedToken && savedUserId && savedEmail) {
+      if (savedToken) {
         setLoading(true); // Show "Processing..." feedback
         setToken(savedToken);
-        setUserId(savedUserId);
         setEmail(savedEmail || "");
-
-        const response = await axios.post(
-          `https://aaa-api.onrender.com/api/v1/userDetails/get-user-details`,
-          {
-            userId: savedUserId,
-            email: savedEmail,
+      }
+      const response = await axios.post(
+        `https://aaa-api.onrender.com/api/v1/userDetails/get-user-details`,
+        {
+          userId: savedUserId,
+          email: savedEmail,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${savedToken}`,
           },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${savedToken}`,
-            },
-          }
-        );
-
-        const {
-          referralCode,
-          walletAddress: returnedWalletAddress,
-          aaaBalance,
-          referrals,
-          verified, // Add email verification status from the backend
-        } = response.data;
-
-        const userName = savedEmail ? savedEmail.split("@")[0] : "Unknown"; // Extract username from email
-        setUserName(userName); // Set the username to the email
-        setUserLoggedIn(true);
-        setIsVerified(verified);
-        setUserReferralCode(referralCode);
-        setWalletAddress(returnedWalletAddress);
-        setAaaBalance(aaaBalance);
-        setUserReferrals(referrals.length);
-        setToken(savedToken);
-
-        setLoading(false); // Hide "Processing..." feedback
-      }
-
-      try {
-        fetchData();
-      } catch (error) {
-        console.error("Error fetching user details:", error);
-        if (axios.isAxiosError(error) && error.response?.status === 403) {
-          logout();
-          toast.error("Session expired. Please log in again.");
-        } else {
-          toast.error("Error loading user data. Please try again.");
         }
-        setLoading(false); // Hide "Processing..." feedback
-      }
+      );
+
+      const {
+        referralCode,
+        walletAddress: returnedWalletAddress,
+        aaaBalance,
+        referrals,
+        verified, // Add email verification status from the backend
+      } = response.data;
+
+      const userName = savedEmail ? savedEmail.split("@")[0] : "Unknown"; // Extract username from email
+      setUserName(userName); // Set the username to the email
+      setUserLoggedIn(true);
+      setIsVerified(verified);
+      setUserId(savedUserId);
+      setUserReferralCode(referralCode);
+      setWalletAddress(returnedWalletAddress);
+      setAaaBalance(aaaBalance);
+      setUserReferrals(referrals.length);
+      setToken(savedToken);
+
+      setLoading(false); // Hide "Processing..." feedback
     };
+
+    try {
+      fetchData();
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+      if (axios.isAxiosError(error) && error.response?.status === 403) {
+        logout();
+        toast.error("Session expired. Please log in again.");
+      } else {
+        toast.error("Error loading user data. Please try again.");
+      }
+      setLoading(false); // Hide "Processing..." feedback
+    }
   }, []);
 
   const handleWalletConnect = async (connectedAddress: string | null) => {
