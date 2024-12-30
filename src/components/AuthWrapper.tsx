@@ -79,6 +79,7 @@ const AuthWrapper = () => {
       setWalletAddress(returnedWalletAddress);
       setAaaBalance(aaaBalance);
       setUserReferrals(referrals.length);
+      setLoading(false); // Hide "Processing..." feedback
     };
 
     try {
@@ -91,6 +92,7 @@ const AuthWrapper = () => {
       } else {
         toast.error("Error loading user data. Please try again.");
       }
+      setLoading(false); // Hide "Processing..." feedback
     }
   }, []);
 
