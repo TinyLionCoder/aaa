@@ -39,6 +39,14 @@
   font-style: italic;
 }
 
+.totalPortfolioValue {
+  font-size: 24px;
+  font-weight: bolder;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
 .assetTableWrapper {
   width: 100%;
   overflow-x: auto;

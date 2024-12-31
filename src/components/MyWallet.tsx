@@ -27,6 +27,7 @@ export const MyWallet = () => {
   const [filteredAssets, setFilteredAssets] = useState<Asset[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [filter, setFilter] = useState<string>("");
+  const [totalPortfolioValue, setTotalPortfolioValue] = useState<number>(0); // State for total portfolio value
 
   useEffect(() => {
     const PeraWalletWallet: any = localStorage.getItem("PeraWallet.Wallet");
@@ -88,6 +89,22 @@ export const MyWallet = () => {
     }
   };
 
+  const fetchTinymanPrice = async (assetId: number) => {
+    try {
+      const response = await fetch(
+        `https://mainnet.api.perawallet.app/v1/public/assets/${assetId}`
+      );
+      const data = await response.json();
+      return parseFloat(data.usd_value) || 0;
+    } catch (error) {
+      console.error(
+        `Error fetching Tinyman price for asset ID ${assetId}:`,
+        error
+      );
+      return 0;
+    }
+  };
+
   const formatAmount = (amount: number, decimals: number) => {
     return parseFloat((amount / Math.pow(10, decimals)).toFixed(2));
   };
@@ -143,6 +160,13 @@ export const MyWallet = () => {
       const nonZeroAssets = resolvedAssets.filter((asset) => asset.amount > 0);
       setAssets(nonZeroAssets);
       setFilteredAssets(nonZeroAssets);
+
+      // Calculate total portfolio value
+      const totalValue = nonZeroAssets.reduce(
+        (total, asset) => total + (asset.usdValue || 0),
+        0
+      );
+      setTotalPortfolioValue(totalValue);
     } catch (error) {
       console.error("Error fetching assets:", error);
     } finally {
@@ -150,24 +174,6 @@ export const MyWallet = () => {
     }
   };
 
-  // Fetch USD price for Tinyman pool tokens
-  const fetchTinymanPrice = async (assetId: number) => {
-    try {
-      const response = await fetch(
-        `https://mainnet.api.perawallet.app/v1/public/assets/${assetId}`
-      );
-      const data = await response.json();
-      return parseFloat(data.usd_value) || 0;
-    } catch (error) {
-      console.error(
-        `Error fetching Tinyman price for asset ID ${assetId}:`,
-        error
-      );
-      return 0;
-    }
-  };
-
-  // Generate distinct colors for each asset
   const generateColors = (count: number) => {
     const colors = [];
     for (let i = 0; i < count; i++) {
@@ -212,6 +218,9 @@ export const MyWallet = () => {
         <>
           <p className={styles.walletAddress}>
             Wallet Address: <span>{walletAddress}</span>
+          </p>
+          <p className={styles.totalPortfolioValue}>
+            Total Portfolio Value: <span>${totalPortfolioValue.toFixed(2)}</span>
           </p>
           {loading ? (
             <p className={styles.loading}>Loading assets...</p>
