@@ -40,8 +40,10 @@ export const MyWallet = () => {
   useEffect(() => {
     const lowerCaseFilter = filter.toLowerCase();
     setFilteredAssets(
-      assets.filter((asset) =>
-        asset.name.toLowerCase().includes(lowerCaseFilter)
+      assets.filter(
+        (asset) =>
+          asset.name.toLowerCase().includes(lowerCaseFilter) ||
+          asset.unitName.toLowerCase().includes(lowerCaseFilter)
       )
     );
   }, [filter, assets]);
@@ -193,7 +195,7 @@ export const MyWallet = () => {
               <div className={styles.filterContainer}>
                 <input
                   type="text"
-                  placeholder="Filter by token name..."
+                  placeholder="Filter token..."
                   value={filter}
                   onChange={(e) => setFilter(e.target.value)}
                   className={styles.filterInput}
