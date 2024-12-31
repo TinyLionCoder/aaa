@@ -12,6 +12,7 @@ import memo from "../images/memo.png";
 import ogs from "../images/ogs.png";
 import cat from "../images/cat.png";
 import aaa from "../images/aaa.png";
+import marcus from "../images/marcus.png";
 import { FaPlane, FaTruckLoading } from "react-icons/fa";
 
 const tokenData = [
@@ -109,6 +110,14 @@ const tokenData = [
     logo: rea,
     vestigeLink: "https://vestige.fi/asset/1753483231",
     xLink: "https://x.com/TLPCoin",
+    stableTVL: true,
+  },
+  {
+    name: "MARCUS",
+    assetID: "2466866698",
+    logo: marcus,
+    vestigeLink: "https://vestige.fi/asset/2466866698",
+    xLink: "https://x.com/MarcusFurrelius",
     stableTVL: true,
   },
 ];
