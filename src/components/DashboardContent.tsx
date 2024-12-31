@@ -90,6 +90,14 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
         </div>
       </div>
 
+      <div className={styles.notificatioSection}>
+        <h3>Notification</h3>
+        <p className={styles.content}>
+          Payments will be deposited directly into your wallets the first week
+          of every month
+        </p>
+      </div>
+
       {/* Referral Link */}
       {verified && (
         <div className={styles.referralSection}>

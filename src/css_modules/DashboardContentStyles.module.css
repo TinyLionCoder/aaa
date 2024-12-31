@@ -96,6 +96,14 @@
   margin-bottom: 20px;
 }
 
+.notificatioSection {
+  .content{
+    font-weight: bolder;
+    color: red;
+  }
+  margin-bottom: 20px;
+}
+
 .pendingMessage {
   font-size: 0.9rem;
   color: #d9534f;
