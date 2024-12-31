@@ -18,12 +18,15 @@ interface Asset {
   name: string;
   unitName: string;
   decimals: number;
+  usdValue?: number; // Optional USD value
 }
 
 export const MyWallet = () => {
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [assets, setAssets] = useState<Asset[]>([]);
+  const [filteredAssets, setFilteredAssets] = useState<Asset[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [filter, setFilter] = useState<string>("");
 
   useEffect(() => {
     const PeraWalletWallet: any = localStorage.getItem("PeraWallet.Wallet");
@@ -33,6 +36,15 @@ export const MyWallet = () => {
       fetchAssets(SelectedAccount);
     }
   }, []);
+
+  useEffect(() => {
+    const lowerCaseFilter = filter.toLowerCase();
+    setFilteredAssets(
+      assets.filter((asset) =>
+        asset.name.toLowerCase().includes(lowerCaseFilter)
+      )
+    );
+  }, [filter, assets]);
 
   const fetchAssetDetails = async (assetId: number) => {
     try {
@@ -61,6 +73,19 @@ export const MyWallet = () => {
     }
   };
 
+  const fetchAssetPrice = async (assetId: number) => {
+    try {
+      const response = await fetch(
+        `https://free-api.vestige.fi/asset/${assetId}/price?currency=usd`
+      );
+      const data = await response.json();
+      return data.price || 0;
+    } catch (error) {
+      console.error(`Error fetching price for asset ID ${assetId}:`, error);
+      return 0;
+    }
+  };
+
   const formatAmount = (amount: number, decimals: number) => {
     return parseFloat((amount / Math.pow(10, decimals)).toFixed(2));
   };
@@ -79,12 +104,17 @@ export const MyWallet = () => {
         const isVerified = await fetchPeraVerification(asset["asset-id"]);
 
         if (isVerified) {
+          const amount = formatAmount(asset.amount, decimals);
+          const usdPrice = await fetchAssetPrice(asset["asset-id"]);
+          const usdValue = parseFloat((amount * usdPrice).toFixed(2));
+
           return {
             assetId: asset["asset-id"],
-            amount: formatAmount(asset.amount, decimals),
+            amount,
             name,
             unitName,
             decimals,
+            usdValue,
           };
         }
 
@@ -98,6 +128,7 @@ export const MyWallet = () => {
       // Filter out assets with zero amounts
       const nonZeroAssets = resolvedAssets.filter((asset) => asset.amount > 0);
       setAssets(nonZeroAssets);
+      setFilteredAssets(nonZeroAssets);
     } catch (error) {
       console.error("Error fetching assets:", error);
     } finally {
@@ -154,10 +185,41 @@ export const MyWallet = () => {
           {loading ? (
             <p className={styles.loading}>Loading assets...</p>
           ) : assets.length > 0 ? (
-            <div className={styles.chartWrapper}>
-              <Pie data={pieData} options={pieOptions} />
-              <p>Data provided by Pera</p>
-            </div>
+            <>
+              <div className={styles.chartWrapper}>
+                <Pie data={pieData} options={pieOptions} />
+                <p>Data provided by Pera</p>
+              </div>
+              <div className={styles.filterContainer}>
+                <input
+                  type="text"
+                  placeholder="Filter by token name..."
+                  value={filter}
+                  onChange={(e) => setFilter(e.target.value)}
+                  className={styles.filterInput}
+                />
+              </div>
+              <table className={styles.assetTable}>
+                <thead>
+                  <tr>
+                    <th>Asset Name</th>
+                    <th>Unit Name</th>
+                    <th>Amount</th>
+                    <th>Value (USD)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredAssets.map((asset) => (
+                    <tr key={asset.assetId}>
+                      <td>{asset.name}</td>
+                      <td>{asset.unitName}</td>
+                      <td>{asset.amount}</td>
+                      <td>{asset.usdValue?.toFixed(2) || "N/A"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
           ) : (
             <p className={styles.noAssets}>
               No verified assets found in this wallet.
