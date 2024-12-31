@@ -164,7 +164,7 @@
   .assetTable th,
   .assetTable td {
     padding: 8px;
-    font-size: 14px;
+    font-size: 4px;
   }
 
   .loading {
@@ -194,7 +194,7 @@
   .assetTable th,
   .assetTable td {
     padding: 10px;
-    font-size: 15px;
+    font-size: 4px;
   }
 }
 
@@ -211,6 +211,6 @@
   .assetTable th,
   .assetTable td {
     padding: 12px;
-    font-size: 16px;
+    font-size: 4px;
   }
 }
