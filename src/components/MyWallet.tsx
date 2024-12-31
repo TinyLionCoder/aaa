@@ -104,10 +104,22 @@ export const MyWallet = () => {
           asset["asset-id"]
         );
         const isVerified = await fetchPeraVerification(asset["asset-id"]);
+        const isTinymanPool = name.toLowerCase().includes("tinyman");
 
-        if (isVerified) {
+        let usdPrice = 0;
+
+        // Fetch USD price from the appropriate API
+        if (isTinymanPool) {
+          // Use Tinyman API for pool tokens
+          const tinymanPrice = await fetchTinymanPrice(asset["asset-id"]);
+          usdPrice = tinymanPrice;
+        } else if (isVerified) {
+          // Use Vestige API for verified assets
+          usdPrice = await fetchAssetPrice(asset["asset-id"]);
+        }
+
+        if (usdPrice > 0) {
           const amount = formatAmount(asset.amount, decimals);
-          const usdPrice = await fetchAssetPrice(asset["asset-id"]);
           const usdValue = parseFloat((amount * usdPrice).toFixed(2));
 
           return {
@@ -135,6 +147,23 @@ export const MyWallet = () => {
       console.error("Error fetching assets:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Fetch USD price for Tinyman pool tokens
+  const fetchTinymanPrice = async (assetId: number) => {
+    try {
+      const response = await fetch(
+        `https://mainnet.api.perawallet.app/v1/public/assets/${assetId}`
+      );
+      const data = await response.json();
+      return parseFloat(data.usd_value) || 0;
+    } catch (error) {
+      console.error(
+        `Error fetching Tinyman price for asset ID ${assetId}:`,
+        error
+      );
+      return 0;
     }
   };
 
