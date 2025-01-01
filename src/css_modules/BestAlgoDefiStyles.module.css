@@ -19,6 +19,92 @@
   color: gold;
 }
 
+.intervalFilterContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  /* Align content to the left */
+  gap: 10px;
+  /* Space between label and dropdown */
+  margin-bottom: 20px;
+  /* Add some spacing below the container */
+  padding: 10px;
+  /* Add internal spacing for a clean look */
+  background-color: #f5f5f5;
+  /* Light gray background for distinction */
+  border-radius: 6px;
+  /* Rounded corners for a modern look */
+  border: 1px solid #ddd;
+  /* Light border to define the container */
+}
+
+.intervalFilterContainer label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+.intervalFilterContainer select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.intervalFilterContainer select:hover {
+  background-color: #e6f7ff;
+  /* Light blue hover effect */
+  border-color: #1890ff;
+  /* Blue border on hover */
+}
+
+.intervalFilterContainer select:focus {
+  border-color: #40a9ff;
+  /* Focus outline color */
+  box-shadow: 0 0 4px rgba(24, 144, 255, 0.5);
+  /* Focus glow */
+}
+
+
+.intervalSelector {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.intervalSelector:hover {
+  background-color: #e6f7ff;
+  /* Light blue hover effect */
+  border-color: #1890ff;
+  /* Blue border on hover */
+}
+
+.intervalSelector:focus {
+  border-color: #40a9ff;
+  /* Focus outline color */
+  box-shadow: 0 0 4px rgba(24, 144, 255, 0.5);
+  /* Focus glow */
+}
+
+.intervalSelector option {
+  background-color: #fff;
+  /* White background for options */
+  color: #333;
+  font-size: 16px;
+}
+
+
 .tokenTable {
   display: grid;
   grid-template-rows: auto;
@@ -194,6 +280,7 @@
   .tokenActions {
     justify-content: center;
   }
+
   .pageInfo {
     padding: 2em;
   }
@@ -212,6 +299,7 @@
   .tokenActions {
     justify-content: center;
   }
+
   .pageInfo {
     padding: 2em;
   }

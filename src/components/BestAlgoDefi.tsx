@@ -23,6 +23,7 @@ const BestAlgoDefi: React.FC = () => {
   >([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1); // Track the current page
+  const [priceChangeInterval, setPriceChangeInterval] = useState("1D");
   const PAGE_SIZE = 10; // Define the page size
 
   useEffect(() => {
@@ -154,7 +155,7 @@ const BestAlgoDefi: React.FC = () => {
 
         const fetchPriceChangePromises = tokenData.map((token) => {
           return fetch(
-            `https://free-api.vestige.fi/asset/${token.assetID}/prices/simple/1D`
+            `https://free-api.vestige.fi/asset/${token.assetID}/prices/simple/${priceChangeInterval}`
           )
             .then((res) => res.json())
             .then((priceData: Array<{ timestamp: number; price: number }>) => {
@@ -218,7 +219,7 @@ const BestAlgoDefi: React.FC = () => {
     };
 
     fetchStableTVL();
-  }, []);
+  }, [priceChangeInterval]);
 
   const totalPages = Math.ceil(sortedTokens.length / PAGE_SIZE);
 
@@ -234,6 +235,18 @@ const BestAlgoDefi: React.FC = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Best AlgoDefi Tokens</h1>
+      <div className={styles.intervalFilterContainer}>
+        <label htmlFor="intervalSelector">Select Price Change Interval:</label>
+        <select
+          id="intervalSelector"
+          value={priceChangeInterval}
+          onChange={(e) => setPriceChangeInterval(e.target.value)}
+          className={styles.intervalSelector}
+        >
+          <option value="1H">1 Hour</option>
+          <option value="1D">1 Day</option>
+        </select>
+      </div>
       {isLoading ? (
         <div className={styles.loadingContainer}>
           <FaTruckLoading className={styles.loadingIcon} />
@@ -249,7 +262,7 @@ const BestAlgoDefi: React.FC = () => {
               <div className={styles.tokenCell}>Name</div>
               <div className={styles.tokenCell}>ASA Thrust TVL</div>
               <div className={styles.tokenCell}>Latest Price</div>
-              <div className={styles.tokenCell}>24H Change</div>
+              <div className={styles.tokenCell}> {priceChangeInterval} Change</div>
               <div className={styles.tokenCell}>Links</div>
             </div>
             {displayedTokens.map((token: any) => (
