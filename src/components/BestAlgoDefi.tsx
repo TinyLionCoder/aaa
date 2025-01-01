@@ -245,6 +245,7 @@ const BestAlgoDefi: React.FC = () => {
         >
           <option value="1H">1 Hour</option>
           <option value="1D">1 Day</option>
+          <option value="7D">7 Day</option>
         </select>
       </div>
       {isLoading ? (
