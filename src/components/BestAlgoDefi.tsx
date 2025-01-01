@@ -18,6 +18,7 @@ const BestAlgoDefi: React.FC = () => {
       stableTVL: boolean;
       totalTVL: number;
       latestPrice?: number; // New field for latest price
+      priceChange24H?: number; // 24-hour price change percentage
     }>
   >([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -151,9 +152,44 @@ const BestAlgoDefi: React.FC = () => {
           )
         );
 
+        const fetchPriceChangePromises = tokenData.map((token) => {
+          return fetch(
+            `https://free-api.vestige.fi/asset/${token.assetID}/prices/simple/1D`
+          )
+            .then((res) => res.json())
+            .then((priceData: Array<{ timestamp: number; price: number }>) => {
+              if (!priceData || priceData.length === 0) {
+                return { assetID: token.assetID, change: 0 };
+              }
+
+              // Find the earliest and latest prices in the response
+              const startPrice = priceData[0]?.price || 0; // First price (earliest timestamp)
+              const endPrice = priceData[priceData.length - 1]?.price || 0; // Last price (latest timestamp)
+
+              // Calculate percentage change
+              const change =
+                startPrice > 0
+                  ? ((endPrice - startPrice) / startPrice) * 100
+                  : 0;
+
+              return { assetID: token.assetID, change };
+            })
+            .catch(() => ({ assetID: token.assetID, change: 0 })); // Fallback in case of errors
+        });
+
+        const priceChanges = await Promise.all(fetchPriceChangePromises);
+
         const latestPrices = fetchLatestPrices.reduce(
           (acc: { [key: string]: number }, curr) => {
             acc[curr.assetID] = curr.price;
+            return acc;
+          },
+          {}
+        );
+
+        const priceChangesMap = priceChanges.reduce(
+          (acc: { [key: string]: number }, curr) => {
+            acc[curr.assetID] = curr.change;
             return acc;
           },
           {}
@@ -164,6 +200,7 @@ const BestAlgoDefi: React.FC = () => {
             ...token,
             totalTVL: tokenTVL[token.name] || 0,
             latestPrice: latestPrices[token.assetID] || 0,
+            priceChange24H: priceChangesMap[token.assetID] || 0,
           }))
           .sort((a, b) => {
             if (a.stableTVL !== b.stableTVL) {
@@ -212,6 +249,7 @@ const BestAlgoDefi: React.FC = () => {
               <div className={styles.tokenCell}>Name</div>
               <div className={styles.tokenCell}>ASA Thrust TVL</div>
               <div className={styles.tokenCell}>Latest Price</div>
+              <div className={styles.tokenCell}>24H Change</div>
               <div className={styles.tokenCell}>Links</div>
             </div>
             {displayedTokens.map((token: any) => (
@@ -235,6 +273,23 @@ const BestAlgoDefi: React.FC = () => {
                 <div className={styles.tokenCell}>
                   ${token.latestPrice.toFixed(6)}
                 </div>
+                <div className={styles.tokenCell}>
+                  <div
+                    style={{
+                      color:
+                        token.priceChange24H > 0
+                          ? "green"
+                          : token.priceChange24H < 0
+                          ? "red"
+                          : "black",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {token.priceChange24H > 0 ? "+" : ""}
+                    {token.priceChange24H?.toFixed(2)}%
+                  </div>
+                </div>
+
                 <div className={styles.tokenCell}>
                   <div className={styles.tokenActions}>
                     <a
