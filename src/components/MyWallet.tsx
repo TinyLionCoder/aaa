@@ -28,6 +28,8 @@ export const MyWallet = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [filter, setFilter] = useState<string>("");
   const [totalPortfolioValue, setTotalPortfolioValue] = useState<number>(0); // State for total portfolio value
+  const [currentPage, setCurrentPage] = useState<number>(1); // Current page for pagination
+  const PAGE_SIZE = 10; // Number of assets per page
 
   useEffect(() => {
     const PeraWalletWallet: any = localStorage.getItem("PeraWallet.Wallet");
@@ -40,13 +42,13 @@ export const MyWallet = () => {
 
   useEffect(() => {
     const lowerCaseFilter = filter.toLowerCase();
-    setFilteredAssets(
-      assets.filter(
-        (asset) =>
-          asset.name.toLowerCase().includes(lowerCaseFilter) ||
-          asset.unitName.toLowerCase().includes(lowerCaseFilter)
-      )
+    const filtered = assets.filter(
+      (asset) =>
+        asset.name.toLowerCase().includes(lowerCaseFilter) ||
+        asset.unitName.toLowerCase().includes(lowerCaseFilter)
     );
+    setFilteredAssets(filtered);
+    setCurrentPage(1); // Reset to the first page when filter changes
   }, [filter, assets]);
 
   const fetchAssetDetails = async (assetId: number) => {
@@ -174,6 +176,16 @@ export const MyWallet = () => {
     }
   };
 
+  const totalPages = Math.ceil(filteredAssets.length / PAGE_SIZE);
+  const displayedAssets = filteredAssets.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
+
   const generateColors = (count: number) => {
     const colors = [];
     for (let i = 0; i < count; i++) {
@@ -249,7 +261,7 @@ export const MyWallet = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredAssets.map((asset) => (
+                  {displayedAssets.map((asset) => (
                     <tr key={asset.assetId}>
                       <td>{asset.name}</td>
                       <td>{asset.unitName}</td>
@@ -259,6 +271,25 @@ export const MyWallet = () => {
                   ))}
                 </tbody>
               </table>
+              <div className={styles.pagination}>
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className={styles.pageButton}
+                >
+                  Previous
+                </button>
+                <span className={styles.pageInfo}>
+                  Page {currentPage} of {totalPages}
+                </span>
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className={styles.pageButton}
+                >
+                  Next
+                </button>
+              </div>
             </>
           ) : (
             <p className={styles.noAssets}>

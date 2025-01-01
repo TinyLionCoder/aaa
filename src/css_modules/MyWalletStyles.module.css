@@ -155,6 +155,92 @@
   color: #333;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 12px;
+}
+
+.pageButton {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 20px;
+  background-color: #3498db;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.pageButton:disabled {
+  background-color: #ecf0f1;
+  color: #bdc3c7;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.pageButton:not(:disabled):hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+}
+
+.pageButton:not(:disabled):active {
+  transform: scale(0.95);
+  background-color: #2471a3;
+}
+
+.pageInfo {
+  font-size: 1rem;
+  color: #2c3e50;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.pageDots {
+  font-size: 1rem;
+  color: #bdc3c7;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .pagination {
+    gap: 8px;
+    margin-top: 15px;
+  }
+
+  .pageButton {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    border-radius: 15px;
+  }
+
+  .pageInfo {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pagination {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .pageButton {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    border-radius: 12px;
+  }
+
+  .pageInfo {
+    font-size: 0.75rem;
+    margin-top: 5px;
+  }
+}
+
 
 /* Responsive Styles */
 
