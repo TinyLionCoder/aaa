@@ -21,6 +21,8 @@ const BestAlgoDefi: React.FC = () => {
     }>
   >([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1); // Track the current page
+  const PAGE_SIZE = 10; // Define the page size
 
   useEffect(() => {
     const fetchStableTVL = async () => {
@@ -181,6 +183,17 @@ const BestAlgoDefi: React.FC = () => {
     fetchStableTVL();
   }, []);
 
+  const totalPages = Math.ceil(sortedTokens.length / PAGE_SIZE);
+
+  const displayedTokens = sortedTokens.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Best AlgoDefi Tokens</h1>
@@ -192,58 +205,79 @@ const BestAlgoDefi: React.FC = () => {
           </span>
         </div>
       ) : (
-        <div className={styles.tokenTable}>
-          <div className={styles.tokenRowHeader}>
-            <div className={styles.tokenCell}>Logo</div>
-            <div className={styles.tokenCell}>Name</div>
-            <div className={styles.tokenCell}>ASA Thrust TVL</div>
-            <div className={styles.tokenCell}>Latest Price</div>
-            <div className={styles.tokenCell}>links</div>
-          </div>
-          {sortedTokens.map((token: any) => (
-            <div key={token.name} className={styles.tokenRow}>
-              <div className={styles.tokenCell}>
-                <img
-                  src={token.logo}
-                  alt={`${token.name} logo`}
-                  className={styles.tokenLogo}
-                />
-              </div>
-              <div className={styles.tokenCell}>
-                {token.name}
-                <div className={styles.tokenNameLogo}>
-                  <FaPlane />
-                </div>
-              </div>
-              <div className={styles.tokenCell}>
-                ${token.totalTVL.toFixed(2)}
-              </div>
-              <div className={styles.tokenCell}>
-                ${token.latestPrice.toFixed(6)}
-              </div>
-              <div className={styles.tokenCell}>
-                <div className={styles.tokenActions}>
-                  <a
-                    href={`https://vestige.fi/asset/${token.assetID}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.vestigeButton}
-                  >
-                    Vestige
-                  </a>
-                  <a
-                    href={token.xLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.xButton}
-                  >
-                    Follow on X
-                  </a>
-                </div>
-              </div>
+        <>
+          <div className={styles.tokenTable}>
+            <div className={styles.tokenRowHeader}>
+              <div className={styles.tokenCell}>Logo</div>
+              <div className={styles.tokenCell}>Name</div>
+              <div className={styles.tokenCell}>ASA Thrust TVL</div>
+              <div className={styles.tokenCell}>Latest Price</div>
+              <div className={styles.tokenCell}>Links</div>
             </div>
-          ))}
-        </div>
+            {displayedTokens.map((token: any) => (
+              <div key={token.name} className={styles.tokenRow}>
+                <div className={styles.tokenCell}>
+                  <img
+                    src={token.logo}
+                    alt={`${token.name} logo`}
+                    className={styles.tokenLogo}
+                  />
+                </div>
+                <div className={styles.tokenCell}>
+                  {token.name}
+                  <div className={styles.tokenNameLogo}>
+                    <FaPlane />
+                  </div>
+                </div>
+                <div className={styles.tokenCell}>
+                  ${token.totalTVL.toFixed(2)}
+                </div>
+                <div className={styles.tokenCell}>
+                  ${token.latestPrice.toFixed(6)}
+                </div>
+                <div className={styles.tokenCell}>
+                  <div className={styles.tokenActions}>
+                    <a
+                      href={`https://vestige.fi/asset/${token.assetID}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.vestigeButton}
+                    >
+                      Vestige
+                    </a>
+                    <a
+                      href={token.xLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.xButton}
+                    >
+                      Follow on X
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className={styles.pagination}>
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className={styles.pageButton}
+            >
+              Previous
+            </button>
+            <span className={styles.pageInfo}>
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className={styles.pageButton}
+            >
+              Next
+            </button>
+          </div>
+        </>
       )}
     </div>
   );
