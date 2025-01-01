@@ -12,112 +12,55 @@
   color: #333;
 }
 
-.tooltipWrapper {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.tooltipText {
-  visibility: hidden;
-  width: 200px;
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  /* Position above the icon */
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.tooltipWrapper:hover .tooltipText {
-  visibility: visible;
-  opacity: 1;
-}
-
-.stableTVL {
-  font-size: 1rem;
-  font-weight: bolder;
-  margin-top: 10px;
-  color: #333;
-}
-
-.stableTVLIcon {
-  font-size: 1.5rem;
-  /* Adds a solid black border */
-  margin-top: 10px;
-  color: gold;
-  display: inline-flex;
-  /* Ensures proper alignment */
-  align-items: center;
-  /* Centers content vertically */
-  justify-content: center;
-  /* Centers content horizontally */
-  padding: 2px;
-  /* Optional: Adds spacing inside the border */
-}
-
-.tokenTVL {
-  font-size: 1rem;
-  font-weight: bolder;
-  margin-top: 10px;
-  color: #333;
-}
-
-.tokenGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-}
-
-.tokenCard {
-  background: white;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.tokenNameLogo {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  gap: 10px;
+  color: gold;
 }
 
-.tokenCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+.tokenTable {
+  display: grid;
+  grid-template-rows: auto;
+  gap: 10px;
+}
+
+.tokenRowHeader,
+.tokenRow {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr 1fr 1fr;
+  align-items: center;
+  text-align: left;
+  background-color: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tokenRowHeader {
+  font-weight: bold;
+  background-color: #e9ecef;
+}
+
+.tokenCell {
+  padding: 5px 10px;
 }
 
 .tokenLogo {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 10px;
+  width: 50px;
+  height: 50px;
   object-fit: contain;
   border-radius: 50%;
 }
 
-.tokenName {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
-}
-
 .tokenActions {
   display: flex;
-  flex-direction: column;
   gap: 10px;
 }
 
 .vestigeButton,
-.buyButton,
 .xButton {
-  padding: 10px 15px;
+  padding: 5px 10px;
   border: none;
   border-radius: 5px;
   font-size: 0.9rem;
@@ -135,14 +78,6 @@
   background-color: #2980b9;
 }
 
-.buyButton {
-  background-color: #2ecc71;
-}
-
-.buyButton:hover {
-  background-color: #27ae60;
-}
-
 .xButton {
   background-color: black;
 }
@@ -157,7 +92,6 @@
   align-items: center;
   justify-content: center;
   height: 200px;
-  /* Adjust height based on your layout */
 }
 
 .loadingIcon {
@@ -170,8 +104,6 @@
 .loadingText {
   font-size: 1.5rem;
   color: #333;
-  display: flex;
-  align-items: center;
 }
 
 .dots {
@@ -179,13 +111,7 @@
   animation: dots 1.5s steps(3, end) infinite;
 }
 
-.dots::after {
-  content: "";
-  display: inline-block;
-  animation: dots 1.5s steps(3, end) infinite;
-}
-
-/* Keyframe for spinning icon */
+/* Keyframes */
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -196,7 +122,6 @@
   }
 }
 
-/* Keyframe for dots animation */
 @keyframes dots {
   0% {
     content: ".";
@@ -215,30 +140,17 @@
   }
 }
 
-
 /* Mobile Styles */
 @media (max-width: 768px) {
-  .tooltipText {
-    width: 150px;
-    /* Slightly smaller width for mobile */
-    padding: 8px;
-    /* Adjust padding for smaller screens */
-    font-size: 0.8rem;
-    /* Smaller font size for mobile */
-    bottom: 100%;
-    /* Position closer to the icon */
-    left: 50%;
-    transform: translateX(-50%);
-  }
-}
 
-@media (max-width: 480px) {
-  .tooltipText {
-    width: 120px;
-    /* Further reduce width for very small screens */
-    padding: 6px;
-    /* Adjust padding */
-    font-size: 0.75rem;
-    /* Smaller font size */
+  .tokenRowHeader,
+  .tokenRow {
+    grid-template-columns: 1fr;
+    grid-gap: 5px;
+    text-align: center;
+  }
+
+  .tokenActions {
+    justify-content: center;
   }
 }

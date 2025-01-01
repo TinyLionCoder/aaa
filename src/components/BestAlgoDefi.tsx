@@ -17,6 +17,7 @@ const BestAlgoDefi: React.FC = () => {
       xLink: string;
       stableTVL: boolean;
       totalTVL: number;
+      latestPrice?: number; // New field for latest price
     }>
   >([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -134,11 +135,33 @@ const BestAlgoDefi: React.FC = () => {
           tokenTVL[token.name] = totalTVL;
         });
 
-        // Sort tokens by stable TVL first, then by total TVL
+        const fetchLatestPrices = await Promise.all(
+          tokenData.map((token) =>
+            fetch(
+              `https://free-api.vestige.fi/asset/${token.assetID}/price?currency=usd`
+            )
+              .then((res) => res.json())
+              .then((data) => ({
+                assetID: token.assetID,
+                price: parseFloat(data.price || 0),
+              }))
+              .catch(() => ({ assetID: token.assetID, price: 0 }))
+          )
+        );
+
+        const latestPrices = fetchLatestPrices.reduce(
+          (acc: { [key: string]: number }, curr) => {
+            acc[curr.assetID] = curr.price;
+            return acc;
+          },
+          {}
+        );
+
         const sorted = tokenData
           .map((token) => ({
             ...token,
             totalTVL: tokenTVL[token.name] || 0,
+            latestPrice: latestPrices[token.assetID] || 0,
           }))
           .sort((a, b) => {
             if (a.stableTVL !== b.stableTVL) {
@@ -149,7 +172,7 @@ const BestAlgoDefi: React.FC = () => {
 
         setSortedTokens(sorted);
       } catch (error) {
-        console.error("Error fetching TVL data:", error);
+        console.error("Error fetching TVL and price data:", error);
       } finally {
         setIsLoading(false);
       }
@@ -165,50 +188,59 @@ const BestAlgoDefi: React.FC = () => {
         <div className={styles.loadingContainer}>
           <FaTruckLoading className={styles.loadingIcon} />
           <span className={styles.loadingText}>
-            Loading<span className={styles.dots}>..</span>
+            Loading<span className={styles.dots}>....</span>
           </span>
         </div>
       ) : (
-        <div className={styles.tokenGrid}>
+        <div className={styles.tokenTable}>
+          <div className={styles.tokenRowHeader}>
+            <div className={styles.tokenCell}>Logo</div>
+            <div className={styles.tokenCell}>Name</div>
+            <div className={styles.tokenCell}>ASA Thrust TVL</div>
+            <div className={styles.tokenCell}>Latest Price</div>
+            <div className={styles.tokenCell}>links</div>
+          </div>
           {sortedTokens.map((token: any) => (
-            <div key={token.name} className={styles.tokenCard}>
-              <img
-                src={token.logo}
-                alt={`${token.name} logo`}
-                className={styles.tokenLogo}
-              />
-              <h3 className={styles.tokenName}>{token.name}</h3>
-              <p className={styles.tokenTVL}>
-                ASA Thrust TVL ${token.totalTVL.toFixed(2)}
-              </p>
-              <div className={styles.tokenActions}>
-                <a
-                  href={`https://vestige.fi/asset/${token.assetID}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.vestigeButton}
-                >
-                  Vestige
-                </a>
-                <a
-                  href={token.xLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.xButton}
-                >
-                  Follow on X
-                </a>
+            <div key={token.name} className={styles.tokenRow}>
+              <div className={styles.tokenCell}>
+                <img
+                  src={token.logo}
+                  alt={`${token.name} logo`}
+                  className={styles.tokenLogo}
+                />
               </div>
-              {token.stableTVL && (
-                <div className={styles.stableTVL}>
-                  <div className={styles.tooltipWrapper}>
-                    <FaPlane className={styles.stableTVLIcon} />
-                    <span className={styles.tooltipText}>
-                      Build LP with this token to rank higher
-                    </span>
-                  </div>
+              <div className={styles.tokenCell}>
+                {token.name}
+                <div className={styles.tokenNameLogo}>
+                  <FaPlane />
                 </div>
-              )}
+              </div>
+              <div className={styles.tokenCell}>
+                ${token.totalTVL.toFixed(2)}
+              </div>
+              <div className={styles.tokenCell}>
+                ${token.latestPrice.toFixed(6)}
+              </div>
+              <div className={styles.tokenCell}>
+                <div className={styles.tokenActions}>
+                  <a
+                    href={`https://vestige.fi/asset/${token.assetID}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.vestigeButton}
+                  >
+                    Vestige
+                  </a>
+                  <a
+                    href={token.xLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.xButton}
+                  >
+                    Follow on X
+                  </a>
+                </div>
+              </div>
             </div>
           ))}
         </div>
