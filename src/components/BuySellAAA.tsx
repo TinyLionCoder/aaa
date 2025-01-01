@@ -12,9 +12,9 @@ const BuySellAAA: React.FC = () => {
   return (
     <div className={styles.buySellContainer}>
       <header className={styles.pageHeader}>
-        <h1>Buy and Sell AAA Tokens</h1>
+        <h1>Buy and Sell Tokens</h1>
         <p>
-          Follow these four simple steps to acquire, manage, and trade your AAA
+          Follow these four simple steps to acquire, manage, and trade your
           tokens. Learn how to interact with Algorand Standard Assets (ASAs)
           with detailed guides and video tutorials.
         </p>
@@ -27,7 +27,7 @@ const BuySellAAA: React.FC = () => {
           Algorand (ALGO)
         </h2>
         <p>
-          Start by acquiring Algorand (ALGO), which is required for buying AAA
+          Start by acquiring Algorand (ALGO), which is required for buying 
           tokens. Use one of the trusted cryptocurrency wallets or exchanges
           listed below:
         </p>
@@ -161,7 +161,7 @@ const BuySellAAA: React.FC = () => {
         </h2>
         <p>
           Once your wallet is set up, send ALGO to it. Use the wallet interface
-          to opt into the AAA token by sending an opt-in transaction.
+          to opt into any desired ASA token by sending an opt-in transaction.
         </p>
         <div className={styles.videoContainer}>
           <h3>Video Tutorial: Opt Into ASA</h3>
@@ -182,8 +182,8 @@ const BuySellAAA: React.FC = () => {
           Algorand to ASA, or ASA to Algorand
         </h2>
         <p>
-          Use a decentralized exchange such as Tinyman or AlgoFi to swap ALGO
-          for AAA tokens. Always verify the token ID before transacting.
+          Use a decentralized exchange such as Tinyman or PactFi to swap ALGO
+          for other ASA tokens. Always verify the token ID before transacting.
         </p>
         <div className={styles.swapButtonContainer}>
           <a

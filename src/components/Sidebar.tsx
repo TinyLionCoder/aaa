@@ -63,7 +63,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onLogout, setActiveComponent }) => {
             onClick={() => handleItemClick("buySellAAA")}
           >
             <FaShoppingCart className={styles.icon} />
-            <span>Buy & Sell AAA</span>
+            <span>Buy & Sell</span>
           </li>
           <li
             className={`${styles.navItem} ${
