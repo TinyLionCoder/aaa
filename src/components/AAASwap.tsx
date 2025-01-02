@@ -13,6 +13,7 @@ import cat from "../images/cat.png";
 import aaa from "../images/aaa.png";
 import marcus from "../images/marcus.png";
 import algo from "../images/algo.png";
+import styles from "../css_modules/AAASwapStyles.module.css";
 
 interface Token {
   id: string;
@@ -77,85 +78,34 @@ export const AAASwap: React.FC<AAASwapProps> = ({
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
     label: string
   ) => (
-    <div style={{ textAlign: "left", width: "250px", position: "relative" }}>
-      <label style={{ display: "block", marginBottom: "8px", fontWeight: "bold" }}>
-        {label}
-      </label>
+    <div className={styles.dropdownContainer}>
+      <label className={styles.label}>{label}</label>
       <div
-        style={{
-          border: "1px solid #ccc",
-          borderRadius: "6px",
-          padding: "10px",
-          background: "#fff",
-          cursor: "pointer",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
+        className={styles.dropdown}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div style={{ display: "flex", alignItems: "center" }}>
-          {tokens.find((token) => token.id === value)?.logo && (
-            <img
-              src={tokens.find((token) => token.id === value)?.logo}
-              alt=""
-              style={{
-                width: "20px",
-                height: "20px",
-                marginRight: "10px",
-                borderRadius: "50%",
-              }}
-            />
-          )}
+        <div className={styles.selectedItem}>
+          <img
+            src={tokens.find((token) => token.id === value)?.logo || ""}
+            alt=""
+            className={styles.tokenLogo}
+          />
           {tokens.find((token) => token.id === value)?.name || "Select Token"}
         </div>
         <span>▼</span>
       </div>
       {isOpen && (
-        <ul
-          style={{
-            position: "absolute",
-            top: "100%",
-            left: 0,
-            width: "100%",
-            listStyle: "none",
-            margin: 0,
-            padding: "10px",
-            border: "1px solid #ccc",
-            borderRadius: "6px",
-            background: "#fff",
-            zIndex: 10,
-            maxHeight: "200px",
-            overflowY: "auto",
-          }}
-        >
+        <ul className={styles.dropdownList}>
           {tokens.map((token) => (
             <li
               key={token.id}
+              className={styles.dropdownItem}
               onClick={() => {
                 setValue(token.id);
                 setIsOpen(false);
               }}
-              style={{
-                padding: "10px",
-                display: "flex",
-                alignItems: "center",
-                cursor: "pointer",
-                background: value === token.id ? "#f0f0f0" : "transparent",
-              }}
             >
-              {token.logo && (
-                <img
-                  src={token.logo}
-                  alt={token.name}
-                  style={{
-                    width: "20px",
-                    height: "20px",
-                    marginRight: "10px",
-                    borderRadius: "50%",
-                  }}
-                />
-              )}
+              <img src={token.logo} alt={token.name} className={styles.tokenLogo} />
               {token.name}
             </li>
           ))}
@@ -165,9 +115,9 @@ export const AAASwap: React.FC<AAASwapProps> = ({
   );
 
   return (
-    <div style={{ textAlign: "center", padding: "20px" }}>
-      <h1 style={{ marginBottom: "20px" }}>{title}</h1>
-      <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
+    <div className={styles.container}>
+      <h1 className={styles.title}>{title}</h1>
+      <div className={styles.dropdownWrapper}>
         {renderDropdown(
           assetIn,
           setAssetIn,
@@ -186,13 +136,7 @@ export const AAASwap: React.FC<AAASwapProps> = ({
       <iframe
         title="Tinyman Swap Widget"
         src={widgetSrc}
-        style={{
-          width,
-          height,
-          border: "2px solid #ecf0f1",
-          borderRadius: "8px",
-          marginTop: "20px",
-        }}
+        className={styles.iframe}
         sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
       />
     </div>
