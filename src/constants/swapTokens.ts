@@ -54,6 +54,11 @@ export default [
     logo: "https://asa-list.tinyman.org/assets/470842789/icon.png",
   },
   {
+    id: "2494786278",
+    name: "MONKO",
+    logo: "https://asa-list.tinyman.org/assets/2494786278/icon.png",
+  },
+  {
     id: "452399768",
     name: "VOTE",
     logo: "https://asa-list.tinyman.org/assets/452399768/icon.png",
@@ -92,6 +97,41 @@ export default [
     id: "1732165149",
     name: "COMPX",
     logo: "https://asa-list.tinyman.org/assets/1732165149/icon.png",
+  },
+  {
+    id: "400593267",
+    name: "FINITE",
+    logo: "https://asa-list.tinyman.org/assets/400593267/icon.png",
+  },
+  {
+    id: "1284444444",
+    name: "ORA",
+    logo: "https://asa-list.tinyman.org/assets/1284444444/icon.png",
+  },
+  {
+    id: "2154668640",
+    name: "MOOJ",
+    logo: "https://asa-list.tinyman.org/assets/2154668640/icon.png",
+  },
+  {
+    id: "1265975021",
+    name: "NIKO",
+    logo: "https://asa-list.tinyman.org/assets/1265975021/icon.png",
+  },
+  {
+    id: "1065092715",
+    name: "COSG",
+    logo: "https://asa-list.tinyman.org/assets/1065092715/icon.png",
+  },
+  {
+    id: "2637100337",
+    name: "BRO",
+    logo: "https://asa-list.tinyman.org/assets/2637100337/icon.png",
+  },
+  {
+    id: "2627778168",
+    name: "DUGLY",
+    logo: "https://asa-list.tinyman.org/assets/2627778168/icon.png",
   },
   {
     id: "1888888888",
@@ -142,6 +182,246 @@ export default [
     id: "1088771340",
     name: "DARKCOIN",
     logo: "https://asa-list.tinyman.org/assets/1088771340/icon.png",
+  },
+  {
+    id: "2155688884",
+    name: "BASED",
+    logo: "https://asa-list.tinyman.org/assets/2155688884/icon.png",
+  },
+  {
+    id: "1285225688",
+    name: "BARB",
+    logo: "https://asa-list.tinyman.org/assets/1285225688/icon.png",
+  },
+  {
+    id: "1699699699",
+    name: "OTSDGFKD",
+    logo: "https://asa-list.tinyman.org/assets/1699699699/icon.png",
+  },
+  {
+    id: "1294383366",
+    name: "OUTSYDE",
+    logo: "https://asa-list.tinyman.org/assets/1294383366/icon.png",
+  },
+  {
+    id: "408898501",
+    name: "LTBX",
+    logo: "https://asa-list.tinyman.org/assets/408898501/icon.png",
+  },
+  {
+    id: "2619875248",
+    name: "BUMR",
+    logo: "https://asa-list.tinyman.org/assets/2619875248/icon.png",
+  },
+  {
+    id: "940424110",
+    name: "GMT",
+    logo: "https://asa-list.tinyman.org/assets/940424110/icon.png",
+  },
+  {
+    id: "137020565",
+    name: "BUY",
+    logo: "https://asa-list.tinyman.org/assets/137020565/icon.png",
+  },
+  {
+    id: "1249581181",
+    name: "WBNB",
+    logo: "https://asa-list.tinyman.org/assets/1249581181/icon.png",
+  },
+  {
+    id: "2211824164",
+    name: "TINA",
+    logo: "https://asa-list.tinyman.org/assets/2211824164/icon.png",
+  },
+  {
+    id: "569120128",
+    name: "SCOUT",
+    logo: "https://asa-list.tinyman.org/assets/569120128/icon.png",
+  },
+  {
+    id: "435335235",
+    name: "CRSD",
+    logo: "https://asa-list.tinyman.org/assets/435335235/icon.png",
+  },
+  {
+    id: "2595619475",
+    name: "STEAK",
+    logo: "https://asa-list.tinyman.org/assets/2595619475/icon.png",
+  },
+  {
+    id: "2592364447",
+    name: "MEW",
+    logo: "https://asa-list.tinyman.org/assets/2592364447/icon.png",
+  },
+  {
+    id: "2645395515",
+    name: "REM",
+    logo: "https://asa-list.tinyman.org/assets/2645395515/icon.png",
+  },
+  {
+    id: "2614577662",
+    name: "ATARD",
+    logo: "https://asa-list.tinyman.org/assets/2614577662/icon.png",
+  },
+  {
+    id: "818432243",
+    name: "DHARM",
+    logo: "https://asa-list.tinyman.org/assets/818432243/icon.png",
+  },
+  {
+    id: "1285492943",
+    name: "ARBZ",
+    logo: "https://asa-list.tinyman.org/assets/1285492943/icon.png",
+  },
+  {
+    id: "1447774422",
+    name: "SAT",
+    logo: "https://asa-list.tinyman.org/assets/1447774422/icon.png",
+  },
+  {
+    id: "1748330503",
+    name: "GAIN",
+    logo: "https://asa-list.tinyman.org/assets/1748330503/icon.png",
+  },
+  {
+    id: "1889681715",
+    name: "FLOKI",
+    logo: "https://asa-list.tinyman.org/assets/1889681715/icon.png",
+  },
+  {
+    id: "2582590415",
+    name: "MEEP",
+    logo: "https://asa-list.tinyman.org/assets/2582590415/icon.png",
+  },
+  {
+    id: "2636889771",
+    name: "BASILK",
+    logo: "https://asa-list.tinyman.org/assets/2636889771/icon.png",
+  },
+  {
+    id: "1387238831",
+    name: "GOAN",
+    logo: "https://asa-list.tinyman.org/assets/1387238831/icon.png",
+  },
+  {
+    id: "2652191787",
+    name: "AKEKIUS",
+    logo: "https://asa-list.tinyman.org/assets/2652191787/icon.png",
+  },
+  {
+    id: "412056867",
+    name: "SHSA",
+    logo: "https://asa-list.tinyman.org/assets/412056867/icon.png",
+  },
+  {
+    id: "2485314946",
+    name: "FRY",
+    logo: "https://asa-list.tinyman.org/assets/2485314946/icon.png",
+  },
+  {
+    id: "2634315632",
+    name: "PAUL",
+    logo: "https://asa-list.tinyman.org/assets/2634315632/icon.png",
+  },
+  {
+    id: "226701642",
+    name: "YLDY",
+    logo: "https://asa-list.tinyman.org/assets/226701642/icon.png",
+  },
+  {
+    id: "2155418402",
+    name: "RUGNINJA",
+    logo: "https://asa-list.tinyman.org/assets/2155418402/icon.png",
+  },
+  {
+    id: "266846137",
+    name: "SIGN",
+    logo: "https://asa-list.tinyman.org/assets/266846137/icon.png",
+  },
+  {
+    id: "1642742254",
+    name: "PIPHIN",
+    logo: "https://asa-list.tinyman.org/assets/1642742254/icon.png",
+  },
+  {
+    id: "753137719",
+    name: "BUTTS",
+    logo: "https://asa-list.tinyman.org/assets/753137719/icon.png",
+  },
+  {
+    id: "2495113411",
+    name: "PANDA",
+    logo: "https://asa-list.tinyman.org/assets/2495113411/icon.png",
+  },
+  {
+    id: "226265212",
+    name: "ACORN",
+    logo: "https://asa-list.tinyman.org/assets/226265212/icon.png",
+  },
+  {
+    id: "2160577481",
+    name: "FINU",
+    logo: "https://asa-list.tinyman.org/assets/2160577481/icon.png",
+  },
+  {
+    id: "393498731",
+    name: "GRAMO",
+    logo: "https://asa-list.tinyman.org/assets/393498731/icon.png",
+  },
+  {
+    id: "507472097",
+    name: "INUMOO",
+    logo: "https://asa-list.tinyman.org/assets/507472097/icon.png",
+  },
+  {
+    id: "1459508661",
+    name: "TRUMP",
+    logo: "https://asa-list.tinyman.org/assets/1459508661/icon.png",
+  },
+  {
+    id: "1775410837",
+    name: "BOBO",
+    logo: "https://asa-list.tinyman.org/assets/1775410837/icon.png",
+  },
+  {
+    id: "2643186677",
+    name: "SANDMAN",
+    logo: "https://asa-list.tinyman.org/assets/2643186677/icon.png",
+  },
+  {
+    id: "2485202024",
+    name: "FNODE",
+    logo: "https://asa-list.tinyman.org/assets/2485202024/icon.png",
+  },
+  {
+    id: "2350716919",
+    name: "BOOBS",
+    logo: "https://asa-list.tinyman.org/assets/2350716919/icon.png",
+  },
+  {
+    id: "558978094",
+    name: "VYBE",
+    logo: "https://asa-list.tinyman.org/assets/558978094/icon.png",
+  },
+  {
+    id: "251014570",
+    name: "BLOCK",
+    logo: "https://asa-list.tinyman.org/assets/251014570/icon.png",
+  },
+  {
+    id: "2582294183",
+    name: "GONNA",
+    logo: "https://asa-list.tinyman.org/assets/2582294183/icon.png",
+  },
+  {
+    id: "445905873",
+    name: "ALC",
+    logo: "https://asa-list.tinyman.org/assets/445905873/icon.png",
+  },
+  {
+    id: "2637111113",
+    name: "FROGGO",
+    logo: "https://asa-list.tinyman.org/assets/2637111113/icon.png",
   },
   {
     id: "1682662165",
