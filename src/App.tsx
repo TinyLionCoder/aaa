@@ -9,6 +9,7 @@ import { PrivacyPolicy } from "./components/PrivacyPolicy";
 import { TokenListing } from "./components/TokenListing";
 import { AboutUs } from "./components/Aboutus";
 import { AAASwap } from "./components/AAASwap";
+import BestAlgoDefi from "./components/BestAlgoDefi";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="token-listing" element={<TokenListing />} />
           <Route path="swap-tokens" element={<AAASwap/>} />
+          <Route path="best-algo-defi" element={<BestAlgoDefi/>} />
         </Routes>
       </PeraWalletProvider>
     </Router>

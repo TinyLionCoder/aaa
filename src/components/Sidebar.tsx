@@ -12,7 +12,6 @@ import {
   FaExchangeAlt,
 } from "react-icons/fa";
 import styles from "../css_modules/SidebarStyles.module.css";
-import { useNavigate } from "react-router-dom";
 
 interface SidebarProps {
   onLogout: () => void;
@@ -20,14 +19,10 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ onLogout, setActiveComponent }) => {
-  const navigate = useNavigate();
   const [activeItem, setActiveItem] = useState<string>("bestAlgoDefi");
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
   const handleItemClick = (component: string) => {
-    if (component === "AAASwap") {
-      navigate("/swap-tokens");
-    }
     setActiveItem(component);
     setActiveComponent(component);
   };
