@@ -12,6 +12,37 @@ import cat from "../images/cat.png";
 import aaa from "../images/aaa.png";
 import marcus from "../images/marcus.png";
 import algo from "../images/algo.png";
+import tiny from "../images/tiny.png";
+import monko from "../images/monko.png";
+import daffir from "../images/daffir.png";
+import compx from "../images/compx.png";
+import ora from "../images/ora.png";
+import mooj from "../images/mooj.png";
+import nikko from "../images/nikko.png";
+import bro from "../images/bro.png";
+import dugly from "../images/dugly.png";
+import exa from "../images/exa.png";
+import jaws from "../images/jaws.png";
+import hodl from "../images/hodl.png";
+import based from "../images/based.png";
+import barb from "../images/barb.png";
+import otsdjfkd from "../images/otsdjfkd.png";
+import outsyde from "../images/outsyde.png";
+import bumr from "../images/bumr.png";
+import wbnb from "../images/wbnb.png";
+import tina from "../images/tina.png";
+import steak from "../images/steak.png";
+import mew from "../images/mew.png";
+import rem from "../images/rem.png";
+import atard from "../images/atard.png";
+import arbz from "../images/arbz.png";
+import sat from "../images/sat.png";
+import gain from "../images/gain.png";
+import floki from "../images/floki.png";
+import basilk from "../images/basilk.png";
+import goan from "../images/goan.png";
+import meep from "../images/meep.png";
+
 
 export default [
   { id: "0", name: "ALGO", logo: algo },
@@ -31,7 +62,7 @@ export default [
   {
     id: "2200000000",
     name: "TINY",
-    logo: "https://asa-list.tinyman.org/assets/2200000000/icon.png",
+    logo: tiny,
   },
   {
     id: "388592191",
@@ -56,7 +87,7 @@ export default [
   {
     id: "2494786278",
     name: "MONKO",
-    logo: "https://asa-list.tinyman.org/assets/2494786278/icon.png",
+    logo: monko,
   },
   {
     id: "452399768",
@@ -86,7 +117,7 @@ export default [
   {
     id: "1268830233",
     name: "DAFFIR",
-    logo: "https://asa-list.tinyman.org/assets/1268830233/icon.png",
+    logo: daffir,
   },
   {
     id: "796425061",
@@ -96,7 +127,7 @@ export default [
   {
     id: "1732165149",
     name: "COMPX",
-    logo: "https://asa-list.tinyman.org/assets/1732165149/icon.png",
+    logo: compx,
   },
   {
     id: "400593267",
@@ -106,17 +137,17 @@ export default [
   {
     id: "1284444444",
     name: "ORA",
-    logo: "https://asa-list.tinyman.org/assets/1284444444/icon.png",
+    logo: ora,
   },
   {
     id: "2154668640",
     name: "MOOJ",
-    logo: "https://asa-list.tinyman.org/assets/2154668640/icon.png",
+    logo: mooj,
   },
   {
     id: "1265975021",
     name: "NIKO",
-    logo: "https://asa-list.tinyman.org/assets/1265975021/icon.png",
+    logo: nikko,
   },
   {
     id: "1065092715",
@@ -126,17 +157,17 @@ export default [
   {
     id: "2637100337",
     name: "BRO",
-    logo: "https://asa-list.tinyman.org/assets/2637100337/icon.png",
+    logo: bro,
   },
   {
     id: "2627778168",
     name: "DUGLY",
-    logo: "https://asa-list.tinyman.org/assets/2627778168/icon.png",
+    logo: dugly,
   },
   {
     id: "1888888888",
     name: "EXA",
-    logo: "https://asa-list.tinyman.org/assets/1888888888/icon.png",
+    logo: exa,
   },
   {
     id: "559219992",
@@ -171,12 +202,12 @@ export default [
   {
     id: "2155690250",
     name: "JAWS",
-    logo: "https://asa-list.tinyman.org/assets/2155690250/icon.png",
+    logo: jaws,
   },
   {
     id: "2637649940",
     name: "HODL",
-    logo: "https://asa-list.tinyman.org/assets/2637649940/icon.png",
+    logo: hodl,
   },
   {
     id: "1088771340",
@@ -186,22 +217,22 @@ export default [
   {
     id: "2155688884",
     name: "BASED",
-    logo: "https://asa-list.tinyman.org/assets/2155688884/icon.png",
+    logo: based,
   },
   {
     id: "1285225688",
     name: "BARB",
-    logo: "https://asa-list.tinyman.org/assets/1285225688/icon.png",
+    logo: barb,
   },
   {
     id: "1699699699",
     name: "OTSDGFKD",
-    logo: "https://asa-list.tinyman.org/assets/1699699699/icon.png",
+    logo: otsdjfkd,
   },
   {
     id: "1294383366",
     name: "OUTSYDE",
-    logo: "https://asa-list.tinyman.org/assets/1294383366/icon.png",
+    logo: outsyde,
   },
   {
     id: "408898501",
@@ -211,7 +242,7 @@ export default [
   {
     id: "2619875248",
     name: "BUMR",
-    logo: "https://asa-list.tinyman.org/assets/2619875248/icon.png",
+    logo: bumr,
   },
   {
     id: "940424110",
@@ -226,12 +257,12 @@ export default [
   {
     id: "1249581181",
     name: "WBNB",
-    logo: "https://asa-list.tinyman.org/assets/1249581181/icon.png",
+    logo: wbnb,
   },
   {
     id: "2211824164",
     name: "TINA",
-    logo: "https://asa-list.tinyman.org/assets/2211824164/icon.png",
+    logo: tina,
   },
   {
     id: "569120128",
@@ -246,22 +277,22 @@ export default [
   {
     id: "2595619475",
     name: "STEAK",
-    logo: "https://asa-list.tinyman.org/assets/2595619475/icon.png",
+    logo: steak,
   },
   {
     id: "2592364447",
     name: "MEW",
-    logo: "https://asa-list.tinyman.org/assets/2592364447/icon.png",
+    logo: mew,
   },
   {
     id: "2645395515",
     name: "REM",
-    logo: "https://asa-list.tinyman.org/assets/2645395515/icon.png",
+    logo: rem,
   },
   {
     id: "2614577662",
     name: "ATARD",
-    logo: "https://asa-list.tinyman.org/assets/2614577662/icon.png",
+    logo: atard,
   },
   {
     id: "818432243",
@@ -271,37 +302,37 @@ export default [
   {
     id: "1285492943",
     name: "ARBZ",
-    logo: "https://asa-list.tinyman.org/assets/1285492943/icon.png",
+    logo: arbz,
   },
   {
     id: "1447774422",
     name: "SAT",
-    logo: "https://asa-list.tinyman.org/assets/1447774422/icon.png",
+    logo: sat,
   },
   {
     id: "1748330503",
     name: "GAIN",
-    logo: "https://asa-list.tinyman.org/assets/1748330503/icon.png",
+    logo: gain,
   },
   {
     id: "1889681715",
     name: "FLOKI",
-    logo: "https://asa-list.tinyman.org/assets/1889681715/icon.png",
+    logo: floki,
   },
   {
     id: "2582590415",
     name: "MEEP",
-    logo: "https://asa-list.tinyman.org/assets/2582590415/icon.png",
+    logo: meep,
   },
   {
     id: "2636889771",
     name: "BASILK",
-    logo: "https://asa-list.tinyman.org/assets/2636889771/icon.png",
+    logo: basilk,
   },
   {
     id: "1387238831",
     name: "GOAN",
-    logo: "https://asa-list.tinyman.org/assets/1387238831/icon.png",
+    logo: goan,
   },
   {
     id: "2652191787",
