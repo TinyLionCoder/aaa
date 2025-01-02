@@ -156,9 +156,8 @@ export const AAASwap: React.FC<AAASwapProps> = ({
 }) => {
   const [assetIn, setAssetIn] = useState(defaultAssetIn);
   const [assetOut, setAssetOut] = useState(defaultAssetOut);
-  const [customAssetIn, setCustomAssetIn] = useState("");
-  const [customAssetOut, setCustomAssetOut] = useState("");
-
+  const [filterTextIn, setFilterTextIn] = useState("");
+  const [filterTextOut, setFilterTextOut] = useState("");
   const [isDropdownInOpen, setIsDropdownInOpen] = useState(false);
   const [isDropdownOutOpen, setIsDropdownOutOpen] = useState(false);
 
@@ -166,14 +165,31 @@ export const AAASwap: React.FC<AAASwapProps> = ({
     platformName
   )}&network=mainnet&themeVariables=${themeVariables}&assetIn=${assetIn}&assetOut=${assetOut}&platformFeeAccount=${platformFeeAccount}&platformFeePercentage=${platformFeePercentage}`;
 
+  const uniqueTokens = Array.from(
+    new Map(tokens.map((token) => [token.id, token])).values()
+  );
+  
+  const filteredTokensIn = uniqueTokens.filter(
+    (token) =>
+      token.name.toLowerCase().includes(filterTextIn.toLowerCase()) ||
+      token.id.includes(filterTextIn)
+  );
+  
+  const filteredTokensOut = uniqueTokens.filter(
+    (token) =>
+      token.name.toLowerCase().includes(filterTextOut.toLowerCase()) ||
+      token.id.includes(filterTextOut)
+  );
+  
   const renderDropdown = (
     value: string,
     setValue: React.Dispatch<React.SetStateAction<string>>,
-    customAsset: string,
-    setCustomAsset: React.Dispatch<React.SetStateAction<string>>,
+    filterText: string,
+    setFilterText: React.Dispatch<React.SetStateAction<string>>,
     isOpen: boolean,
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    label: string
+    label: string,
+    tokens: Token[]
   ) => (
     <div className={styles.dropdownContainer}>
       <label className={styles.label}>{label}</label>
@@ -193,16 +209,9 @@ export const AAASwap: React.FC<AAASwapProps> = ({
           <li className={styles.dropdownItem}>
             <input
               type="text"
-              placeholder="Enter Asset ID or choose from the list"
-              value={customAsset}
-              onChange={(e) => setCustomAsset(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && customAsset.trim()) {
-                  setValue(customAsset.trim());
-                  setCustomAsset("");
-                  setIsOpen(false);
-                }
-              }}
+              placeholder="Filter by name or Asset ID"
+              value={filterText}
+              onChange={(e) => setFilterText(e.target.value)}
               className={styles.customInput}
             />
           </li>
@@ -213,6 +222,7 @@ export const AAASwap: React.FC<AAASwapProps> = ({
               onClick={() => {
                 setValue(token.id);
                 setIsOpen(false);
+                setFilterText(""); // Clear the filter text on selection
               }}
             >
               <img
@@ -235,24 +245,26 @@ export const AAASwap: React.FC<AAASwapProps> = ({
         {renderDropdown(
           assetIn,
           setAssetIn,
-          customAssetIn,
-          setCustomAssetIn,
+          filterTextIn,
+          setFilterTextIn,
           isDropdownInOpen,
           setIsDropdownInOpen,
-          "Swap From"
+          "Swap From",
+          filteredTokensIn
         )}
         {renderDropdown(
           assetOut,
           setAssetOut,
-          customAssetOut,
-          setCustomAssetOut,
+          filterTextOut,
+          setFilterTextOut,
           isDropdownOutOpen,
           setIsDropdownOutOpen,
-          "Swap To"
+          "Swap To",
+          filteredTokensOut
         )}
       </div>
       <iframe
-        key={`${assetIn}-${assetOut}`} // Force iframe refresh when assets change
+        key={`${assetIn}-${assetOut}`}
         title="Tinyman Swap Widget"
         src={widgetSrc}
         className={styles.iframe}
