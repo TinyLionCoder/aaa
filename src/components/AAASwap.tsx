@@ -40,6 +40,15 @@ export const AAASwap: React.FC<AAASwapProps> = ({
   const [isDropdownInOpen, setIsDropdownInOpen] = useState(false);
   const [isDropdownOutOpen, setIsDropdownOutOpen] = useState(false);
 
+  const handleDropdownClick = (
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    isOpen: boolean,
+    closeOtherDropdown: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    closeOtherDropdown(false); // Close the other dropdown
+    setIsOpen(!isOpen); // Toggle the current dropdown
+  };
+
   const widgetSrc = `https://tinymanorg.github.io/swap-widget/?platformName=${encodeURIComponent(
     platformName
   )}&network=mainnet&themeVariables=${themeVariables}&assetIn=${assetIn}&assetOut=${assetOut}&platformFeeAccount=${platformFeeAccount}&platformFeePercentage=${platformFeePercentage}`;
@@ -67,12 +76,18 @@ export const AAASwap: React.FC<AAASwapProps> = ({
     setFilterText: React.Dispatch<React.SetStateAction<string>>,
     isOpen: boolean,
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    closeOtherDropdown: React.Dispatch<React.SetStateAction<boolean>>,
     label: string,
     tokens: Token[]
   ) => (
     <div className={styles.dropdownContainer}>
       <label className={styles.label}>{label}</label>
-      <div className={styles.dropdown} onClick={() => setIsOpen(!isOpen)}>
+      <div
+        className={styles.dropdown}
+        onClick={() =>
+          handleDropdownClick(setIsOpen, isOpen, closeOtherDropdown)
+        }
+      >
         <div className={styles.selectedItem}>
           <img
             src={tokens.find((token) => token.id === value)?.logo || ""}
@@ -128,6 +143,7 @@ export const AAASwap: React.FC<AAASwapProps> = ({
           setFilterTextIn,
           isDropdownInOpen,
           setIsDropdownInOpen,
+          setIsDropdownOutOpen,
           "Swap From",
           filteredTokensIn
         )}
@@ -138,6 +154,7 @@ export const AAASwap: React.FC<AAASwapProps> = ({
           setFilterTextOut,
           isDropdownOutOpen,
           setIsDropdownOutOpen,
+          setIsDropdownInOpen,
           "Swap To",
           filteredTokensOut
         )}
