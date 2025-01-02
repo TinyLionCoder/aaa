@@ -185,7 +185,7 @@ const BuySellAAA: React.FC = () => {
         <p>
           Use AAA Swap to exchange ALGO for other ASA tokens.{" "}
           <strong>
-            Click on the button below or click on Swap tokens on the Sidebar
+            Click on the button below
           </strong>{" "}
           to start swapping tokens on the Algorand blockchain.
         </p>
