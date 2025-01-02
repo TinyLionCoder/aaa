@@ -1,104 +1,120 @@
 .container {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .title {
-    margin-bottom: 20px;
-  }
-  
+  text-align: center;
+  padding: 20px;
+}
+
+.title {
+  margin-bottom: 20px;
+}
+
+.dropdownWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.dropdownContainer {
+  text-align: left;
+  width: 100%;
+  max-width: 300px;
+  position: relative;
+}
+
+.label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.dropdown {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.selectedItem {
+  display: flex;
+  align-items: center;
+}
+
+.tokenLogo {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.dropdownList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  z-index: 10;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.dropdownItem {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dropdownItem:hover {
+  background: #f0f0f0;
+}
+
+.iframe {
+  width: 100%;
+  max-width: 415px;
+  height: 440px;
+  border: 2px solid #ecf0f1;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.customInput {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.customInput:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+
+/* Mobile Styles */
+@media (max-width: 768px) {
   .dropdownWrapper {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+    flex-direction: column;
+    align-items: center;
   }
-  
+
   .dropdownContainer {
-    text-align: left;
-    width: 100%;
-    max-width: 300px;
-    position: relative;
+    width: 90%;
   }
-  
-  .label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-  }
-  
-  .dropdown {
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 10px;
-    background: #fff;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .selectedItem {
-    display: flex;
-    align-items: center;
-  }
-  
-  .tokenLogo {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    border-radius: 50%;
-  }
-  
-  .dropdownList {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    list-style: none;
-    margin: 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background: #fff;
-    z-index: 10;
-    max-height: 200px;
-    overflow-y: auto;
-  }
-  
-  .dropdownItem {
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  .dropdownItem:hover {
-    background: #f0f0f0;
-  }
-  
+
   .iframe {
-    width: 100%;
-    max-width: 415px;
-    height: 440px;
-    border: 2px solid #ecf0f1;
-    border-radius: 8px;
-    margin-top: 20px;
+    height: 360px;
+    border-radius: 6px;
   }
-  
-  /* Mobile Styles */
-  @media (max-width: 768px) {
-    .dropdownWrapper {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .dropdownContainer {
-      width: 90%;
-    }
-  
-    .iframe {
-      height: 360px;
-      border-radius: 6px;
-    }
-  }
-  
+}

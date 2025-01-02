@@ -63,6 +63,8 @@ export const AAASwap: React.FC<AAASwapProps> = ({
 }) => {
   const [assetIn, setAssetIn] = useState(defaultAssetIn);
   const [assetOut, setAssetOut] = useState(defaultAssetOut);
+  const [customAssetIn, setCustomAssetIn] = useState("");
+  const [customAssetOut, setCustomAssetOut] = useState("");
 
   const [isDropdownInOpen, setIsDropdownInOpen] = useState(false);
   const [isDropdownOutOpen, setIsDropdownOutOpen] = useState(false);
@@ -74,6 +76,8 @@ export const AAASwap: React.FC<AAASwapProps> = ({
   const renderDropdown = (
     value: string,
     setValue: React.Dispatch<React.SetStateAction<string>>,
+    customAsset: string,
+    setCustomAsset: React.Dispatch<React.SetStateAction<string>>,
     isOpen: boolean,
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
     label: string
@@ -84,7 +88,7 @@ export const AAASwap: React.FC<AAASwapProps> = ({
         <div className={styles.selectedItem}>
           <img
             src={tokens.find((token) => token.id === value)?.logo || ""}
-            alt=""
+            alt="Token Logo"
             className={styles.tokenLogo}
           />
           {tokens.find((token) => token.id === value)?.name || "Select Token"}
@@ -93,6 +97,22 @@ export const AAASwap: React.FC<AAASwapProps> = ({
       </div>
       {isOpen && (
         <ul className={styles.dropdownList}>
+          {/* <li className={styles.dropdownItem}>
+            <input
+              type="text"
+              placeholder="Enter Asset ID or choose from the list"
+              value={customAsset}
+              onChange={(e) => setCustomAsset(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && customAsset.trim()) {
+                  setValue(customAsset.trim());
+                  setCustomAsset("");
+                  setIsOpen(false);
+                }
+              }}
+              className={styles.customInput}
+            />
+          </li> */}
           {tokens.map((token) => (
             <li
               key={token.id}
@@ -122,6 +142,8 @@ export const AAASwap: React.FC<AAASwapProps> = ({
         {renderDropdown(
           assetIn,
           setAssetIn,
+          customAssetIn,
+          setCustomAssetIn,
           isDropdownInOpen,
           setIsDropdownInOpen,
           "Swap From"
@@ -129,6 +151,8 @@ export const AAASwap: React.FC<AAASwapProps> = ({
         {renderDropdown(
           assetOut,
           setAssetOut,
+          customAssetOut,
+          setCustomAssetOut,
           isDropdownOutOpen,
           setIsDropdownOutOpen,
           "Swap To"
