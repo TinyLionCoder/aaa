@@ -17,6 +17,8 @@
 
 /* Dropdown Wrapper */
 .dropdownWrapper {
+  margin-top: 40px !important;
+  margin-bottom: 20px !important;
   display: flex !important;
   justify-content: center !important;
   gap: 20px !important;
