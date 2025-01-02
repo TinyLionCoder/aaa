@@ -129,7 +129,7 @@ export const AAASwap: React.FC<AAASwapProps> = ({
           <li className={styles.dropdownItem}>
             <input
               type="text"
-              placeholder="Filter by name or Asset ID"
+              placeholder="Filter by Unit Name or Asset ID"
               value={filterText}
               onChange={(e) => setFilterText(e.target.value)}
               className={styles.customInput}
