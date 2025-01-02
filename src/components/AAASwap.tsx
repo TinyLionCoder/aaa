@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import swapTokens from "../constants/swapTokens";
 import styles from "../css_modules/AAASwapStyles.module.css";
 
@@ -40,6 +40,24 @@ export const AAASwap: React.FC<AAASwapProps> = ({
   const [isDropdownInOpen, setIsDropdownInOpen] = useState(false);
   const [isDropdownOutOpen, setIsDropdownOutOpen] = useState(false);
 
+  const dropdownInRef = useRef<HTMLDivElement>(null);
+  const dropdownOutRef = useRef<HTMLDivElement>(null);
+
+  const handleOutsideClick = (event: MouseEvent) => {
+    if (
+      dropdownInRef.current &&
+      !dropdownInRef.current.contains(event.target as Node)
+    ) {
+      setIsDropdownInOpen(false);
+    }
+    if (
+      dropdownOutRef.current &&
+      !dropdownOutRef.current.contains(event.target as Node)
+    ) {
+      setIsDropdownOutOpen(false);
+    }
+  };
+
   const handleDropdownClick = (
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
     isOpen: boolean,
@@ -48,6 +66,13 @@ export const AAASwap: React.FC<AAASwapProps> = ({
     closeOtherDropdown(false); // Close the other dropdown
     setIsOpen(!isOpen); // Toggle the current dropdown
   };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   const widgetSrc = `https://tinymanorg.github.io/swap-widget/?platformName=${encodeURIComponent(
     platformName
@@ -77,10 +102,11 @@ export const AAASwap: React.FC<AAASwapProps> = ({
     isOpen: boolean,
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
     closeOtherDropdown: React.Dispatch<React.SetStateAction<boolean>>,
+    ref: React.RefObject<HTMLDivElement>,
     label: string,
     tokens: Token[]
   ) => (
-    <div className={styles.dropdownContainer}>
+    <div className={styles.dropdownContainer} ref={ref}>
       <label className={styles.label}>{label}</label>
       <div
         className={styles.dropdown}
@@ -144,6 +170,7 @@ export const AAASwap: React.FC<AAASwapProps> = ({
           isDropdownInOpen,
           setIsDropdownInOpen,
           setIsDropdownOutOpen,
+          dropdownInRef,
           "Swap From",
           filteredTokensIn
         )}
@@ -155,6 +182,7 @@ export const AAASwap: React.FC<AAASwapProps> = ({
           isDropdownOutOpen,
           setIsDropdownOutOpen,
           setIsDropdownInOpen,
+          dropdownOutRef,
           "Swap To",
           filteredTokensOut
         )}
