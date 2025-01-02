@@ -42,6 +42,28 @@ import floki from "../images/floki.png";
 import basilk from "../images/basilk.png";
 import goan from "../images/goan.png";
 import meep from "../images/meep.png";
+import akekius from "../images/akekius.png";
+import fry from "../images/fry.png";
+import paul from "../images/paul.png";
+import rugninja from "../images/rugninja.png";
+import piphin from "../images/piphin.png";
+import panda from "../images/panda.png";
+import finu from "../images/finu.png";
+import trump from "../images/trump.png";
+import bobo from "../images/bobo.png";
+import sandman from "../images/sandman.png";
+import fnode from "../images/fnode.png";
+import boobs from "../images/boobs.png";
+import gonna from "../images/gonna.png";
+import froggo from "../images/froggo.png";
+import a200 from "../images/a200.png";
+import mustard from "../images/mustard.png";
+import nts from "../images/nts.png";
+import shino from "../images/shino.png";
+import cycle from "../images/cycle.png";
+import xgov from "../images/xgov.png";
+import ogla from "../images/ogla.png";
+import avoi from "../images/avoi.png";
 
 
 export default [
@@ -337,7 +359,7 @@ export default [
   {
     id: "2652191787",
     name: "AKEKIUS",
-    logo: "https://asa-list.tinyman.org/assets/2652191787/icon.png",
+    logo: akekius,
   },
   {
     id: "412056867",
@@ -347,12 +369,12 @@ export default [
   {
     id: "2485314946",
     name: "FRY",
-    logo: "https://asa-list.tinyman.org/assets/2485314946/icon.png",
+    logo: fry,
   },
   {
     id: "2634315632",
     name: "PAUL",
-    logo: "https://asa-list.tinyman.org/assets/2634315632/icon.png",
+    logo: paul,
   },
   {
     id: "226701642",
@@ -362,7 +384,7 @@ export default [
   {
     id: "2155418402",
     name: "RUGNINJA",
-    logo: "https://asa-list.tinyman.org/assets/2155418402/icon.png",
+    logo: rugninja,
   },
   {
     id: "266846137",
@@ -372,7 +394,7 @@ export default [
   {
     id: "1642742254",
     name: "PIPHIN",
-    logo: "https://asa-list.tinyman.org/assets/1642742254/icon.png",
+    logo: piphin,
   },
   {
     id: "753137719",
@@ -382,7 +404,7 @@ export default [
   {
     id: "2495113411",
     name: "PANDA",
-    logo: "https://asa-list.tinyman.org/assets/2495113411/icon.png",
+    logo: panda,
   },
   {
     id: "226265212",
@@ -392,7 +414,7 @@ export default [
   {
     id: "2160577481",
     name: "FINU",
-    logo: "https://asa-list.tinyman.org/assets/2160577481/icon.png",
+    logo: finu,
   },
   {
     id: "393498731",
@@ -407,27 +429,27 @@ export default [
   {
     id: "1459508661",
     name: "TRUMP",
-    logo: "https://asa-list.tinyman.org/assets/1459508661/icon.png",
+    logo: trump,
   },
   {
     id: "1775410837",
     name: "BOBO",
-    logo: "https://asa-list.tinyman.org/assets/1775410837/icon.png",
+    logo: bobo,
   },
   {
     id: "2643186677",
     name: "SANDMAN",
-    logo: "https://asa-list.tinyman.org/assets/2643186677/icon.png",
+    logo: sandman,
   },
   {
     id: "2485202024",
     name: "FNODE",
-    logo: "https://asa-list.tinyman.org/assets/2485202024/icon.png",
+    logo: fnode,
   },
   {
     id: "2350716919",
     name: "BOOBS",
-    logo: "https://asa-list.tinyman.org/assets/2350716919/icon.png",
+    logo: boobs,
   },
   {
     id: "558978094",
@@ -442,7 +464,7 @@ export default [
   {
     id: "2582294183",
     name: "GONNA",
-    logo: "https://asa-list.tinyman.org/assets/2582294183/icon.png",
+    logo: gonna,
   },
   {
     id: "445905873",
@@ -452,12 +474,12 @@ export default [
   {
     id: "2637111113",
     name: "FROGGO",
-    logo: "https://asa-list.tinyman.org/assets/2637111113/icon.png",
+    logo: froggo,
   },
   {
     id: "1682662165",
     name: "A200",
-    logo: "https://asa-list.tinyman.org/assets/1682662165/icon.png",
+    logo: a200,
   },
   {
     id: "1241945177",
@@ -467,12 +489,12 @@ export default [
   {
     id: "2175930910",
     name: "MUSTARD",
-    logo: "https://asa-list.tinyman.org/assets/2175930910/icon.png",
+    logo: mustard,
   },
   {
     id: "2630817821",
     name: "NTS",
-    logo: "https://asa-list.tinyman.org/assets/2630817821/icon.png",
+    logo: nts,
   },
   {
     id: "409604194",
@@ -482,22 +504,22 @@ export default [
   {
     id: "2171798010",
     name: "SHINO",
-    logo: "https://asa-list.tinyman.org/assets/2171798010/icon.png",
+    logo: shino,
   },
   {
     id: "1691271561",
     name: "CYCLE",
-    logo: "https://asa-list.tinyman.org/assets/1691271561/icon.png",
+    logo: cycle,
   },
   {
     id: "1134696561",
     name: "XALGO",
-    logo: "https://asa-list.tinyman.org/assets/1134696561/icon.png",
+    logo: xgov,
   },
   {
     id: "2604087587",
     name: "OGLA",
-    logo: "https://asa-list.tinyman.org/assets/2604087587/icon.png",
+    logo: ogla,
   },
   {
     id: "924268058",
@@ -507,7 +529,7 @@ export default [
   {
     id: "2320775407",
     name: "AVOI",
-    logo: "https://asa-list.tinyman.org/assets/2320775407/icon.png",
+    logo: avoi,
   },
   {
     id: "1076768277",
