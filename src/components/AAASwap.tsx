@@ -41,7 +41,7 @@ export const AAASwap: React.FC<AAASwapProps> = ({
   platformName = "AAA App",
   platformFeeAccount = "HE7225SD6ZKYO45QWYCE4BZ3ITFEK7WI7XGMAVAMB56FZREJVPMHNRSL2E",
   platformFeePercentage = 0.1,
-  themeVariables = "eyJ0aGVtZSI6ImRhcmsiLCJjb250YWluZXJCdXR0b25CZyI6IndoaXRlIiwid2lkZ2V0QmciOiJnb2xkIiwiaGVhZGVyQnV0dG9uQmciOiJnb2xkIiwiaGVhZGVyQnV0dG9uVGV4dCI6ImJsYWNrIiwiaGVhZGVyVGl0bGUiOiJibGFjayIsImNvbnRhaW5lckJ1dHRvblRleHQiOiJibGFjayIsImlmcmFtZUJnIjoiZ29sZCIsImJvcmRlclJhZGl1c1NpemUiOiJub25lIiwidGl0bGUiOiJTd2FwIiwic2hvdWxkRGlzcGxheVRpbnltYW5Mb2dvIjpmYWxzZX0%3D&assetIn=0&assetOut=2004387843&platformFeeAccount=HE7225SD6ZKYO45QWYCE4BZ3ITFEK7WI7XGMAVAMB56FZREJVPMHNRSL2E",
+  themeVariables = "eyJ0aGVtZSI6ImRhcmsiLCJjb250YWluZXJCdXR0b25CZyI6IndoaXRlIiwid2lkZ2V0QmciOiJnb2xkIiwiaGVhZGVyQnV0b25UZXh0IjoiYmxhY2siLCJoZWFkZXJUaXRsZSI6ImJsYWNrIiwiYm9yZGVyUmFkaXVzU2l6ZSI6Im5vbmUiLCJ0aXRsZSI6IlN3YXAiLCJzaG91bGREaXNwbGF5VGlueW1hbkxvZ28iOmZhbHNlfQ==",
   width = "415px",
   height = "440px",
   tokens = [
@@ -134,6 +134,7 @@ export const AAASwap: React.FC<AAASwapProps> = ({
         )}
       </div>
       <iframe
+        key={`${assetIn}-${assetOut}`} // Force iframe refresh when assets change
         title="Tinyman Swap Widget"
         src={widgetSrc}
         className={styles.iframe}
