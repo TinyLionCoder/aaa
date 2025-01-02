@@ -9,6 +9,7 @@ import {
   FaCheck,
   FaArrowLeft,
   FaArrowRight,
+  FaExchangeAlt,
 } from "react-icons/fa";
 import styles from "../css_modules/SidebarStyles.module.css";
 
@@ -64,6 +65,15 @@ const Sidebar: React.FC<SidebarProps> = ({ onLogout, setActiveComponent }) => {
           >
             <FaShoppingCart className={styles.icon} />
             <span>Buy & Sell</span>
+          </li>
+          <li
+            className={`${styles.navItem} ${
+              activeItem === "AAASwap" ? styles.activeNavItem : ""
+            }`}
+            onClick={() => handleItemClick("AAASwap")}
+          >
+            <FaExchangeAlt className={styles.icon} />
+            <span>Swap Tokens</span>
           </li>
           <li
             className={`${styles.navItem} ${
