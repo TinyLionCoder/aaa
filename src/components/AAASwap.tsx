@@ -12,6 +12,7 @@ import ogs from "../images/ogs.png";
 import cat from "../images/cat.png";
 import aaa from "../images/aaa.png";
 import marcus from "../images/marcus.png";
+import algo from "../images/algo.png";
 
 interface Token {
   id: string;
@@ -43,7 +44,7 @@ export const AAASwap: React.FC<AAASwapProps> = ({
   width = "415px",
   height = "440px",
   tokens = [
-    { id: "0", name: "ALGO", logo: "" },
+    { id: "0", name: "ALGO", logo: algo },
     { id: "2004387843", name: "AAA", logo: aaa },
     { id: "2176744157", name: "TDLD", logo: tdld },
     { id: "2279886826", name: "NMI", logo: nmi },
