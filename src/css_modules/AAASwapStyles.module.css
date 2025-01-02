@@ -4,6 +4,7 @@
   padding: 20px !important;
   font-family: "Arial", sans-serif !important;
   color: #333 !important;
+  background: linear-gradient(180deg, black, gold) !important;
 }
 
 /* Title Styles */
@@ -35,7 +36,7 @@
   display: block !important;
   margin-bottom: 8px !important;
   font-weight: 500 !important;
-  color: #555 !important;
+  color: white !important;
 }
 
 /* Dropdown Styles */
