@@ -8,6 +8,7 @@ import { TermsOfServices } from "./components/TermsOfServices";
 import { PrivacyPolicy } from "./components/PrivacyPolicy";
 import { TokenListing } from "./components/TokenListing";
 import { AboutUs } from "./components/Aboutus";
+import { AAASwap } from "./components/AAASwap";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="token-listing" element={<TokenListing />} />
+          <Route path="swap-tokens" element={<AAASwap/>} />
         </Routes>
       </PeraWalletProvider>
     </Router>

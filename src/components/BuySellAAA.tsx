@@ -9,6 +9,7 @@ import {
 import styles from "../css_modules/BuySellAAAStyles.module.css";
 
 const BuySellAAA: React.FC = () => {
+  const swapTokensLink = `${window.location.origin}/swap-tokens`;
   return (
     <div className={styles.buySellContainer}>
       <header className={styles.pageHeader}>
@@ -27,7 +28,7 @@ const BuySellAAA: React.FC = () => {
           Algorand (ALGO)
         </h2>
         <p>
-          Start by acquiring Algorand (ALGO), which is required for buying 
+          Start by acquiring Algorand (ALGO), which is required for buying
           tokens. Use one of the trusted cryptocurrency wallets or exchanges
           listed below:
         </p>
@@ -182,11 +183,14 @@ const BuySellAAA: React.FC = () => {
           Algorand to ASA, or ASA to Algorand
         </h2>
         <p>
-          Use a decentralized exchange such as Tinyman or PactFi to swap ALGO
-          for other ASA tokens. Always verify the token ID before transacting.
+          Use AAA Swap to exchange ALGO for other ASA tokens.{" "}
+          <strong>
+            Click on the button below or click on Swap tokens on the Sidebar
+          </strong>{" "}
+          to start swapping tokens on the Algorand blockchain.
         </p>
         <div className={styles.swapButtonContainer}>
-          <a
+          {/* <a
             href="https://app.tinyman.org/swap?asset_in=0&asset_out=2004387843&use_router=true"
             target="_blank"
             rel="noopener noreferrer"
@@ -201,6 +205,14 @@ const BuySellAAA: React.FC = () => {
             className={styles.button}
           >
             Swap on Vestige <FaExchangeAlt className={styles.icon} />
+          </a> */}
+          <a
+            href={swapTokensLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.button}
+          >
+            Swap with AAA Swap
           </a>
         </div>
         <div className={styles.videoContainer}>
