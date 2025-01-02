@@ -97,7 +97,7 @@ export const AAASwap: React.FC<AAASwapProps> = ({
       </div>
       {isOpen && (
         <ul className={styles.dropdownList}>
-          {/* <li className={styles.dropdownItem}>
+          <li className={styles.dropdownItem}>
             <input
               type="text"
               placeholder="Enter Asset ID or choose from the list"
@@ -112,7 +112,7 @@ export const AAASwap: React.FC<AAASwapProps> = ({
               }}
               className={styles.customInput}
             />
-          </li> */}
+          </li>
           {tokens.map((token) => (
             <li
               key={token.id}
