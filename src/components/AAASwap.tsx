@@ -38,10 +38,10 @@ export const AAASwap: React.FC<AAASwapProps> = ({
   title = "AAA Swap",
   defaultAssetIn = "0",
   defaultAssetOut = "2004387843",
-  platformName = "AAA App",
+  platformName = "AAA Swap",
   platformFeeAccount = "HE7225SD6ZKYO45QWYCE4BZ3ITFEK7WI7XGMAVAMB56FZREJVPMHNRSL2E",
   platformFeePercentage = 0.1,
-  themeVariables = "eyJ0aGVtZSI6ImRhcmsiLCJjb250YWluZXJCdXR0b25CZyI6IndoaXRlIiwid2lkZ2V0QmciOiJnb2xkIiwiaGVhZGVyQnV0b25UZXh0IjoiYmxhY2siLCJoZWFkZXJUaXRsZSI6ImJsYWNrIiwiYm9yZGVyUmFkaXVzU2l6ZSI6Im5vbmUiLCJ0aXRsZSI6IlN3YXAiLCJzaG91bGREaXNwbGF5VGlueW1hbkxvZ28iOmZhbHNlfQ==",
+  themeVariables = "eyJ0aGVtZSI6ImRhcmsiLCJjb250YWluZXJCdXR0b25CZyI6ImJsYWNrIiwid2lkZ2V0QmciOiJnb2xkIiwiaGVhZGVyQnV0dG9uQmciOiIjODM0NmQxIiwiaGVhZGVyQnV0dG9uVGV4dCI6IiNmZmZmZmYiLCJoZWFkZXJUaXRsZSI6ImJsYWNrIiwiY29udGFpbmVyQnV0dG9uVGV4dCI6IiNmZmZmZmYiLCJpZnJhbWVCZyI6IiNGOEY4RjgiLCJib3JkZXJSYWRpdXNTaXplIjoibm9uZSIsInRpdGxlIjoiQUFBIFN3YXAiLCJzaG91bGREaXNwbGF5VGlueW1hbkxvZ28iOmZhbHNlfQ%3D%3D",
   width = "415px",
   height = "440px",
   tokens = [
@@ -80,10 +80,7 @@ export const AAASwap: React.FC<AAASwapProps> = ({
   ) => (
     <div className={styles.dropdownContainer}>
       <label className={styles.label}>{label}</label>
-      <div
-        className={styles.dropdown}
-        onClick={() => setIsOpen(!isOpen)}
-      >
+      <div className={styles.dropdown} onClick={() => setIsOpen(!isOpen)}>
         <div className={styles.selectedItem}>
           <img
             src={tokens.find((token) => token.id === value)?.logo || ""}
@@ -105,7 +102,11 @@ export const AAASwap: React.FC<AAASwapProps> = ({
                 setIsOpen(false);
               }}
             >
-              <img src={token.logo} alt={token.name} className={styles.tokenLogo} />
+              <img
+                src={token.logo}
+                alt={token.name}
+                className={styles.tokenLogo}
+              />
               {token.name}
             </li>
           ))}
