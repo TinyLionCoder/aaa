@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import aaa from "../images/aaa.png";
 import styles from "../css_modules/NavbarStyles.module.css";
 
 const Navbar = () => {
@@ -13,7 +14,7 @@ const Navbar = () => {
     <nav className={styles.navbar}>
       <div className={styles.logo}>
         <Link to="/" onClick={() => setMenuOpen(false)}>
-          AAA APP
+          <img src={aaa} alt="AAA APP" className={styles.tokenLogo} />
         </Link>
       </div>
       <div className={styles.hamburger} onClick={toggleMenu}>
