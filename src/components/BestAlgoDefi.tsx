@@ -328,7 +328,12 @@ const BestAlgoDefi: React.FC = () => {
               <div className={styles.tokenCell}>
                 {token.name}
                 <div className={styles.tokenNameLogo}>
-                  <FaPlane />
+                  <div className={styles.tooltipContainer}>
+                    <FaPlane />
+                    <span className={styles.tooltipText}>
+                      Build TVL with this to rank higher
+                    </span>
+                  </div>
                 </div>
               </div>
               <div className={styles.tokenCell}>
