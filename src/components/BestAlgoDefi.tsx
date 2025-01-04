@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styles from "../css_modules/BestAlgoDefiStyles.module.css";
 import tokenData from "../constants/tokenData";
-import { FaPlane, FaSort, FaTruckLoading } from "react-icons/fa";
+import {
+  FaPlane,
+  FaSort,
+  FaSortDown,
+  FaSortUp,
+  FaTruckLoading,
+} from "react-icons/fa";
 
 const stableTVLAssetIDs = tokenData
   .filter((token) => token.stableTVL)
@@ -257,6 +263,11 @@ const BestAlgoDefi: React.FC = () => {
     setCurrentPage(newPage);
   };
 
+  const renderSortIcon = (field: string) => {
+    if (sortField !== field) return <FaSort />;
+    return sortDirection === "asc" ? <FaSortUp /> : <FaSortDown />;
+  };
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Best AlgoDefi Tokens</h1>
@@ -291,28 +302,28 @@ const BestAlgoDefi: React.FC = () => {
               onClick={() => handleSort("name")}
               style={{ cursor: "pointer" }}
             >
-              Name <FaSort />
+              Name {renderSortIcon("name")}
             </div>
             <div
               className={styles.tokenCell}
               onClick={() => handleSort("totalTVL")}
               style={{ cursor: "pointer" }}
             >
-              ASA Thrust TVL <FaSort />
+              ASA Thrust TVL {renderSortIcon("totalTVL")}
             </div>
             <div
               className={styles.tokenCell}
               onClick={() => handleSort("latestPrice")}
               style={{ cursor: "pointer" }}
             >
-              Latest Price <FaSort />
+              Latest Price {renderSortIcon("latestPrice")}
             </div>
             <div
               className={styles.tokenCell}
               onClick={() => handleSort("priceChange24H")}
               style={{ cursor: "pointer" }}
             >
-              {priceChangeInterval} Change <FaSort />
+              {priceChangeInterval} Change {renderSortIcon("priceChange24H")}
             </div>
             <div className={styles.tokenCell}>Links</div>
           </div>
