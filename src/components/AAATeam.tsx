@@ -1,4 +1,6 @@
 import React from "react";
+import hr from "../images/hr.png";
+import shawn from "../images/shawn.png";
 import styles from "../css_modules/AAATeamStyles.module.css";
 
 const teamMembers = [
@@ -11,13 +13,13 @@ const teamMembers = [
   {
     name: "HR Mandiv",
     role: "Lead Developer",
-    image: "https://via.placeholder.com/150",
+    image: hr,
     bio: "HR is in charge of the technical architecture, ensuring everything runs smoothly.",
   },
   {
     name: "Shawn Zeim",
     role: "Marketing Lead",
-    image: "https://via.placeholder.com/150",
+    image: shawn,
     bio: "Shawn drives the marketing strategy, helping AAA reach new heights and a broader audience.",
   },
   //   {
