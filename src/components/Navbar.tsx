@@ -25,7 +25,7 @@ const Navbar = () => {
           Swap Tokens
         </Link>
         <Link to="/best-algo-defi" onClick={() => setMenuOpen(false)}>
-          Best Algo Defi
+          Best Algo Defi Tokens
         </Link>
         <Link to="/token-listing" onClick={() => setMenuOpen(false)}>
           List your Tokens
