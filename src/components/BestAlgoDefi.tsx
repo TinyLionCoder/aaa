@@ -270,7 +270,7 @@ const BestAlgoDefi: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Best AlgoDefi Tokens</h1>
+      <h1 className={styles.title}>Best Algo Defi Tokens</h1>
       {isLoading ? (
         <div className={styles.loadingContainer}>
           <FaTruckLoading className={styles.loadingIcon} />
