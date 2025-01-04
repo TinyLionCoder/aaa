@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "../css_modules/BestAlgoDefiStyles.module.css";
 import tokenData from "../constants/tokenData";
-import { FaPlane, FaTruckLoading } from "react-icons/fa";
+import { FaPlane, FaSort, FaTruckLoading } from "react-icons/fa";
 
 const stableTVLAssetIDs = tokenData
   .filter((token) => token.stableTVL)
@@ -24,6 +24,9 @@ const BestAlgoDefi: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1); // Track the current page
   const [priceChangeInterval, setPriceChangeInterval] = useState("1D");
+  const [searchText, setSearchText] = useState("");
+  const [sortField, setSortField] = useState("totalTVL");
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
   const PAGE_SIZE = 10; // Define the page size
 
   useEffect(() => {
@@ -223,7 +226,29 @@ const BestAlgoDefi: React.FC = () => {
 
   const totalPages = Math.ceil(sortedTokens.length / PAGE_SIZE);
 
-  const displayedTokens = sortedTokens.slice(
+  const handleSort = (field: keyof (typeof sortedTokens)[0]) => {
+    const newDirection =
+      sortField === field && sortDirection === "desc" ? "asc" : "desc";
+    setSortField(field);
+    setSortDirection(newDirection);
+
+    const sorted = [...sortedTokens].sort((a, b) => {
+      const valueA = a[field] || 0;
+      const valueB = b[field] || 0;
+      const result = valueA > valueB ? 1 : valueA < valueB ? -1 : 0;
+      return newDirection === "asc" ? result : -result;
+    });
+
+    setSortedTokens(sorted);
+  };
+
+  const filteredTokens = sortedTokens.filter(
+    (token) =>
+      token.name.toLowerCase().includes(searchText) ||
+      token.assetID.toString().includes(searchText)
+  );
+
+  const displayedTokens = filteredTokens.slice(
     (currentPage - 1) * PAGE_SIZE,
     currentPage * PAGE_SIZE
   );
@@ -235,19 +260,6 @@ const BestAlgoDefi: React.FC = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Best AlgoDefi Tokens</h1>
-      <div className={styles.intervalFilterContainer}>
-        <label htmlFor="intervalSelector">Select Price Change Interval:</label>
-        <select
-          id="intervalSelector"
-          value={priceChangeInterval}
-          onChange={(e) => setPriceChangeInterval(e.target.value)}
-          className={styles.intervalSelector}
-        >
-          <option value="1H">1 Hour</option>
-          <option value="1D">1 Day</option>
-          <option value="7D">7 Day</option>
-        </select>
-      </div>
       {isLoading ? (
         <div className={styles.loadingContainer}>
           <FaTruckLoading className={styles.loadingIcon} />
@@ -256,77 +268,114 @@ const BestAlgoDefi: React.FC = () => {
           </span>
         </div>
       ) : (
-        <>
-          <div className={styles.tokenTable}>
-            <div className={styles.tokenRowHeader}>
-              <div className={styles.tokenCell}>Logo</div>
-              <div className={styles.tokenCell}>Name</div>
-              <div className={styles.tokenCell}>ASA Thrust TVL</div>
-              <div className={styles.tokenCell}>Latest Price</div>
-              <div className={styles.tokenCell}> {priceChangeInterval} Change</div>
-              <div className={styles.tokenCell}>Links</div>
+        <div className={styles.tokenTable}>
+          <div className={styles.intervalFilterContainer}>
+            <label htmlFor="intervalSelector">
+              Select Price Change Interval:
+            </label>
+            <select
+              id="intervalSelector"
+              value={priceChangeInterval}
+              onChange={(e) => setPriceChangeInterval(e.target.value)}
+              className={styles.intervalSelector}
+            >
+              <option value="1H">1 Hour</option>
+              <option value="1D">1 Day</option>
+              <option value="7D">7 Day</option>
+            </select>
+          </div>
+          <div className={styles.tokenRowHeader}>
+            <div className={styles.tokenCell}>Logo</div>
+            <div
+              className={styles.tokenCell}
+              onClick={() => handleSort("name")}
+              style={{ cursor: "pointer" }}
+            >
+              Name <FaSort />
             </div>
-            {displayedTokens.map((token: any) => (
-              <div key={token.name} className={styles.tokenRow}>
-                <div className={styles.tokenCell}>
-                  <img
-                    src={token.logo}
-                    alt={`${token.name} logo`}
-                    className={styles.tokenLogo}
-                  />
-                </div>
-                <div className={styles.tokenCell}>
-                  {token.name}
-                  <div className={styles.tokenNameLogo}>
-                    <FaPlane />
-                  </div>
-                </div>
-                <div className={styles.tokenCell}>
-                  ${token.totalTVL.toFixed(2)}
-                </div>
-                <div className={styles.tokenCell}>
-                  ${token.latestPrice.toFixed(6)}
-                </div>
-                <div className={styles.tokenCell}>
-                  <div
-                    style={{
-                      color:
-                        token.priceChange24H > 0
-                          ? "green"
-                          : token.priceChange24H < 0
-                          ? "red"
-                          : "black",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {token.priceChange24H > 0 ? "+" : ""}
-                    {token.priceChange24H?.toFixed(2)}%
-                  </div>
-                </div>
-
-                <div className={styles.tokenCell}>
-                  <div className={styles.tokenActions}>
-                    <a
-                      href={`https://vestige.fi/asset/${token.assetID}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.vestigeButton}
-                    >
-                      Vestige
-                    </a>
-                    <a
-                      href={token.xLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.xButton}
-                    >
-                      Follow on X
-                    </a>
-                  </div>
+            <div
+              className={styles.tokenCell}
+              onClick={() => handleSort("totalTVL")}
+              style={{ cursor: "pointer" }}
+            >
+              ASA Thrust TVL <FaSort />
+            </div>
+            <div
+              className={styles.tokenCell}
+              onClick={() => handleSort("latestPrice")}
+              style={{ cursor: "pointer" }}
+            >
+              Latest Price <FaSort />
+            </div>
+            <div
+              className={styles.tokenCell}
+              onClick={() => handleSort("priceChange24H")}
+              style={{ cursor: "pointer" }}
+            >
+              {priceChangeInterval} Change <FaSort />
+            </div>
+            <div className={styles.tokenCell}>Links</div>
+          </div>
+          {displayedTokens.map((token: any) => (
+            <div key={token.name} className={styles.tokenRow}>
+              <div className={styles.tokenCell}>
+                <img
+                  src={token.logo}
+                  alt={`${token.name} logo`}
+                  className={styles.tokenLogo}
+                />
+              </div>
+              <div className={styles.tokenCell}>
+                {token.name}
+                <div className={styles.tokenNameLogo}>
+                  <FaPlane />
                 </div>
               </div>
-            ))}
-          </div>
+              <div className={styles.tokenCell}>
+                ${token.totalTVL.toFixed(2)}
+              </div>
+              <div className={styles.tokenCell}>
+                ${token.latestPrice.toFixed(6)}
+              </div>
+              <div className={styles.tokenCell}>
+                <div
+                  style={{
+                    color:
+                      token.priceChange24H > 0
+                        ? "green"
+                        : token.priceChange24H < 0
+                        ? "red"
+                        : "black",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {token.priceChange24H > 0 ? "+" : ""}
+                  {token.priceChange24H?.toFixed(2)}%
+                </div>
+              </div>
+
+              <div className={styles.tokenCell}>
+                <div className={styles.tokenActions}>
+                  <a
+                    href={`https://vestige.fi/asset/${token.assetID}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.vestigeButton}
+                  >
+                    Vestige
+                  </a>
+                  <a
+                    href={token.xLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.xButton}
+                  >
+                    Follow on X
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
           <div className={styles.pagination}>
             <button
               onClick={() => handlePageChange(currentPage - 1)}
@@ -346,7 +395,7 @@ const BestAlgoDefi: React.FC = () => {
               Next
             </button>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
