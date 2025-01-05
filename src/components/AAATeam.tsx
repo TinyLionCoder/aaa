@@ -18,7 +18,7 @@ const teamMembers = [
     bio: "HR is in charge of the technical architecture, ensuring everything runs smoothly.",
   },
   {
-    name: "Shawn Zeim",
+    name: "Shawn Ziem",
     role: "Marketing Lead",
     image: shawn,
     bio: "Shawn drives the marketing strategy, helping AAA reach new heights and a broader audience.",
