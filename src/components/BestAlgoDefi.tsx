@@ -23,6 +23,7 @@ const BestAlgoDefi: React.FC = () => {
       xLink: string;
       stableTVL: boolean;
       totalTVL: number;
+      fullTVL?: number; // Algo TVL added to the token object
       latestPrice?: number; // New field for latest price
       priceChange24H?: number; // 24-hour price change percentage
     }>
@@ -205,10 +206,33 @@ const BestAlgoDefi: React.FC = () => {
           {}
         );
 
+        const fetchFullTVL = await Promise.all(
+          tokenData.map((token) =>
+            fetch(
+              `https://free-api.vestige.fi/asset/${token.assetID}/tvl/simple/7D?currency=USD`
+            )
+              .then((res) => res.json())
+              .then((data) => ({
+                assetID: token.assetID,
+                fullTVL: parseFloat(data[data.length-1].tvl || 0),
+              }))
+              .catch(() => ({ assetID: token.assetID, fullTVL: 0 }))
+          )
+        );
+
+        const fullTVLMap = fetchFullTVL.reduce(
+          (acc: { [key: string]: number }, curr) => {
+            acc[curr.assetID] = curr.fullTVL;
+            return acc;
+          },
+          {}
+        );
+
         const sorted = tokenData
           .map((token) => ({
             ...token,
             totalTVL: tokenTVL[token.name] || 0,
+            fullTVL: fullTVLMap[token.assetID] || 0,
             latestPrice: latestPrices[token.assetID] || 0,
             priceChange24H: priceChangesMap[token.assetID] || 0,
           }))
@@ -309,7 +333,14 @@ const BestAlgoDefi: React.FC = () => {
               onClick={() => handleSort("totalTVL")}
               style={{ cursor: "pointer" }}
             >
-              ASA Thrust TVL {renderSortIcon("totalTVL")}
+              Thrust TVL {renderSortIcon("totalTVL")}
+            </div>
+            <div
+              className={styles.tokenCell}
+              onClick={() => handleSort("fullTVL")}
+              style={{ cursor: "pointer" }}
+            >
+              Total TVL {renderSortIcon("fullTVL")}
             </div>
             <div
               className={styles.tokenCell}
@@ -342,13 +373,16 @@ const BestAlgoDefi: React.FC = () => {
                   <div className={styles.tooltipContainer}>
                     <FaPlane />
                     <span className={styles.tooltipText}>
-                      Build TVL with this to rank higher
+                      Build LP with this token to rank higher
                     </span>
                   </div>
                 </div>
               </div>
               <div className={styles.tokenCell}>
                 ${token.totalTVL.toFixed(2)}
+              </div>
+              <div className={styles.tokenCell}>
+                ${token.fullTVL?.toFixed(2) || 0}
               </div>
               <div className={styles.tokenCell}>
                 ${token.latestPrice.toFixed(6)}
