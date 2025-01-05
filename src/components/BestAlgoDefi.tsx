@@ -214,7 +214,7 @@ const BestAlgoDefi: React.FC = () => {
               .then((res) => res.json())
               .then((data) => ({
                 assetID: token.assetID,
-                fullTVL: parseFloat(data[data.length-1].tvl || 0),
+                fullTVL: parseFloat(data[data.length - 1].tvl || 0),
               }))
               .catch(() => ({ assetID: token.assetID, fullTVL: 0 }))
           )
@@ -333,7 +333,12 @@ const BestAlgoDefi: React.FC = () => {
               onClick={() => handleSort("totalTVL")}
               style={{ cursor: "pointer" }}
             >
-              Thrust TVL {renderSortIcon("totalTVL")}
+              <div className={styles.tooltipContainer}>
+                Thrust TVL {renderSortIcon("totalTVL")}
+                <span className={styles.tooltipText}>
+                  Total value locked with trusted ASA pairs
+                </span>
+              </div>
             </div>
             <div
               className={styles.tokenCell}
