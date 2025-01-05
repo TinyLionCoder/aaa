@@ -1,13 +1,14 @@
 import React from "react";
 import hr from "../images/hr.png";
 import shawn from "../images/shawn.png";
+import scott from "../images/scott.png";
 import styles from "../css_modules/AAATeamStyles.module.css";
 
 const teamMembers = [
   {
     name: "Scott Gerrard",
     role: "Founder & CEO",
-    image: "https://via.placeholder.com/150",
+    image: scott,
     bio: "Scott is the visionary behind AAA. With years of experience in the tech industry, he leads the team with passion and expertise.",
   },
   {
