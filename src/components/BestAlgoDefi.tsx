@@ -35,7 +35,7 @@ const BestAlgoDefi: React.FC = () => {
   const [searchText, setSearchText] = useState("");
   const [sortField, setSortField] = useState("totalTVL");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
-  const PAGE_SIZE = 10; // Define the page size
+  const PAGE_SIZE = 15; // Define the page size
 
   useEffect(() => {
     const fetchStableTVL = async () => {
