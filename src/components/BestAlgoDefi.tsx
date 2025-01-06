@@ -459,7 +459,7 @@ const BestAlgoDefi: React.FC = () => {
                     rel="noopener noreferrer"
                     className={styles.allo}
                   >
-                    allo'
+                    <img src="https://allo.info/favicons/favicon-16x16.png" alt="'" />
                   </a>
                   <a
                     href={token.xLink}
