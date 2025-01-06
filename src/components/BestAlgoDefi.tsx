@@ -459,7 +459,7 @@ const BestAlgoDefi: React.FC = () => {
                     rel="noopener noreferrer"
                     className={styles.allo}
                   >
-                    allo
+                    allo'
                   </a>
                   <a
                     href={token.xLink}
