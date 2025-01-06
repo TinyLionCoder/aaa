@@ -114,7 +114,7 @@
 .tokenRowHeader,
 .tokenRow {
   display: grid;
-  grid-template-columns: 80px 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 80px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   align-items: center;
   text-align: left;
   background-color: white;
@@ -150,7 +150,7 @@
   padding: 5px 10px;
   border: none;
   border-radius: 5px;
-  font-size: 0.9rem;
+  font-size: 1rem;
   text-decoration: none;
   color: white;
   font-weight: bold;

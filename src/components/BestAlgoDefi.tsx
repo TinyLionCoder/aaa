@@ -24,6 +24,7 @@ const BestAlgoDefi: React.FC = () => {
       stableTVL: boolean;
       totalTVL: number;
       fullTVL?: number; // Algo TVL added to the token object
+      holders?: number; // Number of holders
       latestPrice?: number; // New field for latest price
       priceChange24H?: number; // 24-hour price change percentage
     }>
@@ -228,11 +229,35 @@ const BestAlgoDefi: React.FC = () => {
           {}
         );
 
+        // Fetch Holders Data
+        const fetchHolders = await Promise.all(
+          tokenData.map((token) =>
+            fetch(
+              `https://free-api.vestige.fi/asset/${token.assetID}/holders?limit=10000000`
+            )
+              .then((res) => res.json())
+              .then((data) => ({
+                assetID: token.assetID,
+                holders: data.length || 0,
+              }))
+              .catch(() => ({ assetID: token.assetID, holders: 0 }))
+          )
+        );
+
+        const holdersMap = fetchHolders.reduce(
+          (acc: { [key: string]: number }, curr) => {
+            acc[curr.assetID] = curr.holders;
+            return acc;
+          },
+          {}
+        );
+
         const sorted = tokenData
           .map((token) => ({
             ...token,
             totalTVL: tokenTVL[token.name] || 0,
             fullTVL: fullTVLMap[token.assetID] || 0,
+            holders: holdersMap[token.assetID] || 0,
             latestPrice: latestPrices[token.assetID] || 0,
             priceChange24H: priceChangesMap[token.assetID] || 0,
           }))
@@ -361,6 +386,13 @@ const BestAlgoDefi: React.FC = () => {
             >
               {priceChangeInterval} Change {renderSortIcon("priceChange24H")}
             </div>
+            <div
+              className={styles.tokenCell}
+              onClick={() => handleSort("holders")}
+              style={{ cursor: "pointer" }}
+            >
+              Holders {renderSortIcon("holders")}
+            </div>
             <div className={styles.tokenCell}>Links</div>
           </div>
           {displayedTokens.map((token: any) => (
@@ -408,7 +440,9 @@ const BestAlgoDefi: React.FC = () => {
                   {token.priceChange24H?.toFixed(2)}%
                 </div>
               </div>
-
+              <div className={styles.tokenCell}>
+                {token.holders || 0}
+              </div>
               <div className={styles.tokenCell}>
                 <div className={styles.tokenActions}>
                   <a
@@ -425,7 +459,7 @@ const BestAlgoDefi: React.FC = () => {
                     rel="noopener noreferrer"
                     className={styles.xButton}
                   >
-                    Follow on X
+                    𝕏
                   </a>
                 </div>
               </div>
