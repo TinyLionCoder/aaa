@@ -12,6 +12,7 @@ import cat from "../images/cat.png";
 import aaa from "../images/aaa.png";
 import marcus from "../images/marcus.png";
 import coop from "../images/coop.png";
+import gt from "../images/gt.png";
 
 export default [
   {
@@ -124,6 +125,14 @@ export default [
     logo: coop,
     vestigeLink: "https://vestige.fi/asset/796425061",
     xLink: "https://x.com/Coop_Daniels",
+    stableTVL: true,
+  },
+  {
+    name: "$GT",
+    assetID: "2606098683",
+    logo: gt,
+    vestigeLink: "https://vestige.fi/asset/2606098683",
+    xLink: "https://x.com/GreatToken1",
     stableTVL: true,
   },
 ];
