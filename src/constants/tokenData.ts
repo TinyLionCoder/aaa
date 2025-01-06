@@ -11,6 +11,7 @@ import ogs from "../images/ogs.png";
 import cat from "../images/cat.png";
 import aaa from "../images/aaa.png";
 import marcus from "../images/marcus.png";
+import coop from "../images/coop.png";
 
 export default [
   {
@@ -115,6 +116,14 @@ export default [
     logo: marcus,
     vestigeLink: "https://vestige.fi/asset/2466866698",
     xLink: "https://x.com/MarcusFurrelius",
+    stableTVL: true,
+  },
+  {
+    name: "COOP",
+    assetID: "796425061",
+    logo: coop,
+    vestigeLink: "https://vestige.fi/asset/796425061",
+    xLink: "https://x.com/Coop_Daniels",
     stableTVL: true,
   },
 ];
