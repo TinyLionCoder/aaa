@@ -454,6 +454,14 @@ const BestAlgoDefi: React.FC = () => {
                     Vestige
                   </a>
                   <a
+                    href={`https://allo.info/asset/${token.assetID}/token`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.allo}
+                  >
+                    allo
+                  </a>
+                  <a
                     href={token.xLink}
                     target="_blank"
                     rel="noopener noreferrer"

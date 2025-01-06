@@ -145,6 +145,7 @@
   gap: 10px;
 }
 
+.allo,
 .vestigeButton,
 .xButton {
   padding: 5px 10px;
@@ -155,6 +156,14 @@
   color: white;
   font-weight: bold;
   transition: background 0.3s ease;
+}
+
+.allo {
+  background-color: rebeccapurple;
+}
+
+.allo:hover {
+  background-color: purple;
 }
 
 .vestigeButton {
