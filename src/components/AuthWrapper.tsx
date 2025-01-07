@@ -135,7 +135,7 @@ const AuthWrapper = () => {
       toast.success("Signup successful! Please login with your email account.");
 
       setTimeout(() => {
-        window.location.reload();
+        window.location.href = window.location.origin;
       }, 4000);
     } catch (error) {
       console.error("Sign up failed:", error);
