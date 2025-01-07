@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "../css_modules/AuthFormStyles.module.css";
 import { useParams } from "react-router-dom";
+import ReCAPTCHA from "react-google-recaptcha";
+import { siteKey } from "../constants/tokenData";
 
 interface AuthFormProps {
   onSignUp: () => void;
@@ -19,6 +21,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
   setReferralCode,
   initialReferralCode = "",
 }) => {
+  const recaptcha = useRef<ReCAPTCHA | null>(null);
   const { referralCode: referralCodeParam } = useParams<{
     referralCode?: string;
   }>();
@@ -41,45 +44,73 @@ const AuthForm: React.FC<AuthFormProps> = ({
   }, [referralCodeParam, setReferralCode]);
 
   const handleReferralCodeChange = (code: string) => {
-    setLocalReferralCode(code);
-    setReferralCode(code); // Update parent state
+    const captchaValue = recaptcha.current
+      ? recaptcha.current.getValue()
+      : null;
+    if (!captchaValue) {
+      alert("Please verify the reCAPTCHA!");
+    } else {
+      setLocalReferralCode(code);
+      setReferralCode(code); // Update parent state
+    }
   };
 
   const handleEmailChange = (emailInput: string) => {
-    setLocalEmail(emailInput);
-    setEmail(emailInput); // Update parent state
+    const captchaValue = recaptcha.current
+      ? recaptcha.current.getValue()
+      : null;
+    if (!captchaValue) {
+      alert("Please verify the reCAPTCHA!");
+    } else {
+      setLocalEmail(emailInput);
+      setEmail(emailInput); // Update parent state
+    }
   };
 
   // Check Password Strength
   const handlePasswordChange = (password: string) => {
-    setLocalPassword(password);
-
-    // Password strength logic
-    if (password.length < 8) {
-      setPasswordStrength("Password must be at least 8 characters long.");
-    } else if (!/[A-Z]/.test(password)) {
-      setPasswordStrength(
-        "Password must include at least one uppercase letter."
-      );
-    } else if (!/[0-9]/.test(password)) {
-      setPasswordStrength("Password must include at least one number.");
-    } else if (!/[!@#$%^&*]/.test(password)) {
-      setPasswordStrength(
-        "Password must include at least one special character."
-      );
+    const captchaValue = recaptcha.current
+      ? recaptcha.current.getValue()
+      : null;
+    if (!captchaValue) {
+      alert("Please verify the reCAPTCHA!");
     } else {
-      setPasswordStrength("Strong password!");
+      setLocalPassword(password);
+
+      // Password strength logic
+      if (password.length < 8) {
+        setPasswordStrength("Password must be at least 8 characters long.");
+      } else if (!/[A-Z]/.test(password)) {
+        setPasswordStrength(
+          "Password must include at least one uppercase letter."
+        );
+      } else if (!/[0-9]/.test(password)) {
+        setPasswordStrength("Password must include at least one number.");
+      } else if (!/[!@#$%^&*]/.test(password)) {
+        setPasswordStrength(
+          "Password must include at least one special character."
+        );
+      } else {
+        setPasswordStrength("Strong password!");
+      }
     }
   };
 
   // Validate Confirm Password
   const handleConfirmPasswordChange = (confirmPasswordInput: string) => {
-    setConfirmPassword(confirmPasswordInput);
-    setPassword(password); // Ensure the parent state gets the final password
-    if (confirmPasswordInput !== password) {
-      setPasswordError("Passwords do not match.");
+    const captchaValue = recaptcha.current
+      ? recaptcha.current.getValue()
+      : null;
+    if (!captchaValue) {
+      alert("Please verify the reCAPTCHA!");
     } else {
-      setPasswordError("");
+      setConfirmPassword(confirmPasswordInput);
+      setPassword(password); // Ensure the parent state gets the final password
+      if (confirmPasswordInput !== password) {
+        setPasswordError("Passwords do not match.");
+      } else {
+        setPasswordError("");
+      }
     }
   };
 
@@ -98,6 +129,9 @@ const AuthForm: React.FC<AuthFormProps> = ({
       <div className={styles.card}>
         <h2 className={styles.cardTitle}>Sign Up</h2>
         <div className={styles.authFormInputs}>
+          <div className={styles.authInput}>
+            <ReCAPTCHA ref={recaptcha} sitekey={siteKey} />
+          </div>
           <input
             className={styles.authInput}
             placeholder="Email..."
@@ -133,6 +167,7 @@ const AuthForm: React.FC<AuthFormProps> = ({
         >
           Sign Up
         </button>
+        <br />
       </div>
 
       {/* Login Card */}

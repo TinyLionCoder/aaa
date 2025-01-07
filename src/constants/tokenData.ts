@@ -136,3 +136,6 @@ export default [
     stableTVL: true,
   },
 ];
+
+
+export const siteKey = "6LfhNrAqAAAAAAQKEN9k7q3lPwo7nuHewzdaLIkm"
