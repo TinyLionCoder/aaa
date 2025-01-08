@@ -3,15 +3,18 @@ import axios from "axios";
 import styles from "../css_modules/ClaimAirdropStyles.module.css";
 
 export const ClaimAirdrop = () => {
-  const BASE_URL = "https://aaa-api.onrender.com/api/v1/airdrop";
+   const BASE_URL = "https://aaa-api.onrender.com/api/v1/airdrop";
 
   const [airdrops, setAirdrops] = useState<
-    Array<{ id: string; tokenName: string; tokenId: string }>
+    Array<{ id: string; tokenName: string; tokenId: string; shortDescription: string }>
   >([]);
   const [loading, setLoading] = useState(false);
   const [claiming, setClaiming] = useState(false);
   const [address, setAddress] = useState("");
-  const [selectedAirdrop, setSelectedAirdrop] = useState<string | null>(null);
+  const [selectedAirdrop, setSelectedAirdrop] = useState<{
+    tokenName: string;
+    shortDescription: string;
+  } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
@@ -62,7 +65,7 @@ export const ClaimAirdrop = () => {
         {
           userId: localStorage.getItem("userId"),
           email: localStorage.getItem("userEmail"),
-          tokenName: selectedAirdrop,
+          tokenName: selectedAirdrop.tokenName,
           address,
         },
         {
@@ -88,7 +91,7 @@ export const ClaimAirdrop = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>Claim Airdrop</h1>
-        <p>Coming Soon!</p>
+      <p>Coming Soon!</p>
       {/* {loading ? (
         <p className={styles.loading}>Loading available airdrops...</p>
       ) : (
@@ -98,8 +101,20 @@ export const ClaimAirdrop = () => {
               Select an Airdrop:
               <select
                 className={styles.select}
-                value={selectedAirdrop || ""}
-                onChange={(e) => setSelectedAirdrop(e.target.value)}
+                value={selectedAirdrop?.tokenName || ""}
+                onChange={(e) => {
+                  const selected = airdrops.find(
+                    (airdrop) => airdrop.tokenName === e.target.value
+                  );
+                  setSelectedAirdrop(
+                    selected
+                      ? {
+                          tokenName: selected.tokenName,
+                          shortDescription: selected.shortDescription,
+                        }
+                      : null
+                  );
+                }}
               >
                 <option value="" disabled>
                   Choose an airdrop
@@ -111,6 +126,14 @@ export const ClaimAirdrop = () => {
                 ))}
               </select>
             </label>
+
+            {selectedAirdrop && (
+              <div className={styles.description}>
+                <h3>Description:</h3>
+                <p>{selectedAirdrop.shortDescription}</p>
+              </div>
+            )}
+
             <label className={styles.label}>
               Your Wallet Address:
               <input
