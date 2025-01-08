@@ -19,7 +19,9 @@ export const CreateAirdrop = () => {
   });
 
   // Handle input changes with validation
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
 
     // Prevent decimal values for specific fields
@@ -131,13 +133,13 @@ export const CreateAirdrop = () => {
               step="1" // Prevents decimal input for these fields
             />
             <label className={styles.label}>Short Description</label>
-            <input
-              className={styles.input}
-              type="text"
+            <textarea
+              className={styles.textarea} // Use a distinct style for textareas
               name="shortDescription"
               value={formData.shortDescription}
               onChange={handleChange}
               placeholder="Brief description (max 100 chars)"
+              rows={4}
             />
           </form>
           {error && <p className={styles.error}>{error}</p>}

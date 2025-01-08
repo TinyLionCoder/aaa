@@ -1,103 +1,113 @@
 .container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .heading {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-    text-align: center;
-  }
-  
-  .form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  .label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #555;
-  }
-  
-  .input {
-    width: 50%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-    transition: border-color 0.3s ease;
-  }
-  
-  .input:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
-  }
-  
-  .button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 15px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  
-  .button:disabled {
-    background-color: #aaa;
-    cursor: not-allowed;
-  }
-  
-  .button:hover:not(:disabled) {
-    background-color: #0056b3;
-    transform: translateY(-1px);
-  }
-  
-  .error {
-    color: red;
-    font-size: 14px;
-  }
-  
-  .walletAddress {
-    padding: 15px;
-    background-color: #f1f1f1;
-    border-radius: 5px;
-    font-family: monospace;
-    font-size: 16px;
-    text-align: center;
-    word-break: break-word;
-  }
-  
-  .instructions {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
-  }
-  
-  .backButton {
-    margin-top: 10px;
-    background-color: #6c757d;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .backButton:hover {
-    background-color: #5a6268;
-  }
-  
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.heading {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.input {
+  width: 50%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
+}
+
+.textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+  /* Prevent resizing */
+  margin-bottom: 15px;
+}
+
+.button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.button:hover:not(:disabled) {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+}
+
+.walletAddress {
+  padding: 15px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  font-family: monospace;
+  font-size: 16px;
+  text-align: center;
+  word-break: break-word;
+}
+
+.instructions {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.backButton {
+  margin-top: 10px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.backButton:hover {
+  background-color: #5a6268;
+}
