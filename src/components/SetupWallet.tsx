@@ -27,7 +27,7 @@ export const SetupWallet = ({ userId }: SetupWalletProps) => {
         `${BASE_URL}/setup-wallet`,
         {
           userId,
-          email: localStorage.getItem("email"),
+          email: localStorage.getItem("userEmail"),
           walletAddress: address,
         },
         {
