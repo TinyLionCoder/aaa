@@ -123,6 +123,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
     <div className={styles.dashboardContainer}>
       {/* Load Sidebar Component */}
       <Sidebar
+        verfied={verified}
         onLogout={onLogout}
         setActiveComponent={setActiveComponent} // Pass setActiveComponent to Sidebar
       />

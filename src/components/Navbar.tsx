@@ -21,6 +21,9 @@ const Navbar = () => {
         ☰
       </div>
       <div className={`${styles.navLinks} ${menuOpen ? styles.open : ""}`}>
+        <Link to="/current-airdrops" onClick={() => setMenuOpen(false)}>
+          Current Airdrops
+        </Link>
         <Link to="/swap-tokens" onClick={() => setMenuOpen(false)}>
           Swap Tokens
         </Link>

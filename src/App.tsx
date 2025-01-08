@@ -11,6 +11,7 @@ import { AboutUs } from "./components/Aboutus";
 import { AAASwap } from "./components/AAASwap";
 import BestAlgoDefi from "./components/BestAlgoDefi";
 import { Contact } from "./components/contact";
+import { DisplayCurrentAirdrops } from "./components/DisplayCurrentAirdrops";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="token-listing" element={<TokenListing />} />
           <Route path="swap-tokens" element={<AAASwap />} />
+          <Route path="current-airdrops" element={<DisplayCurrentAirdrops />} />
           <Route path="best-algo-defi" element={<BestAlgoDefi />} />
         </Routes>
       </PeraWalletProvider>

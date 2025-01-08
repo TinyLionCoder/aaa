@@ -17,11 +17,16 @@ import styles from "../css_modules/SidebarStyles.module.css";
 import { useNavigate } from "react-router-dom";
 
 interface SidebarProps {
+  verfied: boolean;
   onLogout: () => void;
   setActiveComponent: (component: string) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ onLogout, setActiveComponent }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  verfied,
+  onLogout,
+  setActiveComponent,
+}) => {
   const navitage = useNavigate();
   const [activeItem, setActiveItem] = useState<string>("bestAlgoDefi");
   const [isOpen, setIsOpen] = useState<boolean>(true);
@@ -146,24 +151,28 @@ const Sidebar: React.FC<SidebarProps> = ({ onLogout, setActiveComponent }) => {
             <FaUsers className={styles.icon} />
             <span>My Team</span>
           </li>
-          <li
-            className={`${styles.navItem} ${
-              activeItem === "createAirdrop" ? styles.activeNavItem : ""
-            }`}
-            onClick={() => handleItemClick("createAirdrop")}
-          >
-            <FaFaucet className={styles.icon} />
-            <span>Create Airdrop</span>
-          </li>
-          <li
-            className={`${styles.navItem} ${
-              activeItem === "claimAirdrop" ? styles.activeNavItem : ""
-            }`}
-            onClick={() => handleItemClick("claimAirdrop")}
-          >
-            <FaCashRegister className={styles.icon} />
-            <span>Claim Airdrop</span>
-          </li>
+          {verfied && (
+            <li
+              className={`${styles.navItem} ${
+                activeItem === "createAirdrop" ? styles.activeNavItem : ""
+              }`}
+              onClick={() => handleItemClick("createAirdrop")}
+            >
+              <FaFaucet className={styles.icon} />
+              <span>Create Airdrop</span>
+            </li>
+          )}
+          {verfied && (
+            <li
+              className={`${styles.navItem} ${
+                activeItem === "claimAirdrop" ? styles.activeNavItem : ""
+              }`}
+              onClick={() => handleItemClick("claimAirdrop")}
+            >
+              <FaCashRegister className={styles.icon} />
+              <span>Claim Airdrop</span>
+            </li>
+          )}
 
           {/* Logout Button */}
           <li className={styles.navItem}>
