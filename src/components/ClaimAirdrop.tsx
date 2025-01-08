@@ -106,7 +106,7 @@ export const ClaimAirdrop = () => {
                 </option>
                 {airdrops.map((airdrop) => (
                   <option key={airdrop.id} value={airdrop.tokenName}>
-                    {airdrop.tokenName} (Token ID: {airdrop.tokenId})
+                    {`${airdrop.tokenName}`.toUpperCase()} (Token ID: {airdrop.tokenId})
                   </option>
                 ))}
               </select>
