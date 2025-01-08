@@ -53,7 +53,7 @@ export const DisplayCurrentAirdrops = () => {
         <div className={styles.airdropList}>
           {airdrops.map((airdrop) => (
             <div key={airdrop.id} className={styles.airdropCard}>
-              <h2 className={styles.tokenName}>{airdrop.tokenName}</h2>
+              <h2 className={styles.tokenName}>{`${airdrop.tokenName}`.toUpperCase()}</h2>
               <a
                 href={`https://allo.info/asset/${airdrop.tokenId}/token`}
                 target="_blank"
