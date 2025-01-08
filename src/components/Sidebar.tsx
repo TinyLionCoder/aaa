@@ -10,6 +10,7 @@ import {
   FaArrowLeft,
   FaArrowRight,
   FaExchangeAlt,
+  FaFaucet,
 } from "react-icons/fa";
 import styles from "../css_modules/SidebarStyles.module.css";
 import { useNavigate } from "react-router-dom";
@@ -143,6 +144,15 @@ const Sidebar: React.FC<SidebarProps> = ({ onLogout, setActiveComponent }) => {
           >
             <FaUsers className={styles.icon} />
             <span>My Team</span>
+          </li>
+          <li
+            className={`${styles.navItem} ${
+              activeItem === "createAirdrop" ? styles.activeNavItem : ""
+            }`}
+            onClick={() => handleItemClick("createAirdrop")}
+          >
+            <FaFaucet className={styles.icon} />
+            <span>Create Airdrop</span>
           </li>
 
           {/* Logout Button */}

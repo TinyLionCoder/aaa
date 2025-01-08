@@ -13,6 +13,7 @@ import { SetupWallet } from "./SetupWallet";
 import axios from "axios";
 import VerificationPage from "./VerifyAccount";
 import { AAASwap } from "./AAASwap";
+import { CreateAirdrop } from "./CreateAirdrop";
 
 interface EnhancedDashboardProps {
   userName: string;
@@ -88,6 +89,8 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
         return <SetupWallet userId={userId} />;
       case "myTeam":
         return <MyTeam userId={userId} />;
+      case "createAirdrop":
+        return <CreateAirdrop />;
       case "dashboard":
         return (
           <DashboardContent
