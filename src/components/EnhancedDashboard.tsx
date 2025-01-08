@@ -14,6 +14,7 @@ import axios from "axios";
 import VerificationPage from "./VerifyAccount";
 import { AAASwap } from "./AAASwap";
 import { CreateAirdrop } from "./CreateAirdrop";
+import { ClaimAirdrop } from "./ClaimAirdrop";
 
 interface EnhancedDashboardProps {
   userName: string;
@@ -91,6 +92,8 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
         return <MyTeam userId={userId} />;
       case "createAirdrop":
         return <CreateAirdrop />;
+      case "claimAirdrop":
+        return <ClaimAirdrop />;
       case "dashboard":
         return (
           <DashboardContent

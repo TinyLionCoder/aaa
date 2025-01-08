@@ -11,6 +11,7 @@ import {
   FaArrowRight,
   FaExchangeAlt,
   FaFaucet,
+  FaCashRegister,
 } from "react-icons/fa";
 import styles from "../css_modules/SidebarStyles.module.css";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +27,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onLogout, setActiveComponent }) => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
 
   const handleItemClick = (component: string) => {
-    if(component === "AAASwap") {
+    if (component === "AAASwap") {
       navitage("/swap-tokens");
     }
     setActiveItem(component);
@@ -153,6 +154,15 @@ const Sidebar: React.FC<SidebarProps> = ({ onLogout, setActiveComponent }) => {
           >
             <FaFaucet className={styles.icon} />
             <span>Create Airdrop</span>
+          </li>
+          <li
+            className={`${styles.navItem} ${
+              activeItem === "claimAirdrop" ? styles.activeNavItem : ""
+            }`}
+            onClick={() => handleItemClick("claimAirdrop")}
+          >
+            <FaCashRegister className={styles.icon} />
+            <span>Claim Airdrop</span>
           </li>
 
           {/* Logout Button */}
