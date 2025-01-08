@@ -17,13 +17,31 @@ export const CreateAirdrop = () => {
     totalAmountOfTokens: "",
   });
 
-  // Handle input changes
+  // Handle input changes with validation for integers
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    // Prevent decimal values for specific fields
+    if (["amountOfTokenPerClaim", "totalAmountOfTokens"].includes(name)) {
+      if (!/^\d*$/.test(value)) return; // Allow only digits
+    }
+
+    setFormData({ ...formData, [name]: value });
   };
 
   // Handle form submission for Step 1
   const handleNext = async () => {
+    if (
+      !formData.tokenName ||
+      !formData.tokenId ||
+      !formData.tokenDecimals ||
+      !formData.amountOfTokenPerClaim ||
+      !formData.totalAmountOfTokens
+    ) {
+      setError("All fields are required.");
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
@@ -64,7 +82,7 @@ export const CreateAirdrop = () => {
         <>
           <h2 className={styles.heading}>Step 1: Fill Airdrop Details</h2>
           <form className={styles.form}>
-            <label className={styles.label}>Token Name</label>
+            <label className={styles.label}>Unit Name</label>
             <input
               className={styles.input}
               type="text"
@@ -95,6 +113,7 @@ export const CreateAirdrop = () => {
               name="amountOfTokenPerClaim"
               value={formData.amountOfTokenPerClaim}
               onChange={handleChange}
+              step="1" // Prevents decimal input for these fields
             />
             <label className={styles.label}>Total Tokens</label>
             <input
@@ -103,6 +122,7 @@ export const CreateAirdrop = () => {
               name="totalAmountOfTokens"
               value={formData.totalAmountOfTokens}
               onChange={handleChange}
+              step="1" // Prevents decimal input for these fields
             />
           </form>
           {error && <p className={styles.error}>{error}</p>}
@@ -126,7 +146,7 @@ export const CreateAirdrop = () => {
           </div>
           <p>
             Make sure the total tokens match the amount specified during the
-            setup. Once tokens are deposited, the airdrop will become active.
+            setup.
           </p>
         </>
       )} */}
