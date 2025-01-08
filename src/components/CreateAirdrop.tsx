@@ -15,9 +15,10 @@ export const CreateAirdrop = () => {
     tokenDecimals: "",
     amountOfTokenPerClaim: "",
     totalAmountOfTokens: "",
+    shortDescription: "", // New field
   });
 
-  // Handle input changes with validation for integers
+  // Handle input changes with validation
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -25,6 +26,9 @@ export const CreateAirdrop = () => {
     if (["amountOfTokenPerClaim", "totalAmountOfTokens"].includes(name)) {
       if (!/^\d*$/.test(value)) return; // Allow only digits
     }
+
+    // Restrict `shortDescription` to a maximum of 100 characters
+    if (name === "shortDescription" && value.length > 100) return;
 
     setFormData({ ...formData, [name]: value });
   };
@@ -36,7 +40,8 @@ export const CreateAirdrop = () => {
       !formData.tokenId ||
       !formData.tokenDecimals ||
       !formData.amountOfTokenPerClaim ||
-      !formData.totalAmountOfTokens
+      !formData.totalAmountOfTokens ||
+      !formData.shortDescription
     ) {
       setError("All fields are required.");
       return;
@@ -56,6 +61,7 @@ export const CreateAirdrop = () => {
           tokenDecimals: Number(formData.tokenDecimals),
           amountOfTokenPerClaim: Number(formData.amountOfTokenPerClaim),
           totalAmountOfTokens: Number(formData.totalAmountOfTokens),
+          shortDescription: formData.shortDescription,
         },
         {
           headers: {
@@ -123,6 +129,15 @@ export const CreateAirdrop = () => {
               value={formData.totalAmountOfTokens}
               onChange={handleChange}
               step="1" // Prevents decimal input for these fields
+            />
+            <label className={styles.label}>Short Description</label>
+            <input
+              className={styles.input}
+              type="text"
+              name="shortDescription"
+              value={formData.shortDescription}
+              onChange={handleChange}
+              placeholder="Brief description (max 100 chars)"
             />
           </form>
           {error && <p className={styles.error}>{error}</p>}
