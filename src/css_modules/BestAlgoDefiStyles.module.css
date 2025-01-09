@@ -314,6 +314,7 @@
   opacity: 1;
 }
 
+/* Mobile view Styles */
 .mobileView {
   display: none;
   margin-top: 20px;
@@ -393,7 +394,7 @@
     display: block;
   }
 }
-
+/* Mobile view Styles */
 
 
 /* Mobile Styles */
