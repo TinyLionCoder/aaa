@@ -500,6 +500,21 @@ const BestAlgoDefi: React.FC = () => {
             </div>
           </div>
           <div className={styles.mobileView}>
+            <div className={styles.intervalFilterContainer}>
+              <label htmlFor="intervalSelector">
+                Select Price Change Interval:
+              </label>
+              <select
+                id="intervalSelector"
+                value={priceChangeInterval}
+                onChange={(e) => setPriceChangeInterval(e.target.value)}
+                className={styles.intervalSelector}
+              >
+                <option value="1H">1 Hour</option>
+                <option value="1D">1 Day</option>
+                <option value="7D">7 Day</option>
+              </select>
+            </div>
             {displayedTokens.map((token: any) => (
               <div key={token.name} className={styles.tokenCard}>
                 <div className={styles.tokenCardHeader}>
