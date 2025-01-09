@@ -120,6 +120,7 @@ const VerificationPage = ({ userId }: VerificationPageProps) => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Verify Your Account</h1>
+      <strong style={{color:"red"}}>Please setup your wallet first before verifying</strong>.
       <p className={styles.description}>
         To verify your account, please pay a verification fee of{" "}
         <strong>0.5 ALGO with your registered wallet address</strong>.
