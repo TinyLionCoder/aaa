@@ -197,3 +197,38 @@
     font-size: 1.2rem;
   }
 }
+
+.navItemDropdown .dropdown {
+  /* display: none; */
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+.navItemDropdown:hover .dropdown {
+  display: block;
+}
+
+.dropdown li {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  margin-bottom: 5px;
+  transition: background 0.3s;
+  cursor: pointer;
+}
+
+.dropdown li:hover {
+  background-color: #e6f7ff;
+}
+
+.dropdown li .icon {
+  margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+  .dropdown {
+    display: block;
+  }
+}
