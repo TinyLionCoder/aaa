@@ -123,7 +123,7 @@
   }
 
   .authWrapper>div {
-    max-width: 90%;
+    max-width: 100%;
     /* Adjust width for smaller screens */
     padding: 20px;
     /* Adjust padding for mobile */
