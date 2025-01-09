@@ -546,9 +546,24 @@ const BestAlgoDefi: React.FC = () => {
                 </div>
                 {expandedToken === token.name && (
                   <div className={styles.tokenDetails}>
-                    <p>Total TVL: ${token.fullTVL?.toFixed(2) || 0}</p>
-                    <p>Thrust TVL: ${token.totalTVL.toFixed(2)}</p>
-                    <p>
+                    <p
+                      onClick={() => handleSort("totalTVL")}
+                      style={{ cursor: "pointer" }}
+                    >
+                      Thrust TVL: ${token.totalTVL.toFixed(2)}{" "}
+                      {renderSortIcon("totalTVL")}
+                    </p>
+                    <p
+                      onClick={() => handleSort("fullTVL")}
+                      style={{ cursor: "pointer" }}
+                    >
+                      Total TVL: ${token.fullTVL?.toFixed(2) || 0}{" "}
+                      {renderSortIcon("fullTVL")}
+                    </p>
+                    <p
+                      onClick={() => handleSort("priceChange24H")}
+                      style={{ cursor: "pointer" }}
+                    >
                       Change:{" "}
                       <span
                         style={{
@@ -561,10 +576,16 @@ const BestAlgoDefi: React.FC = () => {
                         }}
                       >
                         {token.priceChange24H > 0 ? "+" : ""}
-                        {token.priceChange24H?.toFixed(2)}%
+                        {token.priceChange24H?.toFixed(2)}%{" "}
                       </span>
+                      {renderSortIcon("priceChange24H")}
                     </p>
-                    <p>Holders: {token.holders || 0}</p>
+                    <p
+                      onClick={() => handleSort("holders")}
+                      style={{ cursor: "pointer" }}
+                    >
+                      Holders: {token.holders || 0} {renderSortIcon("holders")}
+                    </p>
                     <div className={styles.tokenActions}>
                       <a
                         href={`https://vestige.fi/asset/${token.assetID}`}
