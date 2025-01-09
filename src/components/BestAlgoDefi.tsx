@@ -511,7 +511,7 @@ const BestAlgoDefi: React.FC = () => {
                   <div className={styles.tokenInfo}>
                     <span className={styles.tokenName}>{token.name}</span>
                     <span className={styles.tokenTVL}>
-                      Thrust: ${token.totalTVL.toFixed(2)}
+                      Price: ${token.latestPrice.toFixed(6)}
                     </span>
                   </div>
                   <button
@@ -530,7 +530,7 @@ const BestAlgoDefi: React.FC = () => {
                 {expandedToken === token.name && (
                   <div className={styles.tokenDetails}>
                     <p>Total TVL: ${token.fullTVL?.toFixed(2) || 0}</p>
-                    <p>Latest Price: ${token.latestPrice.toFixed(6)}</p>
+                    <p>Thrust TVL: ${token.totalTVL.toFixed(2)}</p>
                     <p>
                       Change:{" "}
                       <span
