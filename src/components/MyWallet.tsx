@@ -137,7 +137,7 @@ export const MyWallet = () => {
           usdPrice = await fetchAssetPrice(asset["asset-id"]);
         }
 
-        if (usdPrice > 0) {
+        if (usdPrice > 0 && name !== "Unknown Asset" && unitName !== "N/A") {
           const amount = formatAmount(asset.amount, decimals);
           const usdValue = parseFloat((amount * usdPrice).toFixed(2));
 
