@@ -35,6 +35,7 @@ const BestAlgoDefi: React.FC = () => {
   const [searchText, setSearchText] = useState("");
   const [sortField, setSortField] = useState("totalTVL");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
+  const [expandedToken, setExpandedToken] = useState<string | null>(null);
   const PAGE_SIZE = 15; // Define the page size
 
   useEffect(() => {
@@ -328,171 +329,279 @@ const BestAlgoDefi: React.FC = () => {
           </span>
         </div>
       ) : (
-        <div className={styles.tokenTable}>
-          <div className={styles.intervalFilterContainer}>
-            <label htmlFor="intervalSelector">
-              Select Price Change Interval:
-            </label>
-            <select
-              id="intervalSelector"
-              value={priceChangeInterval}
-              onChange={(e) => setPriceChangeInterval(e.target.value)}
-              className={styles.intervalSelector}
-            >
-              <option value="1H">1 Hour</option>
-              <option value="1D">1 Day</option>
-              <option value="7D">7 Day</option>
-            </select>
-          </div>
-          <div className={styles.tokenRowHeader}>
-            <div className={styles.tokenCell}>Logo</div>
-            <div
-              className={styles.tokenCell}
-              onClick={() => handleSort("name")}
-              style={{ cursor: "pointer" }}
-            >
-              Name {renderSortIcon("name")}
-            </div>
-            <div
-              className={styles.tokenCell}
-              onClick={() => handleSort("totalTVL")}
-              style={{ cursor: "pointer" }}
-            >
-              <div className={styles.tooltipContainer}>
-                Thrust TVL {renderSortIcon("totalTVL")}
-                <span className={styles.tooltipText}>
-                  Total value locked with trusted ASA pairs
-                </span>
+        <>
+          <div className={styles.desktopView}>
+            <div className={styles.tokenTable}>
+              <div className={styles.intervalFilterContainer}>
+                <label htmlFor="intervalSelector">
+                  Select Price Change Interval:
+                </label>
+                <select
+                  id="intervalSelector"
+                  value={priceChangeInterval}
+                  onChange={(e) => setPriceChangeInterval(e.target.value)}
+                  className={styles.intervalSelector}
+                >
+                  <option value="1H">1 Hour</option>
+                  <option value="1D">1 Day</option>
+                  <option value="7D">7 Day</option>
+                </select>
               </div>
-            </div>
-            <div
-              className={styles.tokenCell}
-              onClick={() => handleSort("fullTVL")}
-              style={{ cursor: "pointer" }}
-            >
-              Total TVL {renderSortIcon("fullTVL")}
-            </div>
-            <div
-              className={styles.tokenCell}
-              onClick={() => handleSort("latestPrice")}
-              style={{ cursor: "pointer" }}
-            >
-              Latest Price {renderSortIcon("latestPrice")}
-            </div>
-            <div
-              className={styles.tokenCell}
-              onClick={() => handleSort("priceChange24H")}
-              style={{ cursor: "pointer" }}
-            >
-              {priceChangeInterval} Change {renderSortIcon("priceChange24H")}
-            </div>
-            <div
-              className={styles.tokenCell}
-              onClick={() => handleSort("holders")}
-              style={{ cursor: "pointer" }}
-            >
-              Holders {renderSortIcon("holders")}
-            </div>
-            <div className={styles.tokenCell}>Links</div>
-          </div>
-          {displayedTokens.map((token: any) => (
-            <div key={token.name} className={styles.tokenRow}>
-              <div className={styles.tokenCell}>
-                <img
-                  src={token.logo}
-                  alt={`${token.name} logo`}
-                  className={styles.tokenLogo}
-                />
-              </div>
-              <div className={styles.tokenCell}>
-                {token.name}
-                <div className={styles.tokenNameLogo}>
+              <div className={styles.tokenRowHeader}>
+                <div className={styles.tokenCell}>Logo</div>
+                <div
+                  className={styles.tokenCell}
+                  onClick={() => handleSort("name")}
+                  style={{ cursor: "pointer" }}
+                >
+                  Name {renderSortIcon("name")}
+                </div>
+                <div
+                  className={styles.tokenCell}
+                  onClick={() => handleSort("totalTVL")}
+                  style={{ cursor: "pointer" }}
+                >
                   <div className={styles.tooltipContainer}>
-                    <FaPlane />
+                    Thrust TVL {renderSortIcon("totalTVL")}
                     <span className={styles.tooltipText}>
-                      Build LP with this token to rank higher
+                      Total value locked with trusted ASA pairs
                     </span>
                   </div>
                 </div>
-              </div>
-              <div className={styles.tokenCell}>
-                ${token.totalTVL.toFixed(2)}
-              </div>
-              <div className={styles.tokenCell}>
-                ${token.fullTVL?.toFixed(2) || 0}
-              </div>
-              <div className={styles.tokenCell}>
-                ${token.latestPrice.toFixed(6)}
-              </div>
-              <div className={styles.tokenCell}>
                 <div
-                  style={{
-                    color:
-                      token.priceChange24H > 0
-                        ? "green"
-                        : token.priceChange24H < 0
-                        ? "red"
-                        : "black",
-                    fontWeight: "bold",
-                  }}
+                  className={styles.tokenCell}
+                  onClick={() => handleSort("fullTVL")}
+                  style={{ cursor: "pointer" }}
                 >
-                  {token.priceChange24H > 0 ? "+" : ""}
-                  {token.priceChange24H?.toFixed(2)}%
+                  Total TVL {renderSortIcon("fullTVL")}
                 </div>
-              </div>
-              <div className={styles.tokenCell}>
-                {token.holders || 0}
-              </div>
-              <div className={styles.tokenCell}>
-                <div className={styles.tokenActions}>
-                  <a
-                    href={`https://vestige.fi/asset/${token.assetID}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.vestigeButton}
-                  >
-                    Vestige
-                  </a>
-                  <a
-                    href={`https://allo.info/asset/${token.assetID}/token`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.allo}
-                  >
-                    <img src="https://allo.info/favicons/favicon-16x16.png" alt="'" />
-                  </a>
-                  <a
-                    href={token.xLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.xButton}
-                  >
-                    𝕏
-                  </a>
+                <div
+                  className={styles.tokenCell}
+                  onClick={() => handleSort("latestPrice")}
+                  style={{ cursor: "pointer" }}
+                >
+                  Latest Price {renderSortIcon("latestPrice")}
                 </div>
+                <div
+                  className={styles.tokenCell}
+                  onClick={() => handleSort("priceChange24H")}
+                  style={{ cursor: "pointer" }}
+                >
+                  {priceChangeInterval} Change{" "}
+                  {renderSortIcon("priceChange24H")}
+                </div>
+                <div
+                  className={styles.tokenCell}
+                  onClick={() => handleSort("holders")}
+                  style={{ cursor: "pointer" }}
+                >
+                  Holders {renderSortIcon("holders")}
+                </div>
+                <div className={styles.tokenCell}>Links</div>
+              </div>
+              {displayedTokens.map((token: any) => (
+                <div key={token.name} className={styles.tokenRow}>
+                  <div className={styles.tokenCell}>
+                    <img
+                      src={token.logo}
+                      alt={`${token.name} logo`}
+                      className={styles.tokenLogo}
+                    />
+                  </div>
+                  <div className={styles.tokenCell}>
+                    {token.name}
+                    <div className={styles.tokenNameLogo}>
+                      <div className={styles.tooltipContainer}>
+                        <FaPlane />
+                        <span className={styles.tooltipText}>
+                          Build LP with this token to rank higher
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.tokenCell}>
+                    ${token.totalTVL.toFixed(2)}
+                  </div>
+                  <div className={styles.tokenCell}>
+                    ${token.fullTVL?.toFixed(2) || 0}
+                  </div>
+                  <div className={styles.tokenCell}>
+                    ${token.latestPrice.toFixed(6)}
+                  </div>
+                  <div className={styles.tokenCell}>
+                    <div
+                      style={{
+                        color:
+                          token.priceChange24H > 0
+                            ? "green"
+                            : token.priceChange24H < 0
+                            ? "red"
+                            : "black",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {token.priceChange24H > 0 ? "+" : ""}
+                      {token.priceChange24H?.toFixed(2)}%
+                    </div>
+                  </div>
+                  <div className={styles.tokenCell}>{token.holders || 0}</div>
+                  <div className={styles.tokenCell}>
+                    <div className={styles.tokenActions}>
+                      <a
+                        href={`https://vestige.fi/asset/${token.assetID}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.vestigeButton}
+                      >
+                        Vestige
+                      </a>
+                      <a
+                        href={`https://allo.info/asset/${token.assetID}/token`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.allo}
+                      >
+                        <img
+                          src="https://allo.info/favicons/favicon-16x16.png"
+                          alt="'"
+                        />
+                      </a>
+                      <a
+                        href={token.xLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.xButton}
+                      >
+                        𝕏
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <div className={styles.pagination}>
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className={styles.pageButton}
+                >
+                  Previous
+                </button>
+                <span className={styles.pageInfo}>
+                  Page {currentPage} of {totalPages}
+                </span>
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className={styles.pageButton}
+                >
+                  Next
+                </button>
               </div>
             </div>
-          ))}
-          <div className={styles.pagination}>
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-              className={styles.pageButton}
-            >
-              Previous
-            </button>
-            <span className={styles.pageInfo}>
-              Page {currentPage} of {totalPages}
-            </span>
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className={styles.pageButton}
-            >
-              Next
-            </button>
           </div>
-        </div>
+          <div className={styles.mobileView}>
+            {displayedTokens.map((token: any) => (
+              <div key={token.name} className={styles.tokenCard}>
+                <div className={styles.tokenCardHeader}>
+                  <img
+                    src={token.logo}
+                    alt={`${token.name} logo`}
+                    className={styles.tokenLogo}
+                  />
+                  <div className={styles.tokenInfo}>
+                    <span className={styles.tokenName}>{token.name}</span>
+                    <span className={styles.tokenTVL}>
+                      Thrust: ${token.totalTVL.toFixed(2)}
+                    </span>
+                  </div>
+                  <button
+                    className={styles.expandButton}
+                    onClick={() =>
+                      setExpandedToken(
+                        expandedToken === token.name ? null : token.name
+                      )
+                    }
+                  >
+                    {expandedToken === token.name
+                      ? "Hide Details"
+                      : "More Details"}
+                  </button>
+                </div>
+                {expandedToken === token.name && (
+                  <div className={styles.tokenDetails}>
+                    <p>Full TVL: ${token.fullTVL?.toFixed(2) || 0}</p>
+                    <p>Latest Price: ${token.latestPrice.toFixed(6)}</p>
+                    <p>
+                      Change:{" "}
+                      <span
+                        style={{
+                          color:
+                            token.priceChange24H > 0
+                              ? "green"
+                              : token.priceChange24H < 0
+                              ? "red"
+                              : "black",
+                        }}
+                      >
+                        {token.priceChange24H > 0 ? "+" : ""}
+                        {token.priceChange24H?.toFixed(2)}%
+                      </span>
+                    </p>
+                    <p>Holders: {token.holders || 0}</p>
+                    <div className={styles.tokenActions}>
+                      <a
+                        href={`https://vestige.fi/asset/${token.assetID}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.vestigeButton}
+                      >
+                        Vestige
+                      </a>
+                      <a
+                        href={`https://allo.info/asset/${token.assetID}/token`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.allo}
+                      >
+                        <img
+                          src="https://allo.info/favicons/favicon-16x16.png"
+                          alt="Allo"
+                        />
+                      </a>
+                      <a
+                        href={token.xLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.xButton}
+                      >
+                        𝕏
+                      </a>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+            <div className={styles.pagination}>
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className={styles.pageButton}
+              >
+                Previous
+              </button>
+              <span className={styles.pageInfo}>
+                Page {currentPage} of {totalPages}
+              </span>
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className={styles.pageButton}
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        </>
       )}
     </div>
   );
