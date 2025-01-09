@@ -529,7 +529,7 @@ const BestAlgoDefi: React.FC = () => {
                 </div>
                 {expandedToken === token.name && (
                   <div className={styles.tokenDetails}>
-                    <p>Full TVL: ${token.fullTVL?.toFixed(2) || 0}</p>
+                    <p>Total TVL: ${token.fullTVL?.toFixed(2) || 0}</p>
                     <p>Latest Price: ${token.latestPrice.toFixed(6)}</p>
                     <p>
                       Change:{" "}
