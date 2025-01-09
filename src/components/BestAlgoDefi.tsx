@@ -537,9 +537,11 @@ const BestAlgoDefi: React.FC = () => {
                       )
                     }
                   >
-                    {expandedToken === token.name
-                      ? "Hide Details"
-                      : "More Details"}
+                    {expandedToken === token.name ? (
+                      <FaSortUp />
+                    ) : (
+                      <FaSortDown />
+                    )}
                   </button>
                 </div>
                 {expandedToken === token.name && (
