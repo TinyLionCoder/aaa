@@ -359,14 +359,14 @@
 }
 
 .expandButton {
-  background-color: #3498db;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  transition: all 0.3s ease;
+  background-color: #3498db !important;
+  color: white !important;
+  border: none !important;
+  padding: 5px 10px !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  font-size: 0.875rem !important;
+  transition: all 0.3s ease !important;
 }
 
 .expandButton:hover {
