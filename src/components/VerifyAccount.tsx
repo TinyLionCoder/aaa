@@ -108,10 +108,16 @@ const VerificationPage = ({ userId }: VerificationPageProps) => {
         }, 1500);
       } else {
         setTransactionStatus("Verification failed. Please try again.");
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
       }
     } catch (error) {
       console.error("Transaction failed:", error);
       setTransactionStatus("Transaction failed. Please try again.");
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
     } finally {
       setProcessing(false);
     }
@@ -120,7 +126,10 @@ const VerificationPage = ({ userId }: VerificationPageProps) => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Verify Your Account</h1>
-      <strong style={{color:"red"}}>Please setup your wallet first before verifying</strong>.
+      <strong style={{ color: "red" }}>
+        Please setup your wallet first before verifying
+      </strong>
+      .
       <p className={styles.description}>
         To verify your account, please pay a verification fee of{" "}
         <strong>0.5 ALGO with your registered wallet address</strong>.
