@@ -72,7 +72,7 @@ export const MyTeam = ({ userId }: MyTeamProps) => {
         ))}
       </div>
       <p className={styles.info}>
-        <strong>Each level earns you atleast 5 AAA tokens</strong>
+        <strong>Each level earns you at least 5 AAA tokens</strong>
       </p>
     </div>
   );
