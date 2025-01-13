@@ -149,6 +149,11 @@ export const CreateAirdrop = () => {
       {/* {step === 1 && (
         <>
           <h2 className={styles.heading}>Step 1: Fill Airdrop Details</h2>
+          <p className={styles.feeNotice}>
+            <strong>Note:</strong> A <strong>10 ALGO</strong> fee is required to
+            create an airdrop. Please ensure your connected wallet has
+            sufficient funds.
+          </p>
           <form className={styles.form}>
             <label className={styles.label}>Unit Name</label>
             <input
@@ -214,17 +219,19 @@ export const CreateAirdrop = () => {
           >
             {loading ? "Processing..." : "Create Airdrop"}
           </button>
+          <p className={styles.note}>
+            You will be prompted to approve the transaction in your wallet. Once
+            confirmed, the airdrop creation process will continue.
+          </p>
         </>
-      )} */}
-      {/* {step === 2 && (
+      )}
+      {step === 2 && (
         <>
           <h2 className={styles.heading}>Step 2: Deposit Tokens</h2>
           <p className={styles.instructions}>
             Please deposit the required tokens to the following wallet address:
           </p>
-          <div className={styles.walletAddress}>
-            HE7225SD6ZKYO45QWYCE4BZ3ITFEK7WI7XGMAVAMB56FZREJVPMHNRSL2E
-          </div>
+          <div className={styles.walletAddress}>{AIRDROP_FEE_ADDRESS}</div>
           <p>
             Make sure the total tokens match the amount specified during the
             setup.
