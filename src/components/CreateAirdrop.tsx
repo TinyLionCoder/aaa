@@ -29,8 +29,8 @@ export const CreateAirdrop = () => {
       if (!/^\d*$/.test(value)) return; // Allow only digits
     }
 
-    // Restrict `shortDescription` to a maximum of 100 characters
-    if (name === "shortDescription" && value.length > 100) return;
+    // Restrict `shortDescription` to a maximum of 200 characters
+    if (name === "shortDescription" && value.length > 200) return;
 
     setFormData({ ...formData, [name]: value });
   };
@@ -138,7 +138,7 @@ export const CreateAirdrop = () => {
               name="shortDescription"
               value={formData.shortDescription}
               onChange={handleChange}
-              placeholder="Brief description (max 100 chars)"
+              placeholder="Brief description (max 200 characters)"
               rows={4}
             />
           </form>
