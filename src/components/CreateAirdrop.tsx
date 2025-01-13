@@ -58,7 +58,7 @@ export const CreateAirdrop = () => {
         {
           userId: localStorage.getItem("userId"),
           email: localStorage.getItem("userEmail"),
-          tokenName: formData.tokenName,
+          tokenName: formData.tokenName.toUpperCase(),
           tokenId: Number(formData.tokenId),
           tokenDecimals: Number(formData.tokenDecimals),
           amountOfTokenPerClaim: Number(formData.amountOfTokenPerClaim),
@@ -101,7 +101,7 @@ export const CreateAirdrop = () => {
             <label className={styles.label}>Token ID</label>
             <input
               className={styles.input}
-              type="text"
+              type="number"
               name="tokenId"
               value={formData.tokenId}
               onChange={handleChange}
@@ -123,7 +123,7 @@ export const CreateAirdrop = () => {
               onChange={handleChange}
               step="1" // Prevents decimal input for these fields
             />
-            <label className={styles.label}>Total Tokens</label>
+            <label className={styles.label}>Total Tokens For the Airdrop</label>
             <input
               className={styles.input}
               type="number"

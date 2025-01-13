@@ -6,7 +6,12 @@ export const ClaimAirdrop = () => {
    const BASE_URL = "https://aaa-api.onrender.com/api/v1/airdrop";
 
   const [airdrops, setAirdrops] = useState<
-    Array<{ id: string; tokenName: string; tokenId: string; shortDescription: string }>
+    Array<{
+      id: string;
+      tokenName: string;
+      tokenId: string;
+      shortDescription: string;
+    }>
   >([]);
   const [loading, setLoading] = useState(false);
   const [claiming, setClaiming] = useState(false);
@@ -80,6 +85,7 @@ export const ClaimAirdrop = () => {
         setSuccess("Airdrop claimed successfully!");
         setAddress("");
         setSelectedAirdrop(null);
+        setTimeout(() => setSuccess(null), 5000);
       }
     } catch (err: any) {
       setError(err.response?.data?.message || "Failed to claim airdrop");
@@ -121,7 +127,8 @@ export const ClaimAirdrop = () => {
                 </option>
                 {airdrops.map((airdrop) => (
                   <option key={airdrop.id} value={airdrop.tokenName}>
-                    {`${airdrop.tokenName}`.toUpperCase()} (Token ID: {airdrop.tokenId})
+                    {`${airdrop.tokenName}`.toUpperCase()} (Token ID:{" "}
+                    {airdrop.tokenId})
                   </option>
                 ))}
               </select>
@@ -133,7 +140,9 @@ export const ClaimAirdrop = () => {
                 <p>{selectedAirdrop.shortDescription}</p>
               </div>
             )}
-
+            <strong style={{ color: "red" }}>
+              please ensure you have opted into the asset first
+            </strong>
             <label className={styles.label}>
               Your Wallet Address:
               <input

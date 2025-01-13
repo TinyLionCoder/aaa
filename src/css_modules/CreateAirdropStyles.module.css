@@ -111,3 +111,9 @@
 .backButton:hover {
   background-color: #5a6268;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
