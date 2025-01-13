@@ -127,7 +127,7 @@ const VerificationPage = ({ userId }: VerificationPageProps) => {
     <div className={styles.container}>
       <h1 className={styles.title}>Verify Your Account</h1>
       <strong style={{ color: "red" }}>
-        Please setup your wallet first before verifying
+        Please go to Setup Wallet under Wallet section to setup your wallet first before verifying
       </strong>
       .
       <p className={styles.description}>
