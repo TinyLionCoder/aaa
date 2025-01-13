@@ -81,7 +81,7 @@ export const CreateAirdrop = () => {
       const txn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
         from: walletAddress,
         to: AIRDROP_FEE_ADDRESS,
-        amount: 1000000, // 10 ALGO in microAlgos
+        amount: 10000000, // 10 ALGO in microAlgos
         note: new Uint8Array(Buffer.from("AAA APP: Airdrop Creation Fee")),
         suggestedParams,
       });
