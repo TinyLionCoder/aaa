@@ -1,13 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
+import { algodClient } from "../algorand/config";
+import algosdk from "algosdk";
+import PeraWalletButton from "./PeraWalletButton";
+import { PeraWalletContext } from "./PeraWalletContext";
 import styles from "../css_modules/CreateAirdropStyles.module.css";
 
 export const CreateAirdrop = () => {
   const BASE_URL = "https://aaa-api.onrender.com/api/v1/airdrop";
+  const AIRDROP_FEE_ADDRESS =
+    "HE7225SD6ZKYO45QWYCE4BZ3ITFEK7WI7XGMAVAMB56FZREJVPMHNRSL2E";
+
+  const peraWallet = useContext(PeraWalletContext);
 
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [transactionStatus, setTransactionStatus] = useState<string | null>(
+    null
+  );
+
+  const [walletAddress, setWalletAddress] = useState<string | null>(null);
 
   const [formData, setFormData] = useState({
     tokenName: "",
@@ -15,8 +28,12 @@ export const CreateAirdrop = () => {
     tokenDecimals: "",
     amountOfTokenPerClaim: "",
     totalAmountOfTokens: "",
-    shortDescription: "", // New field
+    shortDescription: "",
   });
+
+  // Handle wallet connect/disconnect
+  const handleWalletConnect = (address: string) => setWalletAddress(address);
+  const handleWalletDisconnect = () => setWalletAddress(null);
 
   // Handle input changes with validation
   const handleChange = (
@@ -35,8 +52,12 @@ export const CreateAirdrop = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle form submission for Step 1
-  const handleNext = async () => {
+  const handlePayFeeAndNext = async () => {
+    if (!walletAddress) {
+      setError("Please connect your wallet first.");
+      return;
+    }
+
     if (
       !formData.tokenName ||
       !formData.tokenId ||
@@ -49,9 +70,46 @@ export const CreateAirdrop = () => {
       return;
     }
 
-    setLoading(true);
-    setError(null);
+    try {
+      setError(null);
+      setLoading(true);
 
+      // Fetch transaction parameters
+      const suggestedParams = await algodClient.getTransactionParams().do();
+
+      // Create a payment transaction for the fee
+      const txn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+        from: walletAddress,
+        to: AIRDROP_FEE_ADDRESS,
+        amount: 1000000, // 10 ALGO in microAlgos
+        note: new Uint8Array(Buffer.from("AAA APP: Airdrop Creation Fee")),
+        suggestedParams,
+      });
+
+      // Sign and send transaction
+      if (!peraWallet) throw new Error("PeraWallet is not available.");
+      const singleTxnGroup = [{ txn, signers: [walletAddress] }];
+      const signedTxn = await peraWallet.signTransaction([singleTxnGroup]);
+      const { txId } = await algodClient.sendRawTransaction(signedTxn).do();
+
+      // Wait for confirmation
+      await algosdk.waitForConfirmation(algodClient, txId, 4);
+
+      setTransactionStatus(
+        "Fee payment successful! Proceeding to airdrop setup..."
+      );
+
+      // Proceed to create airdrop
+      await handleCreateAirdrop(txId);
+    } catch (error) {
+      console.error("Fee payment failed:", error);
+      setError("Fee payment failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCreateAirdrop = async (txId: any) => {
     try {
       const response = await axios.post(
         `${BASE_URL}/create-airdrop`,
@@ -64,6 +122,7 @@ export const CreateAirdrop = () => {
           amountOfTokenPerClaim: Number(formData.amountOfTokenPerClaim),
           totalAmountOfTokens: Number(formData.totalAmountOfTokens),
           shortDescription: formData.shortDescription,
+          txId,
         },
         {
           headers: {
@@ -75,11 +134,12 @@ export const CreateAirdrop = () => {
 
       if (response.status === 201) {
         setStep(2);
+      } else {
+        setError("Airdrop creation failed. Please try again.");
       }
     } catch (err: any) {
-      setError(err.response?.data?.message || "An error occurred");
-    } finally {
-      setLoading(false);
+      console.error("Error creating airdrop:", err);
+      setError(err.response?.data?.message || "An error occurred.");
     }
   };
 
@@ -121,7 +181,7 @@ export const CreateAirdrop = () => {
               name="amountOfTokenPerClaim"
               value={formData.amountOfTokenPerClaim}
               onChange={handleChange}
-              step="1" // Prevents decimal input for these fields
+              step="1"
             />
             <label className={styles.label}>Total Tokens For the Airdrop</label>
             <input
@@ -130,11 +190,11 @@ export const CreateAirdrop = () => {
               name="totalAmountOfTokens"
               value={formData.totalAmountOfTokens}
               onChange={handleChange}
-              step="1" // Prevents decimal input for these fields
+              step="1"
             />
             <label className={styles.label}>Short Description</label>
             <textarea
-              className={styles.textarea} // Use a distinct style for textareas
+              className={styles.textarea}
               name="shortDescription"
               value={formData.shortDescription}
               onChange={handleChange}
@@ -143,16 +203,20 @@ export const CreateAirdrop = () => {
             />
           </form>
           {error && <p className={styles.error}>{error}</p>}
+          <PeraWalletButton
+            onConnect={handleWalletConnect}
+            onDisconnect={handleWalletDisconnect}
+          />
           <button
             className={styles.button}
             disabled={loading}
-            onClick={handleNext}
+            onClick={handlePayFeeAndNext}
           >
-            {loading ? "Creating..." : "Next"}
+            {loading ? "Processing..." : "Create Airdrop"}
           </button>
         </>
-      )}
-      {step === 2 && (
+      )} */}
+      {/* {step === 2 && (
         <>
           <h2 className={styles.heading}>Step 2: Deposit Tokens</h2>
           <p className={styles.instructions}>
