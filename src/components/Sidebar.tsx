@@ -178,7 +178,20 @@ const Sidebar: React.FC<SidebarProps> = ({
             </div>
             {openDropdown === "wallet" && (
               <ul className={styles.dropdown}>
-                <li
+                {!verfied && (
+                  <li
+                    className={`${styles.navItem} ${
+                      activeItem === "setupAndVerify"
+                        ? styles.activeNavItem
+                        : ""
+                    }`}
+                    onClick={() => handleItemClick("setupAndVerify")}
+                  >
+                    <FaCogs className={styles.icon} />
+                    <span>Setup And Verify</span>
+                  </li>
+                )}
+                {/* <li
                   className={`${styles.navItem} ${
                     activeItem === "setupWallet" ? styles.activeNavItem : ""
                   }`}
@@ -195,7 +208,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 >
                   <FaCheck className={styles.icon} />
                   <span>Verify Account</span>
-                </li>
+                </li> */}
                 <li
                   className={`${styles.navItem} ${
                     activeItem === "myWallet" ? styles.activeNavItem : ""
