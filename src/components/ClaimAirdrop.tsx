@@ -11,6 +11,9 @@ export const ClaimAirdrop = () => {
       tokenName: string;
       tokenId: string;
       shortDescription: string;
+      amountOfTokenPerClaim: number;
+      totalAmountOfTokens: number;
+      totalAmountOfTokensClaimed: number;
     }>
   >([]);
   const [loading, setLoading] = useState(false);
@@ -19,6 +22,9 @@ export const ClaimAirdrop = () => {
   const [selectedAirdrop, setSelectedAirdrop] = useState<{
     tokenName: string;
     shortDescription: string;
+    amountOfTokenPerClaim: number;
+    totalAmountOfTokens: number;
+    totalAmountOfTokensClaimed: number;
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -85,7 +91,10 @@ export const ClaimAirdrop = () => {
         setSuccess("Airdrop claimed successfully!");
         setAddress("");
         setSelectedAirdrop(null);
-        setTimeout(() => setSuccess(null), 5000);
+        setTimeout(() => {
+          setSuccess(null);
+          window.location.reload();
+        }, 3000);
       }
     } catch (err: any) {
       setError(err.response?.data?.message || "Failed to claim airdrop");
@@ -97,8 +106,8 @@ export const ClaimAirdrop = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>Claim Airdrop</h1>
-      <p>Coming Soon!</p>
-      {/* {loading ? (
+      {/* <p>Coming Soon!</p> */}
+      {loading ? (
         <p className={styles.loading}>Loading available airdrops...</p>
       ) : (
         <>
@@ -117,6 +126,10 @@ export const ClaimAirdrop = () => {
                       ? {
                           tokenName: selected.tokenName,
                           shortDescription: selected.shortDescription,
+                          amountOfTokenPerClaim: selected.amountOfTokenPerClaim,
+                          totalAmountOfTokens: selected.totalAmountOfTokens,
+                          totalAmountOfTokensClaimed:
+                            selected.totalAmountOfTokensClaimed,
                         }
                       : null
                   );
@@ -135,9 +148,19 @@ export const ClaimAirdrop = () => {
             </label>
 
             {selectedAirdrop && (
-              <div className={styles.description}>
-                <h3>Description:</h3>
-                <p>{selectedAirdrop.shortDescription}</p>
+              <div>
+                <div className={styles.description}>
+                  <h3>Description:</h3>
+                  <p>{selectedAirdrop.shortDescription}</p>
+                </div>
+                <div className={styles.claimInfo}>
+                  <h3>Claims Remaining:</h3>
+                  <p>
+                    {(selectedAirdrop.totalAmountOfTokens -
+                      selectedAirdrop.totalAmountOfTokensClaimed) /
+                      selectedAirdrop.amountOfTokenPerClaim}
+                  </p>
+                </div>
               </div>
             )}
             <strong style={{ color: "red" }}>
@@ -166,7 +189,7 @@ export const ClaimAirdrop = () => {
             {claiming ? "Claiming..." : "Claim Airdrop"}
           </button>
         </>
-      )} */}
+      )}
     </div>
   );
 };
