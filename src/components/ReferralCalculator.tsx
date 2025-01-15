@@ -14,20 +14,12 @@ export const ReferralCalculator: React.FC = () => {
   const [referrals, setReferrals] = useState<number[]>([0, 0, 0, 0, 0]); // Start referrals at 0
 
   const calculateEarnings = (): { levelEarnings: number[]; totalEarnings: number } => {
-    let downstreamReferrals = 1; // Start with yourself (1 referral unit)
-    const levelEarnings: number[] = [];
-  
-    for (let level = 0; level < referrals.length; level++) {
-      const earnings = downstreamReferrals * referrals[level] * rewardPerReferral;
-      levelEarnings.push(earnings);
-  
-      // Propagate referrals downstream
-      downstreamReferrals *= referrals[level];
-    }
-  
-    // Sum all levels to calculate the total earnings
+    // Calculate rewards per level based on fixed referral counts
+    const levelEarnings = referrals.map((count) => count * rewardPerReferral);
+
+    // Calculate total earnings
     const totalEarnings = levelEarnings.reduce((acc, curr) => acc + curr, 0);
-  
+
     return { levelEarnings, totalEarnings };
   };
   
