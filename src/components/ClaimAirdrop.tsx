@@ -30,6 +30,14 @@ export const ClaimAirdrop = () => {
   const [success, setSuccess] = useState<string | null>(null);
 
   useEffect(() => {
+    const PeraWalletWallet: any = localStorage.getItem("PeraWallet.Wallet");
+    const SelectedAccount = JSON.parse(PeraWalletWallet)?.selectedAccount;
+    if (SelectedAccount) {
+      setAddress(SelectedAccount);
+    }
+  }, []);
+
+  useEffect(() => {
     const fetchAirdrops = async () => {
       setLoading(true);
       setError(null);
@@ -89,7 +97,6 @@ export const ClaimAirdrop = () => {
 
       if (response.status === 200) {
         setSuccess("Airdrop claimed successfully!");
-        setAddress("");
         setSelectedAirdrop(null);
         setTimeout(() => {
           setSuccess(null);
@@ -166,21 +173,18 @@ export const ClaimAirdrop = () => {
             <strong style={{ color: "red" }}>
               please ensure you have opted into the asset first
             </strong>
-            <label className={styles.label}>
-              Your Wallet Address:
-              <input
-                className={styles.input}
-                type="text"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                placeholder="Enter your wallet address"
-              />
-            </label>
           </div>
 
           {error && <p className={styles.error}>{error}</p>}
           {success && <p className={styles.success}>{success}</p>}
-
+          {!address && (
+            <p className={styles.warning}>
+              <strong>
+                Please connect wallet to claim the airdrop
+                (Setup wallet or login with existing wallet)
+              </strong>
+            </p>
+          )}
           <button
             className={styles.button}
             onClick={handleClaim}

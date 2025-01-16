@@ -54,6 +54,7 @@
     background-color: #007bff;
     color: white;
     padding: 10px 15px;
+    margin-top: 18px !important;
     font-size: 16px;
     border: none;
     border-radius: 5px;
@@ -78,6 +79,12 @@
   
   .success {
     color: green;
+    font-size: 14px;
+  }
+
+  .warning {
+    margin-top: 18px !important;
+    color: orange;
     font-size: 14px;
   }
   
