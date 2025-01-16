@@ -32,11 +32,11 @@ export const MyWallet = () => {
   const PAGE_SIZE = 10; // Number of assets per page
 
   useEffect(() => {
-    const PeraWalletWallet: any = localStorage.getItem("PeraWallet.Wallet");
-    const SelectedAccount = JSON.parse(PeraWalletWallet)?.selectedAccount;
-    if (SelectedAccount) {
-      setWalletAddress(SelectedAccount);
-      fetchAssets(SelectedAccount);
+    const appWalletWallet: any = localStorage.getItem("appWallet");
+
+    if (appWalletWallet) {
+      setWalletAddress(appWalletWallet);
+      fetchAssets(appWalletWallet);
     }
   }, []);
 

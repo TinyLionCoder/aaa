@@ -180,6 +180,8 @@ const AuthWrapper = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("userId", userId);
       localStorage.setItem("userEmail", email);
+      localStorage.setItem("appWallet", returnedWalletAddress);
+      
     } catch (error) {
       console.error("Login with email failed:", error);
       const errorMessage =
@@ -221,6 +223,7 @@ const AuthWrapper = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("userId", userId);
       localStorage.setItem("userEmail", email);
+      localStorage.setItem("appWallet", returnedWalletAddress);
     } catch (error) {
       console.error("Wallet login failed:", error);
       throw new Error("Wallet login failed. Please try again.");
@@ -247,6 +250,7 @@ const AuthWrapper = () => {
     localStorage.removeItem("walletconnect");
     localStorage.removeItem("userId");
     localStorage.removeItem("userEmail");
+    localStorage.removeItem("appWallet");
 
     if (triggerWalletDisconnect) {
       peraWalletRef.current?.disconnectWallet();

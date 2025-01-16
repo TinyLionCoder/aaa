@@ -30,10 +30,9 @@ export const ClaimAirdrop = () => {
   const [success, setSuccess] = useState<string | null>(null);
 
   useEffect(() => {
-    const PeraWalletWallet: any = localStorage.getItem("PeraWallet.Wallet");
-    const SelectedAccount = JSON.parse(PeraWalletWallet)?.selectedAccount;
-    if (SelectedAccount) {
-      setAddress(SelectedAccount);
+    const appWalletWallet: any = localStorage.getItem("appWallet");
+    if (appWalletWallet) {
+      setAddress(appWalletWallet);
     }
   }, []);
 
