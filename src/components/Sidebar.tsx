@@ -237,7 +237,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               </div>
               {openDropdown === "airdrop" && (
                 <ul className={styles.dropdown}>
-                  <li
+                  {/* <li
                     className={`${styles.navItem} ${
                       activeItem === "createAirdrop" ? styles.activeNavItem : ""
                     }`}
@@ -245,7 +245,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                   >
                     <FaFaucet className={styles.icon} />
                     <span>Create Airdrop</span>
-                  </li>
+                  </li> */}
                   <li
                     className={`${styles.navItem} ${
                       activeItem === "claimAirdrop" ? styles.activeNavItem : ""
