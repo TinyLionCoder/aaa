@@ -146,7 +146,7 @@ export const CreateAirdrop = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>Create Airdrop</h1>
-      {step === 1 && (
+      {/* {step === 1 && (
         <>
           <h2 className={styles.heading}>Step 1: Fill Airdrop Details</h2>
           <p className={styles.feeNotice}>
@@ -224,8 +224,8 @@ export const CreateAirdrop = () => {
             confirmed, the airdrop creation process will continue.
           </p>
         </>
-      )}
-      {step === 2 && (
+      )} */}
+      {/* {step === 2 && (
         <>
           <h2 className={styles.heading}>Step 2: Deposit Tokens</h2>
           <p className={styles.instructions}>
@@ -237,8 +237,8 @@ export const CreateAirdrop = () => {
             setup.
           </p>
         </>
-      )}
-      {/* <p>Coming Soon!</p> */}
+      )} */}
+      <p>Coming Soon!</p>
     </div>
   );
 };
