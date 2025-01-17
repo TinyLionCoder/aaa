@@ -112,8 +112,8 @@ export const ClaimAirdrop = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>Claim Airdrop</h1>
-      <p>Coming Soon!</p>
-      {/* {loading ? (
+      {/* <p>Coming Soon!</p> */}
+      {loading ? (
         <p className={styles.loading}>Loading available airdrops...</p>
       ) : (
         <>
@@ -192,7 +192,7 @@ export const ClaimAirdrop = () => {
             {claiming ? "Claiming..." : "Claim Airdrop"}
           </button>
         </>
-      )} */}
+      )}
     </div>
   );
 };
