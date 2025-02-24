@@ -410,14 +410,16 @@ const BestAlgoDefi: React.FC = () => {
                   </div>
                   <div className={styles.tokenCell}>
                     {token.name}
-                    <div className={styles.tokenNameLogo}>
-                      <div className={styles.tooltipContainer}>
-                        <FaPlane />
-                        <span className={styles.tooltipText}>
-                          Build LP with this token to rank higher
-                        </span>
+                    {token.stableTVL ? (
+                      <div className={styles.tokenNameLogo}>
+                        <div className={styles.tooltipContainer}>
+                          <FaPlane />
+                          <span className={styles.tooltipText}>
+                            Build LP with this token to rank higher
+                          </span>
+                        </div>
                       </div>
-                    </div>
+                    ) : null}
                   </div>
                   <div className={styles.tokenCell}>
                     ${token.totalTVL.toFixed(2)}

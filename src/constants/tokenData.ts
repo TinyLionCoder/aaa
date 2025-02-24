@@ -13,6 +13,7 @@ import aaa from "../images/aaa.png";
 import marcus from "../images/marcus.png";
 import coop from "../images/coop.png";
 import gt from "../images/gt.png";
+import etrump from "../images/etrump.png";
 
 export default [
   {
@@ -134,6 +135,14 @@ export default [
     vestigeLink: "https://vestige.fi/asset/2606098683",
     xLink: "https://x.com/GreatToken1",
     stableTVL: true,
+  },
+  {
+    name: "ETrump",
+    assetID: "2705531863",
+    logo: etrump,
+    vestigeLink: "https://vestige.fi/asset/2705531863",
+    xLink: "https://twitter.com/ETrumpParody",
+    stableTVL: false,
   },
 ];
 
