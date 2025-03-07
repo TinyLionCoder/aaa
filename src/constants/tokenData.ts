@@ -24,14 +24,14 @@ export default [
     xLink: "https://x.com/algoadoptaaa",
     stableTVL: true,
   },
-  {
-    name: "TDLD",
-    assetID: "2176744157",
-    logo: tdld,
-    vestigeLink: "https://vestige.fi/asset/2176744157",
-    xLink: "https://x.com/TinyDickLion",
-    stableTVL: true,
-  },
+  // {
+  //   name: "TDLD",
+  //   assetID: "2176744157",
+  //   logo: tdld,
+  //   vestigeLink: "https://vestige.fi/asset/2176744157",
+  //   xLink: "https://x.com/TinyDickLion",
+  //   stableTVL: true,
+  // },
   {
     name: "NMI",
     assetID: "2279886826",
@@ -142,7 +142,7 @@ export default [
     logo: etrump,
     vestigeLink: "https://vestige.fi/asset/2705531863",
     xLink: "https://twitter.com/ETrumpParody",
-    stableTVL: false,
+    stableTVL: true,
   },
 ];
 
