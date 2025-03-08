@@ -425,7 +425,7 @@ const BestAlgoDefi: React.FC = () => {
                         <div className={styles.tooltipContainer}>
                           <FaCogs />
                           <span className={styles.tooltipText}>
-                            Use case Token
+                            Use Case Token
                           </span>
                         </div>
                       </div>
@@ -552,7 +552,7 @@ const BestAlgoDefi: React.FC = () => {
                           <div className={styles.tooltipContainer}>
                             <FaCogs />
                             <span className={styles.tooltipText}>
-                              Use case Token
+                              Use Case Token
                             </span>
                           </div>
                         </div>

@@ -14,6 +14,7 @@ import marcus from "../images/marcus.png";
 import coop from "../images/coop.png";
 import gt from "../images/gt.png";
 import etrump from "../images/etrump.png";
+import gain from "../images/gain.png";
 
 export default [
   {
@@ -159,6 +160,15 @@ export default [
     xLink: "https://twitter.com/ETrumpParody",
     stableTVL: false,
     useCaseToken: false,
+  },
+  {
+    name: "GAIN",
+    assetID: "1748330503",
+    logo: gain,
+    vestigeLink: "https://vestige.fi/asset/2705531863",
+    xLink: "https://twitter.com/ETrumpParody",
+    stableTVL: false,
+    useCaseToken: true,
   },
 ];
 
