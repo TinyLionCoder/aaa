@@ -23,6 +23,7 @@ export default [
     vestigeLink: "https://vestige.fi/asset/2004387843",
     xLink: "https://x.com/algoadoptaaa",
     stableTVL: true,
+    useCaseToken: false,
   },
   // {
   //   name: "TDLD",
@@ -31,6 +32,7 @@ export default [
   //   vestigeLink: "https://vestige.fi/asset/2176744157",
   //   xLink: "https://x.com/TinyDickLion",
   //   stableTVL: true,
+  // useCaseToken: false,
   // },
   {
     name: "NMI",
@@ -39,6 +41,7 @@ export default [
     vestigeLink: "https://vestige.fi/asset/2279886826",
     xLink: "https://x.com/ConnectionMach",
     stableTVL: true,
+    useCaseToken: false,
   },
   {
     name: "BWOM",
@@ -47,6 +50,7 @@ export default [
     vestigeLink: "https://vestige.fi/asset/2327984798",
     xLink: "https://x.com/bwombus",
     stableTVL: true,
+    useCaseToken: false,
   },
   {
     name: "IPT",
@@ -55,6 +59,7 @@ export default [
     vestigeLink: "https://vestige.fi/asset/2342621554",
     xLink: "https://x.com/1nfinite0ne",
     stableTVL: true,
+    useCaseToken: false,
   },
   {
     name: "WKH",
@@ -63,6 +68,7 @@ export default [
     vestigeLink: "https://vestige.fi/asset/2573477873",
     xLink: "https://x.com/HODL_TLP",
     stableTVL: true,
+    useCaseToken: false,
   },
   {
     name: "MEMO",
@@ -71,6 +77,7 @@ export default [
     vestigeLink: "https://vestige.fi/asset/885835936",
     xLink: "https://x.com/AlgoMembers",
     stableTVL: true,
+    useCaseToken: false,
   },
   {
     name: "SQUAD",
@@ -79,6 +86,7 @@ export default [
     vestigeLink: "https://vestige.fi/asset/1421321088",
     xLink: "https://x.com/OG_Squad_ALGO",
     stableTVL: true,
+    useCaseToken: false,
   },
   {
     name: "CAT",
@@ -87,6 +95,7 @@ export default [
     vestigeLink: "https://vestige.fi/asset/1691166331",
     xLink: "https://x.com/algo_cats",
     stableTVL: true,
+    useCaseToken: false,
   },
   {
     name: "TLP",
@@ -95,6 +104,7 @@ export default [
     vestigeLink: "https://vestige.fi/asset/987374809",
     xLink: "https://x.com/TLPCoin",
     stableTVL: true,
+    useCaseToken: false,
   },
   {
     name: "REAR",
@@ -103,6 +113,7 @@ export default [
     vestigeLink: "https://vestige.fi/asset/2413037774",
     xLink: "https://x.com/TLPCoin",
     stableTVL: true,
+    useCaseToken: false,
   },
   {
     name: "REA",
@@ -111,6 +122,7 @@ export default [
     vestigeLink: "https://vestige.fi/asset/1753483231",
     xLink: "https://x.com/TLPCoin",
     stableTVL: true,
+    useCaseToken: false,
   },
   {
     name: "MARCUS",
@@ -119,6 +131,7 @@ export default [
     vestigeLink: "https://vestige.fi/asset/2466866698",
     xLink: "https://x.com/MarcusFurrelius",
     stableTVL: true,
+    useCaseToken: false,
   },
   {
     name: "COOP",
@@ -127,6 +140,7 @@ export default [
     vestigeLink: "https://vestige.fi/asset/796425061",
     xLink: "https://x.com/Coop_Daniels",
     stableTVL: true,
+    useCaseToken: false,
   },
   {
     name: "$GT",
@@ -135,6 +149,7 @@ export default [
     vestigeLink: "https://vestige.fi/asset/2606098683",
     xLink: "https://x.com/GreatToken1",
     stableTVL: true,
+    useCaseToken: false,
   },
   {
     name: "ETrump",
@@ -142,7 +157,8 @@ export default [
     logo: etrump,
     vestigeLink: "https://vestige.fi/asset/2705531863",
     xLink: "https://twitter.com/ETrumpParody",
-    stableTVL: true,
+    stableTVL: false,
+    useCaseToken: false,
   },
 ];
 

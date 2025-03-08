@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../css_modules/BestAlgoDefiStyles.module.css";
 import tokenData from "../constants/tokenData";
 import {
+  FaCogs,
   FaPlane,
   FaSort,
   FaSortDown,
@@ -419,6 +420,15 @@ const BestAlgoDefi: React.FC = () => {
                           </span>
                         </div>
                       </div>
+                    ) : token.useCaseToken ? (
+                      <div className={styles.useCaseToken}>
+                        <div className={styles.tooltipContainer}>
+                          <FaCogs />
+                          <span className={styles.tooltipText}>
+                            Use case Token
+                          </span>
+                        </div>
+                      </div>
                     ) : null}
                   </div>
                   <div className={styles.tokenCell}>
@@ -526,7 +536,28 @@ const BestAlgoDefi: React.FC = () => {
                     className={styles.tokenLogo}
                   />
                   <div className={styles.tokenInfo}>
-                    <span className={styles.tokenName}>{token.name}</span>
+                    <span className={styles.tokenName}>
+                      {token.name}
+                      {token.stableTVL ? (
+                        <div className={styles.tokenNameLogo}>
+                          <div className={styles.tooltipContainer}>
+                            <FaPlane />
+                            <span className={styles.tooltipText}>
+                              Build LP with this token to rank higher
+                            </span>
+                          </div>
+                        </div>
+                      ) : token.useCaseToken ? (
+                        <div className={styles.useCaseToken}>
+                          <div className={styles.tooltipContainer}>
+                            <FaCogs />
+                            <span className={styles.tooltipText}>
+                              Use case Token
+                            </span>
+                          </div>
+                        </div>
+                      ) : null}
+                    </span>
                     <span className={styles.tokenTVL}>
                       Price: ${token.latestPrice.toFixed(6)}
                     </span>
