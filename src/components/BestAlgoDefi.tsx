@@ -264,9 +264,9 @@ const BestAlgoDefi: React.FC = () => {
             priceChange24H: priceChangesMap[token.assetID] || 0,
           }))
           .sort((a, b) => {
-            if (a.stableTVL !== b.stableTVL) {
-              return a.stableTVL ? -1 : 1;
-            }
+            // if (a.stableTVL !== b.stableTVL) {
+            //   return a.stableTVL ? -1 : 1;
+            // }
             return b.totalTVL - a.totalTVL;
           });
 
