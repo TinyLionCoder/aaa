@@ -8,6 +8,7 @@ import {
   FaSortDown,
   FaSortUp,
   FaTruckLoading,
+  FaUserFriends,
 } from "react-icons/fa";
 import axios from "axios";
 import liveAirdrops from "../images/liveAirdrops.png";
@@ -494,6 +495,15 @@ const PublicBestAlgoDefi: React.FC = () => {
                           </span>
                         </div>
                       </div>
+                    ) : token.memeToken ? (
+                      <div className={styles.memeToken}>
+                        <div className={styles.tooltipContainer}>
+                          <FaUserFriends />
+                          <span className={styles.tooltipText}>
+                            Meme Token
+                          </span>
+                        </div>
+                      </div>
                     ) : null}
                   </div>
                   <div className={styles.tokenCell}>
@@ -643,6 +653,15 @@ const PublicBestAlgoDefi: React.FC = () => {
                             <FaCogs />
                             <span className={styles.tooltipText}>
                               Use Case Token
+                            </span>
+                          </div>
+                        </div>
+                      ) : token.memeToken ? (
+                        <div className={styles.memeToken}>
+                          <div className={styles.tooltipContainer}>
+                            <FaUserFriends />
+                            <span className={styles.tooltipText}>
+                              Meme Token
                             </span>
                           </div>
                         </div>

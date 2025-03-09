@@ -26,6 +26,7 @@ export default [
     xLink: "https://x.com/algoadoptaaa",
     stableTVL: true,
     useCaseToken: false,
+    memeToken: false,
   },
   // {
   //   name: "TDLD",
@@ -35,6 +36,7 @@ export default [
   //   xLink: "https://x.com/TinyDickLion",
   //   stableTVL: true,
   // useCaseToken: false,
+  // memeToken: false
   // },
   {
     name: "NMI",
@@ -44,6 +46,7 @@ export default [
     xLink: "https://x.com/ConnectionMach",
     stableTVL: true,
     useCaseToken: false,
+    memeToken: false,
   },
   {
     name: "BWOM",
@@ -53,6 +56,7 @@ export default [
     xLink: "https://x.com/bwombus",
     stableTVL: true,
     useCaseToken: false,
+    memeToken: false,
   },
   {
     name: "IPT",
@@ -62,6 +66,7 @@ export default [
     xLink: "https://x.com/1nfinite0ne",
     stableTVL: true,
     useCaseToken: false,
+    memeToken: false,
   },
   {
     name: "WKH",
@@ -71,6 +76,7 @@ export default [
     xLink: "https://x.com/HODL_TLP",
     stableTVL: true,
     useCaseToken: false,
+    memeToken: false,
   },
   {
     name: "MEMO",
@@ -80,6 +86,7 @@ export default [
     xLink: "https://x.com/AlgoMembers",
     stableTVL: true,
     useCaseToken: false,
+    memeToken: false,
   },
   {
     name: "SQUAD",
@@ -89,6 +96,7 @@ export default [
     xLink: "https://x.com/OG_Squad_ALGO",
     stableTVL: true,
     useCaseToken: false,
+    memeToken: false,
   },
   {
     name: "CAT",
@@ -98,6 +106,7 @@ export default [
     xLink: "https://x.com/algo_cats",
     stableTVL: true,
     useCaseToken: false,
+    memeToken: false,
   },
   {
     name: "TLP",
@@ -107,6 +116,7 @@ export default [
     xLink: "https://x.com/TLPCoin",
     stableTVL: true,
     useCaseToken: false,
+    memeToken: false,
   },
   {
     name: "REAR",
@@ -116,6 +126,7 @@ export default [
     xLink: "https://x.com/TLPCoin",
     stableTVL: true,
     useCaseToken: false,
+    memeToken: false,
   },
   {
     name: "REA",
@@ -125,6 +136,7 @@ export default [
     xLink: "https://x.com/TLPCoin",
     stableTVL: true,
     useCaseToken: false,
+    memeToken: false,
   },
   {
     name: "MARCUS",
@@ -134,6 +146,7 @@ export default [
     xLink: "https://x.com/MarcusFurrelius",
     stableTVL: true,
     useCaseToken: false,
+    memeToken: false,
   },
   {
     name: "COOP",
@@ -143,6 +156,7 @@ export default [
     xLink: "https://x.com/Coop_Daniels",
     stableTVL: true,
     useCaseToken: false,
+    memeToken: false,
   },
   {
     name: "$GT",
@@ -152,6 +166,7 @@ export default [
     xLink: "https://x.com/GreatToken1",
     stableTVL: true,
     useCaseToken: false,
+    memeToken: false,
   },
   {
     name: "ETrump",
@@ -161,6 +176,7 @@ export default [
     xLink: "https://twitter.com/ETrumpParody",
     stableTVL: false,
     useCaseToken: false,
+    memeToken: true,
   },
   {
     name: "GAIN",
@@ -179,6 +195,7 @@ export default [
     xLink: "https://x.com/Fishsticks_algo",
     stableTVL: true,
     useCaseToken: false,
+    memeToken: false,
   },
 ];
 

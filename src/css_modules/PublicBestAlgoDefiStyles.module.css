@@ -23,6 +23,10 @@
   color: green;
 }
 
+.memeToken {
+  color: red;
+}
+
 .intervalFilterContainer {
   display: flex;
   align-items: center;
