@@ -15,6 +15,7 @@ import coop from "../images/coop.png";
 import gt from "../images/gt.png";
 import etrump from "../images/etrump.png";
 import gain from "../images/gain.png";
+import fish from "../images/fish.png";
 
 export default [
   {
@@ -169,6 +170,15 @@ export default [
     xLink: "https://x.com/gaintoken",
     stableTVL: false,
     useCaseToken: true,
+  },
+  {
+    name: "Fish",
+    assetID: "2667006169",
+    logo: fish,
+    vestigeLink: "https://vestige.fi/asset/2667006169",
+    xLink: "https://x.com/Fishsticks_algo",
+    stableTVL: true,
+    useCaseToken: false,
   },
 ];
 
