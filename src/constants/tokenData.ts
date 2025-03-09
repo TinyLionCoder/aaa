@@ -193,9 +193,9 @@ export default [
     logo: fish,
     vestigeLink: "https://vestige.fi/asset/2667006169",
     xLink: "https://x.com/Fishsticks_algo",
-    stableTVL: true,
+    stableTVL: false,
     useCaseToken: false,
-    memeToken: false,
+    memeToken: true,
   },
 ];
 
