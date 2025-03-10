@@ -1,12 +1,12 @@
 import React from "react";
 import {
   FaCoins,
-  FaBuilding,
   FaUserFriends,
   FaShieldAlt,
   FaInfoCircle,
   FaWallet,
   FaChartLine,
+  FaRegIdBadge,
 } from "react-icons/fa";
 import styles from "../css_modules/DashboardContentStyles.module.css";
 import { AccountBalance } from "./AccountBalance";
@@ -54,7 +54,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
         </div>
         <div className={`${styles.statCard} ${styles["statCard-sponsor"]}`}>
           <h3>
-            <FaBuilding className={styles.icon} /> Company Sponsor
+            <FaRegIdBadge className={styles.icon} /> Ranking and Badges
           </h3>
           <p>Coming Soon</p>
         </div>
@@ -93,8 +93,10 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
       <div className={styles.notificatioSection}>
         <h3>Notification</h3>
         <p className={styles.content}>
-          Payments will be deposited directly into your wallets the first week
-          of every month
+          {/* Payments will be deposited directly into your wallets the first week
+          of every month */}
+          We are working on security and efficiency, Once ready, all aaa tokens from
+          verified members will be deposited directly into your wallets
         </p>
       </div>
 
