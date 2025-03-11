@@ -16,6 +16,7 @@ import gt from "../images/gt.png";
 import etrump from "../images/etrump.png";
 import gain from "../images/gain.png";
 import fish from "../images/fish.png";
+import tiny from "../images/tiny.png";
 
 export default [
   {
@@ -196,6 +197,16 @@ export default [
     stableTVL: false,
     useCaseToken: false,
     memeToken: true,
+  },
+  {
+    name: "TINY",
+    assetID: "2200000000",
+    logo: tiny,
+    vestigeLink: "https://vestige.fi/asset/2200000000",
+    xLink: "https://x.com/tinymanorg",
+    stableTVL: false,
+    useCaseToken: true,
+    memeToken: false,
   },
 ];
 
