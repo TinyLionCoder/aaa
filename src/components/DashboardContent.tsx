@@ -56,7 +56,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
           <h3>
             <FaRegIdBadge className={styles.icon} /> Ranking and Badges
           </h3>
-          <p>Coming Soon</p>
+          <p>{localStorage.getItem("badgeRanking")}</p>
         </div>
         <div className={`${styles.statCard} ${styles["statCard-referrals"]}`}>
           <h3>

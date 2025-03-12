@@ -5,6 +5,7 @@ import EnhancedDashboard from "./EnhancedDashboard";
 import PeraWalletButton from "./PeraWalletButton";
 import { toast, Toaster } from "react-hot-toast";
 import styles from "../css_modules/AuthWrapperStyles.module.css";
+import { setBadgeStatus } from "../helpers/setBadgeStatus";
 
 const AuthWrapper = () => {
   const [email, setEmail] = useState("");
@@ -181,7 +182,7 @@ const AuthWrapper = () => {
       localStorage.setItem("userId", userId);
       localStorage.setItem("userEmail", email);
       localStorage.setItem("appWallet", returnedWalletAddress);
-      
+      await setBadgeStatus(returnedWalletAddress);
     } catch (error) {
       console.error("Login with email failed:", error);
       const errorMessage =
@@ -224,6 +225,7 @@ const AuthWrapper = () => {
       localStorage.setItem("userId", userId);
       localStorage.setItem("userEmail", email);
       localStorage.setItem("appWallet", returnedWalletAddress);
+      await setBadgeStatus(returnedWalletAddress);
     } catch (error) {
       console.error("Wallet login failed:", error);
       throw new Error("Wallet login failed. Please try again.");
