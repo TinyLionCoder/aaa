@@ -17,6 +17,7 @@ import etrump from "../images/etrump.png";
 import gain from "../images/gain.png";
 import fish from "../images/fish.png";
 import tiny from "../images/tiny.png";
+import chips from "../images/chips.png";
 
 export default [
   {
@@ -204,6 +205,16 @@ export default [
     logo: tiny,
     vestigeLink: "https://vestige.fi/asset/2200000000",
     xLink: "https://x.com/tinymanorg",
+    stableTVL: false,
+    useCaseToken: true,
+    memeToken: false,
+  },
+  {
+    name: "chip",
+    assetID: "388592191",
+    logo: chips,
+    vestigeLink: "https://vestige.fi/asset/388592191",
+    xLink: "https://x.com/algorandcasino",
     stableTVL: false,
     useCaseToken: true,
     memeToken: false,
