@@ -18,6 +18,7 @@ import gain from "../images/gain.png";
 import fish from "../images/fish.png";
 import tiny from "../images/tiny.png";
 import chips from "../images/chips.png";
+import vest from "../images/vest.png";
 
 export default [
   {
@@ -215,6 +216,16 @@ export default [
     logo: chips,
     vestigeLink: "https://vestige.fi/asset/388592191",
     xLink: "https://x.com/algorandcasino",
+    stableTVL: false,
+    useCaseToken: true,
+    memeToken: false,
+  },
+  {
+    name: "VEST",
+    assetID: "700965019",
+    logo: vest,
+    vestigeLink: "https://vestige.fi/asset/700965019",
+    xLink: "https://x.com/vestigefi",
     stableTVL: false,
     useCaseToken: true,
     memeToken: false,
