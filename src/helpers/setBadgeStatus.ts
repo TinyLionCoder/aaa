@@ -40,9 +40,9 @@ export const setBadgeStatus = async (walletAddress: string | null) => {
 
     // Determine badge status
     if (tinymanLPValue >= 200) {
-      badge = diamondHands;
-    } else if (algoBalance >= 100 || aaaUsdValue >= 100) {
       badge = wealthBuilder;
+    } else if (algoBalance >= 100 || aaaUsdValue >= 100) {
+      badge = diamondHands;
     }
 
     localStorage.setItem("badgeRanking", badge);
