@@ -3,6 +3,7 @@ import styles from "../css_modules/PublicBestAlgoDefiStyles.module.css";
 import tokenData from "../constants/tokenData";
 import {
   FaCogs,
+  FaEnvelope,
   FaPlane,
   FaSort,
   FaSortDown,
@@ -506,7 +507,7 @@ const PublicBestAlgoDefi: React.FC = () => {
                     ) : token.wrappedAsset ? (
                       <div className={styles.wrappedAsset}>
                         <div className={styles.tooltipContainer}>
-                          <FaWordpress />
+                          <FaEnvelope />
                           <span className={styles.tooltipText}>
                             Wrapped Asset
                           </span>
@@ -676,7 +677,7 @@ const PublicBestAlgoDefi: React.FC = () => {
                       ) : token.wrappedAsset ? (
                         <div className={styles.wrappedAsset}>
                           <div className={styles.tooltipContainer}>
-                            <FaWordpress />
+                            <FaEnvelope />
                             <span className={styles.tooltipText}>
                               Wrapped Asset
                             </span>
