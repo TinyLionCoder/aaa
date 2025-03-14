@@ -12,6 +12,10 @@ import styles from "../css_modules/DashboardContentStyles.module.css";
 import { AccountBalance } from "./AccountBalance";
 import { ReferralCalculator } from "./ReferralCalculator";
 import { AaaStats } from "./AaaStats";
+import { learner, wealthBuilder } from "../helpers/setBadgeStatus";
+import learn from "../images/learner.png";
+import wealthBuilderBadge from "../images/Wealthbuilder.png";
+import diamondHandsBadge from "../images/diamonhands.png";
 
 interface DashboardContentProps {
   aaaBalance: number;
@@ -42,9 +46,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
             <p>{aaaBalance} AAA</p>
           ) : (
             <p>
-              <strong>
-                {aaaBalance} AAA (Pending)
-              </strong>
+              <strong>{aaaBalance} AAA (Pending)</strong>
               <br />
               <span className={styles.pendingMessage}>
                 Requires verification to claim rewards.
@@ -56,7 +58,24 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
           <h3>
             <FaRegIdBadge className={styles.icon} /> Ranking and Badges
           </h3>
-          <p>{localStorage.getItem("badgeRanking")}</p>
+          <p>
+            {localStorage.getItem("badgeRanking") === learner ? (
+              <img src={learn} alt="badge" style={{ maxWidth: "30px" }} />
+            ) : localStorage.getItem("badgeRanking") === wealthBuilder ? (
+              <img
+                src={wealthBuilderBadge}
+                alt="badge"
+                style={{ maxWidth: "30px" }}
+              />
+            ) : (
+              <img
+                src={diamondHandsBadge}
+                alt="badge"
+                style={{ maxWidth: "30px" }}
+              />
+            )}
+          </p>
+          {localStorage.getItem("badgeRanking")}
         </div>
         <div className={`${styles.statCard} ${styles["statCard-referrals"]}`}>
           <h3>
@@ -95,8 +114,8 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
         <p className={styles.content}>
           {/* Payments will be deposited directly into your wallets the first week
           of every month */}
-          We are working on security and efficiency, Once ready, all aaa tokens from
-          verified members will be deposited directly into your wallets
+          We are working on security and efficiency, Once ready, all aaa tokens
+          from verified members will be deposited directly into your wallets
         </p>
       </div>
 
