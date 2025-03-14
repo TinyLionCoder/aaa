@@ -6,7 +6,7 @@ const tinymanLPAssetId = "2004411684"; // Tinyman LP Asset ID
 const vestigeApiUrl = `https://free-api.vestige.fi/asset/${assetId}/price?currency=usd`;
 export const noWalletMsg = "Connect wallet to see badge / ranking status";
 export const learner = "Learner";
-export const investor = "Investor";
+export const wealthBuilder = "Wealth Builder";
 export const diamondHands = "Diamond Hands";
 
 export const setBadgeStatus = async (walletAddress: string | null) => {
@@ -42,7 +42,7 @@ export const setBadgeStatus = async (walletAddress: string | null) => {
     if (tinymanLPValue >= 200) {
       badge = diamondHands;
     } else if (algoBalance >= 100 || aaaUsdValue >= 100) {
-      badge = investor;
+      badge = wealthBuilder;
     }
 
     localStorage.setItem("badgeRanking", badge);
