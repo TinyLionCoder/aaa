@@ -9,6 +9,7 @@ import {
   FaSortUp,
   FaTruckLoading,
   FaUserFriends,
+  FaWordpress,
 } from "react-icons/fa";
 
 const stableTVLAssetIDs = tokenData
@@ -437,6 +438,15 @@ const BestAlgoDefi: React.FC = () => {
                           <span className={styles.tooltipText}>Meme Token</span>
                         </div>
                       </div>
+                    ) : token.wrappedAsset ? (
+                      <div className={styles.wrappedAsset}>
+                        <div className={styles.tooltipContainer}>
+                          <FaWordpress />
+                          <span className={styles.tooltipText}>
+                            Wrapped Asset
+                          </span>
+                        </div>
+                      </div>
                     ) : null}
                   </div>
                   <div className={styles.tokenCell}>
@@ -570,6 +580,15 @@ const BestAlgoDefi: React.FC = () => {
                             <FaUserFriends />
                             <span className={styles.tooltipText}>
                               Meme Token
+                            </span>
+                          </div>
+                        </div>
+                      ) : token.wrappedAsset ? (
+                        <div className={styles.wrappedAsset}>
+                          <div className={styles.tooltipContainer}>
+                            <FaWordpress />
+                            <span className={styles.tooltipText}>
+                              Wrapped Asset
                             </span>
                           </div>
                         </div>

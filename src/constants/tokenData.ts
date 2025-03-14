@@ -19,6 +19,7 @@ import fish from "../images/fish.png";
 import tiny from "../images/tiny.png";
 import chips from "../images/chips.png";
 import vest from "../images/vest.png";
+import pepe from "../images/pepe.png";
 
 export default [
   {
@@ -30,6 +31,7 @@ export default [
     stableTVL: true,
     useCaseToken: false,
     memeToken: false,
+    wrappedAsset: false,
   },
   // {
   //   name: "TDLD",
@@ -38,8 +40,9 @@ export default [
   //   vestigeLink: "https://vestige.fi/asset/2176744157",
   //   xLink: "https://x.com/TinyDickLion",
   //   stableTVL: true,
-  // useCaseToken: false,
-  // memeToken: false
+  //   useCaseToken: false,
+  //   memeToken: false
+  //   wrappedAsset: false,
   // },
   {
     name: "NMI",
@@ -50,6 +53,7 @@ export default [
     stableTVL: true,
     useCaseToken: false,
     memeToken: false,
+    wrappedAsset: false,
   },
   {
     name: "BWOM",
@@ -60,6 +64,7 @@ export default [
     stableTVL: true,
     useCaseToken: false,
     memeToken: false,
+    wrappedAsset: false,
   },
   {
     name: "IPT",
@@ -70,6 +75,7 @@ export default [
     stableTVL: true,
     useCaseToken: false,
     memeToken: false,
+    wrappedAsset: false,
   },
   {
     name: "WKH",
@@ -80,6 +86,7 @@ export default [
     stableTVL: true,
     useCaseToken: false,
     memeToken: false,
+    wrappedAsset: false,
   },
   {
     name: "MEMO",
@@ -90,6 +97,7 @@ export default [
     stableTVL: true,
     useCaseToken: false,
     memeToken: false,
+    wrappedAsset: false,
   },
   {
     name: "SQUAD",
@@ -100,6 +108,7 @@ export default [
     stableTVL: true,
     useCaseToken: false,
     memeToken: false,
+    wrappedAsset: false,
   },
   {
     name: "CAT",
@@ -110,6 +119,7 @@ export default [
     stableTVL: true,
     useCaseToken: false,
     memeToken: false,
+    wrappedAsset: false,
   },
   {
     name: "TLP",
@@ -120,6 +130,7 @@ export default [
     stableTVL: true,
     useCaseToken: false,
     memeToken: false,
+    wrappedAsset: false,
   },
   {
     name: "REAR",
@@ -130,6 +141,7 @@ export default [
     stableTVL: true,
     useCaseToken: false,
     memeToken: false,
+    wrappedAsset: false,
   },
   {
     name: "REA",
@@ -140,6 +152,7 @@ export default [
     stableTVL: true,
     useCaseToken: false,
     memeToken: false,
+    wrappedAsset: false,
   },
   {
     name: "MARCUS",
@@ -150,6 +163,7 @@ export default [
     stableTVL: true,
     useCaseToken: false,
     memeToken: false,
+    wrappedAsset: false,
   },
   {
     name: "COOP",
@@ -160,6 +174,7 @@ export default [
     stableTVL: true,
     useCaseToken: false,
     memeToken: false,
+    wrappedAsset: false,
   },
   {
     name: "$GT",
@@ -170,6 +185,7 @@ export default [
     stableTVL: true,
     useCaseToken: false,
     memeToken: false,
+    wrappedAsset: false,
   },
   {
     name: "ETrump",
@@ -180,6 +196,7 @@ export default [
     stableTVL: false,
     useCaseToken: false,
     memeToken: true,
+    wrappedAsset: false,
   },
   {
     name: "GAIN",
@@ -189,6 +206,7 @@ export default [
     xLink: "https://x.com/gaintoken",
     stableTVL: false,
     useCaseToken: true,
+    wrappedAsset: false,
   },
   {
     name: "Fish",
@@ -199,6 +217,7 @@ export default [
     stableTVL: false,
     useCaseToken: false,
     memeToken: true,
+    wrappedAsset: false,
   },
   {
     name: "TINY",
@@ -209,6 +228,7 @@ export default [
     stableTVL: false,
     useCaseToken: true,
     memeToken: false,
+    wrappedAsset: false,
   },
   {
     name: "chip",
@@ -219,6 +239,7 @@ export default [
     stableTVL: false,
     useCaseToken: true,
     memeToken: false,
+    wrappedAsset: false,
   },
   {
     name: "VEST",
@@ -229,8 +250,19 @@ export default [
     stableTVL: false,
     useCaseToken: true,
     memeToken: false,
+    wrappedAsset: false,
+  },
+  {
+    name: "PEPE",
+    assetID: "1096015467",
+    logo: pepe,
+    vestigeLink: "https://vestige.fi/asset/1096015467",
+    xLink: "https://x.com/pepecoineth",
+    stableTVL: false,
+    useCaseToken: false,
+    memeToken: false,
+    wrappedAsset: true,
   },
 ];
 
-
-export const siteKey = "6LfhNrAqAAAAAAQKEN9k7q3lPwo7nuHewzdaLIkm"
+export const siteKey = "6LfhNrAqAAAAAAQKEN9k7q3lPwo7nuHewzdaLIkm";

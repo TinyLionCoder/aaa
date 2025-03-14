@@ -9,6 +9,7 @@ import {
   FaSortUp,
   FaTruckLoading,
   FaUserFriends,
+  FaWordpress,
 } from "react-icons/fa";
 import axios from "axios";
 import liveAirdrops from "../images/liveAirdrops.png";
@@ -499,8 +500,15 @@ const PublicBestAlgoDefi: React.FC = () => {
                       <div className={styles.memeToken}>
                         <div className={styles.tooltipContainer}>
                           <FaUserFriends />
+                          <span className={styles.tooltipText}>Meme Token</span>
+                        </div>
+                      </div>
+                    ) : token.wrappedAsset ? (
+                      <div className={styles.wrappedAsset}>
+                        <div className={styles.tooltipContainer}>
+                          <FaWordpress />
                           <span className={styles.tooltipText}>
-                            Meme Token
+                            Wrapped Asset
                           </span>
                         </div>
                       </div>
@@ -662,6 +670,15 @@ const PublicBestAlgoDefi: React.FC = () => {
                             <FaUserFriends />
                             <span className={styles.tooltipText}>
                               Meme Token
+                            </span>
+                          </div>
+                        </div>
+                      ) : token.wrappedAsset ? (
+                        <div className={styles.wrappedAsset}>
+                          <div className={styles.tooltipContainer}>
+                            <FaWordpress />
+                            <span className={styles.tooltipText}>
+                              Wrapped Asset
                             </span>
                           </div>
                         </div>
