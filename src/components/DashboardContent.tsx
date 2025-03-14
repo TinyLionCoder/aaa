@@ -60,22 +60,22 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
           </h3>
           <p>
             {localStorage.getItem("badgeRanking") === learner ? (
-              <img src={learn} alt="badge" style={{ maxWidth: "30px" }} />
+              <img src={learn} alt="badge" style={{ maxWidth: "60px" }} />
             ) : localStorage.getItem("badgeRanking") === wealthBuilder ? (
               <img
                 src={wealthBuilderBadge}
                 alt="badge"
-                style={{ maxWidth: "30px" }}
+                style={{ maxWidth: "60px" }}
               />
             ) : (
               <img
                 src={diamondHandsBadge}
                 alt="badge"
-                style={{ maxWidth: "30px" }}
+                style={{ maxWidth: "60px" }}
               />
             )}
           </p>
-          {localStorage.getItem("badgeRanking")}
+          {/* <h4>{localStorage.getItem("badgeRanking")}</h4> */}
         </div>
         <div className={`${styles.statCard} ${styles["statCard-referrals"]}`}>
           <h3>
