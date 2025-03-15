@@ -20,6 +20,7 @@ import tiny from "../images/tiny.png";
 import chips from "../images/chips.png";
 import vest from "../images/vest.png";
 import pepe from "../images/pepe.png";
+import goeth from "../images/goeth.png";
 
 export default [
   {
@@ -258,6 +259,17 @@ export default [
     logo: pepe,
     vestigeLink: "https://vestige.fi/asset/1096015467",
     xLink: "https://x.com/pepecoineth",
+    stableTVL: false,
+    useCaseToken: false,
+    memeToken: false,
+    wrappedAsset: true,
+  },
+  {
+    name: "goETH",
+    assetID: "386195940",
+    logo: goeth,
+    vestigeLink: "https://vestige.fi/asset/386195940",
+    xLink: "https://x.com/ethereum",
     stableTVL: false,
     useCaseToken: false,
     memeToken: false,
