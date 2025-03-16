@@ -4,7 +4,7 @@ import styles from "../css_modules/TokenListingStyles.module.css";
 export const TokenListing: React.FC = () => {
   return (
     <div className={styles.container}>
-      <h1 className={styles.heading}>Token Listing Application ($250 USDC)</h1>
+      <h1 className={styles.heading}>Token Listing Application ($50 USDC)</h1>
       <p className={styles.instructions}>
         To list your token on our platform, please send an email to{" "}
         <a
@@ -33,7 +33,7 @@ export const TokenListing: React.FC = () => {
         </li>
         <li>
           <strong>Algorand Payment Transaction ID:</strong> Include the
-          transaction ID for the <strong>$250 USDC</strong> payment sent to the
+          transaction ID for the <strong>$50 USDC</strong> payment sent to the
           wallet address:
           <div className={styles.walletAddress}>
             HE7225SD6ZKYO45QWYCE4BZ3ITFEK7WI7XGMAVAMB56FZREJVPMHNRSL2E
