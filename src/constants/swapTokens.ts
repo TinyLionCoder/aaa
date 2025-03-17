@@ -64,6 +64,7 @@ import cycle from "../images/cycle.png";
 import xgov from "../images/xgov.png";
 import ogla from "../images/ogla.png";
 import avoi from "../images/avoi.png";
+import fish from "../images/fish.png";
 
 
 export default [
@@ -85,6 +86,11 @@ export default [
     id: "2200000000",
     name: "TINY",
     logo: tiny,
+  },
+  {
+    id: "2667006169",
+    name: "FISH",
+    logo: fish,
   },
   {
     id: "388592191",
