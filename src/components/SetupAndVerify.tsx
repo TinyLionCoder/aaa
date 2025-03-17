@@ -113,7 +113,7 @@ export const SetupAndVerify = ({ userId }: SetupAndVerifyProps) => {
       const txn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
         from: walletAddress,
         to: verificationAddress,
-        amount: 500000, // 0.5 ALGO in microAlgos
+        amount: 1000000, // 1 ALGO in microAlgos
         note: new Uint8Array(Buffer.from("AAA app: Verification Fee")),
         suggestedParams,
       });
@@ -188,7 +188,7 @@ export const SetupAndVerify = ({ userId }: SetupAndVerifyProps) => {
         <>
           <h2 className={styles.subheading}>Step 2: Verify Account</h2>
           <p className={styles.description}>
-            Pay a verification fee of <strong>0.5 ALGO</strong> to verify your
+            Pay a verification fee of <strong>1 ALGO</strong> to verify your
             account.
           </p>
           <PeraWalletButton
