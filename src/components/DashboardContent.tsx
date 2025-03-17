@@ -58,24 +58,34 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
           <h3>
             <FaRegIdBadge className={styles.icon} /> Ranking and Badges
           </h3>
-          <p>
-            {localStorage.getItem("badgeRanking") === learner ? (
-              <img src={learn} alt="badge" style={{ maxWidth: "60px" }} />
-            ) : localStorage.getItem("badgeRanking") === wealthBuilder ? (
-              <img
-                src={wealthBuilderBadge}
-                alt="badge"
-                style={{ maxWidth: "60px" }}
-              />
-            ) : (
-              <img
-                src={diamondHandsBadge}
-                alt="badge"
-                style={{ maxWidth: "60px" }}
-              />
-            )}
-          </p>
-          {/* <h4>{localStorage.getItem("badgeRanking")}</h4> */}
+          <div className={`${styles.badgesAndRanking}`}>
+            <p>
+              {localStorage.getItem("badgeRanking") === learner ? (
+                <img src={learn} alt="badge" style={{ maxWidth: "60px" }} />
+              ) : localStorage.getItem("badgeRanking") === wealthBuilder ? (
+                <img
+                  src={wealthBuilderBadge}
+                  alt="badge"
+                  style={{ maxWidth: "60px" }}
+                />
+              ) : (
+                <img
+                  src={diamondHandsBadge}
+                  alt="badge"
+                  style={{ maxWidth: "60px" }}
+                />
+              )}
+            </p>
+            <h4>{localStorage.getItem("badgeRanking")}</h4>
+          </div>
+          <a
+            href="https://www.algoadoptairdrop.com/badges"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.badgesAndRankingLink}
+          >
+            View Rank Details
+          </a>
         </div>
         <div className={`${styles.statCard} ${styles["statCard-referrals"]}`}>
           <h3>
