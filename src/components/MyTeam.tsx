@@ -13,6 +13,7 @@ interface TeamLevelData {
 
 export const MyTeam = ({ userId }: MyTeamProps) => {
   const [teamData, setTeamData] = useState<TeamLevelData[]>([]);
+  const [verifiedCount, setVerifiedCount] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -21,7 +22,8 @@ export const MyTeam = ({ userId }: MyTeamProps) => {
       setLoading(true);
       setError(null);
 
-      const response = await axios.post(
+      // Fetch team data
+      const teamResponse = await axios.post(
         "https://aaa-api.onrender.com/api/v1/referrals/my-team",
         {
           userId,
@@ -35,8 +37,7 @@ export const MyTeam = ({ userId }: MyTeamProps) => {
         }
       );
 
-      // Assuming the API returns data as an array of { level, count }
-      setTeamData(response.data.data);
+      setTeamData(teamResponse.data.data);
     } catch (err) {
       console.error("Error fetching team data:", err);
       setError("Failed to load team data. Please try again.");
@@ -45,9 +46,34 @@ export const MyTeam = ({ userId }: MyTeamProps) => {
     }
   };
 
+  const fetchVerifiedCount = async () => {
+    try {
+      const verifiedResponse = await axios.post(
+        "https://aaa-api.onrender.com/api/v1/referrals/verified-team-members",
+        {
+          userId,
+          email: localStorage.getItem("email"),
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      console.log("Verified response:", verifiedResponse.data);
+      setVerifiedCount(verifiedResponse.data.verifiedMembers);
+    } catch (err) {
+      console.error("Error fetching verified team members:", err);
+      setVerifiedCount(null); // Ensure it does not display incorrect info
+    }
+  };
+
   useEffect(() => {
     if (userId) {
       fetchTeamData();
+      fetchVerifiedCount();
     }
   }, [userId]);
 
@@ -62,6 +88,16 @@ export const MyTeam = ({ userId }: MyTeamProps) => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>My Team</h1>
+
+      {/* Display verified team members below the title */}
+      {verifiedCount !== null && (
+        <p className={styles.verifiedCount}>
+          <strong>
+            {verifiedCount} members in your team are now verified!
+          </strong>
+        </p>
+      )}
+
       <div className={styles.levels}>
         {teamData.map(({ level, count }) => (
           <div key={level} className={styles.level}>
@@ -71,6 +107,7 @@ export const MyTeam = ({ userId }: MyTeamProps) => {
           </div>
         ))}
       </div>
+
       <p className={styles.info}>
         <strong>Each level earns you at least 5 AAA tokens</strong>
       </p>
