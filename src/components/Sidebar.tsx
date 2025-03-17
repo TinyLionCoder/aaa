@@ -253,7 +253,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                     onClick={() => handleItemClick("claimAirdrop")}
                   >
                     <FaCashRegister className={styles.icon} />
-                    <span>ALL Memebers</span>
+                    <span>ALL Members</span>
                   </li>
                   <li
                     className={`${styles.navItem} ${
