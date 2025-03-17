@@ -76,6 +76,11 @@
   transition: color 0.3s;
 }
 
+.eligibleForPayout {
+  font-size: 0.9rem;
+  color: #5cb85c;
+}
+
 .statCard .icon {
   margin-right: 8px;
   /* Add space between the icon and text */

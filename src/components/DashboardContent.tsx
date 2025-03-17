@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaCoins,
   FaUserFriends,
@@ -7,7 +7,9 @@ import {
   FaWallet,
   FaChartLine,
   FaRegIdBadge,
+  FaCheck,
 } from "react-icons/fa";
+import axios from "axios";
 import styles from "../css_modules/DashboardContentStyles.module.css";
 import { AccountBalance } from "./AccountBalance";
 import { ReferralCalculator } from "./ReferralCalculator";
@@ -34,6 +36,38 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
   referralLink,
   userId,
 }) => {
+  const [verifiedCount, setVerifiedCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (userId) {
+      fetchVerifiedCount();
+    }
+  }, [userId]);
+
+  const fetchVerifiedCount = async () => {
+    try {
+      const verifiedResponse = await axios.post(
+        "https://aaa-api.onrender.com/api/v1/referrals/verified-team-members",
+        {
+          userId,
+          email: localStorage.getItem("email"),
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      console.log("Verified response:", verifiedResponse.data);
+      setVerifiedCount(verifiedResponse.data.verifiedMembers);
+    } catch (err) {
+      console.error("Error fetching verified team members:", err);
+      setVerifiedCount(null); // Ensure it does not display incorrect info
+    }
+  };
+
   return (
     <div>
       {/* Stats Cards */}
@@ -53,6 +87,10 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
               </span>
             </p>
           )}
+          <h4>
+            <FaCheck className={styles.eligibleForPayout} /> Eligible for payout
+          </h4>
+          <p>{verifiedCount ? 5 * verifiedCount : aaaBalance} AAA</p>
         </div>
         <div className={`${styles.statCard} ${styles["statCard-sponsor"]}`}>
           <h3>
