@@ -87,10 +87,17 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
               </span>
             </p>
           )}
-          <h4>
-            <FaCheck className={styles.eligibleForPayout} /> Eligible for payout
-          </h4>
-          <p>{verifiedCount ? 5 * verifiedCount : aaaBalance} AAA</p>
+          <div>
+            <h4>
+              <FaCheck className={styles.eligibleForPayout} /> Eligible for
+              payout (Verified members)
+            </h4>
+            {verifiedCount ? (
+              <p>{verifiedCount ? 5 * verifiedCount : aaaBalance} AAA</p>
+            ) : (
+              <p>0 AAA</p>
+            )}
+          </div>
         </div>
         <div className={`${styles.statCard} ${styles["statCard-sponsor"]}`}>
           <h3>
