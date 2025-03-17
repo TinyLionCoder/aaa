@@ -253,7 +253,25 @@ const Sidebar: React.FC<SidebarProps> = ({
                     onClick={() => handleItemClick("claimAirdrop")}
                   >
                     <FaCashRegister className={styles.icon} />
-                    <span>Claim Airdrop</span>
+                    <span>ALL Memebers</span>
+                  </li>
+                  <li
+                    className={`${styles.navItem} ${
+                      activeItem === "diamondHands" ? styles.activeNavItem : ""
+                    }`}
+                    // onClick={() => handleItemClick("diamondHands")}
+                  >
+                    <FaCashRegister className={styles.icon} />
+                    <span>Diamond Hands and Above (Coming Soon!)</span>
+                  </li>
+                  <li
+                    className={`${styles.navItem} ${
+                      activeItem === "wealthBuilders" ? styles.activeNavItem : ""
+                    }`}
+                    // onClick={() => handleItemClick("wealthBuilders")}
+                  >
+                    <FaCashRegister className={styles.icon} />
+                    <span>Wealth Builders (Coming Soon!)</span>
                   </li>
                 </ul>
               )}
