@@ -77,7 +77,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
             <FaCoins className={styles.icon} /> Pending Verification Balance
           </h4>
           {verified ? (
-            <p>{verifiedCount ? aaaBalance - verifiedCount : 0} AAA</p>
+            <p>{aaaBalance} AAA</p>
           ) : (
             <p>
               <strong>{aaaBalance} AAA (Pending)</strong>
@@ -91,7 +91,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
             <h4>
               <FaCheck className={styles.eligibleForPayout} /> Ready for payout
             </h4>
-            {verifiedCount ? <p>{verifiedCount} AAA</p> : <p>0 AAA</p>}
+            {verifiedCount ? <p>{verifiedCount * 5} AAA</p> : <p>0 AAA</p>}
           </div>
         </div>
         <div className={`${styles.statCard} ${styles["statCard-sponsor"]}`}>
