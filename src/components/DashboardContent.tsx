@@ -47,7 +47,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
   const fetchVerifiedCount = async () => {
     try {
       const verifiedResponse = await axios.post(
-        "https://aaa-api.onrender.com/api/v1/referrals/verified-team-members",
+        "https://aaa-api.onrender.com/api/v1/pay/get-ready-for-payout",
         {
           userId,
           email: localStorage.getItem("email"),
@@ -60,8 +60,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
         }
       );
 
-      console.log("Verified response:", verifiedResponse.data);
-      setVerifiedCount(verifiedResponse.data.verifiedMembers);
+      setVerifiedCount(verifiedResponse.data.verifiedCount);
     } catch (err) {
       console.error("Error fetching verified team members:", err);
       setVerifiedCount(null); // Ensure it does not display incorrect info
