@@ -91,7 +91,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
             <h4>
               <FaCheck className={styles.eligibleForPayout} /> Ready for payout
             </h4>
-            {verifiedCount ? <p>{verifiedCount * 5} AAA</p> : <p>0 AAA</p>}
+            {verifiedCount ? <p>{verifiedCount * 5 + 5} AAA</p> : <p>0 AAA</p>}
           </div>
         </div>
         <div className={`${styles.statCard} ${styles["statCard-sponsor"]}`}>
