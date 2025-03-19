@@ -41,7 +41,10 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
   const [activeComponent, setActiveComponent] =
     useState<string>("bestAlgoDefi"); // Default to dashboard content
   const [totalMembers, setTotalMembers] = useState<number>(0);
+  const [totalVerifiedMembers, setTotalVerifiedMembers] = useState<number>(0);
   const [loadingTotalMembers, setLoadingTotalMembers] = useState<boolean>(true);
+  const [loadingTotalVerifiedMembers, setLoadingTotalVerifiedMembers] =
+    useState<boolean>(true);
 
   const apiClient = axios.create({
     baseURL: "https://aaa-api.onrender.com/api/v1/members",
@@ -50,6 +53,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
 
   useEffect(() => {
     getTotalMembers();
+    getTotalVerifiedMembers();
   }, []);
 
   const getTotalMembers = async () => {
@@ -66,6 +70,25 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
       setTotalMembers(0); // Fallback to 0 if the API fails
     } finally {
       setLoadingTotalMembers(false);
+    }
+  };
+  const getTotalVerifiedMembers = async () => {
+    try {
+      setLoadingTotalVerifiedMembers(true);
+      const response = await apiClient.post("/get-total-Verified-members");
+      if (
+        response.data &&
+        typeof response.data.totalVerifiedMembers === "number"
+      ) {
+        setTotalVerifiedMembers(response.data.totalVerifiedMembers);
+      } else {
+        throw new Error("Invalid response format.");
+      }
+    } catch (error) {
+      console.error("Failed to fetch total Verified members:", error);
+      setTotalVerifiedMembers(0); // Fallback to 0 if the API fails
+    } finally {
+      setLoadingTotalVerifiedMembers(false);
     }
   };
 
@@ -137,9 +160,12 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
         <header className={styles.dashboardHeader}>
           <h1>Algo Adopt Airdrop</h1>
           <h2 className={styles.totalMembers}>
-            {loadingTotalMembers
-              ? "Loading Members..."
-              : `Total Members: ${totalMembers}`}
+            {loadingTotalVerifiedMembers
+              ? ""
+              : `Total Verified Members: ${totalVerifiedMembers}`}
+          </h2>
+          <h2 className={styles.totalMembers}>
+            {loadingTotalMembers ? "" : `Total Members: ${totalMembers}`}
           </h2>
         </header>
 
