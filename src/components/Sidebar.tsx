@@ -14,6 +14,7 @@ import {
   FaCashRegister,
   FaChevronRight,
   FaChevronDown,
+  FaTruck,
 } from "react-icons/fa";
 import styles from "../css_modules/SidebarStyles.module.css";
 import { useNavigate } from "react-router-dom";
@@ -220,6 +221,15 @@ const Sidebar: React.FC<SidebarProps> = ({
                 </li>
               </ul>
             )}
+          </li>
+          <li
+            className={`${styles.navItem} ${
+              activeItem === "GainFTIntegration" ? styles.activeNavItem : ""
+            }`}
+            onClick={() => handleItemClick("GainFTIntegration")}
+          >
+            <FaTruck className={styles.icon} />
+            <span>Gainify Staking and Farming</span>
           </li>
           {verfied && (
             <li className={styles.navItemDropdown}>

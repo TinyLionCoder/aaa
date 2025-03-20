@@ -16,6 +16,7 @@ import { AAASwap } from "./AAASwap";
 import { CreateAirdrop } from "./CreateAirdrop";
 import { ClaimAirdrop } from "./ClaimAirdrop";
 import SetupAndVerify from "./SetupAndVerify";
+import GainFTIntegration from "./GainFTIntegration";
 
 interface EnhancedDashboardProps {
   userName: string;
@@ -121,6 +122,8 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
         return <ClaimAirdrop />;
       case "setupAndVerify":
         return <SetupAndVerify userId={userId} />;
+      case "GainFTIntegration":
+        return <GainFTIntegration />;
       case "dashboard":
         return (
           <DashboardContent
