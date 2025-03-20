@@ -122,8 +122,8 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
         return <ClaimAirdrop />;
       case "setupAndVerify":
         return <SetupAndVerify userId={userId} />;
-      case "GainFTIntegration":
-        return <GainFTIntegration />;
+      // case "GainFTIntegration":
+      //   return <GainFTIntegration />;
       case "dashboard":
         return (
           <DashboardContent

@@ -40,6 +40,10 @@ const Sidebar: React.FC<SidebarProps> = ({
     if (component === "AAASwap") {
       navigate("/swap-tokens");
     }
+    if (component === "GainFTIntegration") {
+     // open in new tab
+      window.open("https://app.gainify.xyz/", "_blank");
+    }
     setActiveItem(component);
     setActiveComponent(component);
   };
