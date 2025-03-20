@@ -40,10 +40,6 @@ const Sidebar: React.FC<SidebarProps> = ({
     if (component === "AAASwap") {
       navigate("/swap-tokens");
     }
-    if (component === "GainFTIntegration") {
-     // open in new tab
-      window.open("https://app.gainify.xyz/", "_blank");
-    }
     setActiveItem(component);
     setActiveComponent(component);
   };
@@ -225,15 +221,6 @@ const Sidebar: React.FC<SidebarProps> = ({
                 </li>
               </ul>
             )}
-          </li>
-          <li
-            className={`${styles.navItem} ${
-              activeItem === "GainFTIntegration" ? styles.activeNavItem : ""
-            }`}
-            onClick={() => handleItemClick("GainFTIntegration")}
-          >
-            <FaTruck className={styles.icon} />
-            <span>Gainify Staking and Farming</span>
           </li>
           {verfied && (
             <li className={styles.navItemDropdown}>

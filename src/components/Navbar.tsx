@@ -27,6 +27,15 @@ const Navbar = () => {
         <Link to="/swap-tokens" onClick={() => setMenuOpen(false)}>
           Swap Tokens
         </Link>
+        <a
+          href="https://app.gainify.xyz"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.navLink} // Apply same styles as other links
+          onClick={() => setMenuOpen(false)}
+        >
+          Farming
+        </a>
         <Link to="/best-algo-defi" onClick={() => setMenuOpen(false)}>
           Best Algo Defi Tokens
         </Link>
