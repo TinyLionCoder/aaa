@@ -36,22 +36,21 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
   referralLink,
   userId,
 }) => {
-  const [verifiedCount, setVerifiedCount] = useState<number | null>(null);
-  const [lastVerifiedCount, setLastVerifiedCount] = useState<number>(0);
+  const [currentPayout, setCurrentPayout] = useState<number>(0);
 
   useEffect(() => {
     if (userId) {
-      fetchVerifiedCount();
+      fetchCurrentPayout();
     }
   }, [userId]);
 
-  const fetchVerifiedCount = async () => {
+  const fetchCurrentPayout = async () => {
     try {
-      const verifiedResponse = await axios.post(
-        "https://aaa-api.onrender.com/api/v1/pay/get-ready-for-payout",
+      const currentPayoutResponse = await axios.post(
+        `https://aaa-api.onrender.com/api/v1/pay/payouts/current/${userId}`,
         {
           userId,
-          email: localStorage.getItem("email"),
+          email: localStorage.getItem("userEmail"),
         },
         {
           headers: {
@@ -61,15 +60,10 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
         }
       );
 
-      setVerifiedCount(verifiedResponse.data.verifiedCount);
-      setLastVerifiedCount(
-        verifiedResponse.data?.lastVerifiedCount
-          ? verifiedResponse.data.lastVerifiedCount
-          : 0
-      );
+      setCurrentPayout(currentPayoutResponse.data.currentPayout);
     } catch (err) {
       console.error("Error fetching verified team members:", err);
-      setVerifiedCount(null); // Ensure it does not display incorrect info
+      setCurrentPayout(0); // Ensure it does not display incorrect info
     }
   };
 
@@ -96,15 +90,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
             <h4>
               <FaCheck className={styles.eligibleForPayout} /> Ready for payout
             </h4>
-            {verifiedCount ? (
-              <p>
-                {(lastVerifiedCount > 0 ? 0 : verifiedCount * 5) +
-                  (verified ? (lastVerifiedCount > 0 ? 0 : 5) : 0)}{" "}
-                AAA
-              </p>
-            ) : (
-              <p>0 AAA</p>
-            )}
+            {currentPayout ? <p>{currentPayout} AAA</p> : <p>0 AAA</p>}
           </div>
         </div>
         <div className={`${styles.statCard} ${styles["statCard-sponsor"]}`}>

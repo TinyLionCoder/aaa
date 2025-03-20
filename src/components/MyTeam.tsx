@@ -27,7 +27,7 @@ export const MyTeam = ({ userId }: MyTeamProps) => {
         "https://aaa-api.onrender.com/api/v1/referrals/my-team",
         {
           userId,
-          email: localStorage.getItem("email"),
+          email: localStorage.getItem("userEmail"),
         },
         {
           headers: {
@@ -52,7 +52,7 @@ export const MyTeam = ({ userId }: MyTeamProps) => {
         "https://aaa-api.onrender.com/api/v1/referrals/verified-team-members",
         {
           userId,
-          email: localStorage.getItem("email"),
+          email: localStorage.getItem("userEmail"),
         },
         {
           headers: {
