@@ -37,6 +37,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
   userId,
 }) => {
   const [verifiedCount, setVerifiedCount] = useState<number | null>(null);
+  const [lastVerifiedCount, setLastVerifiedCount] = useState<number>(0);
 
   useEffect(() => {
     if (userId) {
@@ -61,6 +62,11 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
       );
 
       setVerifiedCount(verifiedResponse.data.verifiedCount);
+      setLastVerifiedCount(
+        verifiedResponse.data?.lastVerifiedCount
+          ? verifiedResponse.data.lastVerifiedCount
+          : 0
+      );
     } catch (err) {
       console.error("Error fetching verified team members:", err);
       setVerifiedCount(null); // Ensure it does not display incorrect info
@@ -91,7 +97,11 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
               <FaCheck className={styles.eligibleForPayout} /> Ready for payout
             </h4>
             {verifiedCount ? (
-              <p>{verifiedCount * 5 + (verified ? 5 : 0)} AAA</p>
+              <p>
+                {(lastVerifiedCount > 0 ? 0 : verifiedCount * 5) +
+                  (verified ? (lastVerifiedCount > 0 ? 0 : 5) : 0)}{" "}
+                AAA
+              </p>
             ) : (
               <p>0 AAA</p>
             )}
