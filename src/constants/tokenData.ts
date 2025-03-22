@@ -21,6 +21,10 @@ import chips from "../images/chips.png";
 import vest from "../images/vest.png";
 import pepe from "../images/pepe.png";
 import goeth from "../images/goeth.png";
+import niko from "../images/niko.png";
+import exa from "../images/exa.png";
+import meta from "../images/meta.png";
+import compx from "../images/compx.png";
 
 export default [
   {
@@ -274,6 +278,50 @@ export default [
     useCaseToken: false,
     memeToken: false,
     wrappedAsset: true,
+  },
+  {
+    name: "NIKO",
+    assetID: "1265975021",
+    logo: niko,
+    vestigeLink: "https://vestige.fi/asset/1265975021",
+    xLink: "https://x.com/rxelms",
+    stableTVL: false,
+    useCaseToken: true,
+    memeToken: false,
+    wrappedAsset: false,
+  },
+  {
+    name: "EXA",
+    assetID: "1888888888",
+    logo: exa,
+    vestigeLink: "https://vestige.fi/asset/1888888888",
+    xLink: "https://x.com/EXA_Market",
+    stableTVL: false,
+    useCaseToken: true,
+    memeToken: false,
+    wrappedAsset: false,
+  },
+  {
+    name: "COMPX",
+    assetID: "1732165149",
+    logo: compx,
+    vestigeLink: "https://vestige.fi/asset/1732165149",
+    xLink: "https://x.com/compxlabs",
+    stableTVL: false,
+    useCaseToken: true,
+    memeToken: false,
+    wrappedAsset: false,
+  },
+  {
+    name: "META",
+    assetID: "712012773",
+    logo: meta,
+    vestigeLink: "https://vestige.fi/asset/712012773",
+    xLink: "https://x.com/CometaHub",
+    stableTVL: false,
+    useCaseToken: true,
+    memeToken: false,
+    wrappedAsset: false,
   },
 ];
 
