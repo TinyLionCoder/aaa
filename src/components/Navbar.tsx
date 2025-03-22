@@ -5,10 +5,12 @@ import styles from "../css_modules/NavbarStyles.module.css";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showFarmingDropdown, setShowFarmingDropdown] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+  const toggleFarmingDropdown = () => setShowFarmingDropdown((prev) => !prev);
 
   return (
     <nav className={styles.navbar}>
@@ -27,15 +29,40 @@ const Navbar = () => {
         <Link to="/swap-tokens" onClick={() => setMenuOpen(false)}>
           Swap Tokens
         </Link>
-        <a
-          href="https://app.gainify.xyz"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.navLink} // Apply same styles as other links
-          onClick={() => setMenuOpen(false)}
-        >
-          Farming
-        </a>
+        <div className={styles.dropdown}>
+          <div
+            className={styles.dropdownToggle}
+            onClick={toggleFarmingDropdown}
+          >
+            Farming ▾
+          </div>
+          {showFarmingDropdown && (
+            <div className={styles.dropdownMenu}>
+              <a
+                href="https://app.gainify.xyz"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowFarmingDropdown(false);
+                }}
+              >
+                Gainify
+              </a>
+              <a
+                href="https://app.cometa.farm"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowFarmingDropdown(false);
+                }}
+              >
+                Cometa Hub
+              </a>
+            </div>
+          )}
+        </div>
         <Link to="/best-algo-defi" onClick={() => setMenuOpen(false)}>
           Best Algo Defi Tokens
         </Link>

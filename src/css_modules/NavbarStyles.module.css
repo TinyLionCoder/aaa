@@ -59,6 +59,58 @@
     margin-right: 10px;
 }
 
+/* Dropdown Container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Toggle (e.g., "Farming ▾") */
+.dropdownToggle {
+    color: rebeccapurple;
+    background: transparent;
+    font-size: 16px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.dropdownToggle:hover {
+    color: #6a0dad;
+    background-color: rgba(138, 43, 226, 0.1);
+    border-radius: 4px;
+}
+
+/* Dropdown Menu */
+.dropdownMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    min-width: 160px;
+    border-radius: 6px;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+/* Dropdown Links */
+.dropdownMenu a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 14px;
+    color: rebeccapurple;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.dropdownMenu a:hover {
+    background-color: rgba(138, 43, 226, 0.05);
+    color: #6a0dad;
+}
+
+
 /* Mobile Styles */
 @media (max-width: 768px) {
     .navLinks {
@@ -97,5 +149,40 @@
         font-size: 24px;
         cursor: pointer;
         color: rebeccapurple;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Ensure dropdown fits in mobile nav layout */
+    .dropdown {
+        width: 100%;
+    }
+
+    .dropdownToggle {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .dropdownMenu {
+        position: static;
+        width: 100%;
+        background-color: white;
+        border: none;
+        box-shadow: none;
+        border-top: 1px solid #e0e0e0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .dropdownMenu a {
+        padding: 10px 15px;
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .dropdownMenu a:last-child {
+        border-bottom: none;
     }
 }
