@@ -155,7 +155,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               </ul>
             )}
           </li>
-          <li
+          {/* <li
             className={`${styles.navItem} ${
               activeItem === "donateAAA" ? styles.activeNavItem : ""
             }`}
@@ -163,7 +163,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           >
             <FaDonate className={styles.icon} />
             <span>Donate AAA</span>
-          </li>
+          </li> */}
           <li className={styles.navItemDropdown}>
             <div
               onClick={() => toggleDropdown("wallet")}
