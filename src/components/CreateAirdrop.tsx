@@ -12,14 +12,13 @@ export const CreateAirdrop = () => {
     "HE7225SD6ZKYO45QWYCE4BZ3ITFEK7WI7XGMAVAMB56FZREJVPMHNRSL2E";
 
   const peraWallet = useContext(PeraWalletContext);
-
   const [step, setStep] = useState(1);
+  const [airdropType, setAirdropType] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [transactionStatus, setTransactionStatus] = useState<string | null>(
     null
   );
-
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
 
   const [formData, setFormData] = useState({
@@ -31,33 +30,40 @@ export const CreateAirdrop = () => {
     shortDescription: "",
   });
 
-  // Handle wallet connect/disconnect
+  const handleTypeSelect = (type: string) => {
+    setAirdropType(type);
+    setStep(2);
+  };
+
   const handleWalletConnect = (address: string) => setWalletAddress(address);
   const handleWalletDisconnect = () => setWalletAddress(null);
 
-  // Handle input changes with validation
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-
-    // Prevent decimal values for specific fields
     if (["amountOfTokenPerClaim", "totalAmountOfTokens"].includes(name)) {
-      if (!/^\d*$/.test(value)) return; // Allow only digits
+      if (!/^\d*$/.test(value)) return;
     }
-
-    // Restrict `shortDescription` to a maximum of 200 characters
     if (name === "shortDescription" && value.length > 200) return;
-
     setFormData({ ...formData, [name]: value });
   };
 
-  const handlePayFeeAndNext = async () => {
-    if (!walletAddress) {
-      setError("Please connect your wallet first.");
-      return;
+  const getAirdropRecommendation = () => {
+    switch (airdropType) {
+      case "all-members":
+        return "Tip: Keep drop to max 0.1 ALGO per claim to attract quality collectors.";
+      case "diamond-hands":
+        return "Tip: Keep each claim under 1 ALGO to attract stronger holders.";
+      case "wealth-builders":
+        return "Tip: Keep claims around 10 ALGO to reward proven LP providers.";
+      default:
+        return "";
     }
+  };
 
+  const handlePayFeeAndNext = async () => {
+    if (!walletAddress) return setError("Please connect your wallet first.");
     if (
       !formData.tokenName ||
       !formData.tokenId ||
@@ -66,18 +72,12 @@ export const CreateAirdrop = () => {
       !formData.totalAmountOfTokens ||
       !formData.shortDescription
     ) {
-      setError("All fields are required.");
-      return;
+      return setError("All fields are required.");
     }
 
     try {
-      setError(null);
       setLoading(true);
-
-      // Fetch transaction parameters
       const suggestedParams = await algodClient.getTransactionParams().do();
-
-      // Create a payment transaction for the fee
       const txn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
         from: walletAddress,
         to: AIRDROP_FEE_ADDRESS,
@@ -86,7 +86,6 @@ export const CreateAirdrop = () => {
         suggestedParams,
       });
 
-      // Sign and send transaction
       if (!peraWallet) throw new Error("PeraWallet is not available.");
       const singleTxnGroup = [{ txn, signers: [walletAddress] }];
       const signedTxn = await peraWallet.signTransaction([singleTxnGroup]);
@@ -94,15 +93,12 @@ export const CreateAirdrop = () => {
 
       // Wait for confirmation
       await algosdk.waitForConfirmation(algodClient, txId, 4);
-
       setTransactionStatus(
         "Fee payment successful! Proceeding to airdrop setup..."
       );
-
-      // Proceed to create airdrop
       await handleCreateAirdrop(txId);
     } catch (error) {
-      console.error("Fee payment failed:", error);
+      console.error(error);
       setError("Fee payment failed. Please try again.");
     } finally {
       setLoading(false);
@@ -122,6 +118,7 @@ export const CreateAirdrop = () => {
           amountOfTokenPerClaim: Number(formData.amountOfTokenPerClaim),
           totalAmountOfTokens: Number(formData.totalAmountOfTokens),
           shortDescription: formData.shortDescription,
+          airdropType,
           txId,
         },
         {
@@ -132,13 +129,9 @@ export const CreateAirdrop = () => {
         }
       );
 
-      if (response.status === 201) {
-        setStep(2);
-      } else {
-        setError("Airdrop creation failed. Please try again.");
-      }
+      if (response.status === 201) setStep(3);
+      else setError("Airdrop creation failed. Please try again.");
     } catch (err: any) {
-      console.error("Error creating airdrop:", err);
       setError(err.response?.data?.message || "An error occurred.");
     }
   };
@@ -146,65 +139,97 @@ export const CreateAirdrop = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>Create Airdrop</h1>
-      {/* {step === 1 && (
+
+      {step === 1 && (
         <>
-          <h2 className={styles.heading}>Step 1: Fill Airdrop Details</h2>
-          <p className={styles.feeNotice}>
-            <strong>Note:</strong> A <strong>10 ALGO</strong> fee is required to
-            create an airdrop. Please ensure your connected wallet has
-            sufficient funds.
+          <h2 className={styles.subheading}>Step 1: Pick an Airdrop</h2>
+          <p className={styles.description}>
+            Carefully select the type of airdrop that is more beneficial for
+            your project:
           </p>
+          <div className={styles.airdropOptions}>
+            {[
+              {
+                label: "All Members",
+                value: "all-members",
+                desc: "Fast wallet growth, low quality claims.",
+              },
+              {
+                label: "Diamond Hands",
+                value: "diamond-hands",
+                desc: "Only proven token holders.",
+              },
+              {
+                label: "Wealth Builders",
+                value: "wealth-builders",
+                desc: "Only top LP providers.",
+              },
+            ].map((option) => (
+              <div
+                key={option.value}
+                className={styles.airdropCard}
+                onClick={() => handleTypeSelect(option.value)}
+              >
+                <h3 className={styles.airdropTitle}>{option.label}</h3>
+                <p className={styles.airdropText}>{option.desc}</p>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {step === 2 && (
+        <>
+          <h2 className={styles.subheading}>Step 2: Fill Airdrop Details</h2>
+          <p className={styles.tip}>{getAirdropRecommendation()}</p>
           <form className={styles.form}>
-            <label className={styles.label}>Unit Name</label>
             <input
               className={styles.input}
               type="text"
               name="tokenName"
+              placeholder="Token Name"
               value={formData.tokenName}
               onChange={handleChange}
             />
-            <label className={styles.label}>Token ID</label>
             <input
               className={styles.input}
               type="number"
               name="tokenId"
+              placeholder="Token ID"
               value={formData.tokenId}
               onChange={handleChange}
             />
-            <label className={styles.label}>Token Decimals</label>
             <input
               className={styles.input}
               type="number"
               name="tokenDecimals"
+              placeholder="Token Decimals"
               value={formData.tokenDecimals}
               onChange={handleChange}
             />
-            <label className={styles.label}>Amount Per Claim</label>
             <input
               className={styles.input}
               type="number"
               name="amountOfTokenPerClaim"
+              placeholder="Amount per Claim"
               value={formData.amountOfTokenPerClaim}
               onChange={handleChange}
-              step="1"
             />
-            <label className={styles.label}>Total Tokens For the Airdrop</label>
             <input
               className={styles.input}
               type="number"
               name="totalAmountOfTokens"
+              placeholder="Total Tokens"
               value={formData.totalAmountOfTokens}
               onChange={handleChange}
-              step="1"
             />
-            <label className={styles.label}>Short Description</label>
             <textarea
               className={styles.textarea}
               name="shortDescription"
+              placeholder="Short Description (max 200 chars)"
               value={formData.shortDescription}
               onChange={handleChange}
-              placeholder="Brief description (max 200 characters)"
-              rows={4}
+              rows={3}
             />
           </form>
           {error && <p className={styles.error}>{error}</p>}
@@ -217,28 +242,23 @@ export const CreateAirdrop = () => {
             disabled={loading}
             onClick={handlePayFeeAndNext}
           >
-            {loading ? "Processing..." : "Create Airdrop"}
+            {loading ? "Processing..." : "Pay Fee & Create Airdrop"}
           </button>
-          <p className={styles.note}>
-            You will be prompted to approve the transaction in your wallet. Once
-            confirmed, the airdrop creation process will continue.
-          </p>
         </>
-      )} */}
-      {/* {step === 2 && (
+      )}
+
+      {step === 3 && (
         <>
-          <h2 className={styles.heading}>Step 2: Deposit Tokens</h2>
+          <h2 className={styles.subheading}>Step 3: Deposit Tokens</h2>
           <p className={styles.instructions}>
-            Please deposit the required tokens to the following wallet address:
+            Send the total token amount to the following address:
           </p>
           <div className={styles.walletAddress}>{AIRDROP_FEE_ADDRESS}</div>
-          <p>
-            Make sure the total tokens match the amount specified during the
-            setup.
+          <p className={styles.description}>
+            Ensure the deposit matches your configured total.
           </p>
         </>
-      )} */}
-      <p>Coming Soon!</p>
+      )}
     </div>
   );
 };

@@ -1,120 +1,157 @@
 .container {
   max-width: 600px;
-  margin: 0 auto;
+  margin: auto;
   padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #0f172a;
+  color: #f8fafc;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .heading {
   font-size: 24px;
-  margin-bottom: 20px;
-  color: #333;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.subheading {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: 600;
   text-align: center;
 }
 
-.form {
-  margin-top: 32px;
+.description {
+  font-size: 14px;
+  color: #94a3b8;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.tip {
+  font-size: 14px;
+  background-color: #1e293b;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  border: 1px solid #334155;
+  color: #fcd34d;
+}
+
+.airdropOptions {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 15px;
 }
 
-.label {
+.airdropCard {
+  background-color: #1e293b;
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid #334155;
+}
+
+.airdropCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px #38bdf8;
+}
+
+.airdropTitle {
+  font-size: 16px;
   font-weight: bold;
   margin-bottom: 5px;
-  color: #555;
 }
 
-.input {
-  width: 50%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.airdropText {
   font-size: 14px;
-  transition: border-color 0.3s ease;
+  color: #cbd5e1;
 }
 
-.input:focus {
-  border-color: #007bff;
-  outline: none;
-  box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
+.input,
 .textarea {
-  width: 100%;
   padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  resize: none;
-  /* Prevent resizing */
-  margin-bottom: 15px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  background-color: #1e293b;
+  color: #f8fafc;
+  border: 1px solid #334155;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: #94a3b8;
 }
 
 .button {
-  background-color: #007bff;
-  color: white;
   padding: 10px 15px;
-  font-size: 16px;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: #38bdf8;
+  color: #0f172a;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background 0.3s ease;
 }
 
-.button:disabled {
-  background-color: #aaa;
-  cursor: not-allowed;
-}
-
-.button:hover:not(:disabled) {
-  background-color: #0056b3;
-  transform: translateY(-1px);
+.button:hover {
+  background-color: #0ea5e9;
 }
 
 .error {
-  color: red;
+  color: #f87171;
+  text-align: center;
+  margin-top: 10px;
   font-size: 14px;
 }
 
-.walletAddress {
-  padding: 15px;
-  background-color: #f1f1f1;
-  border-radius: 5px;
-  font-family: monospace;
-  font-size: 16px;
-  text-align: center;
-  word-break: break-word;
-}
-
 .instructions {
-  font-size: 16px;
-  line-height: 1.5;
-  color: #333;
+  font-size: 14px;
+  color: #cbd5e1;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
-.backButton {
-  margin-top: 10px;
-  background-color: #6c757d;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.walletAddress {
+  background-color: #1e293b;
+  padding: 10px;
+  font-family: monospace;
+  border-radius: 6px;
+  word-break: break-all;
+  text-align: center;
+  border: 1px solid #334155;
+  margin-bottom: 10px;
 }
 
-.backButton:hover {
-  background-color: #5a6268;
-}
+/* Responsive */
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+  .airdropCard {
+    padding: 12px;
+  }
+
+  .input,
+  .textarea {
+    font-size: 13px;
+  }
+
+  .button {
+    width: 100%;
+  }
 }
