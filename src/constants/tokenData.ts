@@ -8,7 +8,6 @@ import ipt from "../images/ipt.png";
 import wkh from "../images/wkh.png";
 import memo from "../images/memo.png";
 import ogs from "../images/ogs.png";
-import cat from "../images/cat.png";
 import aaa from "../images/aaa.png";
 import marcus from "../images/marcus.png";
 import coop from "../images/coop.png";
@@ -110,17 +109,6 @@ export default [
     logo: ogs,
     vestigeLink: "https://vestige.fi/asset/1421321088",
     xLink: "https://x.com/OG_Squad_ALGO",
-    stableTVL: true,
-    useCaseToken: false,
-    memeToken: false,
-    wrappedAsset: false,
-  },
-  {
-    name: "CAT",
-    assetID: "1691166331",
-    logo: cat,
-    vestigeLink: "https://vestige.fi/asset/1691166331",
-    xLink: "https://x.com/algo_cats",
     stableTVL: true,
     useCaseToken: false,
     memeToken: false,
