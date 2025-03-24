@@ -253,6 +253,7 @@ const AuthWrapper = () => {
     localStorage.removeItem("userId");
     localStorage.removeItem("userEmail");
     localStorage.removeItem("appWallet");
+    localStorage.removeItem("badgeRanking");
 
     if (triggerWalletDisconnect) {
       peraWalletRef.current?.disconnectWallet();
