@@ -10,13 +10,12 @@ import { DonateAAA } from "./DonateAAA";
 import { MyWallet } from "./MyWallet";
 import { MyTeam } from "./MyTeam";
 import axios from "axios";
-// import { SetupWallet } from "./SetupWallet";
-// import VerificationPage from "./VerifyAccount";
 import { AAASwap } from "./AAASwap";
 import { CreateAirdrop } from "./CreateAirdrop";
 import { ClaimAirdrop } from "./ClaimAirdrop";
 import SetupAndVerify from "./SetupAndVerify";
-import GainFTIntegration from "./GainFTIntegration";
+import { ClaimAirdropDiamondHands } from "./ClaimAirdropDiamondHands";
+import { ClaimAirdropWealthBuilders } from "./ClaimAirdropWealthBuilders";
 
 interface EnhancedDashboardProps {
   userName: string;
@@ -110,10 +109,6 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
         return <MyWallet />;
       case "AAASwap":
         return <AAASwap />;
-      // case "verifyAccount":
-      //   return <VerificationPage userId={userId} />;
-      // case "setupWallet":
-      //   return <SetupWallet userId={userId} />;
       case "myTeam":
         return <MyTeam userId={userId} />;
       case "createAirdrop":
@@ -122,8 +117,10 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
         return <ClaimAirdrop />;
       case "setupAndVerify":
         return <SetupAndVerify userId={userId} />;
-      // case "GainFTIntegration":
-      //   return <GainFTIntegration />;
+      // case "diamondHands":
+      //   return <ClaimAirdropDiamondHands />;
+      // case "wealthBuilders":
+      //   return <ClaimAirdropWealthBuilders />;
       case "dashboard":
         return (
           <DashboardContent

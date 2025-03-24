@@ -18,6 +18,7 @@ import {
 } from "react-icons/fa";
 import styles from "../css_modules/SidebarStyles.module.css";
 import { useNavigate } from "react-router-dom";
+import { diamondHands, wealthBuilder } from "../helpers/setBadgeStatus";
 
 interface SidebarProps {
   verfied: boolean;
@@ -155,15 +156,6 @@ const Sidebar: React.FC<SidebarProps> = ({
               </ul>
             )}
           </li>
-          {/* <li
-            className={`${styles.navItem} ${
-              activeItem === "donateAAA" ? styles.activeNavItem : ""
-            }`}
-            onClick={() => handleItemClick("donateAAA")}
-          >
-            <FaDonate className={styles.icon} />
-            <span>Donate AAA</span>
-          </li> */}
           <li className={styles.navItemDropdown}>
             <div
               onClick={() => toggleDropdown("wallet")}
@@ -192,24 +184,6 @@ const Sidebar: React.FC<SidebarProps> = ({
                     <span>Setup And Verify</span>
                   </li>
                 )}
-                {/* <li
-                  className={`${styles.navItem} ${
-                    activeItem === "setupWallet" ? styles.activeNavItem : ""
-                  }`}
-                  onClick={() => handleItemClick("setupWallet")}
-                >
-                  <FaCogs className={styles.icon} />
-                  <span>Setup Wallet</span>
-                </li>
-                <li
-                  className={`${styles.navItem} ${
-                    activeItem === "verifyAccount" ? styles.activeNavItem : ""
-                  }`}
-                  onClick={() => handleItemClick("verifyAccount")}
-                >
-                  <FaCheck className={styles.icon} />
-                  <span>Verify Account</span>
-                </li> */}
                 <li
                   className={`${styles.navItem} ${
                     activeItem === "myWallet" ? styles.activeNavItem : ""
@@ -256,6 +230,19 @@ const Sidebar: React.FC<SidebarProps> = ({
                     <FaCashRegister className={styles.icon} />
                     <span>ALL Members</span>
                   </li>
+                  {/* {localStorage.getItem("badgeRanking") === diamondHands ? (
+                    <li
+                      className={`${styles.navItem} ${
+                        activeItem === "diamondHands"
+                          ? styles.activeNavItem
+                          : ""
+                      }`}
+                      onClick={() => handleItemClick("diamondHands")}
+                    >
+                      <FaCashRegister className={styles.icon} />
+                      <span>Diamond Hands and Above</span>
+                    </li>
+                  ) : null} */}
                   <li
                     className={`${styles.navItem} ${
                       activeItem === "diamondHands" ? styles.activeNavItem : ""
@@ -267,13 +254,28 @@ const Sidebar: React.FC<SidebarProps> = ({
                   </li>
                   <li
                     className={`${styles.navItem} ${
-                      activeItem === "wealthBuilders" ? styles.activeNavItem : ""
+                      activeItem === "wealthBuilders"
+                        ? styles.activeNavItem
+                        : ""
                     }`}
                     // onClick={() => handleItemClick("wealthBuilders")}
                   >
                     <FaCashRegister className={styles.icon} />
                     <span>Wealth Builders (Coming Soon!)</span>
                   </li>
+                  {/* {localStorage.getItem("badgeRanking") === wealthBuilder ? (
+                    <li
+                      className={`${styles.navItem} ${
+                        activeItem === "wealthBuilders"
+                          ? styles.activeNavItem
+                          : ""
+                      }`}
+                      onClick={() => handleItemClick("wealthBuilders")}
+                    >
+                      <FaCashRegister className={styles.icon} />
+                      <span>Wealth Builders</span>
+                    </li>
+                  ) : null} */}
                 </ul>
               )}
             </li>

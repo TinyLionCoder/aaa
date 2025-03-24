@@ -5,6 +5,7 @@ import algosdk from "algosdk";
 import PeraWalletButton from "./PeraWalletButton";
 import { PeraWalletContext } from "./PeraWalletContext";
 import styles from "../css_modules/CreateAirdropStyles.module.css";
+import { allMembers, diamondHands, wealthBuilders } from "../constants/airdrops";
 
 export const CreateAirdrop = () => {
   const BASE_URL = "https://aaa-api.onrender.com/api/v1/airdrop";
@@ -151,17 +152,17 @@ export const CreateAirdrop = () => {
             {[
               {
                 label: "All Members",
-                value: "all-members",
+                value: allMembers,
                 desc: "Fast wallet growth, low quality claims.",
               },
               {
                 label: "Diamond Hands",
-                value: "diamond-hands",
+                value: diamondHands,
                 desc: "Only proven token holders.",
               },
               {
                 label: "Wealth Builders",
-                value: "wealth-builders",
+                value: wealthBuilders,
                 desc: "Only top LP providers.",
               },
             ].map((option) => (
