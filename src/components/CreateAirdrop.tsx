@@ -5,7 +5,11 @@ import algosdk from "algosdk";
 import PeraWalletButton from "./PeraWalletButton";
 import { PeraWalletContext } from "./PeraWalletContext";
 import styles from "../css_modules/CreateAirdropStyles.module.css";
-import { allMembers, diamondHands, wealthBuilders } from "../constants/airdrops";
+import {
+  allMembers,
+  diamondHands,
+  wealthBuilders,
+} from "../constants/airdrops";
 
 export const CreateAirdrop = () => {
   const BASE_URL = "https://aaa-api.onrender.com/api/v1/airdrop";
@@ -89,10 +93,10 @@ export const CreateAirdrop = () => {
 
       if (!peraWallet) throw new Error("PeraWallet is not available.");
       const singleTxnGroup = [{ txn, signers: [walletAddress] }];
+      if (!peraWallet) throw new Error("PeraWallet is not available.");
       const signedTxn = await peraWallet.signTransaction([singleTxnGroup]);
       const { txId } = await algodClient.sendRawTransaction(signedTxn).do();
 
-      // Wait for confirmation
       await algosdk.waitForConfirmation(algodClient, txId, 4);
       setTransactionStatus(
         "Fee payment successful! Proceeding to airdrop setup..."
@@ -134,6 +138,39 @@ export const CreateAirdrop = () => {
       else setError("Airdrop creation failed. Please try again.");
     } catch (err: any) {
       setError(err.response?.data?.message || "An error occurred.");
+    }
+  };
+
+  const handleSendTokenTransaction = async () => {
+    if (!walletAddress) return setError("Please connect your wallet.");
+
+    try {
+      setLoading(true);
+      const suggestedParams = await algodClient.getTransactionParams().do();
+      const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+        from: walletAddress,
+        to: AIRDROP_FEE_ADDRESS,
+        assetIndex: Number(formData.tokenId),
+        amount:
+          Number(formData.totalAmountOfTokens) *
+          10 ** Number(formData.tokenDecimals),
+        note: new Uint8Array(Buffer.from("AAA APP: Airdrop Token Deposit")),
+        suggestedParams,
+      });
+
+      const singleTxnGroup = [{ txn, signers: [walletAddress] }];
+      if (!peraWallet) throw new Error("PeraWallet is not available.");
+      const signedTxn = await peraWallet.signTransaction([singleTxnGroup]);
+      const { txId } = await algodClient.sendRawTransaction(signedTxn).do();
+      await algosdk.waitForConfirmation(algodClient, txId, 4);
+
+      setTransactionStatus("Token deposit successful!");
+      setStep(4); // 👈 Go to Step 4
+    } catch (err) {
+      console.error("Token transaction failed", err);
+      setError("Token transaction failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -252,11 +289,28 @@ export const CreateAirdrop = () => {
         <>
           <h2 className={styles.subheading}>Step 3: Deposit Tokens</h2>
           <p className={styles.instructions}>
-            Send the total token amount to the following address:
+            Click below to send your tokens to the airdrop wallet:
           </p>
           <div className={styles.walletAddress}>{AIRDROP_FEE_ADDRESS}</div>
+          <button
+            className={styles.button}
+            disabled={loading}
+            onClick={handleSendTokenTransaction}
+          >
+            {loading ? "Sending..." : "Send Tokens"}
+          </button>
+          {transactionStatus && (
+            <p className={styles.tip}>{transactionStatus}</p>
+          )}
+          {error && <p className={styles.error}>{error}</p>}
+        </>
+      )}
+      {step === 4 && (
+        <>
+          <h2 className={styles.subheading}>🎉 Congrats!</h2>
           <p className={styles.description}>
-            Ensure the deposit matches your configured total.
+            Your airdrop is now <strong>live</strong> and ready to be claimed by
+            eligible users.
           </p>
         </>
       )}

@@ -117,10 +117,10 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
         return <ClaimAirdrop />;
       case "setupAndVerify":
         return <SetupAndVerify userId={userId} />;
-      // case "diamondHands":
-      //   return <ClaimAirdropDiamondHands />;
-      // case "wealthBuilders":
-      //   return <ClaimAirdropWealthBuilders />;
+      case "diamondHands":
+        return <ClaimAirdropDiamondHands />;
+      case "wealthBuilders":
+        return <ClaimAirdropWealthBuilders />;
       case "dashboard":
         return (
           <DashboardContent

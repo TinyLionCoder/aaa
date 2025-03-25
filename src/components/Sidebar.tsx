@@ -212,7 +212,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               </div>
               {openDropdown === "airdrop" && (
                 <ul className={styles.dropdown}>
-                  {/* <li
+                  <li
                     className={`${styles.navItem} ${
                       activeItem === "createAirdrop" ? styles.activeNavItem : ""
                     }`}
@@ -220,7 +220,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                   >
                     <FaFaucet className={styles.icon} />
                     <span>Create Airdrop</span>
-                  </li> */}
+                  </li>
                   <li
                     className={`${styles.navItem} ${
                       activeItem === "claimAirdrop" ? styles.activeNavItem : ""
@@ -230,7 +230,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                     <FaCashRegister className={styles.icon} />
                     <span>ALL Members</span>
                   </li>
-                  {/* {localStorage.getItem("badgeRanking") === diamondHands ? (
+                  {localStorage.getItem("badgeRanking") === diamondHands ? (
                     <li
                       className={`${styles.navItem} ${
                         activeItem === "diamondHands"
@@ -242,28 +242,8 @@ const Sidebar: React.FC<SidebarProps> = ({
                       <FaCashRegister className={styles.icon} />
                       <span>Diamond Hands and Above</span>
                     </li>
-                  ) : null} */}
-                  <li
-                    className={`${styles.navItem} ${
-                      activeItem === "diamondHands" ? styles.activeNavItem : ""
-                    }`}
-                    // onClick={() => handleItemClick("diamondHands")}
-                  >
-                    <FaCashRegister className={styles.icon} />
-                    <span>Diamond Hands and Above (Coming Soon!)</span>
-                  </li>
-                  <li
-                    className={`${styles.navItem} ${
-                      activeItem === "wealthBuilders"
-                        ? styles.activeNavItem
-                        : ""
-                    }`}
-                    // onClick={() => handleItemClick("wealthBuilders")}
-                  >
-                    <FaCashRegister className={styles.icon} />
-                    <span>Wealth Builders (Coming Soon!)</span>
-                  </li>
-                  {/* {localStorage.getItem("badgeRanking") === wealthBuilder ? (
+                  ) : null}
+                  {localStorage.getItem("badgeRanking") === wealthBuilder ? (
                     <li
                       className={`${styles.navItem} ${
                         activeItem === "wealthBuilders"
@@ -275,7 +255,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                       <FaCashRegister className={styles.icon} />
                       <span>Wealth Builders</span>
                     </li>
-                  ) : null} */}
+                  ) : null}
                 </ul>
               )}
             </li>
