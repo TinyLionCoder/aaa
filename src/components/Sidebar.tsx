@@ -230,7 +230,8 @@ const Sidebar: React.FC<SidebarProps> = ({
                     <FaCashRegister className={styles.icon} />
                     <span>ALL Members</span>
                   </li>
-                  {localStorage.getItem("badgeRanking") === diamondHands ? (
+                  {localStorage.getItem("badgeRanking") === diamondHands ||
+                  localStorage.getItem("badgeRanking") === wealthBuilder ? (
                     <li
                       className={`${styles.navItem} ${
                         activeItem === "diamondHands"
@@ -243,7 +244,8 @@ const Sidebar: React.FC<SidebarProps> = ({
                       <span>Diamond Hands and Above</span>
                     </li>
                   ) : null}
-                  {localStorage.getItem("badgeRanking") === wealthBuilder ? (
+                  {localStorage.getItem("badgeRanking") === diamondHands ||
+                  localStorage.getItem("badgeRanking") === wealthBuilder ? (
                     <li
                       className={`${styles.navItem} ${
                         activeItem === "wealthBuilders"
