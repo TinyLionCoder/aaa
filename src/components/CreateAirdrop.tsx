@@ -268,7 +268,7 @@ export const CreateAirdrop = () => {
             <textarea
               className={styles.textarea}
               name="shortDescription"
-              placeholder="Short Description (max 200 chars)"
+              placeholder="Short Description (max 200 characters)"
               value={formData.shortDescription}
               onChange={handleChange}
               rows={3}
