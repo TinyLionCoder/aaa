@@ -59,9 +59,11 @@ export const CreateAirdrop = () => {
       case "all-members":
         return "Tip: Keep drop to max 0.1 ALGO per claim to attract quality collectors.";
       case "diamond-hands":
-        return "Tip: Keep each claim under 1 ALGO to attract stronger holders.";
+        return "";
+        // return "Tip: Keep each claim under 1 ALGO to attract stronger holders.";
       case "wealth-builders":
-        return "Tip: Keep claims around 10 ALGO to reward proven LP providers.";
+        return "";
+        // return "Tip: Keep claims around 10 ALGO to reward proven LP providers.";
       default:
         return "";
     }
