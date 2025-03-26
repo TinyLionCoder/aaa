@@ -60,10 +60,10 @@ export const CreateAirdrop = () => {
         return "Tip: Keep drop to max 0.1 ALGO per claim to attract quality collectors.";
       case "diamond-hands":
         return "";
-        // return "Tip: Keep each claim under 1 ALGO to attract stronger holders.";
+      // return "Tip: Keep each claim under 1 ALGO to attract stronger holders.";
       case "wealth-builders":
         return "";
-        // return "Tip: Keep claims around 10 ALGO to reward proven LP providers.";
+      // return "Tip: Keep claims around 10 ALGO to reward proven LP providers.";
       default:
         return "";
     }
@@ -221,7 +221,9 @@ export const CreateAirdrop = () => {
       {step === 2 && (
         <>
           <h2 className={styles.subheading}>Step 2: Fill Airdrop Details</h2>
-          <p className={styles.tip}>{getAirdropRecommendation()}</p>
+          {getAirdropRecommendation().length > 0 ? (
+            <p className={styles.tip}>{getAirdropRecommendation()}</p>
+          ) : null}
           <form className={styles.form}>
             <input
               className={styles.input}
