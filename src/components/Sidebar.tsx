@@ -15,6 +15,8 @@ import {
   FaChevronRight,
   FaChevronDown,
   FaTruck,
+  FaHandHoldingUsd,
+  FaVoteYea,
 } from "react-icons/fa";
 import styles from "../css_modules/SidebarStyles.module.css";
 import { useNavigate } from "react-router-dom";
@@ -111,6 +113,26 @@ const Sidebar: React.FC<SidebarProps> = ({
                 >
                   <FaCogs className={styles.icon} />
                   <span>Staking and Farms</span>
+                </li>
+                <li
+                  className={`${styles.navItem} ${
+                    activeItem === "claimingAirdrops"
+                      ? styles.activeNavItem
+                      : ""
+                  }`}
+                  // onClick={() => handleItemClick("claimingAirdrops")}
+                >
+                  <FaHandHoldingUsd className={styles.icon} />
+                  <span>Claiming Airdrops (Coming Soon!)</span>
+                </li>
+                <li
+                  className={`${styles.navItem} ${
+                    activeItem === "votingForAAA" ? styles.activeNavItem : ""
+                  }`}
+                  // onClick={() => handleItemClick("votingForAAA")}
+                >
+                  <FaVoteYea className={styles.icon} />
+                  <span>Voting for AAA (Coming Soon!)</span>
                 </li>
               </ul>
             )}
