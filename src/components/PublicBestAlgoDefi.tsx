@@ -14,7 +14,6 @@ import {
 } from "react-icons/fa";
 import axios from "axios";
 import liveAirdrops from "../images/liveAirdrops.png";
-import { Link } from "react-router-dom";
 
 const stableTVLAssetIDs = tokenData
   .filter((token) => token.stableTVL)
@@ -472,14 +471,11 @@ const PublicBestAlgoDefi: React.FC = () => {
               {displayedTokens.map((token: any) => (
                 <div key={token.name} className={styles.tokenRow}>
                   <div className={styles.tokenCell}>
-                    <Link to={`/best-algo-defi/${token.assetID}`}>
-                      <img
-                        src={token.logo}
-                        alt={`${token.name} logo`}
-                        className={styles.tokenLogo}
-                        style={{ cursor: "pointer" }}
-                      />
-                    </Link>
+                    <img
+                      src={token.logo}
+                      alt={`${token.name} logo`}
+                      className={styles.tokenLogo}
+                    />
                   </div>
                   <div className={styles.tokenCell}>
                     {token.name}
@@ -643,15 +639,11 @@ const PublicBestAlgoDefi: React.FC = () => {
             {displayedTokens.map((token: any) => (
               <div key={token.name} className={styles.tokenCard}>
                 <div className={styles.tokenCardHeader}>
-                  <Link to={`/best-algo-defi/${token.assetID}`}>
-                    <img
-                      src={token.logo}
-                      alt={`${token.name} logo`}
-                      className={styles.tokenLogo}
-                      style={{ cursor: "pointer" }}
-                    />
-                  </Link>
-
+                  <img
+                    src={token.logo}
+                    alt={`${token.name} logo`}
+                    className={styles.tokenLogo}
+                  />
                   <div className={styles.tokenInfo}>
                     <span className={styles.tokenName}>
                       {token.name}
