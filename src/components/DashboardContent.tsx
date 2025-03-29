@@ -18,6 +18,7 @@ import { learner, wealthBuilder } from "../helpers/setBadgeStatus";
 import learn from "../images/learner.png";
 import wealthBuilderBadge from "../images/Wealthbuilder.png";
 import diamondHandsBadge from "../images/diamonhands.png";
+import DailyCheckIn from "./DailyCheckIn";
 
 interface DashboardContentProps {
   aaaBalance: number;
@@ -167,7 +168,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
           from verified members will be deposited directly into your wallets */}
         </p>
       </div>
-
+      <DailyCheckIn userId={userId || ""} />
       {/* Referral Link */}
       <div className={styles.referralSection}>
         <h3>Your Referral Link</h3>
