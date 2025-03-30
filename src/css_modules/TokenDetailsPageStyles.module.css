@@ -22,7 +22,7 @@
   letter-spacing: -0.5px;
 }
 
-p {
+.tokenAttribute {
   font-size: 1.05rem;
   line-height: 1.8;
   margin-bottom: 1rem;
@@ -34,14 +34,14 @@ p {
   color: #374151;
 }
 
-strong {
+/* strong {
   font-weight: 700;
   color: #111827;
   flex: 1;
   margin-right: 1.25rem;
-}
+} */
 
-a {
+/* a {
   color: #2563eb;
   text-decoration: none;
   word-break: break-word;
@@ -52,7 +52,7 @@ a {
 a:hover {
   color: #1d4ed8;
   text-decoration: underline;
-}
+} */
 
 .tokenLogo {
   display: block;

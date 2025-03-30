@@ -167,61 +167,61 @@ const TokenDetailsPage = () => {
           className={styles.tokenLogo}
         />
       )}
-      <p>
+      <p className={styles.tokenAttribute}>
         <strong>Name:</strong> {tokenData?.name}
       </p>
-      <p>
+      <p className={styles.tokenAttribute}>
         <strong>Unit Name:</strong> {tokenData?.unitName}
       </p>
-      <p>
+      <p className={styles.tokenAttribute}>
         <strong>Asset ID:</strong> {assetID}
       </p>
-      <p>
+      <p className={styles.tokenAttribute}>
         <strong>Verified:</strong> {tokenData?.verified ? "✅" : "❌"}
       </p>
-      <p>
+      <p className={styles.tokenAttribute}>
         <strong>Created at Round:</strong> {tokenData?.createdRound}
       </p>
-      <p>
+      <p className={styles.tokenAttribute}>
         <strong>Has Clawback:</strong> {tokenData?.hasClawback ? "Yes" : "No"}
       </p>
-      <p>
+      <p className={styles.tokenAttribute}>
         <strong>Has Freeze:</strong> {tokenData?.hasFreeze ? "Yes" : "No"}
       </p>
-      <p>
+      <p className={styles.tokenAttribute}>
         <strong>Official URL:</strong>{" "}
         <a href={tokenData?.url} target="_blank" rel="noopener noreferrer">
           {tokenData?.url}
         </a>
       </p>
-      <p>
+      <p className={styles.tokenAttribute}>
         <strong>Current Price (USD):</strong> ${tokenData?.price?.toFixed(6)}
       </p>
-      <p>
+      <p className={styles.tokenAttribute}>
         <strong>Price Change (24h):</strong> {tokenData?.change?.toFixed(2)}%
       </p>
-      <p>
+      <p className={styles.tokenAttribute}>
         <strong>TVL (7d):</strong> ${tokenData?.tvl?.toFixed(2)}
       </p>
-      <p>
+      <p className={styles.tokenAttribute}>
         <strong>Trusted TVL:</strong> ${tokenData?.totalTVL?.toFixed(2)}
       </p>
-      <p>
+      <p className={styles.tokenAttribute}>
         <strong>Full TVL:</strong> ${tokenData?.fullTVL?.toFixed(2)}
       </p>
-      <p>
+      <p className={styles.tokenAttribute}>
         <strong>Holders:</strong> {tokenData?.holders?.toLocaleString()}
       </p>
-      <p>
+      <p className={styles.tokenAttribute}>
         <strong>Total Supply:</strong>{" "}
         {Number(tokenData?.totalSupply).toLocaleString()}
       </p>
-      <p>
+      <p className={styles.tokenAttribute}>
         <strong>Circulating Supply:</strong>{" "}
         {/* {Number(tokenData?.circulatingSupply).toLocaleString()} ( */}
         {tokenData?.circulatingPercent?.toFixed(2)}%{/* ) */}
       </p>
-      <p>
+      <p className={styles.tokenAttribute}>
         <strong>Burned Supply:</strong>{" "}
         {/* {Number(tokenData?.burnedSupply).toLocaleString()} ( */}
         {tokenData?.burnedPercent?.toFixed(2)}%{/* ) */}
