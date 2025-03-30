@@ -42,12 +42,12 @@ const VotingAndReviews = () => {
           AAA!
         </p>
         <a
-          href="https://dexscreener.com"
+          href="https://dexscreener.com/algorand/6za6z3ju44wiwoucknte2ukpfcxfdmj7hrttphnco55jx2jj3brd5x2voe"
           target="_blank"
           rel="noopener noreferrer"
           className={styles.link}
         >
-          Visit Dexscreener
+          Visit AAA on Dexscreener
         </a>
       </section>
     </div>
