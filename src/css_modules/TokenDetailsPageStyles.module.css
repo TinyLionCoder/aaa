@@ -1,0 +1,72 @@
+.container {
+    max-width: 720px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fefefe;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .title {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 1.8rem;
+    text-align: center;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+  }
+  
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dashed #e5e5e5;
+    padding-bottom: 4px;
+  }
+  
+  strong {
+    font-weight: 600;
+    color: #111;
+    margin-right: auto;
+    flex: 1;
+  }
+  
+  a {
+    color: #0077cc;
+    text-decoration: none;
+    word-break: break-all;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  .tokenLogo {
+    display: block;
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin: 0 auto 1rem auto;
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 0.25rem;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  }
+  

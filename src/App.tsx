@@ -14,6 +14,7 @@ import BestAlgoDefi from "./components/BestAlgoDefi";
 import { Contact } from "./components/contact";
 import { DisplayCurrentAirdrops } from "./components/DisplayCurrentAirdrops";
 import PublicBestAlgoDefi from "./components/PublicBestAlgoDefi";
+import TokenDetailsPage from "./components/TokenDetailsPage";
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
             <Route path="swap-tokens" element={<AAASwap />} />
             {/* <Route path="current-airdrops" element={<DisplayCurrentAirdrops />} /> */}
             <Route path="best-algo-defi" element={<PublicBestAlgoDefi />} />
+            <Route path="/token-details" element={<TokenDetailsPage />} />
           </Routes>
         </PeraWalletProvider>
       </Router>
