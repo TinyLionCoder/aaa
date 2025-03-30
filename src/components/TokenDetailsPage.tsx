@@ -12,14 +12,22 @@ import {
   Tooltip,
 } from "chart.js";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip
+);
 
 const TokenDetailsPage = () => {
   const location = useLocation();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [tokenData, setTokenData] = useState<any>(null);
-  const [priceHistory, setPriceHistory] = useState<{ timestamp: number; price: number }[]>([]);
+  const [priceHistory, setPriceHistory] = useState<
+    { timestamp: number; price: number }[]
+  >([]);
   const [assetID, setAssetID] = useState<string>("");
   const [priceInterval, setPriceInterval] = useState("7D");
 
@@ -42,9 +50,13 @@ const TokenDetailsPage = () => {
         const change = parseFloat(query.get("change") || "0");
 
         const [tvlRes, metaRes, searchRes] = await Promise.all([
-          axios.get(`https://free-api.vestige.fi/asset/${assetId}/tvl/simple/7D?currency=USD`),
+          axios.get(
+            `https://free-api.vestige.fi/asset/${assetId}/tvl/simple/7D?currency=USD`
+          ),
           axios.get(`https://free-api.vestige.fi/asset/${assetId}`),
-          axios.get(`https://free-api.vestige.fi/assets/search?query=${assetId}&page=0&page_size=1`),
+          axios.get(
+            `https://free-api.vestige.fi/assets/search?query=${assetId}&page=0&page_size=1`
+          ),
         ]);
 
         const meta = metaRes.data;
@@ -52,7 +64,8 @@ const TokenDetailsPage = () => {
         const tvl = tvlRes.data?.[tvlRes.data.length - 1]?.tvl || 0;
 
         const circulatingPercent =
-          (parseFloat(search.circulating_supply) / parseFloat(search.supply)) * 100;
+          (parseFloat(search.circulating_supply) / parseFloat(search.supply)) *
+          100;
         const burnedPercent =
           (parseFloat(search.burned_supply) / parseFloat(search.supply)) * 100;
 
@@ -97,7 +110,9 @@ const TokenDetailsPage = () => {
     const fetchPriceHistory = async () => {
       try {
         if (!assetID) return;
-        const res = await axios.get(`https://free-api.vestige.fi/asset/${assetID}/prices/simple/${priceInterval}`);
+        const res = await axios.get(
+          `https://free-api.vestige.fi/asset/${assetID}/prices/simple/${priceInterval}`
+        );
         setPriceHistory(res.data || []);
       } catch (err) {
         console.error("Failed to fetch price history", err);
@@ -108,7 +123,9 @@ const TokenDetailsPage = () => {
   }, [assetID, priceInterval]);
 
   const priceChartData = {
-    labels: priceHistory.map((p) => new Date(p.timestamp * 1000).toLocaleDateString()),
+    labels: priceHistory.map((p) =>
+      new Date(p.timestamp * 1000).toLocaleDateString()
+    ),
     datasets: [
       {
         label: `Price (${priceInterval})`,
@@ -150,26 +167,70 @@ const TokenDetailsPage = () => {
           className={styles.tokenLogo}
         />
       )}
-      <p><strong>Name:</strong> {tokenData?.name}</p>
-      <p><strong>Unit Name:</strong> {tokenData?.unitName}</p>
-      <p><strong>Asset ID:</strong> {assetID}</p>
-      <p><strong>Verified:</strong> {tokenData?.verified ? "✅" : "❌"}</p>
-      <p><strong>Created at Round:</strong> {tokenData?.createdRound}</p>
-      <p><strong>Has Clawback:</strong> {tokenData?.hasClawback ? "Yes" : "No"}</p>
-      <p><strong>Has Freeze:</strong> {tokenData?.hasFreeze ? "Yes" : "No"}</p>
-      <p><strong>Official URL:</strong> <a href={tokenData?.url} target="_blank" rel="noopener noreferrer">{tokenData?.url}</a></p>
-      <p><strong>Current Price (USD):</strong> ${tokenData?.price?.toFixed(6)}</p>
-      <p><strong>Price Change (24h):</strong> {tokenData?.change?.toFixed(2)}%</p>
-      <p><strong>TVL (7d):</strong> ${tokenData?.tvl?.toFixed(2)}</p>
-      <p><strong>Trusted TVL:</strong> ${tokenData?.totalTVL?.toFixed(2)}</p>
-      <p><strong>Full TVL:</strong> ${tokenData?.fullTVL?.toFixed(2)}</p>
-      <p><strong>Holders:</strong> {tokenData?.holders?.toLocaleString()}</p>
-      <p><strong>Total Supply:</strong> {Number(tokenData?.totalSupply).toLocaleString()}</p>
-      <p><strong>Circulating Supply:</strong> {Number(tokenData?.circulatingSupply).toLocaleString()} ({tokenData?.circulatingPercent?.toFixed(2)}%)</p>
-      <p><strong>Burned Supply:</strong> {Number(tokenData?.burnedSupply).toLocaleString()} ({tokenData?.burnedPercent?.toFixed(2)}%)</p>
+      <p>
+        <strong>Name:</strong> {tokenData?.name}
+      </p>
+      <p>
+        <strong>Unit Name:</strong> {tokenData?.unitName}
+      </p>
+      <p>
+        <strong>Asset ID:</strong> {assetID}
+      </p>
+      <p>
+        <strong>Verified:</strong> {tokenData?.verified ? "✅" : "❌"}
+      </p>
+      <p>
+        <strong>Created at Round:</strong> {tokenData?.createdRound}
+      </p>
+      <p>
+        <strong>Has Clawback:</strong> {tokenData?.hasClawback ? "Yes" : "No"}
+      </p>
+      <p>
+        <strong>Has Freeze:</strong> {tokenData?.hasFreeze ? "Yes" : "No"}
+      </p>
+      <p>
+        <strong>Official URL:</strong>{" "}
+        <a href={tokenData?.url} target="_blank" rel="noopener noreferrer">
+          {tokenData?.url}
+        </a>
+      </p>
+      <p>
+        <strong>Current Price (USD):</strong> ${tokenData?.price?.toFixed(6)}
+      </p>
+      <p>
+        <strong>Price Change (24h):</strong> {tokenData?.change?.toFixed(2)}%
+      </p>
+      <p>
+        <strong>TVL (7d):</strong> ${tokenData?.tvl?.toFixed(2)}
+      </p>
+      <p>
+        <strong>Trusted TVL:</strong> ${tokenData?.totalTVL?.toFixed(2)}
+      </p>
+      <p>
+        <strong>Full TVL:</strong> ${tokenData?.fullTVL?.toFixed(2)}
+      </p>
+      <p>
+        <strong>Holders:</strong> {tokenData?.holders?.toLocaleString()}
+      </p>
+      <p>
+        <strong>Total Supply:</strong>{" "}
+        {Number(tokenData?.totalSupply).toLocaleString()}
+      </p>
+      <p>
+        <strong>Circulating Supply:</strong>{" "}
+        {/* {Number(tokenData?.circulatingSupply).toLocaleString()} ( */}
+        {tokenData?.circulatingPercent?.toFixed(2)}%{/* ) */}
+      </p>
+      <p>
+        <strong>Burned Supply:</strong>{" "}
+        {/* {Number(tokenData?.burnedSupply).toLocaleString()} ( */}
+        {tokenData?.burnedPercent?.toFixed(2)}%{/* ) */}
+      </p>
 
       <div style={{ marginTop: "2rem" }}>
-        <label htmlFor="priceInterval"><strong>Price Chart Interval: </strong></label>
+        <label htmlFor="priceInterval">
+          <strong>Price Chart Interval: </strong>
+        </label>
         <select
           id="priceInterval"
           value={priceInterval}
