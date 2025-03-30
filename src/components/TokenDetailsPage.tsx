@@ -192,56 +192,6 @@ const TokenDetailsPage = () => {
       </div>
       <Line data={priceChartData} options={priceChartOptions} />
 
-      <p className={styles.tokenAttribute}>
-        <strong>Name:</strong> {tokenData?.name}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Asset ID:</strong> {assetID}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Verified:</strong> {tokenData?.verified ? "✅" : "❌"}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Created at Round:</strong> {tokenData?.createdRound}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Has Clawback:</strong> {tokenData?.hasClawback ? "Yes" : "No"}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Has Freeze:</strong> {tokenData?.hasFreeze ? "Yes" : "No"}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Official URL:</strong>{" "}
-        <a href={tokenData?.url} target="_blank" rel="noopener noreferrer">
-          {tokenData?.url}
-        </a>
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Current Price (USD):</strong> ${tokenData?.price?.toFixed(6)}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Price Change (24h):</strong> {tokenData?.change?.toFixed(2)}%
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>TVL (7d):</strong> ${tokenData?.tvl?.toFixed(2)}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Trusted TVL:</strong> ${tokenData?.totalTVL?.toFixed(2)}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Full TVL:</strong> ${tokenData?.fullTVL?.toFixed(2)}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Holders:</strong> {tokenData?.holders?.toLocaleString()}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Circulating Supply:</strong>{" "}
-        {tokenData?.circulatingPercent?.toFixed(2)}%
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Burned Supply:</strong> {tokenData?.burnedPercent?.toFixed(2)}%
-      </p>
-
       {alloMetadata?.pera && (
         <div className={styles.alloSection}>
           <h2>Project Info</h2>
@@ -300,6 +250,56 @@ const TokenDetailsPage = () => {
           )}
         </div>
       )}
+
+      <p className={styles.tokenAttribute}>
+        <strong>Name:</strong> {tokenData?.name}
+      </p>
+      <p className={styles.tokenAttribute}>
+        <strong>Asset ID:</strong> {assetID}
+      </p>
+      <p className={styles.tokenAttribute}>
+        <strong>Verified:</strong> {tokenData?.verified ? "✅" : "❌"}
+      </p>
+      <p className={styles.tokenAttribute}>
+        <strong>Created at Round:</strong> {tokenData?.createdRound}
+      </p>
+      <p className={styles.tokenAttribute}>
+        <strong>Has Clawback:</strong> {tokenData?.hasClawback ? "Yes" : "No"}
+      </p>
+      <p className={styles.tokenAttribute}>
+        <strong>Has Freeze:</strong> {tokenData?.hasFreeze ? "Yes" : "No"}
+      </p>
+      <p className={styles.tokenAttribute}>
+        <strong>Official URL:</strong>{" "}
+        <a href={tokenData?.url} target="_blank" rel="noopener noreferrer">
+          {tokenData?.url}
+        </a>
+      </p>
+      <p className={styles.tokenAttribute}>
+        <strong>Current Price (USD):</strong> ${tokenData?.price?.toFixed(6)}
+      </p>
+      <p className={styles.tokenAttribute}>
+        <strong>Price Change (24h):</strong> {tokenData?.change?.toFixed(2)}%
+      </p>
+      <p className={styles.tokenAttribute}>
+        <strong>TVL (7d):</strong> ${tokenData?.tvl?.toFixed(2)}
+      </p>
+      <p className={styles.tokenAttribute}>
+        <strong>Trusted TVL:</strong> ${tokenData?.totalTVL?.toFixed(2)}
+      </p>
+      <p className={styles.tokenAttribute}>
+        <strong>Full TVL:</strong> ${tokenData?.fullTVL?.toFixed(2)}
+      </p>
+      <p className={styles.tokenAttribute}>
+        <strong>Holders:</strong> {tokenData?.holders?.toLocaleString()}
+      </p>
+      <p className={styles.tokenAttribute}>
+        <strong>Circulating Supply:</strong>{" "}
+        {tokenData?.circulatingPercent?.toFixed(2)}%
+      </p>
+      <p className={styles.tokenAttribute}>
+        <strong>Burned Supply:</strong> {tokenData?.burnedPercent?.toFixed(2)}%
+      </p>
     </div>
   );
 };
