@@ -11,6 +11,7 @@ import {
   FaUserFriends,
   FaUikit,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const stableTVLAssetIDs = tokenData
   .filter((token) => token.stableTVL)
@@ -405,11 +406,15 @@ const BestAlgoDefi: React.FC = () => {
               {displayedTokens.map((token: any) => (
                 <div key={token.name} className={styles.tokenRow}>
                   <div className={styles.tokenCell}>
-                    <img
-                      src={token.logo}
-                      alt={`${token.name} logo`}
-                      className={styles.tokenLogo}
-                    />
+                    <Link
+                      to={`/token-details?assetId=${token.assetID}&name=${token.name}&logo=${token.logo}&price=${token.latestPrice}&change=${token.priceChange24H}&holders=${token.holders}&totalTVL=${token.totalTVL}&fullTVL=${token.fullTVL}&stableTVL=${token.stableTVL}`}
+                    >
+                      <img
+                        src={token.logo}
+                        alt={`${token.name} logo`}
+                        className={styles.tokenLogo}
+                      />
+                    </Link>
                   </div>
                   <div className={styles.tokenCell}>
                     {token.name}
@@ -548,12 +553,15 @@ const BestAlgoDefi: React.FC = () => {
             {displayedTokens.map((token: any) => (
               <div key={token.name} className={styles.tokenCard}>
                 <div className={styles.tokenCardHeader}>
-                  <img
-                    src={token.logo}
-                    alt={`${token.name} logo`}
-                    className={styles.tokenLogo}
-                  />
-
+                  <Link
+                    to={`/token-details?assetId=${token.assetID}&name=${token.name}&logo=${token.logo}&price=${token.latestPrice}&change=${token.priceChange24H}&holders=${token.holders}&totalTVL=${token.totalTVL}&fullTVL=${token.fullTVL}&stableTVL=${token.stableTVL}`}
+                  >
+                    <img
+                      src={token.logo}
+                      alt={`${token.name} logo`}
+                      className={styles.tokenLogo}
+                    />
+                  </Link>
                   <div className={styles.tokenInfo}>
                     <span className={styles.tokenName}>
                       {token.name}
