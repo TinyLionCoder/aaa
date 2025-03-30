@@ -143,17 +143,20 @@ const TokenDetailsPage = () => {
       <p>
         <strong>Holders:</strong> {tokenData?.holders?.toLocaleString()}
       </p>
-
+      {/* 
       <p>
-        <strong>Total Supply:</strong> {tokenData?.totalSupply}
+        <strong>Total Supply:</strong>{" "}
+        {Number(tokenData?.totalSupply).toLocaleString()}
+      </p> */}
+      <p>
+        <strong>Circulating Supply:</strong>{" "}
+        {/* {Number(tokenData?.circulatingSupply).toLocaleString()}  */}
+        {tokenData?.circulatingPercent?.toFixed(2)}%
       </p>
       <p>
-        <strong>Circulating Supply:</strong> {tokenData?.circulatingSupply} (
-        {tokenData?.circulatingPercent?.toFixed(2)}%)
-      </p>
-      <p>
-        <strong>Burned Supply:</strong> {tokenData?.burnedSupply} (
-        {tokenData?.burnedPercent?.toFixed(2)}%)
+        <strong>Burned Supply:</strong>{" "}
+        {/* {Number(tokenData?.burnedSupply).toLocaleString()}  */}
+        {tokenData?.burnedPercent?.toFixed(2)}%
       </p>
     </div>
   );
