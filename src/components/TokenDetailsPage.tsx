@@ -8,16 +8,17 @@ const TokenDetailsPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [tokenData, setTokenData] = useState<any>(null);
+  const [assetID, setAssetID] = useState<string>("");
 
   useEffect(() => {
     const query = new URLSearchParams(location.search);
     const assetId = query.get("assetId");
+    setAssetID(assetId || ""); // Set the asset ID state for further use
 
     const fetchTokenData = async () => {
       try {
         if (!assetId) throw new Error("Invalid asset ID");
 
-        // Get query params (fallback if missing)
         const name = query.get("name") || "";
         const logo = query.get("logo") || "";
         const stableTVL = query.get("stableTVL") === "true";
@@ -27,16 +28,25 @@ const TokenDetailsPage = () => {
         const price = parseFloat(query.get("price") || "0");
         const change = parseFloat(query.get("change") || "0");
 
-        // Fetch supplemental data from Vestige
         const [tvlRes, metaRes, searchRes] = await Promise.all([
-          axios.get(`https://free-api.vestige.fi/asset/${assetId}/tvl/simple/7D?currency=USD`),
+          axios.get(
+            `https://free-api.vestige.fi/asset/${assetId}/tvl/simple/7D?currency=USD`
+          ),
           axios.get(`https://free-api.vestige.fi/asset/${assetId}`),
-          axios.get(`https://free-api.vestige.fi/assets/search?query=${assetId}&page=0&page_size=1`),
+          axios.get(
+            `https://free-api.vestige.fi/assets/search?query=${assetId}&page=0&page_size=1`
+          ),
         ]);
 
         const meta = metaRes.data;
         const search = searchRes.data?.[0] || {};
         const tvl = tvlRes.data?.[tvlRes.data.length - 1]?.tvl || 0;
+
+        const circulatingPercent =
+          (parseFloat(search.circulating_supply) / parseFloat(search.supply)) *
+          100;
+        const burnedPercent =
+          (parseFloat(search.burned_supply) / parseFloat(search.supply)) * 100;
 
         setTokenData({
           name: name || meta.name,
@@ -60,6 +70,8 @@ const TokenDetailsPage = () => {
           totalSupply: search.supply,
           circulatingSupply: search.circulating_supply,
           burnedSupply: search.burned_supply,
+          circulatingPercent,
+          burnedPercent,
           tags: meta.tags || [],
         });
       } catch (err: any) {
@@ -86,20 +98,63 @@ const TokenDetailsPage = () => {
           className={styles.tokenLogo}
         />
       )}
-      <p><strong>Name:</strong> {tokenData?.name}</p>
-      <p><strong>Unit Name:</strong> {tokenData?.unitName}</p>
-      <p><strong>Asset ID:</strong> {tokenData?.id}</p>
-      <p><strong>Verified:</strong> {tokenData?.verified ? "✅" : "❌"}</p>
-      <p><strong>Created at Round:</strong> {tokenData?.createdRound}</p>
-      <p><strong>Has Clawback:</strong> {tokenData?.hasClawback ? "Yes" : "No"}</p>
-      <p><strong>Has Freeze:</strong> {tokenData?.hasFreeze ? "Yes" : "No"}</p>
-      <p><strong>Official URL:</strong> <a href={tokenData?.url} target="_blank" rel="noopener noreferrer">{tokenData?.url}</a></p>
-      <p><strong>Current Price (USD):</strong> ${tokenData?.price?.toFixed(6)}</p>
-      <p><strong>Price Change (24h):</strong> {tokenData?.change?.toFixed(2)}%</p>
-      <p><strong>TVL (7d):</strong> ${tokenData?.tvl?.toFixed(2)}</p>
-      <p><strong>Trusted TVL:</strong> ${tokenData?.totalTVL?.toFixed(2)}</p>
-      <p><strong>Full TVL:</strong> ${tokenData?.fullTVL?.toFixed(2)}</p>
-      <p><strong>Holders:</strong> {tokenData?.holders?.toLocaleString()}</p>
+      <p>
+        <strong>Name:</strong> {tokenData?.name}
+      </p>
+      <p>
+        <strong>Unit Name:</strong> {tokenData?.unitName}
+      </p>
+      <p>
+        <strong>Asset ID:</strong> {assetID}
+      </p>
+      <p>
+        <strong>Verified:</strong> {tokenData?.verified ? "✅" : "❌"}
+      </p>
+      <p>
+        <strong>Created at Round:</strong> {tokenData?.createdRound}
+      </p>
+      <p>
+        <strong>Has Clawback:</strong> {tokenData?.hasClawback ? "Yes" : "No"}
+      </p>
+      <p>
+        <strong>Has Freeze:</strong> {tokenData?.hasFreeze ? "Yes" : "No"}
+      </p>
+      <p>
+        <strong>Official URL:</strong>{" "}
+        <a href={tokenData?.url} target="_blank" rel="noopener noreferrer">
+          {tokenData?.url}
+        </a>
+      </p>
+      <p>
+        <strong>Current Price (USD):</strong> ${tokenData?.price?.toFixed(6)}
+      </p>
+      <p>
+        <strong>Price Change (24h):</strong> {tokenData?.change?.toFixed(2)}%
+      </p>
+      <p>
+        <strong>TVL (7d):</strong> ${tokenData?.tvl?.toFixed(2)}
+      </p>
+      <p>
+        <strong>Trusted TVL:</strong> ${tokenData?.totalTVL?.toFixed(2)}
+      </p>
+      <p>
+        <strong>Full TVL:</strong> ${tokenData?.fullTVL?.toFixed(2)}
+      </p>
+      <p>
+        <strong>Holders:</strong> {tokenData?.holders?.toLocaleString()}
+      </p>
+
+      <p>
+        <strong>Total Supply:</strong> {tokenData?.totalSupply}
+      </p>
+      <p>
+        <strong>Circulating Supply:</strong> {tokenData?.circulatingSupply} (
+        {tokenData?.circulatingPercent?.toFixed(2)}%)
+      </p>
+      <p>
+        <strong>Burned Supply:</strong> {tokenData?.burnedSupply} (
+        {tokenData?.burnedPercent?.toFixed(2)}%)
+      </p>
     </div>
   );
 };
