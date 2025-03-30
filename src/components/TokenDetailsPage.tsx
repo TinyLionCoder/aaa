@@ -103,7 +103,6 @@ const TokenDetailsPage = () => {
       <p><strong>Trusted TVL:</strong> ${tokenData?.totalTVL?.toFixed(2)}</p>
       <p><strong>Full TVL:</strong> ${tokenData?.fullTVL?.toFixed(2)}</p>
       <p><strong>Holders:</strong> {tokenData?.holders?.toLocaleString()}</p>
-      <p><strong>Tags:</strong> {tokenData?.tags.join(", ")}</p>
     </div>
   );
 };
