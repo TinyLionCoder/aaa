@@ -2,18 +2,30 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import styles from "../css_modules/TokenDetailsPageStyles.module.css";
 import axios from "axios";
+import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+} from "chart.js";
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip);
 
 const TokenDetailsPage = () => {
   const location = useLocation();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [tokenData, setTokenData] = useState<any>(null);
+  const [priceHistory, setPriceHistory] = useState<{ timestamp: number; price: number }[]>([]);
   const [assetID, setAssetID] = useState<string>("");
 
   useEffect(() => {
     const query = new URLSearchParams(location.search);
     const assetId = query.get("assetId");
-    setAssetID(assetId || ""); // Set the asset ID state for further use
+    setAssetID(assetId || "");
 
     const fetchTokenData = async () => {
       try {
@@ -28,14 +40,11 @@ const TokenDetailsPage = () => {
         const price = parseFloat(query.get("price") || "0");
         const change = parseFloat(query.get("change") || "0");
 
-        const [tvlRes, metaRes, searchRes] = await Promise.all([
-          axios.get(
-            `https://free-api.vestige.fi/asset/${assetId}/tvl/simple/7D?currency=USD`
-          ),
+        const [tvlRes, metaRes, searchRes, priceHistoryRes] = await Promise.all([
+          axios.get(`https://free-api.vestige.fi/asset/${assetId}/tvl/simple/7D?currency=USD`),
           axios.get(`https://free-api.vestige.fi/asset/${assetId}`),
-          axios.get(
-            `https://free-api.vestige.fi/assets/search?query=${assetId}&page=0&page_size=1`
-          ),
+          axios.get(`https://free-api.vestige.fi/assets/search?query=${assetId}&page=0&page_size=1`),
+          axios.get(`https://free-api.vestige.fi/asset/${assetId}/prices/simple/7D`),
         ]);
 
         const meta = metaRes.data;
@@ -43,8 +52,7 @@ const TokenDetailsPage = () => {
         const tvl = tvlRes.data?.[tvlRes.data.length - 1]?.tvl || 0;
 
         const circulatingPercent =
-          (parseFloat(search.circulating_supply) / parseFloat(search.supply)) *
-          100;
+          (parseFloat(search.circulating_supply) / parseFloat(search.supply)) * 100;
         const burnedPercent =
           (parseFloat(search.burned_supply) / parseFloat(search.supply)) * 100;
 
@@ -74,6 +82,8 @@ const TokenDetailsPage = () => {
           burnedPercent,
           tags: meta.tags || [],
         });
+
+        setPriceHistory(priceHistoryRes.data || []);
       } catch (err: any) {
         console.error(err);
         setError("Failed to load token stats.");
@@ -84,6 +94,36 @@ const TokenDetailsPage = () => {
 
     fetchTokenData();
   }, [location.search]);
+
+  const priceChartData = {
+    labels: priceHistory.map((p) => new Date(p.timestamp * 1000).toLocaleDateString()),
+    datasets: [
+      {
+        label: "Price (USD)",
+        data: priceHistory.map((p) => p.price),
+        borderColor: "#0077cc",
+        backgroundColor: "rgba(0, 119, 204, 0.1)",
+        tension: 0.3,
+        pointRadius: 0,
+      },
+    ],
+  };
+
+  const priceChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+    },
+    scales: {
+      y: {
+        ticks: {
+          callback: function (this: any, tickValue: string | number) {
+            return `$${tickValue}`;
+          },
+        },
+      },
+    },
+  };
 
   if (loading) return <div className={styles.container}>Loading...</div>;
   if (error) return <div className={styles.container}>{error}</div>;
@@ -98,66 +138,26 @@ const TokenDetailsPage = () => {
           className={styles.tokenLogo}
         />
       )}
-      <p>
-        <strong>Name:</strong> {tokenData?.name}
-      </p>
-      <p>
-        <strong>Unit Name:</strong> {tokenData?.unitName}
-      </p>
-      <p>
-        <strong>Asset ID:</strong> {assetID}
-      </p>
-      <p>
-        <strong>Verified:</strong> {tokenData?.verified ? "✅" : "❌"}
-      </p>
-      <p>
-        <strong>Created at Round:</strong> {tokenData?.createdRound}
-      </p>
-      <p>
-        <strong>Has Clawback:</strong> {tokenData?.hasClawback ? "Yes" : "No"}
-      </p>
-      <p>
-        <strong>Has Freeze:</strong> {tokenData?.hasFreeze ? "Yes" : "No"}
-      </p>
-      <p>
-        <strong>Official URL:</strong>{" "}
-        <a href={tokenData?.url} target="_blank" rel="noopener noreferrer">
-          {tokenData?.url}
-        </a>
-      </p>
-      <p>
-        <strong>Current Price (USD):</strong> ${tokenData?.price?.toFixed(6)}
-      </p>
-      <p>
-        <strong>Price Change (24h):</strong> {tokenData?.change?.toFixed(2)}%
-      </p>
-      <p>
-        <strong>TVL (7d):</strong> ${tokenData?.tvl?.toFixed(2)}
-      </p>
-      <p>
-        <strong>Trusted TVL:</strong> ${tokenData?.totalTVL?.toFixed(2)}
-      </p>
-      <p>
-        <strong>Full TVL:</strong> ${tokenData?.fullTVL?.toFixed(2)}
-      </p>
-      <p>
-        <strong>Holders:</strong> {tokenData?.holders?.toLocaleString()}
-      </p>
-      {/* 
-      <p>
-        <strong>Total Supply:</strong>{" "}
-        {Number(tokenData?.totalSupply).toLocaleString()}
-      </p> */}
-      <p>
-        <strong>Circulating Supply:</strong>{" "}
-        {/* {Number(tokenData?.circulatingSupply).toLocaleString()}  */}
-        {tokenData?.circulatingPercent?.toFixed(2)}%
-      </p>
-      <p>
-        <strong>Burned Supply:</strong>{" "}
-        {/* {Number(tokenData?.burnedSupply).toLocaleString()}  */}
-        {tokenData?.burnedPercent?.toFixed(2)}%
-      </p>
+      <p><strong>Name:</strong> {tokenData?.name}</p>
+      <p><strong>Unit Name:</strong> {tokenData?.unitName}</p>
+      <p><strong>Asset ID:</strong> {assetID}</p>
+      <p><strong>Verified:</strong> {tokenData?.verified ? "✅" : "❌"}</p>
+      <p><strong>Created at Round:</strong> {tokenData?.createdRound}</p>
+      <p><strong>Has Clawback:</strong> {tokenData?.hasClawback ? "Yes" : "No"}</p>
+      <p><strong>Has Freeze:</strong> {tokenData?.hasFreeze ? "Yes" : "No"}</p>
+      <p><strong>Official URL:</strong> <a href={tokenData?.url} target="_blank" rel="noopener noreferrer">{tokenData?.url}</a></p>
+      <p><strong>Current Price (USD):</strong> ${tokenData?.price?.toFixed(6)}</p>
+      <p><strong>Price Change (24h):</strong> {tokenData?.change?.toFixed(2)}%</p>
+      <p><strong>TVL (7d):</strong> ${tokenData?.tvl?.toFixed(2)}</p>
+      <p><strong>Trusted TVL:</strong> ${tokenData?.totalTVL?.toFixed(2)}</p>
+      <p><strong>Full TVL:</strong> ${tokenData?.fullTVL?.toFixed(2)}</p>
+      <p><strong>Holders:</strong> {tokenData?.holders?.toLocaleString()}</p>
+      <p><strong>Total Supply:</strong> {Number(tokenData?.totalSupply).toLocaleString()}</p>
+      <p><strong>Circulating Supply:</strong> {Number(tokenData?.circulatingSupply).toLocaleString()} ({tokenData?.circulatingPercent?.toFixed(2)}%)</p>
+      <p><strong>Burned Supply:</strong> {Number(tokenData?.burnedSupply).toLocaleString()} ({tokenData?.burnedPercent?.toFixed(2)}%)</p>
+
+      <h2 style={{ marginTop: "2rem", textAlign: "center" }}>Price Chart (7D)</h2>
+      <Line data={priceChartData} options={priceChartOptions} />
     </div>
   );
 };
