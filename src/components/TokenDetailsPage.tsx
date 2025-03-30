@@ -176,9 +176,9 @@ const TokenDetailsPage = () => {
           value={priceInterval}
           onChange={(e) => setPriceInterval(e.target.value)}
         >
+          <option value="1H">1 Hour</option>
           <option value="1D">1 Day</option>
           <option value="7D">7 Days</option>
-          {/* <option value="30D">30 Days</option> */}
         </select>
       </div>
       <Line data={priceChartData} options={priceChartOptions} />
