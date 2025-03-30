@@ -28,6 +28,7 @@ const TokenDetailsPage = () => {
   const [priceHistory, setPriceHistory] = useState<
     { timestamp: number; price: number }[]
   >([]);
+  const [alloMetadata, setAlloMetadata] = useState<any>(null);
   const [assetID, setAssetID] = useState<string>("");
   const [priceInterval, setPriceInterval] = useState("7D");
 
@@ -49,7 +50,7 @@ const TokenDetailsPage = () => {
         const price = parseFloat(query.get("price") || "0");
         const change = parseFloat(query.get("change") || "0");
 
-        const [tvlRes, metaRes, searchRes] = await Promise.all([
+        const [tvlRes, metaRes, searchRes, alloRes] = await Promise.all([
           axios.get(
             `https://free-api.vestige.fi/asset/${assetId}/tvl/simple/7D?currency=USD`
           ),
@@ -57,6 +58,7 @@ const TokenDetailsPage = () => {
           axios.get(
             `https://free-api.vestige.fi/assets/search?query=${assetId}&page=0&page_size=1`
           ),
+          axios.get("https://commons.allo.info/api/v1/datasets/metadata"),
         ]);
 
         const meta = metaRes.data;
@@ -68,6 +70,10 @@ const TokenDetailsPage = () => {
           100;
         const burnedPercent =
           (parseFloat(search.burned_supply) / parseFloat(search.supply)) * 100;
+
+        const matchedEntry = alloRes.data.entries.find(
+          (entry: any) => entry.entry.id.toString() === assetId
+        );
 
         setTokenData({
           name: name || meta.name,
@@ -95,6 +101,8 @@ const TokenDetailsPage = () => {
           burnedPercent,
           tags: meta.tags || [],
         });
+
+        setAlloMetadata(matchedEntry?.data || null);
       } catch (err: any) {
         console.error(err);
         setError("Failed to load token stats.");
@@ -146,7 +154,7 @@ const TokenDetailsPage = () => {
     scales: {
       y: {
         ticks: {
-          callback: function (this: any, tickValue: string | number) {
+          callback: function (tickValue: string | number) {
             return `$${tickValue}`;
           },
         },
@@ -167,6 +175,7 @@ const TokenDetailsPage = () => {
           className={styles.tokenLogo}
         />
       )}
+
       <div style={{ marginTop: "2rem" }}>
         <label htmlFor="priceInterval">
           <strong>Price Chart Interval: </strong>
@@ -182,11 +191,9 @@ const TokenDetailsPage = () => {
         </select>
       </div>
       <Line data={priceChartData} options={priceChartOptions} />
+
       <p className={styles.tokenAttribute}>
         <strong>Name:</strong> {tokenData?.name}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Unit Name:</strong> {tokenData?.unitName}
       </p>
       <p className={styles.tokenAttribute}>
         <strong>Asset ID:</strong> {assetID}
@@ -227,20 +234,72 @@ const TokenDetailsPage = () => {
       <p className={styles.tokenAttribute}>
         <strong>Holders:</strong> {tokenData?.holders?.toLocaleString()}
       </p>
-      {/* <p className={styles.tokenAttribute}>
-        <strong>Total Supply:</strong>{" "}
-        {Number(tokenData?.totalSupply).toLocaleString()}
-      </p> */}
       <p className={styles.tokenAttribute}>
         <strong>Circulating Supply:</strong>{" "}
-        {/* {Number(tokenData?.circulatingSupply).toLocaleString()} ( */}
-        {tokenData?.circulatingPercent?.toFixed(2)}%{/* ) */}
+        {tokenData?.circulatingPercent?.toFixed(2)}%
       </p>
       <p className={styles.tokenAttribute}>
-        <strong>Burned Supply:</strong>{" "}
-        {/* {Number(tokenData?.burnedSupply).toLocaleString()} ( */}
-        {tokenData?.burnedPercent?.toFixed(2)}%{/* ) */}
+        <strong>Burned Supply:</strong> {tokenData?.burnedPercent?.toFixed(2)}%
       </p>
+
+      {alloMetadata?.pera && (
+        <div className={styles.alloSection}>
+          <h2>Project Info</h2>
+          {alloMetadata.pera.icon && (
+            <img src={alloMetadata.pera.icon} alt="Project Icon" width={64} />
+          )}
+          <p>
+            <strong>Project:</strong> {alloMetadata.pera.projectName}
+          </p>
+          <p>
+            <strong>Description:</strong> {alloMetadata.pera.projectDescription}
+          </p>
+          <p>
+            <strong>Website:</strong>{" "}
+            <a
+              href={alloMetadata.pera.projectUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {alloMetadata.pera.projectUrl}
+            </a>
+          </p>
+          {alloMetadata.pera.twitterUsername && (
+            <p>
+              <strong>Twitter:</strong> @{alloMetadata.pera.twitterUsername}
+            </p>
+          )}
+          {alloMetadata.pera.discordUrl && (
+            <p>
+              <strong>Discord:</strong>{" "}
+              <a
+                href={alloMetadata.pera.discordUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Join
+              </a>
+            </p>
+          )}
+          {alloMetadata.pera.telegramUrl && (
+            <p>
+              <strong>Telegram:</strong>{" "}
+              <a
+                href={alloMetadata.pera.telegramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Chat
+              </a>
+            </p>
+          )}
+          {alloMetadata.pera.verificationTier && (
+            <p>
+              <strong>Tier:</strong> {alloMetadata.pera.verificationTier}
+            </p>
+          )}
+        </div>
+      )}
     </div>
   );
 };
