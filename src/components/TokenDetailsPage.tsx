@@ -167,6 +167,21 @@ const TokenDetailsPage = () => {
           className={styles.tokenLogo}
         />
       )}
+      <div style={{ marginTop: "2rem" }}>
+        <label htmlFor="priceInterval">
+          <strong>Price Chart Interval: </strong>
+        </label>
+        <select
+          id="priceInterval"
+          value={priceInterval}
+          onChange={(e) => setPriceInterval(e.target.value)}
+        >
+          <option value="1D">1 Day</option>
+          <option value="7D">7 Days</option>
+          {/* <option value="30D">30 Days</option> */}
+        </select>
+      </div>
+      <Line data={priceChartData} options={priceChartOptions} />
       <p className={styles.tokenAttribute}>
         <strong>Name:</strong> {tokenData?.name}
       </p>
@@ -226,23 +241,6 @@ const TokenDetailsPage = () => {
         {/* {Number(tokenData?.burnedSupply).toLocaleString()} ( */}
         {tokenData?.burnedPercent?.toFixed(2)}%{/* ) */}
       </p>
-
-      <div style={{ marginTop: "2rem" }}>
-        <label htmlFor="priceInterval">
-          <strong>Price Chart Interval: </strong>
-        </label>
-        <select
-          id="priceInterval"
-          value={priceInterval}
-          onChange={(e) => setPriceInterval(e.target.value)}
-        >
-          <option value="1D">1 Day</option>
-          <option value="7D">7 Days</option>
-          {/* <option value="30D">30 Days</option> */}
-        </select>
-      </div>
-
-      <Line data={priceChartData} options={priceChartOptions} />
     </div>
   );
 };
