@@ -227,10 +227,10 @@ const TokenDetailsPage = () => {
       <p className={styles.tokenAttribute}>
         <strong>Holders:</strong> {tokenData?.holders?.toLocaleString()}
       </p>
-      <p className={styles.tokenAttribute}>
+      {/* <p className={styles.tokenAttribute}>
         <strong>Total Supply:</strong>{" "}
         {Number(tokenData?.totalSupply).toLocaleString()}
-      </p>
+      </p> */}
       <p className={styles.tokenAttribute}>
         <strong>Circulating Supply:</strong>{" "}
         {/* {Number(tokenData?.circulatingSupply).toLocaleString()} ( */}
