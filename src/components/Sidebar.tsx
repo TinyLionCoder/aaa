@@ -129,10 +129,10 @@ const Sidebar: React.FC<SidebarProps> = ({
                   className={`${styles.navItem} ${
                     activeItem === "votingForAAA" ? styles.activeNavItem : ""
                   }`}
-                  // onClick={() => handleItemClick("votingForAAA")}
+                  onClick={() => handleItemClick("votingForAAA")}
                 >
                   <FaVoteYea className={styles.icon} />
-                  <span>Voting for AAA (Coming Soon!)</span>
+                  <span>Voting for AAA</span>
                 </li>
               </ul>
             )}
