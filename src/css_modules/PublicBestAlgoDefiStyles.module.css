@@ -521,6 +521,20 @@
   border-radius: 50%;
 }
 
+.tokenLogo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.tokenLogo:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
+}
+
+
 .tokenInfo {
   display: flex;
   flex-direction: column;
