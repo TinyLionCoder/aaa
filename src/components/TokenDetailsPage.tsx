@@ -96,9 +96,6 @@ const TokenDetailsPage = () => {
       <p><strong>Official URL:</strong> <a href={tokenData?.url} target="_blank" rel="noopener noreferrer">{tokenData?.url}</a></p>
       <p><strong>Current Price (USD):</strong> ${tokenData?.price?.toFixed(6)}</p>
       <p><strong>Price Change (24h):</strong> {tokenData?.change?.toFixed(2)}%</p>
-      <p><strong>Circulating Supply:</strong> {tokenData?.circulatingSupply}</p>
-      <p><strong>Total Supply:</strong> {tokenData?.totalSupply}</p>
-      <p><strong>Burned Supply:</strong> {tokenData?.burnedSupply}</p>
       <p><strong>TVL (7d):</strong> ${tokenData?.tvl?.toFixed(2)}</p>
       <p><strong>Trusted TVL:</strong> ${tokenData?.totalTVL?.toFixed(2)}</p>
       <p><strong>Full TVL:</strong> ${tokenData?.fullTVL?.toFixed(2)}</p>
