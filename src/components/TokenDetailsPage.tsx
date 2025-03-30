@@ -21,6 +21,7 @@ const TokenDetailsPage = () => {
   const [tokenData, setTokenData] = useState<any>(null);
   const [priceHistory, setPriceHistory] = useState<{ timestamp: number; price: number }[]>([]);
   const [assetID, setAssetID] = useState<string>("");
+  const [priceInterval, setPriceInterval] = useState("7D");
 
   useEffect(() => {
     const query = new URLSearchParams(location.search);
@@ -40,11 +41,10 @@ const TokenDetailsPage = () => {
         const price = parseFloat(query.get("price") || "0");
         const change = parseFloat(query.get("change") || "0");
 
-        const [tvlRes, metaRes, searchRes, priceHistoryRes] = await Promise.all([
+        const [tvlRes, metaRes, searchRes] = await Promise.all([
           axios.get(`https://free-api.vestige.fi/asset/${assetId}/tvl/simple/7D?currency=USD`),
           axios.get(`https://free-api.vestige.fi/asset/${assetId}`),
           axios.get(`https://free-api.vestige.fi/assets/search?query=${assetId}&page=0&page_size=1`),
-          axios.get(`https://free-api.vestige.fi/asset/${assetId}/prices/simple/7D`),
         ]);
 
         const meta = metaRes.data;
@@ -82,8 +82,6 @@ const TokenDetailsPage = () => {
           burnedPercent,
           tags: meta.tags || [],
         });
-
-        setPriceHistory(priceHistoryRes.data || []);
       } catch (err: any) {
         console.error(err);
         setError("Failed to load token stats.");
@@ -95,11 +93,25 @@ const TokenDetailsPage = () => {
     fetchTokenData();
   }, [location.search]);
 
+  useEffect(() => {
+    const fetchPriceHistory = async () => {
+      try {
+        if (!assetID) return;
+        const res = await axios.get(`https://free-api.vestige.fi/asset/${assetID}/prices/simple/${priceInterval}`);
+        setPriceHistory(res.data || []);
+      } catch (err) {
+        console.error("Failed to fetch price history", err);
+      }
+    };
+
+    fetchPriceHistory();
+  }, [assetID, priceInterval]);
+
   const priceChartData = {
     labels: priceHistory.map((p) => new Date(p.timestamp * 1000).toLocaleDateString()),
     datasets: [
       {
-        label: "Price (USD)",
+        label: `Price (${priceInterval})`,
         data: priceHistory.map((p) => p.price),
         borderColor: "#0077cc",
         backgroundColor: "rgba(0, 119, 204, 0.1)",
@@ -156,7 +168,19 @@ const TokenDetailsPage = () => {
       <p><strong>Circulating Supply:</strong> {Number(tokenData?.circulatingSupply).toLocaleString()} ({tokenData?.circulatingPercent?.toFixed(2)}%)</p>
       <p><strong>Burned Supply:</strong> {Number(tokenData?.burnedSupply).toLocaleString()} ({tokenData?.burnedPercent?.toFixed(2)}%)</p>
 
-      <h2 style={{ marginTop: "2rem", textAlign: "center" }}>Price Chart (7D)</h2>
+      <div style={{ marginTop: "2rem" }}>
+        <label htmlFor="priceInterval"><strong>Price Chart Interval: </strong></label>
+        <select
+          id="priceInterval"
+          value={priceInterval}
+          onChange={(e) => setPriceInterval(e.target.value)}
+        >
+          <option value="1D">1 Day</option>
+          <option value="7D">7 Days</option>
+          {/* <option value="30D">30 Days</option> */}
+        </select>
+      </div>
+
       <Line data={priceChartData} options={priceChartOptions} />
     </div>
   );
