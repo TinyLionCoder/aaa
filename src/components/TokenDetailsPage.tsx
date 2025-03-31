@@ -514,37 +514,36 @@ const TokenDetailsPage = () => {
       {liquidityPools.length > 0 && (
         <div className={styles.section}>
           <h2 className={styles.subTitle}>Liquidity Pools</h2>
-          <div className={styles.statsGrid}>
-            {liquidityPools.map((pool, index) => (
-              <div
-                key={index}
-                style={{
-                  borderBottom: "1px solid #e5e7eb",
-                  padding: "0.75rem 0",
-                }}
-              >
-                <p>
-                  <strong>Provider:</strong> {pool.provider}
-                </p>
-                {/* <p>
-                  <strong>Address:</strong> {pool.address}
-                </p> */}
-                <p title={`Asset ID: ${pool.asset_1_id}`}>
-                  <strong>Asset 1:</strong>{" "}
-                  {pool.asset_1_unit_name || pool.asset_1_id}
-                </p>
-
-                <p title={`Asset ID: ${pool.asset_2_id}`}>
-                  <strong>Asset 2:</strong>{" "}
-                  {pool.asset_2_unit_name || pool.asset_2_id}
-                </p>
-
-                <p>
-                  <strong>TVL (USD):</strong> $
-                  {parseFloat(pool.tvl_usd || 0).toFixed(2)}
-                </p>
-              </div>
-            ))}
+          <div className={styles.lpScrollBox}>
+            <div className={styles.statsGrid}>
+              {liquidityPools.map((pool, index) => (
+                <div
+                  key={index}
+                  style={{
+                    borderBottom: "1px solid #e5e7eb",
+                    padding: "0.75rem 0",
+                  }}
+                >
+                  <p>
+                    <strong>Provider:</strong> {pool.provider}
+                  </p>
+                  <p>
+                    <strong>Asset 1:</strong>{" "}
+                    {pool.asset_1_unit_name || pool.asset_1_id} (
+                    {pool.asset_1_id})
+                  </p>
+                  <p>
+                    <strong>Asset 2:</strong>{" "}
+                    {pool.asset_2_unit_name || pool.asset_2_id} (
+                    {pool.asset_2_id})
+                  </p>
+                  <p>
+                    <strong>TVL (USD):</strong> $
+                    {parseFloat(pool.tvl_usd || 0).toFixed(2)}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}

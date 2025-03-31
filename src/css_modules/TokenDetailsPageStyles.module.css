@@ -108,6 +108,32 @@ a:hover {
   margin-bottom: 1rem;
 }
 
+.lpScrollBox {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px dashed #d1d5db;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
+  scrollbar-width: thin;
+  scrollbar-color: #9ca3af #f3f4f6;
+}
+
+.lpScrollBox::-webkit-scrollbar {
+  width: 8px;
+}
+
+.lpScrollBox::-webkit-scrollbar-thumb {
+  background-color: #9ca3af;
+  border-radius: 10px;
+}
+
+.lpScrollBox::-webkit-scrollbar-track {
+  background-color: #f3f4f6;
+}
+
+
 @media screen and (max-width: 640px) {
   .container {
     padding: 1.5rem 1.25rem;
