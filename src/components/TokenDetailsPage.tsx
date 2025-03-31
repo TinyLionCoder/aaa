@@ -529,13 +529,11 @@ const TokenDetailsPage = () => {
                   </p>
                   <p>
                     <strong>Asset 1:</strong>{" "}
-                    {pool.asset_1_unit_name || pool.asset_1_id} (
-                    {pool.asset_1_id})
+                    {pool.asset_1_unit_name || pool.asset_1_id}
                   </p>
                   <p>
                     <strong>Asset 2:</strong>{" "}
-                    {pool.asset_2_unit_name || pool.asset_2_id} (
-                    {pool.asset_2_id})
+                    {pool.asset_2_unit_name || pool.asset_2_id}
                   </p>
                   <p>
                     <strong>TVL (USD):</strong> $
