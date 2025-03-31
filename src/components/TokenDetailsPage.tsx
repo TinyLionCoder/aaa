@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import styles from "../css_modules/TokenDetailsPageStyles.module.css";
 import axios from "axios";
 import { algoIndexerClient } from "../algorand/config";
-import { Line } from "react-chartjs-2";
+import { Pie, Bar, Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -14,7 +14,6 @@ import {
   ArcElement,
   BarElement,
 } from "chart.js";
-import { Pie, Bar } from "react-chartjs-2";
 
 import zoomPlugin from "chartjs-plugin-zoom";
 
