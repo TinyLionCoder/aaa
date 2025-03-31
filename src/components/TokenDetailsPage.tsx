@@ -173,7 +173,7 @@ const TokenDetailsPage = () => {
             return date.toLocaleString(); // Full timestamp
           },
           label: function (context: any) {
-            return `Price: $${context.parsed.y.toFixed(6)}`;
+            return `Price: ${context.parsed.y.toFixed(6)} A`;
           },
         },
       },
@@ -212,7 +212,7 @@ const TokenDetailsPage = () => {
           callback: function (tickValue: number | string) {
             const value =
               typeof tickValue === "number" ? tickValue : parseFloat(tickValue);
-            return `$${value.toFixed(6)}`;
+            return `${value.toFixed(6)} A`;
           },
         },
         grid: {
