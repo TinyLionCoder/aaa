@@ -11,7 +11,10 @@ import {
   PointElement,
   LineElement,
   Tooltip,
+  ArcElement,
+  BarElement,
 } from "chart.js";
+import { Pie, Bar } from "react-chartjs-2";
 
 import zoomPlugin from "chartjs-plugin-zoom";
 
@@ -21,7 +24,9 @@ ChartJS.register(
   PointElement,
   LineElement,
   Tooltip,
-  zoomPlugin
+  zoomPlugin,
+  ArcElement,
+  BarElement
 );
 
 const TokenDetailsPage = () => {
@@ -353,6 +358,31 @@ const TokenDetailsPage = () => {
     },
   };
 
+  const holdersBarData = {
+    labels: ["Holders"],
+    datasets: [
+      {
+        label: "Number of Holders",
+        data: [tokenData?.holders || 0],
+        backgroundColor: ["#3b82f6"],
+      },
+    ],
+  };
+
+  const supplyPieData = {
+    labels: ["Circulating %", "Burned %"],
+    datasets: [
+      {
+        data: [
+          tokenData?.circulatingPercent || 0,
+          tokenData?.burnedPercent || 0,
+        ],
+        backgroundColor: ["#10b981", "#ef4444"],
+        hoverOffset: 6,
+      },
+    ],
+  };
+
   if (loading) return <div className={styles.container}>Loading...</div>;
   if (error) return <div className={styles.container}>{error}</div>;
 
@@ -499,7 +529,7 @@ const TokenDetailsPage = () => {
           <p>
             <strong>Full TVL:</strong> ${tokenData?.fullTVL?.toFixed(2)}
           </p>
-          <p>
+          {/* <p>
             <strong>Holders:</strong> {tokenData?.holders?.toLocaleString()}
           </p>
           <p>
@@ -509,7 +539,20 @@ const TokenDetailsPage = () => {
           <p>
             <strong>Burned Supply:</strong>{" "}
             {tokenData?.burnedPercent?.toFixed(2)}%
-          </p>
+          </p> */}
+        </div>
+      </div>
+      <div className={styles.section}>
+        <h2 className={styles.subTitle}>Token Distribution</h2>
+        <div className={styles.statsGrid}>
+          <div>
+            <h3>Holders {tokenData?.holders?.toLocaleString()}</h3>
+            <Bar data={holdersBarData} />
+          </div>
+          <div>
+            <h3>Supply Breakdown</h3>
+            <Pie data={supplyPieData} />
+          </div>
         </div>
       </div>
       {liquidityPools.length > 0 && (
