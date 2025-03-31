@@ -34,6 +34,7 @@ const TokenDetailsPage = () => {
   const [alloMetadata, setAlloMetadata] = useState<any>(null);
   const [assetID, setAssetID] = useState<string>("");
   const [priceInterval, setPriceInterval] = useState("7D");
+  const [liquidityPools, setLiquidityPools] = useState<any[]>([]);
 
   useEffect(() => {
     const query = new URLSearchParams(location.search);
@@ -132,6 +133,104 @@ const TokenDetailsPage = () => {
 
     fetchPriceHistory();
   }, [assetID, priceInterval]);
+
+  useEffect(() => {
+    const fetchLiquidityPools = async () => {
+      if (!assetID) return;
+
+      const poolProviders = ["T2", "T3", "TM"];
+      const poolAddresses: string[] = [];
+      const enrichedPools: any[] = [];
+
+      try {
+        // Step 1: Fetch pools for each provider from Vestige
+        const poolData = await Promise.all(
+          poolProviders.map(async (provider) => {
+            const res = await axios.get(
+              `https://free-api.vestige.fi/asset/${assetID}/pools/${provider}`
+            );
+            return res.data || [];
+          })
+        );
+
+        const allPools = poolData.flat();
+
+        // Step 2: Filter Tinyman pools with address
+        allPools.forEach((pool) => {
+          if (pool.address) {
+            poolAddresses.push(pool.address);
+            enrichedPools.push({
+              ...pool,
+              provider: `Tinyman ${
+                pool.provider === "T2"
+                  ? "V1"
+                  : pool.provider === "T3"
+                  ? "V2"
+                  : pool.provider
+              }`, // Adjust provider name for V1 and V2
+            });
+          }
+        });
+
+        // Step 3: Fetch USD TVL for Tinyman pools
+        const usdLiquidityData = await Promise.all(
+          poolAddresses.map((address) =>
+            axios
+              .get(
+                `https://mainnet.analytics.tinyman.org/api/v1/pools/${address}`
+              )
+              .then((res) => ({
+                address,
+                usd: parseFloat(res.data?.liquidity_in_usd || "0"),
+              }))
+              .catch(() => ({ address, usd: 0 }))
+          )
+        );
+
+        // Step 4: Merge Tinyman TVL
+        const poolsWithTVL = enrichedPools.map((pool) => {
+          const usdMatch = usdLiquidityData.find(
+            (p) => p.address === pool.address
+          );
+          return {
+            ...pool,
+            tvl_usd: usdMatch?.usd || 0,
+          };
+        });
+
+        // Step 5: Fetch PactFi pools separately
+        const pactRes = await axios.get(
+          `https://api.pact.fi/api/internal/pools?limit=50&offset=0&search=${assetID}`
+        );
+        const pactPoolsRaw = pactRes.data.results || [];
+
+        const filteredPactPools = pactPoolsRaw
+          .filter((pool: any) =>
+            pool.assets.some((a: any) => a.id.toString() === assetID)
+          )
+          .map((pool: any) => ({
+            provider: "PactFi",
+            address: pool.address,
+            asset_1_id: pool.assets[0].id,
+            asset_1_unit_name: pool.assets[0].unit_name,
+            asset_2_id: pool.assets[1].id,
+            asset_2_unit_name: pool.assets[1].unit_name,
+            tvl_usd: parseFloat(pool.tvl_usd || "0"),
+          }))
+          .filter((pool: any) => pool.tvl_usd > 0);
+
+        // Step 6: Merge and set
+        setLiquidityPools([
+          ...poolsWithTVL.filter((p) => p.tvl_usd > 0),
+          ...filteredPactPools,
+        ]);
+      } catch (err) {
+        console.error("Failed to fetch enriched liquidity pool data", err);
+      }
+    };
+
+    fetchLiquidityPools();
+  }, [assetID]);
 
   const priceChartData = {
     labels: priceHistory.map((p) =>
@@ -381,6 +480,41 @@ const TokenDetailsPage = () => {
           </p>
         </div>
       </div>
+      {liquidityPools.length > 0 && (
+        <div className={styles.section}>
+          <h2 className={styles.subTitle}>Liquidity Pools</h2>
+          <div className={styles.statsGrid}>
+            {liquidityPools.map((pool, index) => (
+              <div
+                key={index}
+                style={{
+                  borderBottom: "1px solid #e5e7eb",
+                  padding: "0.75rem 0",
+                }}
+              >
+                <p>
+                  <strong>Provider:</strong> {pool.provider}
+                </p>
+                {/* <p>
+                  <strong>Address:</strong> {pool.address}
+                </p> */}
+                <p>
+                  <strong>Asset 1:</strong> {pool.asset_1_unit_name} (
+                  {pool.asset_1_id})
+                </p>
+                <p>
+                  <strong>Asset 2:</strong> {pool.asset_2_unit_name} (
+                  {pool.asset_2_id})
+                </p>
+                <p>
+                  <strong>TVL (USD):</strong> $
+                  {parseFloat(pool.tvl_usd || 0).toFixed(2)}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
