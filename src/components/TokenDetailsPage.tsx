@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import styles from "../css_modules/TokenDetailsPageStyles.module.css";
 import axios from "axios";
+import { algoIndexerClient } from "../algorand/config";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -212,18 +213,48 @@ const TokenDetailsPage = () => {
             provider: "PactFi",
             address: pool.address,
             asset_1_id: pool.assets[0].id,
-            asset_1_unit_name: pool.assets[0].unit_name,
             asset_2_id: pool.assets[1].id,
-            asset_2_unit_name: pool.assets[1].unit_name,
             tvl_usd: parseFloat(pool.tvl_usd || "0"),
           }))
           .filter((pool: any) => pool.tvl_usd > 0);
 
-        // Step 6: Merge and set
-        setLiquidityPools([
-          ...poolsWithTVL.filter((p) => p.tvl_usd > 0),
-          ...filteredPactPools,
-        ]);
+        // Step 6: Fetch unit names from indexer
+        const assetIdsToFetch = new Set<number>();
+        poolsWithTVL.forEach((p) => {
+          assetIdsToFetch.add(p.asset_1_id);
+          assetIdsToFetch.add(p.asset_2_id);
+        });
+        filteredPactPools.forEach((p: any) => {
+          assetIdsToFetch.add(p.asset_1_id);
+          assetIdsToFetch.add(p.asset_2_id);
+        });
+
+        const assetIdArray = Array.from(assetIdsToFetch);
+        const assetNameMap: Record<number, string> = {};
+
+        await Promise.all(
+          assetIdArray.map(async (id) => {
+            try {
+              const res = await algoIndexerClient.lookupAssetByID(id).do();
+              assetNameMap[id] = res.asset.params.unitName || id.toString();
+            } catch {
+              assetNameMap[id] = id.toString();
+            }
+          })
+        );
+
+        // Step 7: Add unit names to pools
+        const poolsWithNames = [...poolsWithTVL, ...filteredPactPools].map(
+          (pool) => ({
+            ...pool,
+            asset_1_unit_name: assetNameMap[pool.asset_1_id] || pool.asset_1_id,
+            asset_2_unit_name: assetNameMap[pool.asset_2_id] || pool.asset_2_id,
+          })
+        );
+
+        // Step 8: Filter and set
+        const nonZeroPools = poolsWithNames.filter((p) => p.tvl_usd > 0);
+        setLiquidityPools(nonZeroPools);
       } catch (err) {
         console.error("Failed to fetch enriched liquidity pool data", err);
       }
@@ -498,14 +529,16 @@ const TokenDetailsPage = () => {
                 {/* <p>
                   <strong>Address:</strong> {pool.address}
                 </p> */}
-                <p>
-                  <strong>Asset 1:</strong> {pool.asset_1_unit_name} (
-                  {pool.asset_1_id})
+                <p title={`Asset ID: ${pool.asset_1_id}`}>
+                  <strong>Asset 1:</strong>{" "}
+                  {pool.asset_1_unit_name || pool.asset_1_id}
                 </p>
-                <p>
-                  <strong>Asset 2:</strong> {pool.asset_2_unit_name} (
-                  {pool.asset_2_id})
+
+                <p title={`Asset ID: ${pool.asset_2_id}`}>
+                  <strong>Asset 2:</strong>{" "}
+                  {pool.asset_2_unit_name || pool.asset_2_id}
                 </p>
+
                 <p>
                   <strong>TVL (USD):</strong> $
                   {parseFloat(pool.tvl_usd || 0).toFixed(2)}
