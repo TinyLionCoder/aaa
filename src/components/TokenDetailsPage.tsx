@@ -236,9 +236,9 @@ const TokenDetailsPage = () => {
           assetIdArray.map(async (id) => {
             try {
               const res = await algoIndexerClient.lookupAssetByID(id).do();
-              assetNameMap[id] = res.asset.params.unitName || id.toString();
+              assetNameMap[id] = res.asset.params.unitName || id?.toString();
             } catch {
-              assetNameMap[id] = id.toString();
+              assetNameMap[id] = id?.toString();
             }
           })
         );
