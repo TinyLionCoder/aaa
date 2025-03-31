@@ -228,6 +228,7 @@ const TokenDetailsPage = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Token Details</h1>
+
       {tokenData?.logo && (
         <img
           src={tokenData.logo}
@@ -236,28 +237,35 @@ const TokenDetailsPage = () => {
         />
       )}
 
-      <div style={{ marginTop: "2rem" }}>
-        <label htmlFor="priceInterval">
-          <strong>Price Chart Interval: </strong>
-        </label>
-        <select
-          id="priceInterval"
-          value={priceInterval}
-          onChange={(e) => setPriceInterval(e.target.value)}
-        >
-          <option value="1H">1 Hour</option>
-          <option value="1D">1 Day</option>
-          <option value="7D">7 Days</option>
-        </select>
+      <div className={styles.section}>
+        <div className={styles.chartHeader}>
+          <label htmlFor="priceInterval">
+            <strong>Price Chart Interval:</strong>
+          </label>
+          <select
+            id="priceInterval"
+            value={priceInterval}
+            onChange={(e) => setPriceInterval(e.target.value)}
+            className={styles.chartSelect}
+          >
+            <option value="1H">1 Hour</option>
+            <option value="1D">1 Day</option>
+            <option value="7D">7 Days</option>
+          </select>
+        </div>
+        <Line data={priceChartData} options={priceChartOptions} />
       </div>
 
-      <Line data={priceChartData} options={priceChartOptions} />
-
       {alloMetadata?.pera && (
-        <div className={styles.alloSection}>
-          <h2>Project Info</h2>
+        <div className={styles.section}>
+          <h2 className={styles.subTitle}>Project Info</h2>
           {alloMetadata.pera.icon && (
-            <img src={alloMetadata.pera.icon} alt="Project Icon" width={64} />
+            <img
+              src={alloMetadata.pera.icon}
+              alt="Project Icon"
+              width={64}
+              className={styles.projectIcon}
+            />
           )}
           <p>
             <strong>Project:</strong> {alloMetadata.pera.projectName}
@@ -312,55 +320,67 @@ const TokenDetailsPage = () => {
         </div>
       )}
 
-      <p className={styles.tokenAttribute}>
-        <strong>Name:</strong> {tokenData?.name}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Asset ID:</strong> {assetID}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Verified:</strong> {tokenData?.verified ? "✅" : "❌"}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Created at Round:</strong> {tokenData?.createdRound}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Has Clawback:</strong> {tokenData?.hasClawback ? "Yes" : "No"}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Has Freeze:</strong> {tokenData?.hasFreeze ? "Yes" : "No"}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Official URL:</strong>{" "}
-        <a href={tokenData?.url} target="_blank" rel="noopener noreferrer">
-          {tokenData?.url}
-        </a>
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Current Price (USD):</strong> ${tokenData?.price?.toFixed(6)}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Price Change (24h):</strong> {tokenData?.change?.toFixed(2)}%
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>TVL (7d):</strong> ${tokenData?.tvl?.toFixed(2)}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Trusted TVL:</strong> ${tokenData?.totalTVL?.toFixed(2)}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Full TVL:</strong> ${tokenData?.fullTVL?.toFixed(2)}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Holders:</strong> {tokenData?.holders?.toLocaleString()}
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Circulating Supply:</strong>{" "}
-        {tokenData?.circulatingPercent?.toFixed(2)}%
-      </p>
-      <p className={styles.tokenAttribute}>
-        <strong>Burned Supply:</strong> {tokenData?.burnedPercent?.toFixed(2)}%
-      </p>
+      <div className={styles.section}>
+        <h2 className={styles.subTitle}>Token Stats</h2>
+        <div className={styles.statsGrid}>
+          <p>
+            <strong>Name:</strong> {tokenData?.name}
+          </p>
+          <p>
+            <strong>Asset ID:</strong> {assetID}
+          </p>
+          <p>
+            <strong>Unit Name:</strong> {tokenData?.unitName}
+          </p>
+          <p>
+            <strong>Verified:</strong> {tokenData?.verified ? "✅" : "❌"}
+          </p>
+          <p>
+            <strong>Created at Round:</strong> {tokenData?.createdRound}
+          </p>
+          <p>
+            <strong>Has Clawback:</strong>{" "}
+            {tokenData?.hasClawback ? "Yes" : "No"}
+          </p>
+          <p>
+            <strong>Has Freeze:</strong> {tokenData?.hasFreeze ? "Yes" : "No"}
+          </p>
+          <p>
+            <strong>Official URL:</strong>{" "}
+            <a href={tokenData?.url} target="_blank" rel="noopener noreferrer">
+              {tokenData?.url}
+            </a>
+          </p>
+          <p>
+            <strong>Current Price (USD):</strong> $
+            {tokenData?.price?.toFixed(6)}
+          </p>
+          <p>
+            <strong>Price Change (24h):</strong> {tokenData?.change?.toFixed(2)}
+            %
+          </p>
+          <p>
+            <strong>TVL (7d):</strong> ${tokenData?.tvl?.toFixed(2)}
+          </p>
+          <p>
+            <strong>Trusted TVL:</strong> ${tokenData?.totalTVL?.toFixed(2)}
+          </p>
+          <p>
+            <strong>Full TVL:</strong> ${tokenData?.fullTVL?.toFixed(2)}
+          </p>
+          <p>
+            <strong>Holders:</strong> {tokenData?.holders?.toLocaleString()}
+          </p>
+          <p>
+            <strong>Circulating Supply:</strong>{" "}
+            {tokenData?.circulatingPercent?.toFixed(2)}%
+          </p>
+          <p>
+            <strong>Burned Supply:</strong>{" "}
+            {tokenData?.burnedPercent?.toFixed(2)}%
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
