@@ -15,6 +15,7 @@
     "algosdk": "^2.9.0",
     "axios": "^1.7.7",
     "chart.js": "^4.4.8",
+    "chartjs-plugin-zoom": "^2.2.0",
     "firebase": "^11.0.2",
     "qrcode.react": "^4.2.0",
     "react": "^18.3.1",

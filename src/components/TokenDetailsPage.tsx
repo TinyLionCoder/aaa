@@ -12,12 +12,15 @@ import {
   Tooltip,
 } from "chart.js";
 
+import zoomPlugin from "chartjs-plugin-zoom";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
-  Tooltip
+  Tooltip,
+  zoomPlugin
 );
 
 const TokenDetailsPage = () => {
@@ -148,15 +151,72 @@ const TokenDetailsPage = () => {
 
   const priceChartOptions = {
     responsive: true,
+    interaction: {
+      mode: "index" as
+        | "x"
+        | "index"
+        | "dataset"
+        | "point"
+        | "nearest"
+        | "y"
+        | undefined,
+      intersect: false,
+    },
     plugins: {
       legend: { display: false },
+      tooltip: {
+        callbacks: {
+          title: function (context: any) {
+            const date = new Date(
+              priceHistory[context[0].dataIndex]?.timestamp * 1000
+            );
+            return date.toLocaleString(); // Full timestamp
+          },
+          label: function (context: any) {
+            return `Price: $${context.parsed.y.toFixed(6)}`;
+          },
+        },
+      },
+      zoom: {
+        zoom: {
+          wheel: {
+            enabled: true,
+          },
+          pinch: {
+            enabled: true,
+          },
+          mode: "x" as "x" | "y" | "xy",
+        },
+        pan: {
+          enabled: true,
+          mode: "x" as const,
+        },
+        limits: {
+          x: { min: undefined, max: undefined },
+          y: { min: undefined, max: undefined },
+        },
+      },
     },
     scales: {
+      x: {
+        ticks: {
+          maxTicksLimit: 12,
+          autoSkip: true,
+        },
+        grid: {
+          display: false,
+        },
+      },
       y: {
         ticks: {
-          callback: function (tickValue: string | number) {
-            return `$${tickValue}`;
+          callback: function (tickValue: number | string) {
+            const value =
+              typeof tickValue === "number" ? tickValue : parseFloat(tickValue);
+            return `$${value.toFixed(6)}`;
           },
+        },
+        grid: {
+          color: "#f3f4f6",
         },
       },
     },
@@ -190,6 +250,7 @@ const TokenDetailsPage = () => {
           <option value="7D">7 Days</option>
         </select>
       </div>
+
       <Line data={priceChartData} options={priceChartOptions} />
 
       {alloMetadata?.pera && (
