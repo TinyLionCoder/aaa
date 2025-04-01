@@ -47,24 +47,46 @@ const TokenDetailsPage = () => {
   >([]);
 
   useEffect(() => {
-    const generateMockTxData = () => {
-      const today = new Date();
-      const txs: number[] = [];
-      const labels: string[] = [];
+    const fetchRealTxData = async () => {
+      if (!assetID) return;
 
-      for (let i = 29; i >= 0; i--) {
-        const day = new Date(today);
-        day.setDate(today.getDate() - i);
-        labels.push(day.toISOString().split("T")[0]);
-        txs.push(Math.floor(Math.random() * 1000) + 200); // Random tx count
+      const txsPerDay: number[] = [];
+      const labels: string[] = [];
+      const endDate = new Date();
+      const startDate = new Date();
+      startDate.setDate(endDate.getDate() - 29);
+
+      for (let i = 0; i < 30; i++) {
+        const dayStart = new Date(startDate);
+        dayStart.setDate(startDate.getDate() + i);
+        dayStart.setHours(0, 0, 0, 0);
+
+        const dayEnd = new Date(dayStart);
+        dayEnd.setHours(23, 59, 59, 999);
+
+        try {
+          const res = await algoIndexerClient
+            .searchForTransactions()
+            .assetID(parseInt(assetID))
+            .afterTime(dayStart.toISOString())
+            .beforeTime(dayEnd.toISOString())
+            .do();
+
+          txsPerDay.push(res.transactions.length);
+          labels.push(dayStart.toISOString().split("T")[0]);
+        } catch (err) {
+          console.error("Failed to fetch tx data for", dayStart, err);
+          txsPerDay.push(0);
+          labels.push(dayStart.toISOString().split("T")[0]);
+        }
       }
 
       setTxDates(labels);
-      setTxCounts(txs);
+      setTxCounts(txsPerDay);
     };
 
-    generateMockTxData();
-  }, []);
+    fetchRealTxData();
+  }, [assetID]);
 
   useEffect(() => {
     const query = new URLSearchParams(location.search);
@@ -316,7 +338,7 @@ const TokenDetailsPage = () => {
     datasets: [
       {
         label: "TVL (30D)",
-        data: tvlHistory.map((entry) => entry.tvl.toFixed(2)), // Ensure 2 decimal places
+        data: tvlHistory.map((entry) => entry.tvl), // Don't format here
         borderColor: "#22c55e",
         backgroundColor: "rgba(34, 197, 94, 0.1)",
         tension: 0.3,
@@ -342,14 +364,24 @@ const TokenDetailsPage = () => {
       },
     },
     scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          callback: function (value: any) {
+            if (value >= 1_000_000_000)
+              return `$${(value / 1_000_000_000).toFixed(1)}B`;
+            if (value >= 1_000_000)
+              return `$${(value / 1_000_000).toFixed(1)}M`;
+            if (value >= 1_000) return `$${(value / 1_000).toFixed(1)}K`;
+            return `$${value}`;
+          },
+        },
+      },
       x: {
         ticks: {
           maxTicksLimit: 8,
           autoSkip: true,
         },
-      },
-      y: {
-        beginAtZero: true,
       },
     },
   };
