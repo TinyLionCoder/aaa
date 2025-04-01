@@ -40,6 +40,31 @@ const TokenDetailsPage = () => {
   const [assetID, setAssetID] = useState<string>("");
   const [priceInterval, setPriceInterval] = useState("7D");
   const [liquidityPools, setLiquidityPools] = useState<any[]>([]);
+  const [txCounts, setTxCounts] = useState<number[]>([]);
+  const [txDates, setTxDates] = useState<string[]>([]);
+  const [tvlHistory, setTvlHistory] = useState<
+    { timestamp: number; tvl: number }[]
+  >([]);
+
+  useEffect(() => {
+    const generateMockTxData = () => {
+      const today = new Date();
+      const txs: number[] = [];
+      const labels: string[] = [];
+
+      for (let i = 29; i >= 0; i--) {
+        const day = new Date(today);
+        day.setDate(today.getDate() - i);
+        labels.push(day.toISOString().split("T")[0]);
+        txs.push(Math.floor(Math.random() * 1000) + 200); // Random tx count
+      }
+
+      setTxDates(labels);
+      setTxCounts(txs);
+    };
+
+    generateMockTxData();
+  }, []);
 
   useEffect(() => {
     const query = new URLSearchParams(location.search);
@@ -268,6 +293,107 @@ const TokenDetailsPage = () => {
     fetchLiquidityPools();
   }, [assetID]);
 
+  useEffect(() => {
+    const fetchTvlHistory = async () => {
+      try {
+        if (!assetID) return;
+        const res = await axios.get(
+          `https://free-api.vestige.fi/asset/${assetID}/tvl/simple/30D?currency=usd`
+        );
+        setTvlHistory(res.data || []);
+      } catch (err) {
+        console.error("Failed to fetch TVL history", err);
+      }
+    };
+
+    fetchTvlHistory();
+  }, [assetID]);
+
+  const tvlChartData = {
+    labels: tvlHistory.map((entry) =>
+      new Date(entry.timestamp * 1000).toLocaleDateString()
+    ),
+    datasets: [
+      {
+        label: "TVL (30D)",
+        data: tvlHistory.map((entry) => entry.tvl.toFixed(2)), // Ensure 2 decimal places
+        borderColor: "#22c55e",
+        backgroundColor: "rgba(34, 197, 94, 0.1)",
+        tension: 0.3,
+        pointRadius: 0,
+        fill: true,
+      },
+    ],
+  };
+
+  const tvlChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: function (context: any) {
+            return `TVL: $${context.parsed.y.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}`;
+          },
+        },
+      },
+    },
+    scales: {
+      x: {
+        ticks: {
+          maxTicksLimit: 8,
+          autoSkip: true,
+        },
+      },
+      y: {
+        beginAtZero: true,
+      },
+    },
+  };
+
+  const txChartData = {
+    labels: txDates,
+    datasets: [
+      {
+        label: "Transactions per Day",
+        data: txCounts,
+        borderColor: "#9333ea",
+        backgroundColor: "rgba(147, 51, 234, 0.1)",
+        fill: true,
+        tension: 0.3,
+        pointRadius: 0,
+      },
+    ],
+  };
+
+  const txChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: function (context: any) {
+            return `Txs: ${context.parsed.y}`;
+          },
+        },
+      },
+    },
+    scales: {
+      x: {
+        ticks: {
+          maxTicksLimit: 8,
+          autoSkip: true,
+        },
+      },
+      y: {
+        beginAtZero: true,
+      },
+    },
+  };
+
   const priceChartData = {
     labels: priceHistory.map((p) =>
       new Date(p.timestamp * 1000).toLocaleDateString()
@@ -398,7 +524,7 @@ const TokenDetailsPage = () => {
       )}
 
       <div className={styles.section}>
-        <div className={styles.statsGrid} style={{"marginBottom": "1rem"}}>
+        <div className={styles.statsGrid} style={{ marginBottom: "1rem" }}>
           <p>
             <strong>Current Price (USD):</strong> $
             {tokenData?.price?.toFixed(6)}
@@ -534,7 +660,7 @@ const TokenDetailsPage = () => {
       </div>
       <div className={styles.section}>
         <h2 className={styles.subTitle}>Token Distribution</h2>
-        <div className={styles.statsGrid}>
+        <div className={styles.statsGrid} style={{ gap: "1rem" }}>
           <div>
             <h3>Holders</h3>
             <Bar data={holdersBarData} />
@@ -542,6 +668,14 @@ const TokenDetailsPage = () => {
           <div>
             <h3>Supply Breakdown</h3>
             <Pie data={supplyPieData} />
+          </div>
+          <div>
+            <h3>30-Day Transaction Count</h3>
+            <Line data={txChartData} options={txChartOptions} />
+          </div>
+          <div>
+            <h3>30-Day TVL History</h3>
+            <Line data={tvlChartData} options={tvlChartOptions} />
           </div>
         </div>
       </div>
