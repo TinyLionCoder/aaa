@@ -398,6 +398,25 @@ const TokenDetailsPage = () => {
       )}
 
       <div className={styles.section}>
+        <div className={styles.statsGrid} style={{"marginBottom": "1rem"}}>
+          <p>
+            <strong>Current Price (USD):</strong> $
+            {tokenData?.price?.toFixed(6)}
+          </p>
+          <p>
+            <strong>Price Change (24h):</strong> {tokenData?.change?.toFixed(2)}
+            %
+          </p>
+          <p>
+            <strong>TVL (7d):</strong> ${tokenData?.tvl?.toFixed(2)}
+          </p>
+          <p>
+            <strong>Trusted TVL:</strong> ${tokenData?.totalTVL?.toFixed(2)}
+          </p>
+          <p>
+            <strong>Full TVL:</strong> ${tokenData?.fullTVL?.toFixed(2)}
+          </p>
+        </div>
         <div className={styles.chartHeader}>
           <label htmlFor="priceInterval">
             <strong>Price Chart Interval:</strong>
@@ -511,41 +530,13 @@ const TokenDetailsPage = () => {
               {tokenData?.url}
             </a>
           </p>
-          <p>
-            <strong>Current Price (USD):</strong> $
-            {tokenData?.price?.toFixed(6)}
-          </p>
-          <p>
-            <strong>Price Change (24h):</strong> {tokenData?.change?.toFixed(2)}
-            %
-          </p>
-          <p>
-            <strong>TVL (7d):</strong> ${tokenData?.tvl?.toFixed(2)}
-          </p>
-          <p>
-            <strong>Trusted TVL:</strong> ${tokenData?.totalTVL?.toFixed(2)}
-          </p>
-          <p>
-            <strong>Full TVL:</strong> ${tokenData?.fullTVL?.toFixed(2)}
-          </p>
-          {/* <p>
-            <strong>Holders:</strong> {tokenData?.holders?.toLocaleString()}
-          </p>
-          <p>
-            <strong>Circulating Supply:</strong>{" "}
-            {tokenData?.circulatingPercent?.toFixed(2)}%
-          </p>
-          <p>
-            <strong>Burned Supply:</strong>{" "}
-            {tokenData?.burnedPercent?.toFixed(2)}%
-          </p> */}
         </div>
       </div>
       <div className={styles.section}>
         <h2 className={styles.subTitle}>Token Distribution</h2>
         <div className={styles.statsGrid}>
           <div>
-            <h3>Holders {tokenData?.holders?.toLocaleString()}</h3>
+            <h3>Holders</h3>
             <Bar data={holdersBarData} />
           </div>
           <div>
