@@ -15,6 +15,7 @@ import { Contact } from "./components/contact";
 import { DisplayCurrentAirdrops } from "./components/DisplayCurrentAirdrops";
 import PublicBestAlgoDefi from "./components/PublicBestAlgoDefi";
 import TokenDetailsPage from "./components/TokenDetailsPage";
+import TokenBubbles from "./components/TokenBubbles";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
             {/* <Route path="current-airdrops" element={<DisplayCurrentAirdrops />} /> */}
             <Route path="best-algo-defi" element={<PublicBestAlgoDefi />} />
             <Route path="/token-details" element={<TokenDetailsPage />} />
+            <Route path="/token-bubbles" element={<TokenBubbles />} />
           </Routes>
         </PeraWalletProvider>
       </Router>

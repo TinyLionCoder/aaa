@@ -92,6 +92,9 @@ const Navbar = () => {
         <Link to="/best-algo-defi" onClick={() => setMenuOpen(false)}>
           Best Algo Defi Tokens
         </Link>
+        <Link to="/token-bubbles" onClick={() => setMenuOpen(false)}>
+          Token Bubbles
+        </Link>
         <Link to="/token-listing" onClick={() => setMenuOpen(false)}>
           List your Tokens
         </Link>
