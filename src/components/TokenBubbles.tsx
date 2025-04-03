@@ -10,6 +10,9 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
   const [isLoading, setIsLoading] = useState(initialTokens === null);
   const [priceChangeInterval, setPriceChangeInterval] = useState(priceChangeIntervalProp);
   const [error, setError] = useState<string | null>(null);
+  const [allTokens, setAllTokens] = useState<any[]>([]);
+  const [selectedTokenIds, setSelectedTokenIds] = useState<string[]>([]);
+  const [showTokenSelector, setShowTokenSelector] = useState(false);
 
   // If initialTokens is provided, use it; otherwise, fetch the data
   useEffect(() => {
@@ -64,7 +67,17 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
     );
     
     console.log("Processed tokens:", sortedTokens);
-    setBubbleTokens(sortedTokens);
+    setAllTokens(sortedTokens);
+    
+    // If no tokens are selected yet, select the top ones (up to 25)
+    if (selectedTokenIds.length === 0) {
+      const initialSelected = sortedTokens.slice(0, 25).map(token => token.assetID);
+      setSelectedTokenIds(initialSelected);
+      setBubbleTokens(sortedTokens.filter(token => initialSelected.includes(token.assetID)));
+    } else {
+      // Filter by selected tokens
+      setBubbleTokens(sortedTokens.filter(token => selectedTokenIds.includes(token.assetID)));
+    }
   };
 
   // New function to fetch price data for existing tokens
@@ -212,6 +225,32 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
   const handleIntervalChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setPriceChangeInterval(e.target.value);
   };
+  
+  // Handle token selection
+  const handleTokenSelection = (assetID: string) => {
+    setSelectedTokenIds(prev => {
+      // If already selected, remove it
+      if (prev.includes(assetID)) {
+        return prev.filter(id => id !== assetID);
+      }
+      // If not selected and under 20 limit, add it
+      else if (prev.length < 25) {
+        return [...prev, assetID];
+      }
+      // If at limit, don't add
+      return prev;
+    });
+  };
+  
+  // Update displayed tokens when selection changes
+  useEffect(() => {
+    if (allTokens.length > 0 && selectedTokenIds.length > 0) {
+      setBubbleTokens(allTokens.filter(token => selectedTokenIds.includes(token.assetID)));
+    } else if (allTokens.length > 0 && selectedTokenIds.length === 0) {
+      // If no tokens selected, show none
+      setBubbleTokens([]);
+    }
+  }, [selectedTokenIds]);
 
   // Generate keyframe animations for floating bubbles
   const generateBubbleKeyframes = (index: number) => {
@@ -295,6 +334,83 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
           }}>
             Current: {priceChangeInterval}
           </div>
+          
+          <button
+            onClick={() => setShowTokenSelector(!showTokenSelector)}
+            style={{
+              marginTop: "20px",
+              padding: "8px 12px",
+              backgroundColor: "#4682B4",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+              fontWeight: "bold",
+              width: "100%"
+            }}
+          >
+            {showTokenSelector ? "Hide Token Selector" : "Show Token Selector"}
+          </button>
+          
+          {showTokenSelector && (
+            <div style={{
+              marginTop: "15px",
+              border: "1px solid #eaeaea",
+              borderRadius: "4px",
+              padding: "10px",
+              maxHeight: "200px",
+              overflowY: "auto",
+              width: "100%",
+              paddingBottom: "15px" // Add extra padding at bottom
+            }}>
+              <div style={{ 
+                marginBottom: "12px", 
+                fontSize: "0.9rem", 
+                fontWeight: "bold",
+                paddingBottom: "5px",
+                borderBottom: "1px solid #eaeaea"
+              }}>
+                Selected: {selectedTokenIds.length}/25
+              </div>
+              {allTokens.map((token, idx) => (
+                <div 
+                  key={token.assetID}
+                  style={{ 
+                    display: "flex", 
+                    alignItems: "center", 
+                    marginBottom: idx === allTokens.length - 1 ? "10px" : "8px", // Extra margin for last item
+                    padding: "5px",
+                    backgroundColor: selectedTokenIds.includes(token.assetID) ? "#f0f8ff" : "transparent",
+                    borderRadius: "4px",
+                    cursor: "pointer"
+                  }}
+                  onClick={() => handleTokenSelection(token.assetID)}
+                >
+                  <img 
+                    src={token.logo} 
+                    alt={token.name}
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      borderRadius: "50%",
+                      marginRight: "8px",
+                      backgroundColor: "white",
+                      padding: "1px"
+                    }}
+                  />
+                  <div style={{ fontSize: "0.9rem", flex: 1, overflow: "hidden", textOverflow: "ellipsis" }}>
+                    {token.name}
+                  </div>
+                  <input 
+                    type="checkbox"
+                    checked={selectedTokenIds.includes(token.assetID)}
+                    onChange={() => {}}
+                    style={{ marginLeft: "5px" }}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
