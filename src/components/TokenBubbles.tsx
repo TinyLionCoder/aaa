@@ -196,17 +196,17 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
     }
   };
 
-  // Function to determine bubble size based on market cap or TVL
-  const getBubbleSize = (token: { fullTVL?: number; totalTVL?: number }) => {
-    // Use fullTVL as a measure of importance/size
+  // Function to determine bubble size based on price change percentage
+  const getBubbleSize = (token: { priceChange24H?: number }) => {
+    // Use absolute price change as a measure of size
     const baseSize = 80; // minimum size
-    const tvl = token.fullTVL || token.totalTVL || 0;
+    const priceChange = Math.abs(token.priceChange24H || 0);
     
-    if (tvl <= 1000) return baseSize;
-    if (tvl <= 10000) return baseSize + 15;
-    if (tvl <= 100000) return baseSize + 30;
-    if (tvl <= 1000000) return baseSize + 45;
-    return baseSize + 60; // for tvl > 1,000,000
+    if (priceChange <= 1) return baseSize; // Very small change
+    if (priceChange <= 5) return baseSize + 15; // Small change
+    if (priceChange <= 10) return baseSize + 30; // Medium change
+    if (priceChange <= 20) return baseSize + 45; // Large change
+    return baseSize + 60; // Very large change (> 20%)
   };
 
   const handleIntervalChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -342,7 +342,8 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
             
             // Random position with some constraints to avoid too many overlaps
             const left = 10 + (index % 5) * 18 + Math.random() * 5;
-            const top = 10 + Math.floor(index / 5) * 18 + Math.random() * 5;
+            // Position bubbles higher in the container
+            const top = 5 + Math.floor(index / 5) * 18 + Math.random() * 5;
             
             // Darker shade for bigger changes
             const intensity = Math.min(Math.abs(token.priceChange24H || 0) * 3, 100);
