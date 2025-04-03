@@ -199,7 +199,7 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
   // Function to determine bubble size based on market cap or TVL
   const getBubbleSize = (token: { fullTVL?: number; totalTVL?: number }) => {
     // Use fullTVL as a measure of importance/size
-    const baseSize = 60; // minimum size
+    const baseSize = 80; // minimum size
     const tvl = token.fullTVL || token.totalTVL || 0;
     
     if (tvl <= 1000) return baseSize;
