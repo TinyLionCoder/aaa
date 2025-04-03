@@ -1,0 +1,56 @@
+/* TokenBubblesStyles.module.css */
+@media (max-width: 768px) {
+    .mobile-container {
+      flex-direction: column !important;
+      height: auto !important;
+    }
+  
+    .mobile-sidebar {
+      width: 100% !important;
+      border-right: none !important;
+      border-bottom: 1px solid #eaeaea !important;
+      padding: 10px !important;
+    }
+  
+    .mobile-bubbles-container {
+      min-height: 300px !important;
+      height: auto !important;
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+    }
+  
+    .mobile-bubble {
+      position: static !important;
+      display: inline-block !important;
+      margin: 5px !important;
+      transform: scale(0.8) !important;
+    }
+  
+    .mobile-loading {
+      flex-direction: column !important;
+      align-items: center !important;
+    }
+  }
+  
+  /* Ensure some basic responsiveness */
+  .token-bubbles-container {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  
+  /* Optional: Improve scrolling on mobile */
+  @media (max-width: 480px) {
+    .mobile-bubbles-container {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,0,0,0.2) transparent;
+    }
+  
+    .mobile-bubbles-container::-webkit-scrollbar {
+      height: 6px;
+    }
+  
+    .mobile-bubbles-container::-webkit-scrollbar-thumb {
+      background-color: rgba(0,0,0,0.2);
+      border-radius: 3px;
+    }
+  }

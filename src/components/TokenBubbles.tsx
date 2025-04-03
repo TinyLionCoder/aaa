@@ -1,14 +1,15 @@
-// @ts-nocheck
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios"; // Use axios for API calls
 import { FaTruckLoading } from "react-icons/fa";
 import tokenData from "../constants/tokenData";
+import styles from "../css_modules/TokenBubblesStyles.module.css";
 
 const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D" }) => {
-  const [bubbleTokens, setBubbleTokens] = useState([]);
+  const [bubbleTokens, setBubbleTokens] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(initialTokens === null);
   const [priceChangeInterval, setPriceChangeInterval] = useState(priceChangeIntervalProp);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   // If initialTokens is provided, use it; otherwise, fetch the data
   useEffect(() => {
@@ -19,7 +20,7 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
       console.log("Using provided tokens:", initialTokens);
       
       // If the tokens already have price data, use them directly
-      if (initialTokens[0].priceChange24H !== undefined) {
+      if ("priceChange24H" in initialTokens[0] && initialTokens[0].priceChange24H !== undefined) {
         setIsLoading(false);
         processBubbleTokens(initialTokens);
       } else {
@@ -46,9 +47,9 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
     setPriceChangeInterval(priceChangeIntervalProp);
   }, [priceChangeIntervalProp]);
 
-  const processBubbleTokens = (tokens) => {
+  const processBubbleTokens = (tokens: any) => {
     // Add default price change values if missing
-    const tokensWithDefaults = tokens.map(token => ({
+    const tokensWithDefaults = tokens.map((token: { priceChange24H: any; fullTVL: any; totalTVL: any; latestPrice: any; holders: any; }) => ({
       ...token,
       priceChange24H: token.priceChange24H || 0,
       fullTVL: token.fullTVL || token.totalTVL || 0,
@@ -67,13 +68,13 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
   };
 
   // New function to fetch price data for existing tokens
-  const fetchPriceDataForTokens = async (tokens) => {
+  const fetchPriceDataForTokens = async (tokens: any[]) => {
     setIsLoading(true);
     setError(null);
     
     try {
       // Fetch price data for each token
-      const tokenPromises = tokens.map(async (token) => {
+      const tokenPromises = tokens.map(async (token: { assetID: any; name: any; }) => {
         try {
           // Fetch price change data
           const priceChangeResponse = await fetch(
@@ -196,7 +197,7 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
   };
 
   // Function to determine bubble size based on market cap or TVL
-  const getBubbleSize = (token) => {
+  const getBubbleSize = (token: { fullTVL?: number; totalTVL?: number }) => {
     // Use fullTVL as a measure of importance/size
     const baseSize = 60; // minimum size
     const tvl = token.fullTVL || token.totalTVL || 0;
@@ -208,16 +209,13 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
     return baseSize + 60; // for tvl > 1,000,000
   };
 
-  const handleIntervalChange = (e) => {
+  const handleIntervalChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setPriceChangeInterval(e.target.value);
   };
 
   // Generate keyframe animations for floating bubbles
-  const generateBubbleKeyframes = (index) => {
+  const generateBubbleKeyframes = (index: number) => {
     const randomAmplitude = Math.random() * 10 + 5; // 5-15px movement
-    const randomDuration = Math.random() * 2 + 3; // 3-5s duration
-    const randomDelay = Math.random() * 1; // 0-1s delay
-
     return `
       @keyframes float${index} {
         0%, 100% { transform: translateY(0); }
@@ -227,28 +225,34 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
   };
 
   return (
-    <div className="token-bubbles-container" style={{
-      position: "relative",
-      width: "100%",
-      height: "500px",
-      marginTop: "20px",
-      marginBottom: "20px",
-      border: "1px solid #eaeaea",
-      borderRadius: "8px",
-      padding: "10px",
-      overflow: "hidden",
-      background: "#f8f9fa",
-      display: "flex"
-    }}>
+    <div 
+      className={`token-bubbles-container ${styles['mobile-container']}`}
+      style={{
+        position: "relative",
+        width: "100%",
+        height: "500px",
+        marginTop: "20px",
+        marginBottom: "20px",
+        border: "1px solid #eaeaea",
+        borderRadius: "8px",
+        padding: "10px",
+        overflow: "hidden",
+        background: "#f8f9fa",
+        display: "flex"
+      }}
+    >
       {/* Left sidebar for title and interval selection */}
-      <div style={{ 
-        width: "200px", 
-        padding: "20px", 
-        borderRight: "1px solid #eaeaea",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start"
-      }}>
+      <div 
+        className={styles['mobile-sidebar']}
+        style={{ 
+          width: "200px", 
+          padding: "20px", 
+          borderRight: "1px solid #eaeaea",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start"
+        }}
+      >
         <h2 style={{ 
           textAlign: "left", 
           marginBottom: "20px",
@@ -295,23 +299,29 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
       </div>
 
       {/* Bubbles container */}
-      <div style={{ 
-        position: "relative", 
-        flex: 1, 
-        overflow: "hidden" 
-      }}>
+      <div 
+        className={styles['mobile-bubbles-container']}
+        style={{ 
+          position: "relative", 
+          flex: 1, 
+          overflow: "hidden" 
+        }}
+      >
         {/* Keyframe styles */}
         <style>{
           bubbleTokens.map((token, index) => generateBubbleKeyframes(index)).join('\n')
         }</style>
 
         {isLoading ? (
-          <div style={{ 
-            display: "flex", 
-            justifyContent: "center", 
-            alignItems: "center", 
-            height: "80%" 
-          }}>
+          <div 
+            className={styles['mobile-loading']}
+            style={{ 
+              display: "flex", 
+              justifyContent: "center", 
+              alignItems: "center", 
+              height: "80%" 
+            }}
+          >
             <FaTruckLoading style={{ fontSize: "2rem", marginRight: "10px" }} />
             <span>Loading token data...</span>
           </div>
@@ -350,7 +360,7 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
                 style={{ textDecoration: "none" }}
               >
                 <div 
-                  className="token-bubble"
+                  className={`token-bubble ${styles['mobile-bubble']}`}
                   style={{
                     position: "absolute",
                     left: `${left}%`,
@@ -383,7 +393,7 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
                   }}
                   onMouseOut={(e) => {
                     e.currentTarget.style.transform = "scale(1)";
-                    e.currentTarget.style.zIndex = Math.round(Math.abs(token.priceChange24H));
+                    e.currentTarget.style.zIndex = Math.round(Math.abs(token.priceChange24H)).toString();
                   }}
                 >
                   <img 
