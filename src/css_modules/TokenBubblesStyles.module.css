@@ -1,56 +1,250 @@
 /* TokenBubblesStyles.module.css */
 @media (max-width: 768px) {
-    .mobile-container {
-      flex-direction: column !important;
-      height: auto !important;
-    }
-  
-    .mobile-sidebar {
-      width: 80% !important;
-      border-right: none !important;
-      border-bottom: 1px solid #eaeaea !important;
-      padding: 10px !important;
-    }
-  
-    .mobile-bubbles-container {
-      min-height: 300px !important;
-      height: auto !important;
-      overflow-x: auto !important;
-      overflow-y: hidden !important;
-    }
-  
-    .mobile-bubble {
-      position: static !important;
-      display: inline-block !important;
-      margin: 5px !important;
-      transform: scale(0.8) !important;
-    }
-  
-    .mobile-loading {
-      flex-direction: column !important;
-      align-items: center !important;
-    }
+  .mobile-container {
+    flex-direction: column !important;
+    height: auto !important;
+    transition: all 0.3s ease-in-out !important;
+  }
+
+  .mobile-sidebar {
+    width: 80% !important;
+    border-right: none !important;
+    border-bottom: 1px solid #eaeaea !important;
+    padding: 10px !important;
+    animation: slideDown 0.4s ease-out !important;
+  }
+
+  .mobile-bubbles-container {
+    min-height: 300px !important;
+    height: auto !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    animation: fadeIn 0.5s ease-out !important;
+  }
+
+  .mobile-bubble {
+    position: static !important;
+    display: inline-block !important;
+    margin: 5px !important;
+    transform: scale(0.8) !important;
+    transition: box-shadow 0.2s ease !important;
+    /* Initial pop-in animation only - we'll apply float in the specific selectors below */
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards !important;
   }
   
-  /* Ensure some basic responsiveness */
-  .token-bubbles-container {
-    max-width: 100%;
-    overflow-x: auto;
+  /* Apply different float animations to create randomness */
+  .mobile-bubble:nth-child(7n+1) {
+    animation: 
+      popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards,
+      floatType1 3.7s ease-in-out infinite !important;
   }
   
-  /* Optional: Improve scrolling on mobile */
-  @media (max-width: 480px) {
-    .mobile-bubbles-container {
-      scrollbar-width: thin;
-      scrollbar-color: rgba(0,0,0,0.2) transparent;
-    }
-  
-    .mobile-bubbles-container::-webkit-scrollbar {
-      height: 6px;
-    }
-  
-    .mobile-bubbles-container::-webkit-scrollbar-thumb {
-      background-color: rgba(0,0,0,0.2);
-      border-radius: 3px;
-    }
+  .mobile-bubble:nth-child(7n+2) {
+    animation: 
+      popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards,
+      floatType2 4.3s ease-in-out infinite !important;
   }
+  
+  .mobile-bubble:nth-child(7n+3) {
+    animation: 
+      popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards,
+      floatType3 5.1s ease-in-out infinite !important;
+  }
+  
+  .mobile-bubble:nth-child(7n+4) {
+    animation: 
+      popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards,
+      floatType4 4.7s ease-in-out infinite !important;
+  }
+  
+  .mobile-bubble:nth-child(7n+5) {
+    animation: 
+      popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards,
+      floatType5 3.3s ease-in-out infinite !important;
+  }
+  
+  .mobile-bubble:nth-child(7n+6) {
+    animation: 
+      popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards,
+      floatType6 5.5s ease-in-out infinite !important;
+  }
+  
+  .mobile-bubble:nth-child(7n+7) {
+    animation: 
+      popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards,
+      floatType7 4.1s ease-in-out infinite !important;
+  }
+  
+  .mobile-bubble:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  /* Add animation delay for staggered bubble appearance */
+  .mobile-bubble:nth-child(1) { animation-delay: 0.05s, 0.2s !important; }
+  .mobile-bubble:nth-child(2) { animation-delay: 0.1s, 0.5s !important; }
+  .mobile-bubble:nth-child(3) { animation-delay: 0.15s, 0.1s !important; }
+  .mobile-bubble:nth-child(4) { animation-delay: 0.2s, 0.7s !important; }
+  .mobile-bubble:nth-child(5) { animation-delay: 0.25s, 0.3s !important; }
+  .mobile-bubble:nth-child(6) { animation-delay: 0.3s, 0.6s !important; }
+  .mobile-bubble:nth-child(7) { animation-delay: 0.35s, 0.4s !important; }
+  .mobile-bubble:nth-child(8) { animation-delay: 0.4s, 0.8s !important; }
+  .mobile-bubble:nth-child(9) { animation-delay: 0.45s, 0.2s !important; }
+  .mobile-bubble:nth-child(10) { animation-delay: 0.5s, 0.5s !important; }
+
+  .mobile-loading {
+    flex-direction: column !important;
+    align-items: center !important;
+    animation: pulse 1.5s infinite alternate !important;
+  }
+}
+
+/* Ensure some basic responsiveness */
+.token-bubbles-container {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* Optional: Improve scrolling on mobile */
+@media (max-width: 480px) {
+  .mobile-bubbles-container {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,0.2) transparent;
+  }
+
+  .mobile-bubbles-container::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .mobile-bubbles-container::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 3px;
+  }
+}
+
+/* Animation keyframes */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) !important;
+  }
+  70% {
+    transform: scale(0.9) !important;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(0.8) !important;
+  }
+}
+
+@keyframes pulse {
+  from {
+    opacity: 0.7;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Create seven different floating animations with varying amounts of movement */
+@keyframes floatType1 {
+  0%, 100% { transform: translate(0, 0) scale(0.8); }
+  50% { transform: translate(-2px, -15px) scale(0.8); }
+}
+
+@keyframes floatType2 {
+  0%, 100% { transform: translate(0, 0) scale(0.8); }
+  50% { transform: translate(3px, -7px) scale(0.8); }
+}
+
+@keyframes floatType3 {
+  0%, 100% { transform: translate(0, 0) scale(0.8); }
+  50% { transform: translate(-4px, -18px) scale(0.8); }
+}
+
+@keyframes floatType4 {
+  0%, 100% { transform: translate(0, 0) scale(0.8); }
+  50% { transform: translate(5px, -10px) scale(0.8); }
+}
+
+@keyframes floatType5 {
+  0%, 100% { transform: translate(0, 0) scale(0.8); }
+  50% { transform: translate(-3px, -5px) scale(0.8); }
+}
+
+@keyframes floatType6 {
+  0%, 100% { transform: translate(0, 0) scale(0.8); }
+  50% { transform: translate(2px, -12px) scale(0.8); }
+}
+
+@keyframes floatType7 {
+  0%, 100% { transform: translate(0, 0) scale(0.8); }
+  50% { transform: translate(-1px, -20px) scale(0.8); }
+}
+
+/* Original animation keyframes kept for reference */
+@keyframes floatHorizontal {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes floatVertical {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatBoth {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-3px, -3px);
+  }
+  50% {
+    transform: translate(0, -5px);
+  }
+  75% {
+    transform: translate(3px, -3px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Keep the container animation but make it less pronounced since bubbles have their own animations */
+.mobile-bubbles-container:not(:empty) {
+  animation: floatVertical 2.5s ease-in-out infinite !important;
+}
