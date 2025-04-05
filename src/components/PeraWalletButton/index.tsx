@@ -65,11 +65,21 @@ const PeraWalletButton = forwardRef(({ onConnect, onDisconnect }: any, ref) => {
       style={{
         width: "45%",
         padding: "18px",
-        backgroundColor: isConnectedToPeraWallet ? "purple" : "blue",
+        backgroundColor: isConnectedToPeraWallet ? "#9333EA" : "#2563EB",
         borderRadius: "8px",
         cursor: "pointer",
         border: "none",
         marginBottom: "1.25em",
+      }}
+      onMouseOver={(e) => {
+        e.currentTarget.style.backgroundColor = isConnectedToPeraWallet ? "#9333EA" : "#2563EB";
+        e.currentTarget.style.boxShadow = "0 6px 16px rgba(0, 0, 0, 0.2)";
+        e.currentTarget.style.transform = "translateY(-2px)";
+      }}
+      onMouseOut={(e) => {
+        e.currentTarget.style.backgroundColor = isConnectedToPeraWallet ? "#8A2BE2" : "#3B82F6";
+        e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.15)";
+        e.currentTarget.style.transform = "translateY(0)";
       }}
       onClick={
         isConnectedToPeraWallet
