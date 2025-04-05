@@ -251,7 +251,7 @@
   .navLinks {
     display: none;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* Center align all items */
     width: 100%;
     position: absolute;
     top: 70px;
@@ -260,7 +260,7 @@
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     z-index: 999;
-    padding: 10px 0;
+    padding: 0;
     border-radius: 0 0 16px 16px;
   }
 
@@ -268,10 +268,58 @@
     display: flex;
   }
 
-  .navLinks a {
-    padding: 14px 20px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  /* Properly centered mobile nav items */
+  .navLinks > a,
+  .navLinks > .dropdown {
     width: 100%;
+    text-align: center; /* Center all text */
+    font-weight: 500;
+    position: relative;
+    border-bottom: 1px solid rgba(109, 40, 217, 0.1);
+    display: flex; /* Changed to flex for better centering */
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+  }
+  
+  /* Add background that alternates subtly between items */
+  .navLinks > a:nth-child(odd),
+  .navLinks > .dropdown:nth-child(odd) {
+    background-color: rgba(249, 250, 251, 0.7);
+  }
+  
+  .navLinks > a:nth-child(even),
+  .navLinks > .dropdown:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+  
+  /* Add top-bottom border indicators instead of left-right */
+  .navLinks > a,
+  .navLinks > .dropdown {
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.2s ease, background-color 0.2s ease;
+  }
+  
+  .navLinks > a:hover,
+  .navLinks > .dropdown:hover {
+    border-left: none;
+    border-bottom: 2px solid #6d28d9;
+    background-color: rgba(109, 40, 217, 0.05);
+  }
+  
+  /* Active item styling */
+  .navLinks > a.active {
+    border-left: none;
+    border-bottom: 2px solid #6d28d9;
+    background-color: rgba(109, 40, 217, 0.08);
+  }
+  
+  .navLinks a {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     font-weight: 500;
   }
@@ -303,7 +351,7 @@
     transform: rotate(90deg);
   }
   
-  /* ===== COMPLETELY REBUILD MOBILE DROPDOWN SYSTEM ===== */
+  /* ===== PROPERLY CENTERED MOBILE DROPDOWN SYSTEM ===== */
   .dropdown {
     width: 100%;
   }
@@ -311,21 +359,27 @@
   .dropdownToggle {
     width: 100%;
     text-align: center;
-    justify-content: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    padding: 14px 20px;
+    justify-content: center; /* Center the content */
+    padding: 16px 20px;
     border-radius: 0;
+    border-bottom: none;
   }
   
   .dropdownToggle:hover {
     transform: none;
   }
 
-  /* Make mobile dropdown completely different from desktop */
+  /* Position arrow consistently with centered text */
+  .dropdownToggle svg {
+    margin-left: 8px;
+    margin-right: 0; /* Reset auto margin */
+    transition: transform 0.3s ease;
+  }
+
+  /* Mobile dropdown styling */
   .dropdownMenu {
-    /* Reset all properties */
     position: static;
-    display: none; /* Important change: use display instead of visibility */
+    display: none;
     opacity: 1;
     visibility: visible;
     transform: none;
@@ -333,13 +387,11 @@
     animation: none;
     box-shadow: none;
     border-radius: 0;
-    
-    /* New mobile-specific properties */
     width: 100%;
     background-color: rgba(109, 40, 217, 0.03);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     padding: 0;
     margin: 0;
+    border-bottom: none;
   }
 
   /* Simple display toggle for mobile */
@@ -347,29 +399,50 @@
     display: block;
   }
 
+  /* Centered dropdown items */
   .dropdownMenu a {
-    padding: 12px 30px;
+    padding: 14px 20px;
+    display: flex;
     width: 100%;
     text-align: center;
+    align-items: center;
+    justify-content: center;
     border-left: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    border-bottom: 1px dashed rgba(109, 40, 217, 0.1);
     font-size: 14px;
     color: #4b5563;
+    background-color: rgba(109, 40, 217, 0.02);
   }
 
+  /* Center the bullet points with text */
+  .dropdownMenu a::before {
+    content: '•';
+    color: #6d28d9;
+    display: inline-block;
+    margin-right: 8px;
+    opacity: 0.7;
+  }
+  
   .dropdownMenu a:hover {
     background-color: rgba(109, 40, 217, 0.08);
     border-left: none;
-    padding-left: 30px;
+    color: #6d28d9;
   }
 
   .dropdownMenu a:last-child {
     border-bottom: none;
   }
   
-  /* Visual indicator for active dropdown */
+  .dropdownMenu a:hover::before {
+    opacity: 1;
+  }
+  
+  /* Visual indicator for active dropdown - centered */
   .dropdown .dropdownToggle {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .dropdown .dropdownToggle::after {
@@ -388,12 +461,6 @@
     width: 30px;
   }
   
-  /* Mobile dropdown arrow - more pronounced */
-  .dropdownToggle svg {
-    margin-left: 8px;
-    transition: transform 0.3s ease;
-  }
-  
   .dropdown.open .dropdownToggle svg {
     transform: rotate(180deg);
   }
@@ -402,5 +469,22 @@
   .dropdown.open .dropdownToggle {
     background-color: rgba(109, 40, 217, 0.05);
     color: #6d28d9;
+    font-weight: 600;
+  }
+  
+  /* Final nav item (usually last in the list) */
+  .navLinks > a:last-child,
+  .navLinks > .dropdown:last-child {
+    border-bottom: none;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    overflow: hidden;
+  }
+  
+  /* Ensure dropdown menu appears within the border radius */
+  .navLinks > .dropdown:last-child .dropdownMenu {
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    overflow: hidden;
   }
 }
