@@ -6,25 +6,30 @@ import styles from "../css_modules/NavbarStyles.module.css";
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showFarmingDropdown, setShowFarmingDropdown] = useState(false);
+  const [showGamingDropdown, setShowGamingDropdown] = useState(false);
 
   const menuRef = useRef<HTMLDivElement>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownRefFarming = useRef<HTMLDivElement>(null);
+  const dropdownRefGaming = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const toggleFarmingDropdown = () => setShowFarmingDropdown((prev) => !prev);
+  const toggleGamingDropdown = () => setShowGamingDropdown((prev) => !prev);
 
-  // Close on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      const target = event.target as Node;
+
+      if (menuRef.current && !menuRef.current.contains(target)) {
         setMenuOpen(false);
       }
 
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
+      if (dropdownRefFarming.current && !dropdownRefFarming.current.contains(target)) {
         setShowFarmingDropdown(false);
+      }
+
+      if (dropdownRefGaming.current && !dropdownRefGaming.current.contains(target)) {
+        setShowGamingDropdown(false);
       }
     };
 
@@ -54,8 +59,7 @@ const Navbar = () => {
         <Link to="/swap-tokens" onClick={() => setMenuOpen(false)}>
           Swap Tokens
         </Link>
-
-        <div ref={dropdownRef} className={styles.dropdown}>
+        <div ref={dropdownRefFarming} className={styles.dropdown}>
           <div
             className={styles.dropdownToggle}
             onClick={toggleFarmingDropdown}
@@ -95,6 +99,73 @@ const Navbar = () => {
         <Link to="/algo-bubbles" onClick={() => setMenuOpen(false)}>
           Algo Bubbles
         </Link>
+        <div ref={dropdownRefGaming} className={styles.dropdown}>
+          <div
+            className={styles.dropdownToggle}
+            onClick={toggleGamingDropdown}
+          >
+            Algo Games ▾
+          </div>
+          {showGamingDropdown && (
+            <div className={styles.dropdownMenu}>
+              <a
+                href="https://algoseas.io/play"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowGamingDropdown(false);
+                }}
+              >
+                AlgoSeas
+              </a>
+              <a
+                href="https://www.ghettopigeon.com/game.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowGamingDropdown(false);
+                }}
+              >
+                Ghetto Warzones
+              </a>
+              <a
+                href="https://fracctalmonstersnft.com/play"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowGamingDropdown(false);
+                }}
+              >
+                Fracctal Monsters
+              </a>
+              <a
+                href="https://rxelms.com/games"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowGamingDropdown(false);
+                }}
+              >
+                Rxelms Games
+              </a>
+              <a
+                href="https://3dlifestudio.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowGamingDropdown(false);
+                }}
+              >
+                SuperMeow
+              </a>
+            </div>
+          )}
+        </div>
       </div>
     </nav>
   );
