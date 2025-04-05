@@ -7,14 +7,18 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showFarmingDropdown, setShowFarmingDropdown] = useState(false);
   const [showGamingDropdown, setShowGamingDropdown] = useState(false);
+  const [showExchangesDropdown, setShowExchangesDropdown] = useState(false);
 
   const menuRef = useRef<HTMLDivElement>(null);
   const dropdownRefFarming = useRef<HTMLDivElement>(null);
   const dropdownRefGaming = useRef<HTMLDivElement>(null);
+  const dropdownRefExchanges = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const toggleFarmingDropdown = () => setShowFarmingDropdown((prev) => !prev);
   const toggleGamingDropdown = () => setShowGamingDropdown((prev) => !prev);
+  const toggleExchangesDropdown = () =>
+    setShowExchangesDropdown((prev) => !prev);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -24,12 +28,25 @@ const Navbar = () => {
         setMenuOpen(false);
       }
 
-      if (dropdownRefFarming.current && !dropdownRefFarming.current.contains(target)) {
+      if (
+        dropdownRefFarming.current &&
+        !dropdownRefFarming.current.contains(target)
+      ) {
         setShowFarmingDropdown(false);
       }
 
-      if (dropdownRefGaming.current && !dropdownRefGaming.current.contains(target)) {
+      if (
+        dropdownRefGaming.current &&
+        !dropdownRefGaming.current.contains(target)
+      ) {
         setShowGamingDropdown(false);
+      }
+
+      if (
+        dropdownRefExchanges.current &&
+        !dropdownRefExchanges.current.contains(target)
+      ) {
+        setShowExchangesDropdown(false);
       }
     };
 
@@ -93,6 +110,106 @@ const Navbar = () => {
             </div>
           )}
         </div>
+        <div ref={dropdownRefExchanges} className={styles.dropdown}>
+          <div
+            className={styles.dropdownToggle}
+            onClick={toggleExchangesDropdown}
+          >
+            Exchanges ▾
+          </div>
+          {showExchangesDropdown && (
+            <div className={styles.dropdownMenu}>
+              <a
+                href="https://www.binance.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowExchangesDropdown(false);
+                }}
+              >
+                Binance
+              </a>
+              <a
+                href="https://www.coinbase.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowExchangesDropdown(false);
+                }}
+              >
+                Coinbase
+              </a>
+              <a
+                href="https://www.kraken.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowExchangesDropdown(false);
+                }}
+              >
+                Kraken
+              </a>
+              <a
+                href="https://www.kucoin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowExchangesDropdown(false);
+                }}
+              >
+                KuCoin
+              </a>
+              <a
+                href="https://www.okx.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowExchangesDropdown(false);
+                }}
+              >
+                OKX
+              </a>
+              <a
+                href="https://www.gate.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowExchangesDropdown(false);
+                }}
+              >
+                Gate.io
+              </a>
+              <a
+                href="https://www.bybit.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowExchangesDropdown(false);
+                }}
+              >
+                Bybit
+              </a>
+              <a
+                href="https://www.huobi.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowExchangesDropdown(false);
+                }}
+              >
+                Huobi
+              </a>
+            </div>
+          )}
+        </div>
         <Link to="/best-algo-defi" onClick={() => setMenuOpen(false)}>
           Best Algo Defi Tokens
         </Link>
@@ -100,10 +217,7 @@ const Navbar = () => {
           Algo Bubbles
         </Link>
         <div ref={dropdownRefGaming} className={styles.dropdown}>
-          <div
-            className={styles.dropdownToggle}
-            onClick={toggleGamingDropdown}
-          >
+          <div className={styles.dropdownToggle} onClick={toggleGamingDropdown}>
             Algo Games ▾
           </div>
           {showGamingDropdown && (
