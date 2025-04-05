@@ -8,17 +8,20 @@ const Navbar = () => {
   const [showFarmingDropdown, setShowFarmingDropdown] = useState(false);
   const [showGamingDropdown, setShowGamingDropdown] = useState(false);
   const [showExchangesDropdown, setShowExchangesDropdown] = useState(false);
+  const [showDexesDropdown, setShowDexesDropdown] = useState(false);
 
   const menuRef = useRef<HTMLDivElement>(null);
   const dropdownRefFarming = useRef<HTMLDivElement>(null);
   const dropdownRefGaming = useRef<HTMLDivElement>(null);
   const dropdownRefExchanges = useRef<HTMLDivElement>(null);
+  const dropdownRefDexes = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const toggleFarmingDropdown = () => setShowFarmingDropdown((prev) => !prev);
   const toggleGamingDropdown = () => setShowGamingDropdown((prev) => !prev);
   const toggleExchangesDropdown = () =>
     setShowExchangesDropdown((prev) => !prev);
+  const toggleDexesDropdown = () => setShowDexesDropdown((prev) => !prev);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -47,6 +50,13 @@ const Navbar = () => {
         !dropdownRefExchanges.current.contains(target)
       ) {
         setShowExchangesDropdown(false);
+      }
+
+      if (
+        dropdownRefDexes.current &&
+        !dropdownRefDexes.current.contains(target)
+      ) {
+        setShowDexesDropdown(false);
       }
     };
 
@@ -206,6 +216,59 @@ const Navbar = () => {
                 }}
               >
                 Huobi
+              </a>
+            </div>
+          )}
+        </div>
+        <div ref={dropdownRefDexes} className={styles.dropdown}>
+          <div className={styles.dropdownToggle} onClick={toggleDexesDropdown}>
+            DEXes ▾
+          </div>
+          {showDexesDropdown && (
+            <div className={styles.dropdownMenu}>
+              <a
+                href="https://app.tinyman.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowDexesDropdown(false);
+                }}
+              >
+                Tinyman
+              </a>
+              <a
+                href="https://app.compx.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowDexesDropdown(false);
+                }}
+              >
+                CompX
+              </a>
+              <a
+                href="https://app.pact.fi"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowDexesDropdown(false);
+                }}
+              >
+                Pactfi
+              </a>
+              <a
+                href="https://vestige.fi"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowDexesDropdown(false);
+                }}
+              >
+                Vestige
               </a>
             </div>
           )}
