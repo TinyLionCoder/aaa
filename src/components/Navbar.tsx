@@ -308,6 +308,17 @@ const Navbar = () => {
                 AlgoSeas
               </a>
               <a
+                href="https://cosmicchamps.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowGamingDropdown(false);
+                }}
+              >
+                Cosmic Champs
+              </a>
+              <a
                 href="https://www.ghettopigeon.com/game.html"
                 target="_blank"
                 rel="noopener noreferrer"
