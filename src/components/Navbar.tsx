@@ -80,13 +80,16 @@ const Navbar = () => {
         ref={menuRef}
         className={`${styles.navLinks} ${menuOpen ? styles.open : ""}`}
       >
-        {/* <Link to="/current-airdrops" onClick={() => setMenuOpen(false)}>
-          Current Airdrops
-        </Link> */}
         <Link to="/swap-tokens" onClick={() => setMenuOpen(false)}>
           Swap Tokens
         </Link>
-        <div ref={dropdownRefFarming} className={styles.dropdown}>
+
+        <div
+          ref={dropdownRefFarming}
+          className={`${styles.dropdown} ${
+            showFarmingDropdown ? styles.open : ""
+          }`}
+        >
           <div
             className={styles.dropdownToggle}
             onClick={toggleFarmingDropdown}
@@ -120,7 +123,13 @@ const Navbar = () => {
             </div>
           )}
         </div>
-        <div ref={dropdownRefExchanges} className={styles.dropdown}>
+
+        <div
+          ref={dropdownRefExchanges}
+          className={`${styles.dropdown} ${
+            showExchangesDropdown ? styles.open : ""
+          }`}
+        >
           <div
             className={styles.dropdownToggle}
             onClick={toggleExchangesDropdown}
@@ -129,239 +138,114 @@ const Navbar = () => {
           </div>
           {showExchangesDropdown && (
             <div className={styles.dropdownMenu}>
-              <a
-                href="https://www.binance.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setMenuOpen(false);
-                  setShowExchangesDropdown(false);
-                }}
-              >
-                Binance
-              </a>
-              <a
-                href="https://www.coinbase.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setMenuOpen(false);
-                  setShowExchangesDropdown(false);
-                }}
-              >
-                Coinbase
-              </a>
-              <a
-                href="https://www.kraken.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setMenuOpen(false);
-                  setShowExchangesDropdown(false);
-                }}
-              >
-                Kraken
-              </a>
-              <a
-                href="https://www.kucoin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setMenuOpen(false);
-                  setShowExchangesDropdown(false);
-                }}
-              >
-                KuCoin
-              </a>
-              <a
-                href="https://www.okx.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setMenuOpen(false);
-                  setShowExchangesDropdown(false);
-                }}
-              >
-                OKX
-              </a>
-              <a
-                href="https://www.gate.io"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setMenuOpen(false);
-                  setShowExchangesDropdown(false);
-                }}
-              >
-                Gate.io
-              </a>
-              <a
-                href="https://www.bybit.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setMenuOpen(false);
-                  setShowExchangesDropdown(false);
-                }}
-              >
-                Bybit
-              </a>
-              <a
-                href="https://www.huobi.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setMenuOpen(false);
-                  setShowExchangesDropdown(false);
-                }}
-              >
-                Huobi
-              </a>
+              {[
+                { name: "Binance", url: "https://www.binance.com" },
+                { name: "Coinbase", url: "https://www.coinbase.com" },
+                { name: "Kraken", url: "https://www.kraken.com" },
+                { name: "KuCoin", url: "https://www.kucoin.com" },
+                { name: "OKX", url: "https://www.okx.com" },
+                { name: "Gate.io", url: "https://www.gate.io" },
+                { name: "Bybit", url: "https://www.bybit.com" },
+                { name: "Huobi", url: "https://www.huobi.com" },
+              ].map((item) => (
+                <a
+                  key={item.name}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    setShowExchangesDropdown(false);
+                  }}
+                >
+                  {item.name}
+                </a>
+              ))}
             </div>
           )}
         </div>
-        <div ref={dropdownRefDexes} className={styles.dropdown}>
+
+        <div
+          ref={dropdownRefDexes}
+          className={`${styles.dropdown} ${
+            showDexesDropdown ? styles.open : ""
+          }`}
+        >
           <div className={styles.dropdownToggle} onClick={toggleDexesDropdown}>
             DEXes ▾
           </div>
           {showDexesDropdown && (
             <div className={styles.dropdownMenu}>
-              <a
-                href="https://app.tinyman.org"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setMenuOpen(false);
-                  setShowDexesDropdown(false);
-                }}
-              >
-                Tinyman
-              </a>
-              <a
-                href="https://app.compx.io"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setMenuOpen(false);
-                  setShowDexesDropdown(false);
-                }}
-              >
-                CompX
-              </a>
-              <a
-                href="https://app.pact.fi"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setMenuOpen(false);
-                  setShowDexesDropdown(false);
-                }}
-              >
-                Pactfi
-              </a>
-              <a
-                href="https://vestige.fi"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setMenuOpen(false);
-                  setShowDexesDropdown(false);
-                }}
-              >
-                Vestige
-              </a>
+              {[
+                { name: "Tinyman", url: "https://app.tinyman.org" },
+                { name: "CompX", url: "https://app.compx.io" },
+                { name: "Pactfi", url: "https://app.pact.fi" },
+                { name: "Vestige", url: "https://vestige.fi" },
+              ].map((item) => (
+                <a
+                  key={item.name}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    setShowDexesDropdown(false);
+                  }}
+                >
+                  {item.name}
+                </a>
+              ))}
             </div>
           )}
         </div>
+
         <Link to="/best-algo-defi" onClick={() => setMenuOpen(false)}>
           Best Algo Defi Tokens
         </Link>
+
         <Link to="/algo-bubbles" onClick={() => setMenuOpen(false)}>
           Algo Bubbles
         </Link>
-        <div ref={dropdownRefGaming} className={styles.dropdown}>
+
+        <div
+          ref={dropdownRefGaming}
+          className={`${styles.dropdown} ${
+            showGamingDropdown ? styles.open : ""
+          }`}
+        >
           <div className={styles.dropdownToggle} onClick={toggleGamingDropdown}>
             Algo Games ▾
           </div>
           {showGamingDropdown && (
             <div className={styles.dropdownMenu}>
-              <a
-                href="https://astroexplorer.co"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setMenuOpen(false);
-                  setShowGamingDropdown(false);
-                }}
-              >
-                Astro Explorer
-              </a>
-              <a
-                href="https://algoseas.io/play"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setMenuOpen(false);
-                  setShowGamingDropdown(false);
-                }}
-              >
-                AlgoSeas
-              </a>
-              <a
-                href="https://cosmicchamps.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setMenuOpen(false);
-                  setShowGamingDropdown(false);
-                }}
-              >
-                Cosmic Champs
-              </a>
-              <a
-                href="https://www.ghettopigeon.com/game.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setMenuOpen(false);
-                  setShowGamingDropdown(false);
-                }}
-              >
-                Ghetto Warzones
-              </a>
-              <a
-                href="https://fracctalmonstersnft.com/play"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setMenuOpen(false);
-                  setShowGamingDropdown(false);
-                }}
-              >
-                Fracctal Monsters
-              </a>
-              <a
-                href="https://rxelms.com/games"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setMenuOpen(false);
-                  setShowGamingDropdown(false);
-                }}
-              >
-                Rxelms Games
-              </a>
-              <a
-                href="https://3dlifestudio.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setMenuOpen(false);
-                  setShowGamingDropdown(false);
-                }}
-              >
-                SuperMeow
-              </a>
+              {[
+                { name: "Astro Explorer", url: "https://astroexplorer.co" },
+                { name: "AlgoSeas", url: "https://algoseas.io/play" },
+                { name: "Cosmic Champs", url: "https://cosmicchamps.com" },
+                {
+                  name: "Ghetto Warzones",
+                  url: "https://www.ghettopigeon.com/game.html",
+                },
+                {
+                  name: "Fracctal Monsters",
+                  url: "https://fracctalmonstersnft.com/play",
+                },
+                { name: "Rxelms Games", url: "https://rxelms.com/games" },
+                { name: "SuperMeow", url: "https://3dlifestudio.com" },
+              ].map((item) => (
+                <a
+                  key={item.name}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    setShowGamingDropdown(false);
+                  }}
+                >
+                  {item.name}
+                </a>
+              ))}
             </div>
           )}
         </div>
