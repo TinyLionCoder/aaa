@@ -113,7 +113,7 @@ export const SetupAndVerify = ({ userId }: SetupAndVerifyProps) => {
       const txn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
         from: walletAddress,
         to: verificationAddress,
-        amount: 3000000, // 1 ALGO in microAlgos
+        amount: 5000000, // 1 ALGO in microAlgos
         note: new Uint8Array(Buffer.from("AAA app: Verification Fee")),
         suggestedParams,
       });
