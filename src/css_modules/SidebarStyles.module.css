@@ -131,7 +131,7 @@
 }
 
 .toggleButton {
-  position: absolute;
+  position: absolute !important;
   top: -4px;
   right: 4px;
   background-color: black !important;
