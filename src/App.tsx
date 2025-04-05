@@ -36,7 +36,7 @@ const App = () => {
             {/* <Route path="current-airdrops" element={<DisplayCurrentAirdrops />} /> */}
             <Route path="best-algo-defi" element={<PublicBestAlgoDefi />} />
             <Route path="/token-details" element={<TokenDetailsPage />} />
-            <Route path="/token-bubbles" element={<TokenBubbles />} />
+            <Route path="/algo-bubbles" element={<TokenBubbles />} />
           </Routes>
         </PeraWalletProvider>
       </Router>
