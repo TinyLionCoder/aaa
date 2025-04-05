@@ -109,6 +109,17 @@ const Navbar = () => {
           {showGamingDropdown && (
             <div className={styles.dropdownMenu}>
               <a
+                href="https://astroexplorer.co"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setShowGamingDropdown(false);
+                }}
+              >
+                Astro Explorer
+              </a>
+              <a
                 href="https://algoseas.io/play"
                 target="_blank"
                 rel="noopener noreferrer"
