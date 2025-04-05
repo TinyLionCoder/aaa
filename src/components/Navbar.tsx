@@ -95,9 +95,6 @@ const Navbar = () => {
         <Link to="/algo-bubbles" onClick={() => setMenuOpen(false)}>
           Algo Bubbles
         </Link>
-        <Link to="/token-listing" onClick={() => setMenuOpen(false)}>
-          List your Tokens
-        </Link>
       </div>
     </nav>
   );
