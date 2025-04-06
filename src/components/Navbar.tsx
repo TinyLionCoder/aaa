@@ -232,6 +232,7 @@ const Navbar = () => {
                   url: "https://fracctalmonstersnft.com/play",
                 },
                 { name: "Rxelms Games", url: "https://rxelms.com/games" },
+                { name: "Shep NFTs", url: "https://shepnfts.com" },
                 { name: "SuperMeow", url: "https://3dlifestudio.com" },
               ].map((item) => (
                 <a
