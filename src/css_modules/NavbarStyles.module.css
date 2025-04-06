@@ -246,12 +246,15 @@
 @media (max-width: 768px) {
   .navbar {
     padding: 12px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
   }
   
   .navLinks {
     display: none;
     flex-direction: column;
-    align-items: center; /* Center align all items */
+    align-items: center;
     width: 100%;
     position: absolute;
     top: 70px;
@@ -262,6 +265,10 @@
     z-index: 999;
     padding: 0;
     border-radius: 0 0 16px 16px;
+    max-height: 80vh; /* Limit to 80% of viewport height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    padding-bottom: 20px; /* Add padding at bottom for better scrolling */
   }
 
   .navLinks.open {
@@ -272,14 +279,14 @@
   .navLinks > a,
   .navLinks > .dropdown {
     width: 100%;
-    text-align: center; /* Center all text */
+    text-align: center;
     font-weight: 500;
     position: relative;
     border-bottom: 1px solid rgba(109, 40, 217, 0.1);
-    display: flex; /* Changed to flex for better centering */
-    flex-direction: column; /* Stack content vertically */
-    align-items: center; /* Center horizontally */
-    justify-content: center; /* Center vertically */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   
   /* Add background that alternates subtly between items */
@@ -351,7 +358,7 @@
     transform: rotate(90deg);
   }
   
-  /* ===== PROPERLY CENTERED MOBILE DROPDOWN SYSTEM ===== */
+  /* ===== FIXED MOBILE DROPDOWN SYSTEM WITH SCROLLING ===== */
   .dropdown {
     width: 100%;
   }
@@ -359,10 +366,13 @@
   .dropdownToggle {
     width: 100%;
     text-align: center;
-    justify-content: center; /* Center the content */
+    justify-content: center;
     padding: 16px 20px;
     border-radius: 0;
     border-bottom: none;
+    position: relative; /* Ensure it creates a stacking context */
+    z-index: 5; /* Higher z-index to stay above dropdown content */
+    background-color: inherit; /* Maintain background color */
   }
   
   .dropdownToggle:hover {
@@ -372,11 +382,11 @@
   /* Position arrow consistently with centered text */
   .dropdownToggle svg {
     margin-left: 8px;
-    margin-right: 0; /* Reset auto margin */
+    margin-right: 0;
     transition: transform 0.3s ease;
   }
 
-  /* Mobile dropdown styling */
+  /* Mobile dropdown styling with scrolling support */
   .dropdownMenu {
     position: static;
     display: none;
@@ -392,16 +402,20 @@
     padding: 0;
     margin: 0;
     border-bottom: none;
+    /* Remove ALL height limitations */
+    max-height: none !important;
+    overflow: visible !important;
   }
 
   /* Simple display toggle for mobile */
   .dropdown.open .dropdownMenu {
-    display: block;
+    display: block !important;
+    overflow: visible !important;
   }
 
   /* Centered dropdown items */
   .dropdownMenu a {
-    padding: 14px 20px;
+    padding: 16px 20px;
     display: flex;
     width: 100%;
     text-align: center;
@@ -412,6 +426,7 @@
     font-size: 14px;
     color: #4b5563;
     background-color: rgba(109, 40, 217, 0.02);
+    min-height: 20px; /* Ensure minimum height for tap targets */
   }
 
   /* Center the bullet points with text */
@@ -472,19 +487,24 @@
     font-weight: 600;
   }
   
-  /* Final nav item (usually last in the list) */
+  /* Final nav item styling */
   .navLinks > a:last-child,
   .navLinks > .dropdown:last-child {
     border-bottom: none;
+  }
+  
+  /* Only apply border radius if it's the last item AND not showing dropdown */
+  .navLinks > a:last-child,
+  .navLinks > .dropdown:last-child:not(.open) {
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
     overflow: hidden;
   }
-  
-  /* Ensure dropdown menu appears within the border radius */
+
+  /* Fix for last dropdown to ensure all items are visible */
   .navLinks > .dropdown:last-child .dropdownMenu {
+    padding-bottom: 16px; /* Add extra padding at bottom */
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
-    overflow: hidden;
   }
 }
