@@ -161,14 +161,14 @@ export const ClaimAirdrop = () => {
                   <h3>Description:</h3>
                   <p>{selectedAirdrop.shortDescription}</p>
                 </div>
-                <div className={styles.claimInfo}>
+                {/* <div className={styles.claimInfo}>
                   <h3>Claims Remaining:</h3>
                   <p>
                     {(selectedAirdrop.totalAmountOfTokens -
                       selectedAirdrop.totalAmountOfTokensClaimed) /
                       selectedAirdrop.amountOfTokenPerClaim}
                   </p>
-                </div>
+                </div> */}
               </div>
             )}
             <strong style={{ color: "red" }}>
