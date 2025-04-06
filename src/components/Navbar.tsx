@@ -221,6 +221,7 @@ const Navbar = () => {
               {[
                 { name: "Astro Explorer", url: "https://astroexplorer.co" },
                 { name: "AlgoSeas", url: "https://algoseas.io/play" },
+                { name: "Bwombus", url: "https://discord.com/invite/j4b53UqYAw" },
                 { name: "Cosmic Champs", url: "https://cosmicchamps.com" },
                 {
                   name: "Ghetto Warzones",
