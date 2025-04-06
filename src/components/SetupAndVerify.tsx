@@ -188,7 +188,7 @@ export const SetupAndVerify = ({ userId }: SetupAndVerifyProps) => {
         <>
           <h2 className={styles.subheading}>Step 2: Verify Account</h2>
           <p className={styles.description}>
-            Pay a verification fee of <strong>3 ALGO</strong> to verify your
+            Pay a verification fee of <strong>5 ALGO</strong> to verify your
             account.
           </p>
           <PeraWalletButton
