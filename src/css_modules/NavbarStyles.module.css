@@ -1,34 +1,58 @@
 /* Animation Keyframes */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideDown {
-  from { 
+  from {
     transform: translateY(-10px);
     opacity: 0;
   }
-  to { 
+
+  to {
     transform: translateY(0);
     opacity: 1;
   }
 }
 
 @keyframes scaleIn {
-  from { transform: scale(0.95); }
-  to { transform: scale(1); }
+  from {
+    transform: scale(0.95);
+  }
+
+  to {
+    transform: scale(1);
+  }
 }
 
 @keyframes underlineExpand {
-  from { width: 0; }
-  to { width: 100%; }
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
 }
 
 @keyframes glowPulse {
-  0% { box-shadow: 0 0 0 0 rgba(102, 51, 153, 0.4); }
-  70% { box-shadow: 0 0 0 10px rgba(102, 51, 153, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(102, 51, 153, 0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(102, 51, 153, 0.4);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(102, 51, 153, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(102, 51, 153, 0);
+  }
 }
 
 /* Modern Navbar Styling */
@@ -105,6 +129,18 @@
   border-radius: 8px;
   transition: all 0.3s ease;
   position: relative;
+}
+
+/* Subtle gradient top border */
+.navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #6d28d9, #8b5cf6, #6d28d9);
+  z-index: 1;
 }
 
 /* Underline animation for links */
@@ -250,7 +286,7 @@
     top: 0;
     z-index: 1000;
   }
-  
+
   .navLinks {
     display: none;
     flex-direction: column;
@@ -265,10 +301,14 @@
     z-index: 999;
     padding: 0;
     border-radius: 0 0 16px 16px;
-    max-height: 80vh; /* Limit to 80% of viewport height */
-    overflow-y: auto; /* Enable vertical scrolling */
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    padding-bottom: 20px; /* Add padding at bottom for better scrolling */
+    max-height: 80vh;
+    /* Limit to 80% of viewport height */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    -webkit-overflow-scrolling: touch;
+    /* Smooth scrolling on iOS */
+    padding-bottom: 20px;
+    /* Add padding at bottom for better scrolling */
   }
 
   .navLinks.open {
@@ -276,8 +316,8 @@
   }
 
   /* Properly centered mobile nav items */
-  .navLinks > a,
-  .navLinks > .dropdown {
+  .navLinks>a,
+  .navLinks>.dropdown {
     width: 100%;
     text-align: center;
     font-weight: 500;
@@ -288,40 +328,40 @@
     align-items: center;
     justify-content: center;
   }
-  
+
   /* Add background that alternates subtly between items */
-  .navLinks > a:nth-child(odd),
-  .navLinks > .dropdown:nth-child(odd) {
+  .navLinks>a:nth-child(odd),
+  .navLinks>.dropdown:nth-child(odd) {
     background-color: rgba(249, 250, 251, 0.7);
   }
-  
-  .navLinks > a:nth-child(even),
-  .navLinks > .dropdown:nth-child(even) {
+
+  .navLinks>a:nth-child(even),
+  .navLinks>.dropdown:nth-child(even) {
     background-color: rgba(255, 255, 255, 0.7);
   }
-  
+
   /* Add top-bottom border indicators instead of left-right */
-  .navLinks > a,
-  .navLinks > .dropdown {
+  .navLinks>a,
+  .navLinks>.dropdown {
     border-left: none;
     border-bottom: 2px solid transparent;
     transition: border-bottom 0.2s ease, background-color 0.2s ease;
   }
-  
-  .navLinks > a:hover,
-  .navLinks > .dropdown:hover {
+
+  .navLinks>a:hover,
+  .navLinks>.dropdown:hover {
     border-left: none;
     border-bottom: 2px solid #6d28d9;
     background-color: rgba(109, 40, 217, 0.05);
   }
-  
+
   /* Active item styling */
-  .navLinks > a.active {
+  .navLinks>a.active {
     border-left: none;
     border-bottom: 2px solid #6d28d9;
     background-color: rgba(109, 40, 217, 0.08);
   }
-  
+
   .navLinks a {
     padding: 16px 20px;
     display: flex;
@@ -352,12 +392,12 @@
     cursor: pointer;
     color: #6d28d9;
   }
-  
+
   /* Animation for hamburger icon */
   .hamburger.open {
     transform: rotate(90deg);
   }
-  
+
   /* ===== FIXED MOBILE DROPDOWN SYSTEM WITH SCROLLING ===== */
   .dropdown {
     width: 100%;
@@ -370,11 +410,14 @@
     padding: 16px 20px;
     border-radius: 0;
     border-bottom: none;
-    position: relative; /* Ensure it creates a stacking context */
-    z-index: 5; /* Higher z-index to stay above dropdown content */
-    background-color: inherit; /* Maintain background color */
+    position: relative;
+    /* Ensure it creates a stacking context */
+    z-index: 5;
+    /* Higher z-index to stay above dropdown content */
+    background-color: inherit;
+    /* Maintain background color */
   }
-  
+
   .dropdownToggle:hover {
     transform: none;
   }
@@ -426,7 +469,8 @@
     font-size: 14px;
     color: #4b5563;
     background-color: rgba(109, 40, 217, 0.02);
-    min-height: 20px; /* Ensure minimum height for tap targets */
+    min-height: 20px;
+    /* Ensure minimum height for tap targets */
   }
 
   /* Center the bullet points with text */
@@ -437,7 +481,7 @@
     margin-right: 8px;
     opacity: 0.7;
   }
-  
+
   .dropdownMenu a:hover {
     background-color: rgba(109, 40, 217, 0.08);
     border-left: none;
@@ -447,11 +491,11 @@
   .dropdownMenu a:last-child {
     border-bottom: none;
   }
-  
+
   .dropdownMenu a:hover::before {
     opacity: 1;
   }
-  
+
   /* Visual indicator for active dropdown - centered */
   .dropdown .dropdownToggle {
     position: relative;
@@ -459,7 +503,7 @@
     align-items: center;
     justify-content: center;
   }
-  
+
   .dropdown .dropdownToggle::after {
     content: '';
     position: absolute;
@@ -471,39 +515,40 @@
     background-color: #6d28d9;
     transition: width 0.3s ease;
   }
-  
+
   .dropdown.open .dropdownToggle::after {
     width: 30px;
   }
-  
+
   .dropdown.open .dropdownToggle svg {
     transform: rotate(180deg);
   }
-  
+
   /* Add a subtle background to opened dropdown */
   .dropdown.open .dropdownToggle {
     background-color: rgba(109, 40, 217, 0.05);
     color: #6d28d9;
     font-weight: 600;
   }
-  
+
   /* Final nav item styling */
-  .navLinks > a:last-child,
-  .navLinks > .dropdown:last-child {
+  .navLinks>a:last-child,
+  .navLinks>.dropdown:last-child {
     border-bottom: none;
   }
-  
+
   /* Only apply border radius if it's the last item AND not showing dropdown */
-  .navLinks > a:last-child,
-  .navLinks > .dropdown:last-child:not(.open) {
+  .navLinks>a:last-child,
+  .navLinks>.dropdown:last-child:not(.open) {
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
     overflow: hidden;
   }
 
   /* Fix for last dropdown to ensure all items are visible */
-  .navLinks > .dropdown:last-child .dropdownMenu {
-    padding-bottom: 16px; /* Add extra padding at bottom */
+  .navLinks>.dropdown:last-child .dropdownMenu {
+    padding-bottom: 16px;
+    /* Add extra padding at bottom */
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
   }
