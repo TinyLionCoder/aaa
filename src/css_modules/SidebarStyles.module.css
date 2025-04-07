@@ -1,12 +1,30 @@
+/* Premium Sidebar Color Enhancements */
+
+/* Only enhancing colors and pseudo-elements */
 .sideNav {
   width: 250px;
-  background-color: white;
+  background-color: #ffffff;
   color: #2c3e50;
   padding: 16px;
   position: relative;
-  border-right: 3px solid rgba(0, 0, 0, 0.1);
-  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-right: 3px solid rgba(0, 0, 0, 0.05);
+  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.08), 0 4px 6px rgba(0, 0, 0, 0.06);
   transition: width 0.3s ease;
+  /* Premium gradient accent at top */
+  border-top: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Top gradient accent */
+.sideNav::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, #a29bfe, #720abc);
+  z-index: 10;
 }
 
 .sideNav.closed {
@@ -31,14 +49,45 @@
   text-align: center;
   padding: 10px 20px;
   background: linear-gradient(to right, #a29bfe, #720abc);
+  background-size: 200% auto;
   color: white;
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(114, 10, 188, 0.2);
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
-  transition: font-size 0.3s ease, padding 0.3s ease;
+  transition: font-size 0.3s ease, padding 0.3s ease, background-position 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shine effect */
+.appName::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(to right,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent);
+  transform: rotate(30deg);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.appName:hover::after {
+  opacity: 1;
+  animation: shimmer 1.5s forwards;
+}
+
+@keyframes shimmer {
+  to {
+    transform: rotate(30deg) translateX(100%);
+  }
 }
 
 .sideNav.closed .appName {
@@ -48,6 +97,9 @@
 
 .appName:hover {
   background: linear-gradient(to right, #720abc, #a29bfe);
+  background-size: 200% auto;
+  background-position: right center;
+  box-shadow: 0 6px 15px rgba(114, 10, 188, 0.3);
 }
 
 .navItem {
@@ -59,8 +111,9 @@
   position: relative;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-  transition: background 0.3s, color 0.3s, padding 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s, color 0.3s, padding 0.3s ease, transform 0.3s ease;
+  border-left: 3px solid transparent;
 }
 
 .sideNav.closed .navItem {
@@ -72,7 +125,7 @@
   margin-right: auto;
   color: #2c3e50;
   font-size: 1.2rem;
-  transition: color 0.3s;
+  transition: color 0.3s, transform 0.3s;
 }
 
 .sideNav.closed .icon {
@@ -81,6 +134,7 @@
 
 .navItem:hover .icon {
   color: #3498db;
+  transform: scale(1.1);
 }
 
 .navItem a,
@@ -96,29 +150,66 @@
 }
 
 .navItem:hover {
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(52, 152, 219, 0.05);
   cursor: pointer;
+  transform: translateX(3px);
+  border-left: 3px solid #3498db;
 }
 
 /* Highlight active item */
 .activeNavItem {
-  background: #6cb5e7 !important;
-  color: white;
+  background: linear-gradient(to right, rgba(108, 181, 231, 0.2), rgba(108, 181, 231, 0.1)) !important;
+  color: #2c3e50;
+  border-left: 3px solid #3498db !important;
+}
+
+.activeNavItem::before {
+  content: "";
+  position: absolute;
+  left: -3px;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: linear-gradient(to bottom, #3498db, #2980b9);
 }
 
 .activeNavItem .icon {
-  color: white;
+  color: #3498db;
 }
 
 .logoutButton {
-  background-color: #e74c3c !important;
+  background: linear-gradient(to right, #e74c3c, #c0392b) !important;
   color: white !important;
   padding: 10px 20px !important;
   border: none !important;
   border-radius: 5px !important;
   cursor: pointer !important;
-  transition: background 0.3s ease, font-size 0.3s ease, padding 0.3s ease;
+  transition: background 0.3s ease, font-size 0.3s ease, padding 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Logout button shine effect */
+.logoutButton::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(to right,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent);
+  transform: rotate(30deg);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.logoutButton:hover::before {
+  opacity: 1;
+  animation: shimmer 1.5s forwards;
 }
 
 .sideNav.closed .logoutButton {
@@ -127,7 +218,9 @@
 }
 
 .logoutButton:hover {
-  background-color: #c0392b;
+  background: linear-gradient(to right, #c0392b, #e74c3c) !important;
+  box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+  transform: translateY(-2px);
 }
 
 .toggleButton {
@@ -136,7 +229,7 @@
   right: 4px;
   background-color: black !important;
   border: none;
-  color: white;
+  color: white !important;
   font-size: 1.2rem;
   width: 30px !important;
   height: 24px;
@@ -150,6 +243,8 @@
 
 .toggleButton:hover {
   transform: scale(1.1);
+  color: #3498db !important;
+  box-shadow: 0 3px 8px rgba(52, 152, 219, 0.2) !important;
 }
 
 .navItem span {
@@ -215,12 +310,15 @@
   background-color: #f9f9f9;
   border-radius: 6px;
   margin-bottom: 5px;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.3s;
   cursor: pointer;
+  border-left: 2px solid transparent;
 }
 
 .dropdown li:hover {
-  background-color: #e6f7ff;
+  background-color: rgba(52, 152, 219, 0.05);
+  transform: translateX(3px);
+  border-left: 2px solid #3498db;
 }
 
 .dropdown li .icon {
