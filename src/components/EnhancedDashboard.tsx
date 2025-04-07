@@ -165,7 +165,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
           <h2 className={styles.totalMembers}>
             {loadingTotalVerifiedMembers
               ? ""
-              : `Total Verified Members / Total Members: ${totalMembers} / ${totalVerifiedMembers}`}
+              : `Total Verified Members / Total Members: ${totalVerifiedMembers} / ${totalMembers}`}
           </h2>
           {/* <h2 className={styles.totalMembers}>
             {loadingTotalMembers ? "" : `Total Members: ${totalMembers}`}
