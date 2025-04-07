@@ -4,7 +4,8 @@ import styles from "../css_modules/ClaimAirdropStyles.module.css";
 import { allMembers } from "../constants/airdrops";
 
 export const ClaimAirdrop = () => {
-   const BASE_URL = "https://aaa-api.onrender.com/api/v1/airdrop";
+  const BASE_URL = "http://localhost:5000/api/v1/airdrop";
+  //  const BASE_URL = "https://aaa-api.onrender.com/api/v1/airdrop";
 
   const [airdrops, setAirdrops] = useState<
     Array<{
@@ -58,7 +59,11 @@ export const ClaimAirdrop = () => {
           }
         );
 
-        setAirdrops(response.data.filter((airdrop: any) => airdrop.airdropType === allMembers));
+        setAirdrops(
+          response.data.filter(
+            (airdrop: any) => airdrop.airdropType === allMembers
+          )
+        );
       } catch (err: any) {
         setError(err.response?.data?.message || "Failed to fetch airdrops");
       } finally {
@@ -121,7 +126,7 @@ export const ClaimAirdrop = () => {
         <>
           <div className={styles.form}>
             <label className={styles.label}>
-              Select an Airdrop:
+              <p>Select an Airdrop:</p>
               <select
                 className={styles.select}
                 value={selectedAirdrop?.tokenName || ""}
@@ -181,8 +186,8 @@ export const ClaimAirdrop = () => {
           {!address && (
             <p className={styles.warning}>
               <strong>
-                Please connect wallet to claim the airdrop
-                (Setup wallet or login with existing wallet)
+                Please connect wallet to claim the airdrop (Setup wallet or
+                login with existing wallet)
               </strong>
             </p>
           )}
