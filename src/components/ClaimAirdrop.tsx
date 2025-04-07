@@ -4,8 +4,7 @@ import styles from "../css_modules/ClaimAirdropStyles.module.css";
 import { allMembers } from "../constants/airdrops";
 
 export const ClaimAirdrop = () => {
-  const BASE_URL = "http://localhost:5000/api/v1/airdrop";
-  //  const BASE_URL = "https://aaa-api.onrender.com/api/v1/airdrop";
+  const BASE_URL = "https://aaa-api.onrender.com/api/v1/airdrop";
 
   const [airdrops, setAirdrops] = useState<
     Array<{
