@@ -1,3 +1,65 @@
+:root {
+  /* Color System */
+  --primary: #6d28d9;
+  /* Refined rebeccapurple */
+  --primary-light: #8b5cf6;
+  --primary-dark: #5b21b6;
+  --primary-bg: rgba(109, 40, 217, 0.05);
+  --primary-gradient: linear-gradient(135deg, #6d28d9, #8b5cf6);
+
+  --secondary: #06b6d4;
+  --accent: #f59e0b;
+
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  /* 4px */
+  --space-2: 0.5rem;
+  /* 8px */
+  --space-3: 0.75rem;
+  /* 12px */
+  --space-4: 1rem;
+  /* 16px */
+  --space-5: 1.25rem;
+  /* 20px */
+  --space-6: 1.5rem;
+  /* 24px */
+  --space-8: 2rem;
+  /* 32px */
+  --space-10: 2.5rem;
+  /* 40px */
+  --space-12: 3rem;
+  /* 48px */
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .dashboardContainer {
   display: flex;
   min-height: 100vh;
@@ -123,13 +185,110 @@
   background: linear-gradient(to bottom right, #f3f4f6, #e0e7ff);
 }
 
-.dashboardHeader {
-  text-align: center;
-  margin-bottom: 20px;
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Enhanced Dashboard Header */
+.dashboardHeader {
+  text-align: center;
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-6);
+  position: relative;
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Add subtle divider below header */
+.dashboardHeader::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: var(--primary-gradient);
+  border-radius: var(--radius-full);
+}
+
+/* Enhanced Heading */
 .dashboardHeader h1 {
-  color: rebeccapurple !important;
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--primary) !important;
+  letter-spacing: -0.025em;
+  margin-bottom: var(--space-4);
+  font-family: var(--font-sans);
+  position: relative;
+  display: inline-block;
+  background-size: 200% auto;
+  background-image: var(--primary-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 4s ease infinite;
+}
+
+/* Subtitle if needed */
+.dashboardHeader p {
+  font-size: 1.125rem;
+  color: var(--gray-600);
+  max-width: 80%;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Enhanced Total Members Count */
+.totalMembers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--space-4);
+  gap: var(--space-3);
+  background: var(--primary-bg);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(109, 40, 217, 0.1);
+  transition: all var(--transition);
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.totalMembers:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(109, 40, 217, 0.2);
+}
+
+/* Total Members Icon */
+.totalMembers::before {
+  content: "👥";
+  font-size: 1.25rem;
 }
 
 .userInfo {
@@ -139,11 +298,6 @@
   justify-content: flex-end;
 }
 
-.totalMembers {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 .userImage {
   width: 40px;
