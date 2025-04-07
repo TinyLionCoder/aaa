@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "./Sidebar"; // Import the new Sidebar component
+import Sidebar from "./Sidebar";
 import DashboardContent from "./DashboardContent";
 import styles from "../css_modules/EnhancedDashboardStyles.module.css";
 import BestAlgoDefi from "./BestAlgoDefi";
@@ -40,7 +40,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
   onLogout,
 }) => {
   const [activeComponent, setActiveComponent] =
-    useState<string>("bestAlgoDefi"); // Default to dashboard content
+    useState<string>("bestAlgoDefi");
   const [totalMembers, setTotalMembers] = useState<number>(0);
   const [totalVerifiedMembers, setTotalVerifiedMembers] = useState<number>(0);
   const [loadingTotalMembers, setLoadingTotalMembers] = useState<boolean>(true);
@@ -68,11 +68,12 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
       }
     } catch (error) {
       console.error("Failed to fetch total members:", error);
-      setTotalMembers(0); // Fallback to 0 if the API fails
+      setTotalMembers(0);
     } finally {
       setLoadingTotalMembers(false);
     }
   };
+
   const getTotalVerifiedMembers = async () => {
     try {
       setLoadingTotalVerifiedMembers(true);
@@ -87,7 +88,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
       }
     } catch (error) {
       console.error("Failed to fetch total Verified members:", error);
-      setTotalVerifiedMembers(0); // Fallback to 0 if the API fails
+      setTotalVerifiedMembers(0);
     } finally {
       setLoadingTotalVerifiedMembers(false);
     }
@@ -151,35 +152,51 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
 
   return (
     <div className={styles.dashboardContainer}>
-      {/* Load Sidebar Component */}
+      {/* Left Sidebar */}
       <Sidebar
         verfied={verified}
         onLogout={onLogout}
-        setActiveComponent={setActiveComponent} // Pass setActiveComponent to Sidebar
+        setActiveComponent={setActiveComponent}
       />
 
       {/* Main Dashboard Content */}
       <main className={styles.dashboardContent}>
-        <header className={styles.dashboardHeader}>
-          <h1>Algo Adopt Airdrop</h1>
-          <h2 className={styles.totalMembers}>
-            {loadingTotalVerifiedMembers
-              ? ""
-              : `Total Verified Members / Total Members: ${totalVerifiedMembers} / ${totalMembers}`}
-          </h2>
-          {/* <h2 className={styles.totalMembers}>
-            {loadingTotalMembers ? "" : `Total Members: ${totalMembers}`}
-          </h2> */}
-        </header>
-
-        {/* User Info */}
-        <div className={styles.userInfo}>
-          <img src={userImage} alt="User" className={styles.userImage} />
-          <h2>Hi {userName}</h2>
+        <div className={styles.topbar}>
+          <div className={styles.pageInfo}>
+            <h1 className={styles.dashboardTitle}>Algo Adopt Airdrop</h1>
+            {!loadingTotalVerifiedMembers && (
+              <div className={styles.statsWrapper}>
+                <div className={styles.statBadge}>
+                  <span className={styles.statValue}>{totalVerifiedMembers}</span>
+                  <span className={styles.statLabel}>Verified</span>
+                </div>
+                <div className={styles.statDivider}></div>
+                <div className={styles.statBadge}>
+                  <span className={styles.statValue}>{totalMembers}</span>
+                  <span className={styles.statLabel}>Total Members</span>
+                </div>
+              </div>
+            )}
+          </div>
+          
+          <div className={styles.userInfoContainer}>
+            <div className={styles.userInfo}>
+              <div className={styles.userDetails}>
+                <p className={styles.welcomeText}>Welcome back</p>
+                <h3 className={styles.userName}>{userName}</h3>
+              </div>
+              <div className={styles.userImageWrapper}>
+                {verified && <div className={styles.verifiedBadge}></div>}
+                {/* <img src={userImage} className={styles.userImage} /> */}
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Render Active Component */}
-        {renderActiveComponent()}
+        <div className={styles.contentWrapper}>
+          {/* Active component rendered here */}
+          {renderActiveComponent()}
+        </div>
       </main>
     </div>
   );
