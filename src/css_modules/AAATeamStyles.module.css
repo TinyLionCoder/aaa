@@ -82,7 +82,7 @@
 /* Improved description styling */
 .description {
   font-size: 1.125rem;
-  color: var(--text-secondary);
+  color: black;
   margin-bottom: var(--spacing-lg);
   line-height: 1.7;
   max-width: 800px;
@@ -169,7 +169,7 @@
 .name {
   font-size: 1.4rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: black;
   margin-bottom: 4px;
   position: relative;
   transition: color 0.3s ease;
@@ -203,7 +203,7 @@
 /* Bio text styling */
 .bio {
   font-size: 0.95rem;
-  color: var(--text-secondary);
+  color: black;
   line-height: 1.6;
   margin-top: var(--spacing-sm);
   transition: color 0.3s ease;
