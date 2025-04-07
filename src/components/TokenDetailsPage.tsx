@@ -13,9 +13,33 @@ import {
   Tooltip,
   ArcElement,
   BarElement,
+  Legend,
 } from "chart.js";
-
 import zoomPlugin from "chartjs-plugin-zoom";
+import {
+  FaChartLine,
+  FaProjectDiagram,
+  FaInfoCircle,
+  FaChartPie,
+  FaWater,
+  FaExchangeAlt,
+  FaTwitter,
+  FaDiscord,
+  FaTelegram,
+  FaGlobe,
+  FaCheckCircle,
+  FaTimesCircle,
+  FaExclamationTriangle,
+  FaArrowUp,
+  FaArrowDown,
+  FaSyncAlt,
+  FaDollarSign,
+  FaPercentage,
+  FaUsers,
+  FaTag,
+  FaHistory,
+  FaLink,
+} from "react-icons/fa";
 
 ChartJS.register(
   CategoryScale,
@@ -23,6 +47,7 @@ ChartJS.register(
   PointElement,
   LineElement,
   Tooltip,
+  Legend,
   zoomPlugin,
   ArcElement,
   BarElement
@@ -338,9 +363,9 @@ const TokenDetailsPage = () => {
     datasets: [
       {
         label: "TVL (30D)",
-        data: tvlHistory.map((entry) => entry.tvl), // Don't format here
-        borderColor: "#22c55e",
-        backgroundColor: "rgba(34, 197, 94, 0.1)",
+        data: tvlHistory.map((entry) => entry.tvl),
+        borderColor: "#10b981",
+        backgroundColor: "rgba(16, 185, 129, 0.1)",
         tension: 0.3,
         pointRadius: 0,
         fill: true,
@@ -392,8 +417,8 @@ const TokenDetailsPage = () => {
       {
         label: "Transactions per Day",
         data: txCounts,
-        borderColor: "#9333ea",
-        backgroundColor: "rgba(147, 51, 234, 0.1)",
+        borderColor: "#7c3aed",
+        backgroundColor: "rgba(124, 58, 237, 0.1)",
         fill: true,
         tension: 0.3,
         pointRadius: 0,
@@ -434,10 +459,11 @@ const TokenDetailsPage = () => {
       {
         label: `Price (${priceInterval})`,
         data: priceHistory.map((p) => p.price),
-        borderColor: "#0077cc",
-        backgroundColor: "rgba(0, 119, 204, 0.1)",
+        borderColor: "#0284c7",
+        backgroundColor: "rgba(2, 132, 199, 0.1)",
         tension: 0.3,
         pointRadius: 0,
+        fill: true,
       },
     ],
   };
@@ -463,7 +489,7 @@ const TokenDetailsPage = () => {
             const date = new Date(
               priceHistory[context[0].dataIndex]?.timestamp * 1000
             );
-            return date.toLocaleString(); // Full timestamp
+            return date.toLocaleString();
           },
           label: function (context: any) {
             return `Price: ${context.parsed.y.toFixed(6)} A`;
@@ -521,13 +547,27 @@ const TokenDetailsPage = () => {
       {
         label: "Number of Holders",
         data: [tokenData?.holders || 0],
-        backgroundColor: ["#3b82f6"],
+        backgroundColor: ["#6366f1"],
       },
     ],
   };
 
+  const holdersBarOptions = {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: function (context: any) {
+            return `Holders: ${context.parsed.y.toLocaleString()}`;
+          },
+        },
+      },
+    },
+  };
+
   const supplyPieData = {
-    labels: ["Circulating %", "Burned %"],
+    labels: ["Circulating", "Burned"],
     datasets: [
       {
         data: [
@@ -536,215 +576,426 @@ const TokenDetailsPage = () => {
         ],
         backgroundColor: ["#10b981", "#ef4444"],
         hoverOffset: 6,
+        borderWidth: 2,
+        borderColor: "#ffffff",
       },
     ],
   };
 
-  if (loading) return <div className={styles.container}>Loading...</div>;
-  if (error) return <div className={styles.container}>{error}</div>;
+  const supplyPieOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "bottom" as const,
+        labels: {
+          padding: 20,
+          usePointStyle: true,
+          pointStyle: "circle",
+        },
+      },
+      tooltip: {
+        callbacks: {
+          label: function (context: any) {
+            const label = context.label;
+            const value = context.raw;
+            return `${label}: ${value.toFixed(2)}%`;
+          },
+        },
+      },
+    },
+    cutout: "50%",
+  };
+
+  const formatNumber = (value: number, decimals = 2) => {
+    if (value >= 1_000_000_000)
+      return `${(value / 1_000_000_000).toFixed(decimals)}B`;
+    if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(decimals)}M`;
+    if (value >= 1_000) return `${(value / 1_000).toFixed(decimals)}K`;
+    return value.toFixed(decimals);
+  };
+
+  const handleRetry = () => {
+    setLoading(true);
+    setError(null);
+    // Re-trigger the initial data load by forcing a URL change
+    window.location.reload();
+  };
+
+  if (loading) {
+    return (
+      <div className={styles.loadingContainer}>
+        <div className={styles.loadingSpinner}></div>
+        <p className={styles.loadingText}>Loading token details...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={styles.errorContainer}>
+        <div className={styles.errorIcon}>
+          <FaExclamationTriangle />
+        </div>
+        <p className={styles.errorText}>{error}</p>
+        <button className={styles.retryButton} onClick={handleRetry}>
+          <FaSyncAlt /> Retry
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Token Details</h1>
-
-      {tokenData?.logo && (
-        <img
-          src={tokenData.logo}
-          alt={`${tokenData.name} logo`}
-          className={styles.tokenLogo}
-        />
-      )}
-
-      <div className={styles.section}>
-        <div className={styles.statsGrid} style={{ marginBottom: "1rem" }}>
-          <p>
-            <strong>Current Price (USD):</strong> $
-            {tokenData?.price?.toFixed(6)}
-          </p>
-          <p>
-            <strong>Price Change (24h):</strong> {tokenData?.change?.toFixed(2)}
-            %
-          </p>
-          <p>
-            <strong>TVL (7d):</strong> ${tokenData?.tvl?.toFixed(2)}
-          </p>
-          <p>
-            <strong>Trusted TVL:</strong> ${tokenData?.totalTVL?.toFixed(2)}
-          </p>
-          <p>
-            <strong>Full TVL:</strong> ${tokenData?.fullTVL?.toFixed(2)}
-          </p>
-        </div>
-        <div className={styles.chartHeader}>
-          <label htmlFor="priceInterval">
-            <strong>Price Chart Interval:</strong>
-          </label>
-          <select
-            id="priceInterval"
-            value={priceInterval}
-            onChange={(e) => setPriceInterval(e.target.value)}
-            className={styles.chartSelect}
-          >
-            <option value="1H">1 Hour</option>
-            <option value="1D">1 Day</option>
-            <option value="7D">7 Days</option>
-          </select>
-        </div>
-        <Line data={priceChartData} options={priceChartOptions} />
-      </div>
-
-      {alloMetadata?.pera && (
-        <div className={styles.section}>
-          <h2 className={styles.subTitle}>Project Info</h2>
-          {alloMetadata.pera.icon && (
+      <div className={styles.pageHeader}>
+        <div className={styles.pageHeaderContent}>
+          <h1 className={styles.title}>Token Details</h1>
+          {tokenData?.logo && (
             <img
-              src={alloMetadata.pera.icon}
-              alt="Project Icon"
-              width={64}
-              className={styles.projectIcon}
+              src={tokenData.logo}
+              alt={`${tokenData.name} logo`}
+              className={styles.tokenLogo}
             />
           )}
-          <p>
-            <strong>Project:</strong> {alloMetadata.pera.projectName}
-          </p>
-          <p>
-            <strong>Description:</strong> {alloMetadata.pera.projectDescription}
-          </p>
-          <p>
-            <strong>Website:</strong>{" "}
-            <a
-              href={alloMetadata.pera.projectUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {alloMetadata.pera.projectUrl}
-            </a>
-          </p>
-          {alloMetadata.pera.twitterUsername && (
-            <p>
-              <strong>Twitter:</strong> @{alloMetadata.pera.twitterUsername}
-            </p>
-          )}
-          {alloMetadata.pera.discordUrl && (
-            <p>
-              <strong>Discord:</strong>{" "}
-              <a
-                href={alloMetadata.pera.discordUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Join
-              </a>
-            </p>
-          )}
-          {alloMetadata.pera.telegramUrl && (
-            <p>
-              <strong>Telegram:</strong>{" "}
-              <a
-                href={alloMetadata.pera.telegramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Chat
-              </a>
-            </p>
-          )}
-          {alloMetadata.pera.verificationTier && (
-            <p>
-              <strong>Tier:</strong> {alloMetadata.pera.verificationTier}
-            </p>
-          )}
         </div>
-      )}
+      </div>
 
-      <div className={styles.section}>
-        <h2 className={styles.subTitle}>Token Stats</h2>
-        <div className={styles.statsGrid}>
-          <p>
-            <strong>Name:</strong> {tokenData?.name}
-          </p>
-          <p>
-            <strong>Asset ID:</strong> {assetID}
-          </p>
-          <p>
-            <strong>Unit Name:</strong> {tokenData?.unitName}
-          </p>
-          <p>
-            <strong>Verified:</strong> {tokenData?.verified ? "✅" : "❌"}
-          </p>
-          <p>
-            <strong>Created at Round:</strong> {tokenData?.createdRound}
-          </p>
-          <p>
-            <strong>Has Clawback:</strong>{" "}
-            {tokenData?.hasClawback ? "Yes" : "No"}
-          </p>
-          <p>
-            <strong>Has Freeze:</strong> {tokenData?.hasFreeze ? "Yes" : "No"}
-          </p>
-          <p>
-            <strong>Official URL:</strong>{" "}
-            <a href={tokenData?.url} target="_blank" rel="noopener noreferrer">
-              {tokenData?.url}
-            </a>
-          </p>
-        </div>
-      </div>
-      <div className={styles.section}>
-        <h2 className={styles.subTitle}>Token Distribution</h2>
-        <div className={styles.statsGrid} style={{ gap: "1rem" }}>
-          <div>
-            <h3>Holders</h3>
-            <Bar data={holdersBarData} />
+      <div className={styles.pageBody}>
+        {/* Top Stats */}
+        <div className={styles.topStats}>
+          <div className={styles.statCard}>
+            <div className={styles.statTitle}>
+              <FaDollarSign /> Current Price (USD)
+            </div>
+            <div className={styles.statValue}>
+              ${tokenData?.price?.toFixed(6)}
+              <span
+                className={`${styles.statChange} ${
+                  tokenData?.change >= 0
+                    ? styles.statPositive
+                    : styles.statNegative
+                }`}
+              >
+                {tokenData?.change >= 0 ? <FaArrowUp /> : <FaArrowDown />}
+                {tokenData?.change?.toFixed(2)}%
+              </span>
+            </div>
           </div>
-          <div>
-            <h3>Supply Breakdown</h3>
-            <Pie data={supplyPieData} />
+
+          <div className={styles.statCard}>
+            <div className={styles.statTitle}>
+              <FaWater /> Total Value Locked (TVL)
+            </div>
+            <div className={styles.statValue}>
+              ${formatNumber(tokenData?.tvl || 0)}
+            </div>
           </div>
-          <div>
-            <h3>30-Day Transaction Count</h3>
-            <Line data={txChartData} options={txChartOptions} />
+
+          <div className={styles.statCard}>
+            <div className={styles.statTitle}>
+              <FaUsers /> Holders
+            </div>
+            <div className={styles.statValue}>
+              {formatNumber(tokenData?.holders || 0, 0)}
+            </div>
           </div>
-          <div>
-            <h3>30-Day TVL History</h3>
-            <Line data={tvlChartData} options={tvlChartOptions} />
-          </div>
-        </div>
-      </div>
-      {liquidityPools.length > 0 && (
-        <div className={styles.section}>
-          <h2 className={styles.subTitle}>Liquidity Pools</h2>
-          <div className={styles.lpScrollBox}>
-            <div className={styles.statsGrid}>
-              {liquidityPools.map((pool, index) => (
-                <div
-                  key={index}
-                  style={{
-                    borderBottom: "1px solid #e5e7eb",
-                    padding: "0.75rem 0",
-                  }}
-                >
-                  <p>
-                    <strong>Provider:</strong> {pool.provider}
-                  </p>
-                  <p>
-                    <strong>Asset 1:</strong>{" "}
-                    {pool.asset_1_unit_name || pool.asset_1_id}
-                  </p>
-                  <p>
-                    <strong>Asset 2:</strong>{" "}
-                    {pool.asset_2_unit_name || pool.asset_2_id}
-                  </p>
-                  <p>
-                    <strong>TVL (USD):</strong> $
-                    {parseFloat(pool.tvl_usd || 0).toFixed(2)}
-                  </p>
-                </div>
-              ))}
+
+          <div className={styles.statCard}>
+            <div className={styles.statTitle}>
+              <FaTag /> Unit Name
+            </div>
+            <div className={styles.statValue}>
+              {tokenData?.unitName}
+              {tokenData?.verified && (
+                <span className={styles.verifiedBadge}>
+                  <FaCheckCircle /> Verified
+                </span>
+              )}
             </div>
           </div>
         </div>
-      )}
+
+        {/* Price Chart Section */}
+        <div className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <div className={styles.sectionIcon}>
+              <FaChartLine />
+            </div>
+            <h2 className={styles.subTitle}>Price History</h2>
+          </div>
+
+          <div className={styles.sectionContent}>
+            <div className={styles.chartHeader}>
+              <h3 className={styles.chartTitle}>Price Trend</h3>
+              <div className={styles.chartControls}>
+                <select
+                  id="priceInterval"
+                  value={priceInterval}
+                  onChange={(e) => setPriceInterval(e.target.value)}
+                  className={styles.chartSelect}
+                >
+                  <option value="1H">1 Hour</option>
+                  <option value="1D">1 Day</option>
+                  <option value="7D">7 Days</option>
+                </select>
+              </div>
+            </div>
+            <Line data={priceChartData} options={priceChartOptions} />
+          </div>
+        </div>
+
+        {/* Project Info Section */}
+        {alloMetadata?.pera && (
+          <div className={styles.section}>
+            <div className={styles.sectionHeader}>
+              <div className={styles.sectionIcon}>
+                <FaProjectDiagram />
+              </div>
+              <h2 className={styles.subTitle}>Project Information</h2>
+            </div>
+
+            <div className={styles.sectionContent}>
+              <div className={styles.projectInfo}>
+                <div className={styles.projectInfoItem}>
+                  {alloMetadata.pera.icon && (
+                    <img
+                      src={alloMetadata.pera.icon}
+                      alt="Project Icon"
+                      className={styles.projectIcon}
+                    />
+                  )}
+                  <h3>{alloMetadata.pera.projectName}</h3>
+                  <p>{alloMetadata.pera.projectDescription}</p>
+
+                  {alloMetadata.pera.verificationTier && (
+                    <div className={styles.tierBadge}>
+                      <FaCheckCircle /> Tier:{" "}
+                      {alloMetadata.pera.verificationTier}
+                    </div>
+                  )}
+                </div>
+
+                <div className={styles.projectInfoItem}>
+                  <div className={styles.socialLinks}>
+                    {alloMetadata.pera.projectUrl && (
+                      <a
+                        href={alloMetadata.pera.projectUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.socialLink}
+                        title="Website"
+                      >
+                        <FaGlobe />
+                      </a>
+                    )}
+
+                    {alloMetadata.pera.twitterUsername && (
+                      <a
+                        href={`https://twitter.com/${alloMetadata.pera.twitterUsername}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.socialLink}
+                        title="Twitter"
+                      >
+                        <FaTwitter />
+                      </a>
+                    )}
+
+                    {alloMetadata.pera.discordUrl && (
+                      <a
+                        href={alloMetadata.pera.discordUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.socialLink}
+                        title="Discord"
+                      >
+                        <FaDiscord />
+                      </a>
+                    )}
+
+                    {alloMetadata.pera.telegramUrl && (
+                      <a
+                        href={alloMetadata.pera.telegramUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.socialLink}
+                        title="Telegram"
+                      >
+                        <FaTelegram />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Token Stats */}
+        <div className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <div className={styles.sectionIcon}>
+              <FaInfoCircle />
+            </div>
+            <h2 className={styles.subTitle}>Token Stats</h2>
+          </div>
+
+          <div className={styles.sectionContent}>
+            <div className={styles.statsGrid}>
+              <div className={styles.statItem}>
+                <div className={styles.statLabel}>Name</div>
+                <div className={styles.statData}>{tokenData?.name}</div>
+              </div>
+
+              <div className={styles.statItem}>
+                <div className={styles.statLabel}>Asset ID</div>
+                <div className={styles.statData}>{assetID}</div>
+              </div>
+
+              <div className={styles.statItem}>
+                <div className={styles.statLabel}>Created at Round</div>
+                <div className={styles.statData}>{tokenData?.createdRound}</div>
+              </div>
+
+              <div className={styles.statItem}>
+                <div className={styles.statLabel}>Has Clawback</div>
+                <div className={styles.statData}>
+                  {tokenData?.hasClawback ? (
+                    <span className={styles.unverifiedBadge}>
+                      <FaCheckCircle /> Yes
+                    </span>
+                  ) : (
+                    <span className={styles.verifiedBadge}>
+                      <FaTimesCircle /> No
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className={styles.statItem}>
+                <div className={styles.statLabel}>Has Freeze</div>
+                <div className={styles.statData}>
+                  {tokenData?.hasFreeze ? (
+                    <span className={styles.unverifiedBadge}>
+                      <FaCheckCircle /> Yes
+                    </span>
+                  ) : (
+                    <span className={styles.verifiedBadge}>
+                      <FaTimesCircle /> No
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className={styles.statItem}>
+                <div className={styles.statLabel}>Official URL</div>
+                <div className={styles.statData}>
+                  {tokenData?.url ? (
+                    <a
+                      href={tokenData.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.socialLink}
+                    >
+                      <FaLink /> {tokenData.url.substring(0, 30)}...
+                    </a>
+                  ) : (
+                    "N/A"
+                  )}
+                </div>
+              </div>
+
+              {tokenData?.tags && tokenData.tags.length > 0 && (
+                <div className={styles.statItem}>
+                  <div className={styles.statLabel}>Tags</div>
+                  <div className={styles.tagList}>
+                    {tokenData.tags.map((tag: string, index: number) => (
+                      <span key={index} className={styles.tag}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Token Distribution */}
+        <div className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <div className={styles.sectionIcon}>
+              <FaChartPie />
+            </div>
+            <h2 className={styles.subTitle}>Token Distribution & Analytics</h2>
+          </div>
+
+          <div className={styles.sectionContent}>
+            <div className={styles.tokenDistribution}>
+              <div className={styles.chartContainer}>
+                <h3 className={styles.chartContainerTitle}>Holders</h3>
+                <Bar data={holdersBarData} options={holdersBarOptions} />
+              </div>
+
+              <div className={styles.chartContainer}>
+                <h3 className={styles.chartContainerTitle}>Supply Breakdown</h3>
+                <Pie data={supplyPieData} options={supplyPieOptions} />
+              </div>
+
+              <div className={styles.chartContainer}>
+                <h3 className={styles.chartContainerTitle}>
+                  30-Day Transaction Count
+                </h3>
+                <Line data={txChartData} options={txChartOptions} />
+              </div>
+
+              <div className={styles.chartContainer}>
+                <h3 className={styles.chartContainerTitle}>
+                  30-Day TVL History
+                </h3>
+                <Line data={tvlChartData} options={tvlChartOptions} />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Liquidity Pools */}
+        {liquidityPools.length > 0 && (
+          <div className={styles.section}>
+            <div className={styles.sectionHeader}>
+              <div className={styles.sectionIcon}>
+                <FaExchangeAlt />
+              </div>
+              <h2 className={styles.subTitle}>Liquidity Pools</h2>
+            </div>
+
+            <div className={styles.sectionContent}>
+              <div className={styles.lpScrollBox}>
+                {liquidityPools.map((pool, index) => (
+                  <div key={index} className={styles.poolItem}>
+                    <div className={styles.poolItemHeader}>
+                      <span className={styles.poolProvider}>
+                        {pool.provider}
+                      </span>
+                      <span className={styles.poolTVL}>
+                        ${parseFloat(pool.tvl_usd || 0).toFixed(2)}
+                      </span>
+                    </div>
+                    <div className={styles.poolAssets}>
+                      <span className={styles.assetPair}>
+                        {pool.asset_1_unit_name || pool.asset_1_id}
+                      </span>
+                      <span>+</span>
+                      <span className={styles.assetPair}>
+                        {pool.asset_2_unit_name || pool.asset_2_id}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
