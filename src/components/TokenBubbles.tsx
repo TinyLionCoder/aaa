@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios"; // Use axios for API calls
-import { FaTruckLoading } from "react-icons/fa";
+import axios from "axios";
+import { 
+  FaChartLine, 
+  FaRegClock, 
+  FaSearch, 
+  FaFilter, 
+  FaAngleDown, 
+  FaAngleUp,
+  FaCheckCircle,
+  FaSyncAlt
+} from "react-icons/fa";
 import tokenData from "../constants/tokenData";
 import styles from "../css_modules/TokenBubblesStyles.module.css";
 
@@ -13,6 +22,9 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
   const [allTokens, setAllTokens] = useState<any[]>([]);
   const [selectedTokenIds, setSelectedTokenIds] = useState<string[]>([]);
   const [showTokenSelector, setShowTokenSelector] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterGainers, setFilterGainers] = useState<boolean | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   // If initialTokens is provided, use it; otherwise, fetch the data
   useEffect(() => {
@@ -123,6 +135,7 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
       setError("Failed to load price data. Please try again later.");
     } finally {
       setIsLoading(false);
+      setIsRefreshing(false);
     }
   };
 
@@ -206,6 +219,7 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
       setError("Failed to load token data. Please try again later.");
     } finally {
       setIsLoading(false);
+      setIsRefreshing(false);
     }
   };
 
@@ -233,13 +247,23 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
       if (prev.includes(assetID)) {
         return prev.filter(id => id !== assetID);
       }
-      // If not selected and under 20 limit, add it
+      // If not selected and under limit, add it
       else if (prev.length < 25) {
         return [...prev, assetID];
       }
       // If at limit, don't add
       return prev;
     });
+  };
+  
+  // Handle refresh button click
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    if (initialTokens && initialTokens.length > 0) {
+      fetchPriceDataForTokens(initialTokens);
+    } else {
+      fetchTokenData();
+    }
   };
   
   // Update displayed tokens when selection changes
@@ -262,194 +286,182 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
       }
     `;
   };
+  
+  // Filter tokens by search term and gains/losses
+  const filteredTokens = allTokens.filter(token => {
+    const matchesSearch = token.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                          token.assetID.toString().includes(searchTerm);
+    
+    // Filter by gainers/losers if filter is active
+    if (filterGainers === true) {
+      return matchesSearch && token.priceChange24H > 0;
+    } else if (filterGainers === false) {
+      return matchesSearch && token.priceChange24H < 0;
+    }
+    
+    return matchesSearch;
+  });
 
   return (
-    <div 
-      className={`token-bubbles-container ${styles['mobile-container']}`}
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "500px",
-        marginTop: "20px",
-        marginBottom: "20px",
-        border: "1px solid #eaeaea",
-        borderRadius: "8px",
-        padding: "10px",
-        overflow: "hidden",
-        background: "#f8f9fa",
-        display: "flex"
-      }}
-    >
-      {/* Left sidebar for title and interval selection */}
-      <div 
-        className={styles['mobile-sidebar']}
-        style={{ 
-          width: "200px", 
-          padding: "20px", 
-          borderRight: "1px solid #eaeaea",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start"
-        }}
-      >
-        <h2 style={{ 
-          textAlign: "left", 
-          marginBottom: "20px",
-          fontSize: "1.5rem"
-        }}>
-          Token Price Changes
-        </h2>
-        
-        <div style={{ 
-          display: "flex", 
-          flexDirection: "column", 
-          alignItems: "flex-start", 
-          width: "100%" 
-        }}>
-          <label htmlFor="interval-selector" style={{ 
-            marginBottom: "10px", 
-            fontWeight: "bold" 
-          }}>
-            Select Interval:
-          </label>
-          <select
-            id="interval-selector"
-            value={priceChangeInterval}
-            onChange={handleIntervalChange}
-            style={{
-              padding: "5px 10px",
-              borderRadius: "4px",
-              border: "1px solid #ccc",
-              width: "100%"
-            }}
-          >
-            <option value="1H">1 Hour</option>
-            <option value="1D">1 Day</option>
-            <option value="7D">7 Days</option>
-          </select>
-          <div style={{ 
-            marginTop: "10px", 
-            fontSize: "0.8rem", 
-            color: "#666" 
-          }}>
-            Current: {priceChangeInterval}
+    <div className={styles.premiumContainer}>
+      {/* Left sidebar */}
+      <div className={styles.premiumSidebar}>
+        <div className={styles.sidebarHeader}>
+          <div className={styles.titleContainer}>
+            <FaChartLine className={styles.titleIcon} />
+            <h2 className={styles.sidebarTitle}>Token Price Changes</h2>
           </div>
           
-          <button
-            onClick={() => setShowTokenSelector(!showTokenSelector)}
-            style={{
-              marginTop: "20px",
-              padding: "8px 12px",
-              backgroundColor: "#4682B4",
-              color: "white",
-              border: "none",
-              borderRadius: "4px",
-              cursor: "pointer",
-              fontWeight: "bold",
-              width: "100%"
-            }}
-          >
-            {showTokenSelector ? "Hide Token Selector" : "Show Token Selector"}
-          </button>
-          
-          {showTokenSelector && (
-            <div style={{
-              marginTop: "15px",
-              border: "1px solid #eaeaea",
-              borderRadius: "4px",
-              padding: "10px",
-              maxHeight: "200px",
-              overflowY: "auto",
-              width: "100%",
-              paddingBottom: "15px" // Add extra padding at bottom
-            }}>
-              <div style={{ 
-                marginBottom: "12px", 
-                fontSize: "0.9rem", 
-                fontWeight: "bold",
-                paddingBottom: "5px",
-                borderBottom: "1px solid #eaeaea"
-              }}>
-                Selected: {selectedTokenIds.length}/25
+          <div className={styles.refreshButton} onClick={handleRefresh}>
+            <FaSyncAlt className={`${styles.refreshIcon} ${isRefreshing ? styles.spinning : ''}`} />
+          </div>
+        </div>
+        
+        <div className={styles.intervalSelector}>
+          <div className={styles.selectorLabel}>
+            <FaRegClock className={styles.selectorIcon} />
+            <span>Time Interval</span>
+          </div>
+          <div className={styles.intervalOptions}>
+            <button 
+              className={`${styles.intervalButton} ${priceChangeInterval === "1H" ? styles.activeInterval : ""}`}
+              onClick={() => setPriceChangeInterval("1H")}
+            >
+              1H
+            </button>
+            <button 
+              className={`${styles.intervalButton} ${priceChangeInterval === "1D" ? styles.activeInterval : ""}`}
+              onClick={() => setPriceChangeInterval("1D")}
+            >
+              1D
+            </button>
+            <button 
+              className={`${styles.intervalButton} ${priceChangeInterval === "7D" ? styles.activeInterval : ""}`}
+              onClick={() => setPriceChangeInterval("7D")}
+            >
+              7D
+            </button>
+          </div>
+        </div>
+        
+        <div className={styles.selectorToggle} onClick={() => setShowTokenSelector(!showTokenSelector)}>
+          <span>Select Tokens</span>
+          {showTokenSelector ? <FaAngleUp /> : <FaAngleDown />}
+        </div>
+        
+        {showTokenSelector && (
+          <div className={styles.tokenSelector}>
+            <div className={styles.tokenSelectorHeader}>
+              <div className={styles.searchContainer}>
+                <FaSearch className={styles.searchIcon} />
+                <input 
+                  type="text" 
+                  placeholder="Search tokens..." 
+                  className={styles.searchInput}
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
               </div>
-              {allTokens.map((token, idx) => (
+              
+              <div className={styles.filterButtons}>
+                <button 
+                  className={`${styles.filterButton} ${filterGainers === true ? styles.activeFilter : ""}`}
+                  onClick={() => setFilterGainers(filterGainers === true ? null : true)}
+                >
+                  Gainers
+                </button>
+                <button 
+                  className={`${styles.filterButton} ${filterGainers === false ? styles.activeFilter : ""}`}
+                  onClick={() => setFilterGainers(filterGainers === false ? null : false)}
+                >
+                  Losers
+                </button>
+              </div>
+              
+              <div className={styles.selectionCount}>
+                Selected: <span className={styles.countHighlight}>{selectedTokenIds.length}/25</span>
+              </div>
+            </div>
+            
+            <div className={styles.tokenList}>
+              {filteredTokens.map((token) => (
                 <div 
                   key={token.assetID}
-                  style={{ 
-                    display: "flex", 
-                    alignItems: "center", 
-                    marginBottom: idx === allTokens.length - 1 ? "10px" : "8px", // Extra margin for last item
-                    padding: "5px",
-                    backgroundColor: selectedTokenIds.includes(token.assetID) ? "#f0f8ff" : "transparent",
-                    borderRadius: "4px",
-                    cursor: "pointer"
-                  }}
+                  className={`${styles.tokenListItem} ${selectedTokenIds.includes(token.assetID) ? styles.selectedToken : ""}`}
                   onClick={() => handleTokenSelection(token.assetID)}
                 >
-                  <img 
-                    src={token.logo} 
-                    alt={token.name}
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                      borderRadius: "50%",
-                      marginRight: "8px",
-                      backgroundColor: "white",
-                      padding: "1px"
-                    }}
-                  />
-                  <div style={{ fontSize: "0.9rem", flex: 1, overflow: "hidden", textOverflow: "ellipsis" }}>
-                    {token.name}
+                  <div className={styles.tokenInfo}>
+                    <img 
+                      src={token.logo} 
+                      alt={token.name}
+                      className={styles.tokenLogo}
+                    />
+                    <span className={styles.tokenName}>{token.name}</span>
                   </div>
-                  <input 
-                    type="checkbox"
-                    checked={selectedTokenIds.includes(token.assetID)}
-                    onChange={() => {}}
-                    style={{ marginLeft: "5px" }}
-                  />
+                  
+                  <div className={styles.tokenChange}>
+                    <span className={token.priceChange24H >= 0 ? styles.positiveChange : styles.negativeChange}>
+                      {token.priceChange24H > 0 ? "+" : ""}{token.priceChange24H?.toFixed(2)}%
+                    </span>
+                    <div className={styles.checkboxWrapper}>
+                      {selectedTokenIds.includes(token.assetID) && <FaCheckCircle className={styles.checkIcon} />}
+                    </div>
+                  </div>
                 </div>
               ))}
+              
+              {filteredTokens.length === 0 && (
+                <div className={styles.noResults}>
+                  No tokens found matching your search
+                </div>
+              )}
             </div>
-          )}
+          </div>
+        )}
+        
+        <div className={styles.legendContainer}>
+          <div className={styles.legendTitle}>Legend</div>
+          <div className={styles.legendItem}>
+            <div className={styles.legendBubble} style={{ backgroundColor: 'rgba(0, 180, 0, 0.85)' }}></div>
+            <span>Price Increase</span>
+          </div>
+          <div className={styles.legendItem}>
+            <div className={styles.legendBubble} style={{ backgroundColor: 'rgba(220, 0, 0, 0.85)' }}></div>
+            <span>Price Decrease</span>
+          </div>
+          <div className={styles.legendInfo}>
+            <em>Bubble size indicates volatility magnitude</em>
+          </div>
         </div>
       </div>
 
       {/* Bubbles container */}
-      <div 
-        className={styles['mobile-bubbles-container']}
-        style={{ 
-          position: "relative", 
-          flex: 1, 
-          overflow: "hidden" 
-        }}
-      >
+      <div className={styles.bubblesContainer}>
         {/* Keyframe styles */}
         <style>{
           bubbleTokens.map((token, index) => generateBubbleKeyframes(index)).join('\n')
         }</style>
 
         {isLoading ? (
-          <div 
-            className={styles['mobile-loading']}
-            style={{ 
-              display: "flex", 
-              justifyContent: "center", 
-              alignItems: "center", 
-              height: "80%" 
-            }}
-          >
-            <FaTruckLoading style={{ fontSize: "2rem", marginRight: "10px" }} />
-            <span>Loading token data...</span>
+          <div className={styles.loadingState}>
+            <div className={styles.loadingSpinner}></div>
+            <span className={styles.loadingText}>Loading token data...</span>
           </div>
         ) : error ? (
-          <div style={{ 
-            display: "flex", 
-            justifyContent: "center", 
-            alignItems: "center", 
-            height: "80%",
-            color: "red" 
-          }}>
-            {error}
+          <div className={styles.errorState}>
+            <div className={styles.errorIcon}>!</div>
+            <span className={styles.errorText}>{error}</span>
+            <button className={styles.retryButton} onClick={handleRefresh}>
+              Try Again
+            </button>
+          </div>
+        ) : bubbleTokens.length === 0 ? (
+          <div className={styles.emptyState}>
+            <div className={styles.emptyIcon}>
+              <FaFilter size={32} />
+            </div>
+            <span className={styles.emptyText}>No tokens selected</span>
+            <span className={styles.emptySubtext}>Select tokens from the sidebar to visualize</span>
           </div>
         ) : (
           bubbleTokens.map((token, index) => {
@@ -474,68 +486,38 @@ const TokenBubbles = ({ initialTokens = tokenData, priceChangeIntervalProp = "1D
               <Link
                 key={token.assetID}
                 to={`/token-details?assetId=${token.assetID}&name=${token.name}&logo=${token.logo}&price=${token.latestPrice}&change=${token.priceChange24H}&holders=${token.holders}&totalTVL=${token.totalTVL || 0}&fullTVL=${token.fullTVL || 0}&stableTVL=${token.stableTVL || false}`}
-                style={{ textDecoration: "none" }}
+                className={styles.bubbleLink}
               >
                 <div 
-                  className={`token-bubble ${styles['mobile-bubble']}`}
+                  className={styles.tokenBubble}
                   style={{
                     position: "absolute",
                     left: `${left}%`,
                     top: `${top}%`,
                     width: `${size}px`,
                     height: `${size}px`,
-                    borderRadius: "50%",
                     backgroundColor: color,
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    color: "white",
                     fontSize: size > 90 ? "14px" : size > 70 ? "12px" : "10px",
-                    fontWeight: "bold",
-                    padding: "5px",
-                    textAlign: "center",
-                    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-                    transition: "transform 0.3s ease",
-                    zIndex: Math.round(Math.abs(token.priceChange24H)),
-                    cursor: "pointer",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
                     animation: `float${index} ${Math.random() * 2 + 3}s ease-in-out infinite`,
-                  }}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.transform = "scale(1.1)";
-                    e.currentTarget.style.zIndex = "1000";
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.transform = "scale(1)";
-                    e.currentTarget.style.zIndex = Math.round(Math.abs(token.priceChange24H)).toString();
+                    zIndex: Math.round(Math.abs(token.priceChange24H || 0)),
                   }}
                 >
                   <img 
                     src={token.logo} 
                     alt={token.name}
+                    className={styles.bubbleLogo}
                     style={{
                       width: `${size * 0.4}px`,
                       height: `${size * 0.4}px`,
-                      borderRadius: "50%",
-                      marginBottom: "2px",
-                      backgroundColor: "white",
-                      padding: "2px"
                     }}
                   />
-                  <div style={{ 
+                  <div className={styles.bubbleName} style={{ 
                     fontSize: size > 90 ? "12px" : size > 70 ? "10px" : "8px",
-                    width: "100%",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis"
                   }}>
                     {token.name}
                   </div>
-                  <div style={{ 
+                  <div className={styles.bubbleChange} style={{ 
                     fontSize: size > 90 ? "14px" : size > 70 ? "12px" : "10px",
-                    fontWeight: "bold"
                   }}>
                     {token.priceChange24H > 0 ? "+" : ""}{token.priceChange24H?.toFixed(2)}%
                   </div>
