@@ -132,13 +132,50 @@
   gap: 18px;
 }
 
+/* New styles for input groups with icons */
+.inputGroup {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: var(--gray-400);
+  pointer-events: none;
+  z-index: 1;
+  transition: color 0.2s ease;
+}
+
+.inputIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.inputGroup:focus-within .inputIcon {
+  color: var(--primary-blue);
+}
+
 .authInput {
-  padding: 14px 16px;
+  width: 100%;
+  padding: 14px 16px 14px 44px; /* Increased left padding to make room for icon */
   border: 2px solid var(--gray-200);
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.2s ease;
   background-color: var(--gray-50);
+}
+
+.recaptchaWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
 .authInput:focus {
@@ -165,6 +202,7 @@
   position: relative;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
+  width: 100%;
 }
 
 /* Button animation effect */
@@ -193,6 +231,17 @@
   transform: translateY(0);
 }
 
+.authButton:disabled {
+  background: var(--gray-300);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.authButton:disabled::after {
+  display: none;
+}
+
 .toggleContainer {
   display: flex;
   justify-content: center;
@@ -212,12 +261,49 @@
   transition: all 0.2s ease;
 }
 
+.toggleButton:hover {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.toggleButton.active {
+  background: var(--primary-blue);
+  color: white;
+}
+
 .walletMessage {
   text-align: center;
   color: var(--gray-500);
   margin-top: 16px;
   font-size: 1rem;
   font-style: italic;
+}
+
+/* Password feedback styling */
+.passwordFeedback, .errorFeedback {
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.passwordFeedback {
+  color: var(--gray-800);
+  background-color: var(--gray-100);
+}
+
+.passwordFeedback:empty, .errorFeedback:empty {
+  display: none;
+}
+
+/* Strong password styling */
+.passwordFeedback:contains("Strong password!") {
+  color: var(--success-green);
+  background-color: rgba(16, 185, 129, 0.1);
+}
+
+.errorFeedback {
+  color: var(--error-red);
+  background-color: rgba(239, 68, 68, 0.1);
 }
 
 /* Loading message styling */
@@ -307,10 +393,16 @@
   }
 
   .authInput {
-    padding: 12px 14px;
+    padding: 12px 12px 12px 40px; /* Reduced padding for mobile */
     font-size: 1rem;
     width: 100%; /* Full width inputs */
     box-sizing: border-box; /* Include padding in width calculation */
+  }
+
+  .inputIcon {
+    left: 12px; /* Adjusted for mobile */
+    width: 16px;
+    height: 16px;
   }
 
   .authButton {
