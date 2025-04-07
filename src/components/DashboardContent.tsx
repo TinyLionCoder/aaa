@@ -8,6 +8,9 @@ import {
   FaChartLine,
   FaRegIdBadge,
   FaCheck,
+  FaLink,
+  FaCalculator,
+  FaBell
 } from "react-icons/fa";
 import axios from "axios";
 import styles from "../css_modules/DashboardContentStyles.module.css";
@@ -38,6 +41,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
   userId,
 }) => {
   const [currentPayout, setCurrentPayout] = useState<number>(0);
+  const [copySuccess, setCopySuccess] = useState<boolean>(false);
 
   useEffect(() => {
     if (userId) {
@@ -68,123 +72,216 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
     }
   };
 
+  const copyReferralLink = () => {
+    navigator.clipboard.writeText(referralLink);
+    setCopySuccess(true);
+    setTimeout(() => setCopySuccess(false), 2000);
+  };
+
   return (
-    <div>
+    <div className={styles.dashboardContentWrapper}>
+      <h2 className={styles.dashboardTitle}>
+        <span className={styles.titleText}>Account Dashboard</span>
+      </h2>
+      
       {/* Stats Cards */}
       <div className={styles.statsCards}>
-        <div className={`${styles.statCard} ${styles["statCard-balance"]}`}>
-          <h4>
-            <FaCoins className={styles.icon} /> Pending Verification Balance
-          </h4>
-          {verified ? (
-            <p>{aaaBalance} AAA</p>
-          ) : (
-            <p>
-              <strong>{aaaBalance} AAA (Pending)</strong>
-              <br />
-              <span className={styles.pendingMessage}>
-                Requires verification to claim rewards.
-              </span>
-            </p>
-          )}
-          <div>
-            <h4>
-              <FaCheck className={styles.eligibleForPayout} /> Ready for payout
-            </h4>
-            {currentPayout ? <p>{currentPayout} AAA</p> : <p>0 AAA</p>}
+        <div className={`${styles.statCard} ${styles.balanceCard}`}>
+          <div className={styles.statCardHeader}>
+            <div className={styles.iconWrapper}><FaCoins className={styles.icon} /></div>
+            <h3>Pending Verification Balance</h3>
+          </div>
+          <div className={styles.statCardBody}>
+            {verified ? (
+              <div className={styles.balanceAmount}>{aaaBalance} <span className={styles.currency}>AAA</span></div>
+            ) : (
+              <div className={styles.pendingBalance}>
+                <div className={styles.balanceAmount}>{aaaBalance} <span className={styles.currency}>AAA</span></div>
+                <div className={styles.pendingMessage}>
+                  <FaShieldAlt className={styles.warningIcon} /> Requires verification to claim rewards.
+                </div>
+              </div>
+            )}
+            <div className={styles.divider}></div>
+            <div className={styles.payoutSection}>
+              <div className={styles.payoutHeader}>
+                <FaCheck className={styles.eligibleForPayout} /> 
+                <h4>Ready for payout</h4>
+              </div>
+              <div className={styles.payoutAmount}>
+                {currentPayout ? currentPayout : "0"} <span className={styles.currency}>AAA</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div className={`${styles.statCard} ${styles["statCard-sponsor"]}`}>
-          <h3>
-            <FaRegIdBadge className={styles.icon} /> Ranking and Badges
-          </h3>
-          <div className={`${styles.badgesAndRanking}`}>
-            <p>
-              {localStorage.getItem("badgeRanking") === learner ? (
-                <img src={learn} alt="badge" style={{ maxWidth: "60px" }} />
-              ) : localStorage.getItem("badgeRanking") === wealthBuilder ? (
-                <img
-                  src={wealthBuilderBadge}
-                  alt="badge"
-                  style={{ maxWidth: "60px" }}
-                />
+        
+        <div className={`${styles.statCard} ${styles.badgeCard}`}>
+          <div className={styles.statCardHeader}>
+            <div className={styles.iconWrapper}><FaRegIdBadge className={styles.icon} /></div>
+            <h3>Ranking and Badges</h3>
+          </div>
+          <div className={styles.statCardBody}>
+            <div className={styles.badgesContainer}>
+              <div className={styles.badgeImage}>
+                {localStorage.getItem("badgeRanking") === learner ? (
+                  <img src={learn} alt="Learner Badge" />
+                ) : localStorage.getItem("badgeRanking") === wealthBuilder ? (
+                  <img src={wealthBuilderBadge} alt="Wealth Builder Badge" />
+                ) : (
+                  <img src={diamondHandsBadge} alt="Diamond Hands Badge" />
+                )}
+              </div>
+              <div className={styles.badgeRank}>
+                {localStorage.getItem("badgeRanking") || "Learner"}
+              </div>
+            </div>
+            <a
+              href="https://www.algoadoptairdrop.com/badges"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.rankDetailsBtn}
+            >
+              View Rank Details
+            </a>
+          </div>
+        </div>
+        
+        <div className={`${styles.statCard} ${styles.referralsCard}`}>
+          <div className={styles.statCardHeader}>
+            <div className={styles.iconWrapper}><FaUserFriends className={styles.icon} /></div>
+            <h3>Referrals</h3>
+          </div>
+          <div className={styles.statCardBody}>
+            <div className={styles.referralCount}>{referrals}</div>
+            <div className={styles.referralGrowth}>
+              <div className={styles.growthLabel}>Team Growth</div>
+              <div className={styles.growthBar}>
+                <div 
+                  className={styles.growthFill} 
+                  style={{ width: `${Math.min(referrals * 5, 100)}%` }}
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className={`${styles.statCard} ${styles.statusCard}`}>
+          <div className={styles.statCardHeader}>
+            <div className={styles.iconWrapper}><FaShieldAlt className={styles.icon} /></div>
+            <h3>Account Status</h3>
+          </div>
+          <div className={styles.statCardBody}>
+            <div className={styles.statusDisplay}>
+              {verified ? (
+                <div className={styles.verifiedStatus}>
+                  <div className={styles.statusIcon}><FaCheck /></div>
+                  <div className={styles.statusText}>Verified</div>
+                </div>
               ) : (
-                <img
-                  src={diamondHandsBadge}
-                  alt="badge"
-                  style={{ maxWidth: "60px" }}
-                />
+                <div className={styles.unverifiedStatus}>
+                  <div className={styles.statusIcon}><FaShieldAlt /></div>
+                  <div className={styles.statusText}>Not Verified</div>
+                </div>
               )}
-            </p>
-            <h4>{localStorage.getItem("badgeRanking")}</h4>
+            </div>
           </div>
-          <a
-            href="https://www.algoadoptairdrop.com/badges"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.badgesAndRankingLink}
-          >
-            View Rank Details
-          </a>
-        </div>
-        <div className={`${styles.statCard} ${styles["statCard-referrals"]}`}>
-          <h3>
-            <FaUserFriends className={styles.icon} /> Referrals
-          </h3>
-          <p>{referrals}</p>
-        </div>
-        <div className={`${styles.statCard} ${styles["statCard-status"]}`}>
-          <h3>
-            <FaShieldAlt className={styles.icon} /> Status
-          </h3>
-          <p>{verified ? "Verified" : "Not Verified"}</p>
         </div>
       </div>
 
       {/* Detailed Cards */}
       <div className={styles.detailCards}>
         <div className={styles.detailCard}>
-          <FaInfoCircle className={styles.icon} />
-          <h3>Account Info</h3>
-          <p>Name: {userName}</p>
-          <p>Status: {verified ? "Verified" : "Not Verified"}</p>
+          <div className={styles.detailCardHeader}>
+            <div className={styles.iconWrapper}><FaInfoCircle className={styles.icon} /></div>
+            <h3>Account Info</h3>
+          </div>
+          <div className={styles.detailCardBody}>
+            <div className={styles.infoRow}>
+              <div className={styles.infoLabel}>Name</div>
+              <div className={styles.infoValue}>{userName}</div>
+            </div>
+            <div className={styles.infoRow}>
+              <div className={styles.infoLabel}>Status</div>
+              <div className={styles.infoValue}>
+                {verified ? (
+                  <span className={styles.verifiedLabel}>Verified</span>
+                ) : (
+                  <span className={styles.unverifiedLabel}>Not Verified</span>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
+        
         <div className={styles.detailCard}>
-          <FaWallet className={styles.icon} />
-          <AccountBalance userId={userId} />
+          <div className={styles.detailCardHeader}>
+            <div className={styles.iconWrapper}><FaWallet className={styles.icon} /></div>
+            <h3>Wallet Balance</h3>
+          </div>
+          <div className={styles.detailCardBody}>
+            <AccountBalance userId={userId} />
+          </div>
         </div>
+        
         <div className={styles.detailCard}>
-          <FaChartLine className={styles.icon} />
-          <AaaStats />
+          <div className={styles.detailCardHeader}>
+            <div className={styles.iconWrapper}><FaChartLine className={styles.icon} /></div>
+            <h3>AAA Statistics</h3>
+          </div>
+          <div className={styles.detailCardBody}>
+            <AaaStats />
+          </div>
         </div>
       </div>
 
-      <div className={styles.notificatioSection}>
-        <h3>Notification</h3>
-        <p className={styles.content}>
-          Payments will be deposited directly into your wallets the first week
-          of every month
-          {/* We are working on security and efficiency, Once ready, all aaa tokens
-          from verified members will be deposited directly into your wallets */}
-        </p>
+      {/* Notification Section */}
+      <div className={styles.notificationSection}>
+        <div className={styles.notificationHeader}>
+          <div className={styles.iconWrapper}><FaBell className={styles.icon} /></div>
+          <h3>Important Notice</h3>
+        </div>
+        <div className={styles.notificationContent}>
+          <p>Payments will be deposited directly into your wallets the first week of every month</p>
+        </div>
       </div>
-      <DailyCheckIn userId={userId || ""} />
+      
+      {/* Daily Check-in */}
+      <div className={styles.checkInContainer}>
+        <DailyCheckIn userId={userId || ""} />
+      </div>
+      
       {/* Referral Link */}
       <div className={styles.referralSection}>
-        <h3>Your Referral Link</h3>
-        <a
-          href={referralLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.referralLink}
-        >
-          {referralLink}
-        </a>
+        <div className={styles.sectionHeader}>
+          <div className={styles.iconWrapper}><FaLink className={styles.icon} /></div>
+          <h3>Your Referral Link</h3>
+        </div>
+        <div className={styles.referralLinkContainer}>
+          <input 
+            type="text" 
+            className={styles.referralLinkInput} 
+            value={referralLink} 
+            readOnly 
+          />
+          <button 
+            className={styles.copyButton}
+            onClick={copyReferralLink}
+          >
+            {copySuccess ? "Copied!" : "Copy"}
+          </button>
+        </div>
+        <p className={styles.referralTip}>Share this link to invite new members and earn rewards</p>
       </div>
 
       {/* Calculator */}
-      <div className={styles.calculator}>
-        <ReferralCalculator />
+      <div className={styles.calculatorSection}>
+        <div className={styles.sectionHeader}>
+          <div className={styles.iconWrapper}><FaCalculator className={styles.icon} /></div>
+          <h3>Referral Earnings Calculator</h3>
+        </div>
+        <div className={styles.calculatorContainer}>
+          <ReferralCalculator />
+        </div>
       </div>
     </div>
   );
