@@ -275,10 +275,6 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
 
       {/* Calculator */}
       <div className={styles.calculatorSection}>
-        <div className={styles.sectionHeader}>
-          <div className={styles.iconWrapper}><FaCalculator className={styles.icon} /></div>
-          <h3>Referral Earnings Calculator</h3>
-        </div>
         <div className={styles.calculatorContainer}>
           <ReferralCalculator />
         </div>
