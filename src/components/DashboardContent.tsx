@@ -93,7 +93,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
           </div>
           <div className={styles.statCardBody}>
             {verified ? (
-              <div className={styles.balanceAmount}>{aaaBalance} <span className={styles.currency}>AAA</span></div>
+              <div className={styles.balanceAmount}>{aaaBalance.toFixed(1)} <span className={styles.currency}>AAA</span></div>
             ) : (
               <div className={styles.pendingBalance}>
                 <div className={styles.balanceAmount}>{aaaBalance} <span className={styles.currency}>AAA</span></div>
