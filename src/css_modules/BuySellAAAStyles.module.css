@@ -534,7 +534,7 @@
 /* Extra Small Screens */
 @media (max-width: 480px) {
   .buySellContainer {
-    padding: 1rem;
+    padding: 0rem;
     margin: 0.5rem;
   }
 
@@ -547,7 +547,7 @@
   }
 
   .section {
-    padding: 1rem;
+    padding: 0rem;
     margin-bottom: 1rem;
   }
 
