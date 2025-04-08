@@ -9,29 +9,29 @@
   --primary-darker: #4338ca;
   --primary-bg: rgba(99, 102, 241, 0.08);
   --primary-gradient: linear-gradient(135deg, #4f46e5, #6366f1);
-  
+
   /* Secondary colors */
   --secondary: #0ea5e9;
   --secondary-light: #38bdf8;
   --secondary-dark: #0284c7;
   --secondary-gradient: linear-gradient(135deg, #0284c7, #0ea5e9);
-  
+
   /* Status colors */
   --success: #10b981;
   --success-light: #34d399;
   --success-bg: rgba(16, 185, 129, 0.08);
   --success-gradient: linear-gradient(135deg, #059669, #10b981);
-  
+
   --danger: #ef4444;
   --danger-light: #f87171;
   --danger-dark: #dc2626;
   --danger-gradient: linear-gradient(135deg, #dc2626, #ef4444);
-  
+
   --warning: #f59e0b;
   --warning-light: #fbbf24;
   --warning-dark: #d97706;
   --warning-gradient: linear-gradient(135deg, #d97706, #f59e0b);
-  
+
   /* Chart colors */
   --price-color: #0284c7;
   --price-bg: rgba(2, 132, 199, 0.1);
@@ -39,11 +39,11 @@
   --tvl-bg: rgba(5, 150, 105, 0.1);
   --tx-color: #7c3aed;
   --tx-bg: rgba(124, 58, 237, 0.1);
-  
+
   /* Neutrals */
   --white: #ffffff;
   --black: #111827;
-  
+
   --gray-50: #f9fafb;
   --gray-100: #f3f4f6;
   --gray-200: #e5e7eb;
@@ -54,10 +54,10 @@
   --gray-700: #374151;
   --gray-800: #1f2937;
   --gray-900: #111827;
-  
+
   /* Typography */
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  
+
   /* Shadows */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -65,7 +65,7 @@
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
   --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.05), 0 10px 15px -5px rgba(0, 0, 0, 0.05);
-  
+
   /* Border Radius */
   --radius-sm: 0.25rem;
   --radius-md: 0.375rem;
@@ -74,7 +74,7 @@
   --radius-2xl: 1rem;
   --radius-3xl: 1.5rem;
   --radius-full: 9999px;
-  
+
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -552,8 +552,13 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Error State */
@@ -637,115 +642,424 @@
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-/* Responsive */
+/* Updated Mobile Responsive Styles */
+
+/* Base Mobile Improvements */
 @media screen and (max-width: 1024px) {
   .container {
     margin: 2rem 1.5rem;
+    max-width: 100%;
   }
-  
+
   .pageHeader {
     padding: 2.5rem 2rem 1.5rem;
   }
-  
+
   .pageBody {
     padding: 0 2rem 2rem;
   }
-  
+
   .title {
     font-size: 2rem;
   }
-  
+
   .tokenLogo {
     width: 80px;
     height: 80px;
   }
-  
+
   .statsGrid {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
   }
-  
+
   .tokenDistribution {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .statCard {
+    min-width: 180px;
   }
 }
 
+/* Tablet Improvements */
 @media screen and (max-width: 768px) {
   .container {
     margin: 1.5rem 1rem;
   }
-  
+
   .pageHeader {
     padding: 2rem 1.5rem 1.25rem;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   }
-  
+
   .pageBody {
     padding: 0 1.5rem 1.5rem;
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
   }
-  
+
   .title {
     font-size: 1.75rem;
+    padding: 0 0.5rem;
   }
-  
+
   .tokenLogo {
     width: 70px;
     height: 70px;
+    margin-bottom: 1.25rem;
   }
-  
+
+  .topStats {
+    gap: 0.75rem;
+  }
+
   .chartHeader {
     flex-direction: column;
     align-items: flex-start;
+    gap: 0.75rem;
   }
-  
+
+  .chartControls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .chartSelect {
+    flex: 1;
+    text-align: center;
+  }
+
   .statsGrid {
-    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
-  
+
   .projectInfo {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
-  
+
   .tokenDistribution {
     grid-template-columns: 1fr;
   }
-}
 
-@media screen and (max-width: 480px) {
-  .pageHeader {
-    padding: 1.5rem 1.25rem 1rem;
+  .socialLinks {
+    justify-content: center;
   }
-  
-  .pageBody {
-    padding: 0 1.25rem 1.25rem;
-  }
-  
-  .title {
-    font-size: 1.5rem;
-  }
-  
-  .tokenLogo {
-    width: 60px;
-    height: 60px;
-  }
-  
-  .topStats {
-    flex-direction: column;
-  }
-  
-  .statCard {
-    /* width: 100%; */
-  }
-  
+
   .statItem {
     padding: 0.875rem;
   }
-  
+
+  .chartContainer {
+    padding: 1.125rem;
+  }
+
+  .section {
+    margin-top: 2rem;
+  }
+
+  .sectionHeader {
+    margin-bottom: 1rem;
+  }
+
+  .sectionContent {
+    padding: 1.25rem;
+  }
+}
+
+/* Small Mobile Improvements */
+@media screen and (max-width: 480px) {
+  .container {
+    margin: 1rem 0.75rem;
+  }
+
+  .pageHeader {
+    padding: 1.5rem 1.25rem 1rem;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+
+  .pageBody {
+    padding: 0 1.25rem 1.25rem;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .title::after {
+    width: 40px;
+    height: 3px;
+  }
+
+  .tokenLogo {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+  }
+
+  .topStats {
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .statCard {
+    width: 100%;
+    min-width: 100%;
+    padding: 1rem;
+  }
+
+  .statTitle {
+    font-size: 0.8125rem;
+  }
+
+  .statValue {
+    font-size: 1.25rem;
+  }
+
+  .statChange {
+    font-size: 0.8125rem;
+  }
+
+  .section {
+    margin-top: 1.75rem;
+  }
+
+  .sectionIcon {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .subTitle {
+    font-size: 1.25rem;
+  }
+
+  .sectionContent {
+    padding: 1rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .statItem {
+    padding: 0.875rem;
+  }
+
+  .statLabel {
+    font-size: 0.8125rem;
+  }
+
+  .statData {
+    font-size: 0.9375rem;
+  }
+
   .chartContainer {
     padding: 1rem;
+  }
+
+  .chartContainerTitle {
+    font-size: 0.9375rem;
+  }
+
+  .poolItemHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.375rem;
+  }
+
+  .poolProvider {
+    font-size: 0.9375rem;
+  }
+
+  .poolTVL {
+    font-size: 0.875rem;
+  }
+
+  .poolAssets {
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+
+  .assetPair {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .verifiedBadge,
+  .unverifiedBadge,
+  .tierBadge {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .lpScrollBox {
+    max-height: 300px;
+  }
+}
+
+/* Extra Small Mobile Improvements */
+@media screen and (max-width: 360px) {
+  .container {
+    margin: 0.75rem 0.5rem;
+  }
+
+  .pageHeader {
+    padding: 1.25rem 1rem 0.75rem;
+  }
+
+  .pageBody {
+    padding: 0 1rem 1rem;
+  }
+
+  .title {
+    font-size: 1.375rem;
+  }
+
+  .tokenLogo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .statCard {
+    padding: 0.875rem;
+  }
+
+  .statValue {
+    font-size: 1.125rem;
+  }
+
+  .chartSelect {
+    padding: 0.375rem 0.625rem;
+    font-size: 0.75rem;
+  }
+
+  .sectionContent {
+    padding: 0.875rem;
+  }
+
+  .chartContainer {
+    padding: 0.875rem;
+  }
+
+  .socialLink {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .loadingSpinner {
+    width: 36px;
+    height: 36px;
+  }
+
+  .loadingText {
+    font-size: 1rem;
+  }
+}
+
+/* Component-Specific Mobile Optimizations */
+
+/* Better Chart Responsiveness */
+@media screen and (max-width: 768px) {
+  .chartControls {
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    justify-content: flex-start;
+  }
+
+  .chartControls::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chartSelect {
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+}
+
+/* Improved Fluid Typography */
+@media screen and (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+/* Touch Optimizations */
+@media (hover: none) {
+
+  .statCard:hover,
+  .statItem:hover,
+  .chartContainer:hover,
+  .socialLink:hover,
+  .tokenLogo:hover {
+    transform: none;
+    box-shadow: var(--shadow-md);
+  }
+
+  .statCard:active,
+  .statItem:active,
+  .chartContainer:active {
+    transform: scale(0.98);
+    transition: transform 0.1s;
+  }
+
+  .socialLink:active,
+  .tokenLogo:active {
+    transform: scale(0.95);
+    transition: transform 0.1s;
+  }
+
+  /* Improve tap targets */
+  .chartSelect,
+  .socialLink,
+  .poolItem,
+  .retryButton {
+    min-height: 44px;
+  }
+}
+
+/* Better Grid System for mobile */
+@media screen and (max-width: 640px) {
+  .statsGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* Fix the empty commented rule */
+  .statCard {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+/* Make sure the scrollable areas are obvious on mobile */
+@media screen and (max-width: 768px) {
+  .lpScrollBox {
+    position: relative;
+  }
+
+  .lpScrollBox::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    pointer-events: none;
+    border-bottom-left-radius: var(--radius-lg);
+    border-bottom-right-radius: var(--radius-lg);
   }
 }
