@@ -266,8 +266,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                       <span>Diamond Hands and Above</span>
                     </li>
                   ) : null}
-                  {localStorage.getItem("badgeRanking") === diamondHands ||
-                  localStorage.getItem("badgeRanking") === wealthBuilder ? (
+                  {localStorage.getItem("badgeRanking") === wealthBuilder ? (
                     <li
                       className={`${styles.navItem} ${
                         activeItem === "wealthBuilders"
