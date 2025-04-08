@@ -23,6 +23,11 @@
   --processing: #6366f1;
   --processing-light: #e0e7ff;
   
+  --algo-blue: #000c41;
+  --algo-blue-light: rgba(0, 12, 65, 0.1);
+  --algo-teal: #00bfb3;
+  --algo-black: #000000;
+  
   --neutral-50: #f9fafb;
   --neutral-100: #f3f4f6;
   --neutral-200: #e5e7eb;
@@ -91,6 +96,12 @@
   to { transform: rotate(360deg); }
 }
 
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 /* Enhanced Container */
 .container {
   max-width: 600px;
@@ -115,7 +126,9 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(to right, var(--primary), var(--primary-light));
+  background: linear-gradient(90deg, var(--algo-blue), var(--algo-teal), var(--primary));
+  background-size: 200% 200%;
+  animation: gradient 8s ease infinite;
   z-index: 1;
 }
 
@@ -138,9 +151,9 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 50px;
+  width: 60px;
   height: 3px;
-  background: linear-gradient(to right, var(--primary), var(--primary-light));
+  background: linear-gradient(90deg, var(--algo-blue), var(--algo-teal));
   border-radius: var(--radius-full);
 }
 
@@ -172,6 +185,7 @@
   border: 1px solid var(--neutral-200);
   box-shadow: var(--shadow-sm);
   animation: fadeIn 0.5s ease-out;
+  position: relative;
 }
 
 /* Wallet Connection Container */
@@ -196,9 +210,9 @@
   font-size: 0.9375rem;
   word-break: break-all;
   margin-bottom: var(--space-4);
-  padding: var(--space-3) var(--space-4);
-  background-color: var(--primary-bg);
-  border: 1px solid rgba(79, 70, 229, 0.2);
+  padding: var(--space-4);
+  background-color: var(--algo-blue-light);
+  border: 1px solid rgba(0, 12, 65, 0.15);
   border-radius: var(--radius-md);
   display: flex;
   flex-direction: column;
@@ -224,15 +238,35 @@
 
 .walletAddress {
   font-family: monospace;
-  color: var(--primary);
+  color: var(--algo-blue);
   font-size: 0.875rem;
   overflow-wrap: break-word;
   word-break: break-all;
+  letter-spacing: 0.02em;
+  padding: var(--space-2);
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-sm);
+  position: relative;
+}
+
+.walletAddress::after {
+  content: "📋";
+  position: absolute;
+  right: var(--space-2);
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  font-size: 0.875rem;
+  transition: opacity var(--transition);
+}
+
+.walletAddress:hover::after {
+  opacity: 0.7;
 }
 
 /* Enhanced Button */
 .button {
-  background-color: var(--primary);
+  background-color: var(--algo-blue);
   color: white;
   font-size: 1rem;
   font-weight: 600;
@@ -250,7 +284,7 @@
 }
 
 .button:hover {
-  background-color: var(--primary-hover);
+  background-color: var(--primary-dark);
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
@@ -306,7 +340,7 @@
 .error {
   color: var(--error-dark);
   font-size: 0.9375rem;
-  margin: var(--space-4) 0;
+  margin: var(--space-4) auto;
   padding: var(--space-3) var(--space-4);
   background-color: var(--error-light);
   border: 1px solid rgba(239, 68, 68, 0.2);
@@ -315,6 +349,7 @@
   animation: fadeIn 0.3s ease-out;
   display: flex;
   align-items: center;
+  max-width: 480px;
 }
 
 .error::before {
@@ -328,7 +363,7 @@
 .processing {
   color: var(--processing);
   font-size: 0.9375rem;
-  margin: var(--space-4) 0;
+  margin: var(--space-4) auto;
   padding: var(--space-3) var(--space-4);
   background-color: var(--processing-light);
   border: 1px solid rgba(99, 102, 241, 0.2);
@@ -338,6 +373,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  max-width: 480px;
 }
 
 .processing::before {
@@ -355,7 +391,7 @@
 /* Enhanced Transaction Status */
 .transactionStatus {
   font-size: 0.9375rem;
-  margin: var(--space-5) 0;
+  margin: var(--space-5) auto;
   padding: var(--space-4);
   border-radius: var(--radius-md);
   display: flex;
@@ -363,27 +399,33 @@
   justify-content: center;
   animation: fadeIn 0.3s ease-out;
   line-height: 1.5;
+  max-width: 480px;
 }
 
 /* Success Status */
-.success {
+.transactionStatus.success {
   color: var(--success-dark);
   background-color: var(--success-light);
   border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
+.transactionStatus.success::before {
+  content: "✅";
+  margin-right: var(--space-2);
+  font-size: 1rem;
+}
+
 /* Error Status */
-.error {
+.transactionStatus.error {
   color: var(--error-dark);
   background-color: var(--error-light);
   border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
-/* Processing Status */
-.processing {
-  color: var(--processing);
-  background-color: var(--processing-light);
-  border: 1px solid rgba(99, 102, 241, 0.2);
+.transactionStatus.error::before {
+  content: "❌";
+  margin-right: var(--space-2);
+  font-size: 1rem;
 }
 
 /* Verification Info Container */
@@ -397,6 +439,7 @@
   background-color: var(--neutral-100);
   border-radius: var(--radius-lg);
   border: 1px solid var(--neutral-200);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 /* Cost Info Section */
@@ -408,19 +451,40 @@
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
   text-align: center;
+  transition: transform var(--transition);
+}
+
+.costInfo:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .costInfo h3 {
   font-size: 1.125rem;
   margin-bottom: var(--space-2);
   color: var(--neutral-700);
+  font-weight: 600;
 }
 
 .costAmount {
   font-size: 1.75rem;
   font-weight: 700;
-  color: var(--primary);
+  color: var(--algo-blue);
   margin: var(--space-2) 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.costAmount::after {
+  content: "ALGO";
+  font-size: 0.75rem;
+  color: var(--algo-teal);
+  font-weight: 400;
+  position: absolute;
+  right: -30px;
+  top: 5px;
 }
 
 .costDescription {
@@ -438,12 +502,19 @@
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
   text-align: center;
+  transition: transform var(--transition);
+}
+
+.statusInfo:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .statusInfo h3 {
   font-size: 1.125rem;
   margin-bottom: var(--space-2);
   color: var(--neutral-700);
+  font-weight: 600;
 }
 
 .statusLabel {
@@ -453,6 +524,9 @@
   gap: var(--space-2);
   font-size: 1.125rem;
   font-weight: 600;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius);
+  transition: all var(--transition);
 }
 
 .statusIndicator {
@@ -460,11 +534,27 @@
   height: 12px;
   border-radius: 50%;
   display: inline-block;
+  position: relative;
 }
 
 .verified {
   background-color: var(--success);
-  box-shadow: 0 0 0 2px var(--success-light);
+  box-shadow: 0 0 0 2px var(--success-light), 0 0 0 6px rgba(16, 185, 129, 0.1);
+}
+
+/* Pulse effect for verified status */
+.verified::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  background-color: var(--success);
+  z-index: -1;
+  opacity: 0.4;
+  animation: pulse 2s ease-in-out infinite;
 }
 
 .unverified {
@@ -544,5 +634,10 @@
   
   .costAmount {
     font-size: 1.5rem;
+  }
+  
+  .costAmount::after {
+    right: -24px;
+    font-size: 0.625rem;
   }
 }
