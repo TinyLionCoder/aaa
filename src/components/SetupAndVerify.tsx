@@ -113,7 +113,7 @@ export const SetupAndVerify = ({ userId }: SetupAndVerifyProps) => {
       const txn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
         from: walletAddress,
         to: verificationAddress,
-        amount: 5000000, // 1 ALGO in microAlgos
+        amount: 5000000, // 5 ALGO in microAlgos
         note: new Uint8Array(Buffer.from("AAA app: Verification Fee")),
         suggestedParams,
       });
@@ -163,43 +163,91 @@ export const SetupAndVerify = ({ userId }: SetupAndVerifyProps) => {
     }
   };
 
+  // UI helper function to render verification info
+  const renderVerificationInfo = () => (
+    <div className={styles.verificationInfo}>
+      <div className={styles.costInfo}>
+        <h3>Verification Fee</h3>
+        <p className={styles.costAmount}>5 ALGO</p>
+        <p className={styles.costDescription}>
+          This one-time fee helps prevent spam and verify your account.
+        </p>
+      </div>
+      <div className={styles.statusInfo}>
+        <h3>Status</h3>
+        <p className={styles.statusLabel}>
+          <span
+            className={`${styles.statusIndicator} ${
+              isVerified ? styles.verified : styles.unverified
+            }`}
+          ></span>
+          {isVerified ? "Verified" : "Unverified"}
+        </p>
+      </div>
+    </div>
+  );
+
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>Setup Wallet & Verify</h1>
+
       {step === 1 && (
-        <>
+        <div className={styles.step}>
           <h2 className={styles.subheading}>Step 1: Setup Wallet</h2>
           <p className={styles.description}>
-            Connect your wallet to associate it with your account.
+            Connect your Algorand wallet to associate it with your account. This
+            allows you to participate in airdrops and verify your identity.
           </p>
-          <PeraWalletButton
-            onConnect={handleWalletConnect}
-            onDisconnect={handleWalletDisconnect}
-          />
-          {walletAddress && (
-            <p className={styles.walletInfo}>
-              Connected Wallet: {walletAddress}
-            </p>
-          )}
+
+          <div className={styles.walletConnection}>
+            <PeraWalletButton
+              onConnect={handleWalletConnect}
+              onDisconnect={handleWalletDisconnect}
+            />
+
+            {walletAddress && (
+              <div className={styles.walletInfoContainer}>
+                <div className={styles.walletInfo}>
+                  <span className={styles.walletLabel}>Connected Wallet:</span>
+                  <span className={styles.walletAddress}>{walletAddress}</span>
+                </div>
+              </div>
+            )}
+          </div>
+
           {error && <p className={styles.error}>{error}</p>}
-        </>
+          {processing && (
+            <p className={styles.processing}>Processing your request...</p>
+          )}
+        </div>
       )}
+
       {step === 2 && (
-        <>
+        <div className={styles.step}>
           <h2 className={styles.subheading}>Step 2: Verify Account</h2>
           <p className={styles.description}>
-            Pay a verification fee of <strong>5 ALGO</strong> to verify your
-            account.
+            Verify your account by paying a small fee. This enables full access
+            to all platform features.
           </p>
-          <PeraWalletButton
-            onConnect={handleWalletConnect}
-            onDisconnect={handleWalletDisconnect}
-          />
-          {walletAddress && (
-            <p className={styles.walletInfo}>
-              Connected Wallet: {walletAddress}
-            </p>
-          )}
+
+          {renderVerificationInfo()}
+
+          <div className={styles.walletConnection}>
+            <PeraWalletButton
+              onConnect={handleWalletConnect}
+              onDisconnect={handleWalletDisconnect}
+            />
+
+            {walletAddress && (
+              <div className={styles.walletInfoContainer}>
+                <div className={styles.walletInfo}>
+                  <span className={styles.walletLabel}>Connected Wallet:</span>
+                  <span className={styles.walletAddress}>{walletAddress}</span>
+                </div>
+              </div>
+            )}
+          </div>
+
           <button
             onClick={handleVerification}
             disabled={!walletAddress || isVerified || processing}
@@ -208,11 +256,12 @@ export const SetupAndVerify = ({ userId }: SetupAndVerifyProps) => {
             }`}
           >
             {isVerified
-              ? "Already Verified"
+              ? "✓ Account Verified"
               : processing
               ? "Processing..."
               : "Verify Now"}
           </button>
+
           {transactionStatus && (
             <p
               className={`${styles.transactionStatus} ${
@@ -224,7 +273,9 @@ export const SetupAndVerify = ({ userId }: SetupAndVerifyProps) => {
               {transactionStatus}
             </p>
           )}
-        </>
+
+          {error && <p className={styles.error}>{error}</p>}
+        </div>
       )}
     </div>
   );
