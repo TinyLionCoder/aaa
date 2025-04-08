@@ -9,12 +9,14 @@ const Navbar = () => {
   const [showGamingDropdown, setShowGamingDropdown] = useState(false);
   const [showExchangesDropdown, setShowExchangesDropdown] = useState(false);
   const [showDexesDropdown, setShowDexesDropdown] = useState(false);
+  const [showRWAsDropdown, setShowRWAsDropdown] = useState(false);
 
   const menuRef = useRef<HTMLDivElement>(null);
   const dropdownRefFarming = useRef<HTMLDivElement>(null);
   const dropdownRefGaming = useRef<HTMLDivElement>(null);
   const dropdownRefExchanges = useRef<HTMLDivElement>(null);
   const dropdownRefDexes = useRef<HTMLDivElement>(null);
+  const dropdownRefRWAs = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const toggleFarmingDropdown = () => setShowFarmingDropdown((prev) => !prev);
@@ -22,6 +24,7 @@ const Navbar = () => {
   const toggleExchangesDropdown = () =>
     setShowExchangesDropdown((prev) => !prev);
   const toggleDexesDropdown = () => setShowDexesDropdown((prev) => !prev);
+  const toggleRWAsDropdown = () => setShowRWAsDropdown((prev) => !prev);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -57,6 +60,13 @@ const Navbar = () => {
         !dropdownRefDexes.current.contains(target)
       ) {
         setShowDexesDropdown(false);
+      }
+
+      if (
+        dropdownRefRWAs.current &&
+        !dropdownRefRWAs.current.contains(target)
+      ) {
+        setShowRWAsDropdown(false);
       }
     };
 
@@ -120,6 +130,55 @@ const Navbar = () => {
               >
                 Cometa Hub
               </a>
+            </div>
+          )}
+        </div>
+
+        <div
+          ref={dropdownRefRWAs}
+          className={`${styles.dropdown} ${
+            showRWAsDropdown ? styles.open : ""
+          }`}
+        >
+          <div className={styles.dropdownToggle} onClick={toggleRWAsDropdown}>
+            RWAs ▾
+          </div>
+          {showRWAsDropdown && (
+            <div
+              className={`${styles.dropdownMenu} ${styles.scrollableDropdown}`}
+            >
+              {[
+                { name: "Lofty.ai", url: "https://www.lofty.ai" },
+                { name: "Meld Gold", url: "https://www.meld.gold" },
+                { name: "Propy", url: "https://www.propy.com" },
+                { name: "AlgoCloud", url: "https://www.algocloud.org" },
+                { name: "Koibanx", url: "https://www.koibanx.com" },
+                { name: "Aldea", url: "https://www.aldea.global" },
+                { name: "Reach", url: "https://reach.sh" },
+                { name: "Hesab Pay", url: "https://hesab.az" },
+                { name: "ArgoToken", url: "https://www.justoken.com" },
+                { name: "Ureca", url: "https://ureca.com" },
+                { name: "Vesta Equity", url: "https://vestaequity.net" },
+                { name: "Terano", url: "https://www.terano.io" },
+                { name: "Trusty Digital", url: "https://trusty.digital" },
+                {
+                  name: "Enel EBITTS",
+                  url: "https://www.enel.it/it-it/blog/storie/ebitts-blockchain-accesso-rinnovabili",
+                },
+              ].map((item) => (
+                <a
+                  key={item.name}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    setShowRWAsDropdown(false);
+                  }}
+                >
+                  {item.name}
+                </a>
+              ))}
             </div>
           )}
         </div>
