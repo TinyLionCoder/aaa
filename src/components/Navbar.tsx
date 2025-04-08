@@ -221,12 +221,19 @@ const Navbar = () => {
               {[
                 { name: "Astro Explorer", url: "https://astroexplorer.co" },
                 { name: "AlgoSeas", url: "https://algoseas.io/play" },
-                { name: "Bwombus", url: "https://discord.com/invite/j4b53UqYAw" },
+                {
+                  name: "Bwombus",
+                  url: "https://discord.com/invite/j4b53UqYAw",
+                },
                 { name: "Cosmic Champs", url: "https://cosmicchamps.com" },
                 { name: "Dark Coin", url: "https://dark-coin.com/" },
                 {
                   name: "Ghetto Warzones",
                   url: "https://www.ghettopigeon.com/game.html",
+                },
+                {
+                  name: "Gully",
+                  url: "https://discord.com/invite/tbeHUrpW",
                 },
                 {
                   name: "Fracctal Monsters",
