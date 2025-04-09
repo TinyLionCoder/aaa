@@ -18,6 +18,7 @@ import { ClaimAirdropDiamondHands } from "./ClaimAirdropDiamondHands";
 import { ClaimAirdropWealthBuilders } from "./ClaimAirdropWealthBuilders";
 import VotingAndReviews from "./VotingAndReviews";
 import ContestNotification from "./ContestNotification";
+import { CONTESTS } from "../constants/contests";
 
 interface EnhancedDashboardProps {
   userName: string;
@@ -127,7 +128,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
       case "votingForAAA":
         return <VotingAndReviews />;
       case "contestNotification":
-        return <ContestNotification />;
+        return <ContestNotification contests={CONTESTS} />;
       case "dashboard":
         return (
           <DashboardContent
@@ -170,7 +171,9 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
             {!loadingTotalVerifiedMembers && (
               <div className={styles.statsWrapper}>
                 <div className={styles.statBadge}>
-                  <span className={styles.statValue}>{totalVerifiedMembers}</span>
+                  <span className={styles.statValue}>
+                    {totalVerifiedMembers}
+                  </span>
                   <span className={styles.statLabel}>Verified</span>
                 </div>
                 <div className={styles.statDivider}></div>
@@ -181,7 +184,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
               </div>
             )}
           </div>
-          
+
           <div className={styles.userInfoContainer}>
             <div className={styles.userInfo}>
               <div className={styles.userDetails}>
