@@ -291,7 +291,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 onClick={() => handleItemClick("contestNotification")}
               >
                 <FaWineBottle className={styles.icon} />
-                <span>Contest Notifications</span>
+                <span>Contests</span>
               </li>
             </li>
           )}
