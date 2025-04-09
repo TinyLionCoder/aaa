@@ -69,7 +69,7 @@ const ContestNotification: React.FC<ContestNotificationProps> = ({
             <h3 className={styles.contestTitle}>{contest.title}</h3>
             <div className={styles.contestMeta}>
               <span className={styles.contestReward}>{contest.reward} AAA</span>
-              <span className={styles.contestExpiry}>Ends: {formatDate(contest.expiryDate)}</span>
+              {/* <span className={styles.contestExpiry}>Ends: {formatDate(contest.expiryDate)}</span> */}
               <span className={`${styles.expandIcon} ${expandedContests[contest.id] ? styles.expanded : ''}`}>
                 ▼
               </span>
