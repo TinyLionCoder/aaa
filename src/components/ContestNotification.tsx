@@ -15,7 +15,7 @@ const ContestNotification: React.FC<ContestNotificationProps> = ({
   title = "AAA Community Contest",
   description = "Hey AAA family! Join our latest contest and earn AAA tokens for your participation.",
   platform = "Twitter",
-  instructions = "Create a post on X saying ==> Have you seen this platform, Algo Adopt Airdrop? You join FREE, earn 5 AAA tokens and gain 5AAA tokens for everyone we bring in. Join today at algoadoptairdrop.com",
+  instructions = "Create a post on X saying: 'Just discovered Algo Adopt Airdrop - a platform where you earn 5 AAA tokens just for joining, plus 5 AAA tokens for each person you refer! Check it out at algoadoptairdrop.com #Algorand #Crypto #Airdrop'",
   reward = 350,
   contactHandle = "@TinyLionCoder",
   expiryDate = new Date(Date.now() + 4 * 24 * 60 * 60 * 1000).toISOString(), // Default 7 days from now
