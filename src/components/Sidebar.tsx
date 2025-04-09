@@ -17,6 +17,7 @@ import {
   FaTruck,
   FaHandHoldingUsd,
   FaVoteYea,
+  FaWineBottle,
 } from "react-icons/fa";
 import styles from "../css_modules/SidebarStyles.module.css";
 import { useNavigate } from "react-router-dom";
@@ -281,6 +282,17 @@ const Sidebar: React.FC<SidebarProps> = ({
                   ) : null}
                 </ul>
               )}
+              <li
+                className={`${styles.navItem} ${
+                  activeItem === "contestNotification"
+                    ? styles.activeNavItem
+                    : ""
+                }`}
+                onClick={() => handleItemClick("contestNotification")}
+              >
+                <FaWineBottle className={styles.icon} />
+                <span>Contest Notifications</span>
+              </li>
             </li>
           )}
 

@@ -17,6 +17,7 @@ import SetupAndVerify from "./SetupAndVerify";
 import { ClaimAirdropDiamondHands } from "./ClaimAirdropDiamondHands";
 import { ClaimAirdropWealthBuilders } from "./ClaimAirdropWealthBuilders";
 import VotingAndReviews from "./VotingAndReviews";
+import ContestNotification from "./ContestNotification";
 
 interface EnhancedDashboardProps {
   userName: string;
@@ -125,6 +126,8 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
         return <ClaimAirdropWealthBuilders />;
       case "votingForAAA":
         return <VotingAndReviews />;
+      case "contestNotification":
+        return <ContestNotification />;
       case "dashboard":
         return (
           <DashboardContent
