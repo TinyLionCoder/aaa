@@ -46,61 +46,63 @@ const ContestNotification: React.FC<ContestNotificationProps> = ({
     });
   };
 
-  if (contests.length === 0) {
-    return null;
-  }
-
   return (
     <div className={styles.contestsContainer}>
       <h2 className={styles.contestsHeader}>
         <span className={styles.contestsIcon}>🏆</span> 
-        Active {contests.length > 1 ? 'Contests' : 'Contest'}
+        {contests.length > 0 ? `Active ${contests.length > 1 ? 'Contests' : 'Contest'}` : 'Contests'}
       </h2>
       
-      {contests.map(contest => (
-        <div 
-          key={contest.id}
-          className={`${styles.contestCard} ${expandedContests[contest.id] ? styles.expanded : ''}`}
-        >
+      {contests.length > 0 ? (
+        contests.map(contest => (
           <div 
-            className={styles.contestHeader} 
-            onClick={() => toggleExpand(contest.id)}
+            key={contest.id}
+            className={`${styles.contestCard} ${expandedContests[contest.id] ? styles.expanded : ''}`}
           >
-            <h3 className={styles.contestTitle}>{contest.title}</h3>
-            <div className={styles.contestMeta}>
-              <span className={styles.contestReward}>{contest.reward} AAA</span>
-              {/* <span className={styles.contestExpiry}>Ends: {formatDate(contest.expiryDate)}</span> */}
-              <span className={`${styles.expandIcon} ${expandedContests[contest.id] ? styles.expanded : ''}`}>
-                ▼
-              </span>
-            </div>
-          </div>
-          
-          {expandedContests[contest.id] && (
-            <div className={styles.contestDetails}>
-              <p className={styles.contestDescription}>{contest.description}</p>
-              
-              <div className={styles.contestInstructions}>
-                <h4>How to participate:</h4>
-                <ol>
-                  <li>Go to <span className={styles.platformName}>{contest.platform}</span></li>
-                  <li>{contest.instructions}</li>
-                  <li>DM <span className={styles.contactHandle}>{contest.contactHandle}</span> to claim your reward</li>
-                </ol>
+            <div 
+              className={styles.contestHeader} 
+              onClick={() => toggleExpand(contest.id)}
+            >
+              <h3 className={styles.contestTitle}>{contest.title}</h3>
+              <div className={styles.contestMeta}>
+                <span className={styles.contestReward}>{contest.reward} AAA</span>
+                {/* <span className={styles.contestExpiry}>Ends: {formatDate(contest.expiryDate)}</span> */}
+                <span className={`${styles.expandIcon} ${expandedContests[contest.id] ? styles.expanded : ''}`}>
+                  ▼
+                </span>
               </div>
-              
-              <a 
-                href={`https://${contest.platform.toLowerCase()}.com`} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className={styles.participateButton}
-              >
-                Go to {contest.platform}
-              </a>
             </div>
-          )}
+            
+            {expandedContests[contest.id] && (
+              <div className={styles.contestDetails}>
+                <p className={styles.contestDescription}>{contest.description}</p>
+                
+                <div className={styles.contestInstructions}>
+                  <h4>How to participate:</h4>
+                  <ol>
+                    <li>Go to <span className={styles.platformName}>{contest.platform}</span></li>
+                    <li>{contest.instructions}</li>
+                    <li>DM <span className={styles.contactHandle}>{contest.contactHandle}</span> to claim your reward</li>
+                  </ol>
+                </div>
+                
+                <a 
+                  href={`https://${contest.platform.toLowerCase()}.com`} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className={styles.participateButton}
+                >
+                  Go to {contest.platform}
+                </a>
+              </div>
+            )}
+          </div>
+        ))
+      ) : (
+        <div className={styles.noContestsMessage}>
+          Currently no contests available. Check back soon for new opportunities!
         </div>
-      ))}
+      )}
     </div>
   );
 };
