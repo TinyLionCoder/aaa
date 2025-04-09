@@ -286,6 +286,10 @@ const Navbar = () => {
                 { name: "Cosmic Champs", url: "https://cosmicchamps.com" },
                 { name: "Dark Coin", url: "https://dark-coin.com/" },
                 {
+                  name: "Fracctal Monsters",
+                  url: "https://fracctalmonstersnft.com/play",
+                },
+                {
                   name: "Ghetto Warzones",
                   url: "https://www.ghettopigeon.com/game.html",
                 },
@@ -294,8 +298,8 @@ const Navbar = () => {
                   url: "https://discord.com/invite/tbeHUrpW",
                 },
                 {
-                  name: "Fracctal Monsters",
-                  url: "https://fracctalmonstersnft.com/play",
+                  name: "MembersOnly",
+                  url: "https://www.membersonlyalgo.com",
                 },
                 { name: "Rxelms Games", url: "https://rxelms.com/games" },
                 { name: "Shep NFTs", url: "https://shepnfts.com" },
