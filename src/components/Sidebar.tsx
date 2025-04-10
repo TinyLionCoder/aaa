@@ -18,6 +18,7 @@ import {
   FaHandHoldingUsd,
   FaVoteYea,
   FaWineBottle,
+  FaClipboardCheck,
 } from "react-icons/fa";
 import styles from "../css_modules/SidebarStyles.module.css";
 import { useNavigate } from "react-router-dom";
@@ -73,6 +74,17 @@ const Sidebar: React.FC<SidebarProps> = ({
       </h3>
       <nav>
         <ul>
+          {!verfied && (
+            <li
+              className={`${styles.navItem} ${
+                activeItem === "onBoardingGuide" ? styles.activeNavItem : ""
+              }`}
+              onClick={() => handleItemClick("onBoardingGuide")}
+            >
+              <FaClipboardCheck className={styles.icon} />
+              <span>Start Here</span>
+            </li>
+          )}
           <li
             className={`${styles.navItem} ${
               activeItem === "bestAlgoDefi" ? styles.activeNavItem : ""
