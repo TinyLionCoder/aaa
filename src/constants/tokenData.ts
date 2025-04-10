@@ -24,6 +24,7 @@ import niko from "../images/niko.png";
 import exa from "../images/exa.png";
 import meta from "../images/meta.png";
 import compx from "../images/compx.png";
+import coo from "../images/coo.png";
 
 export default [
   {
@@ -306,6 +307,17 @@ export default [
     logo: meta,
     vestigeLink: "https://vestige.fi/asset/712012773",
     xLink: "https://x.com/CometaHub",
+    stableTVL: false,
+    useCaseToken: true,
+    memeToken: false,
+    wrappedAsset: false,
+  },
+  {
+    name: "COO",
+    assetID: "891226062",
+    logo: coo,
+    vestigeLink: "https://vestige.fi/asset/891226062",
+    xLink: "https://x.com/ghettopigeons",
     stableTVL: false,
     useCaseToken: true,
     memeToken: false,
