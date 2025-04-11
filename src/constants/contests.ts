@@ -1,18 +1,5 @@
 export const CONTESTS = [
   {
-    id: "community-contest-1",
-    title: "AAA Community Contest",
-    description:
-      "Hey AAA family! Join our latest contest and earn AAA tokens for your participation.",
-    platform: "Twitter",
-    instructionsPartOne: "Follow @TinyLionCoder @Ghettopigeons",
-    instructionsPartTwo:
-      "Create a post on X saying: 'A new Marketplace is launching at @Ghettopigeons and now $COO is cooking!! Check it out now before everyone else does at https://vestige.fi/asset/891226062 #Algorand #Crypto'",
-    reward: 200,
-    contactHandle: "@TinyLionCoder",
-    expiryDate: new Date(Date.now() + 4 * 24 * 60 * 60 * 1000).toISOString(),
-  },
-  {
     id: "community-contest-2",
     title: "AAA Community Contest",
     description:
