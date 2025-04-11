@@ -5,12 +5,25 @@ export const CONTESTS = [
     description:
       "Hey AAA family! Join our latest contest and earn AAA tokens for your participation.",
     platform: "Twitter",
-    instructionsPartOne:
-      "Follow @TinyLionCoder @Ghettopigeons",
+    instructionsPartOne: "Follow @TinyLionCoder @Ghettopigeons",
     instructionsPartTwo:
       "Create a post on X saying: 'A new Marketplace is launching at @Ghettopigeons and now $COO is cooking!! Check it out now before everyone else does at https://vestige.fi/asset/891226062 #Algorand #Crypto'",
     reward: 200,
     contactHandle: "@TinyLionCoder",
+    expiryDate: new Date(Date.now() + 4 * 24 * 60 * 60 * 1000).toISOString(),
+  },
+  {
+    id: "community-contest-2",
+    title: "AAA Community Contest",
+    description:
+      "Hey AAA family! Join our latest contest and earn AAA tokens for your participation.",
+    platform: "Twitter",
+    instructionsPartOne:
+      "Follow @TLPCoin @TinyLionCoder and @ConnectionMach to never miss updates",
+    instructionsPartTwo:
+      "$COO is now listed on AlgoAdoptAirdrop 🚀 (Say something unique about coo or aaa no copy and pasting) follow the creator to learn more @Ghettopigeons",
+    reward: 10,
+    contactHandle: "@TLPCoin with your wallet address",
     expiryDate: new Date(Date.now() + 4 * 24 * 60 * 60 * 1000).toISOString(),
   },
   {
