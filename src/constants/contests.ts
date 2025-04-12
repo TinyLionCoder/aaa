@@ -8,7 +8,7 @@ export const CONTESTS = [
     instructionsPartOne:
       "Follow @TLPCoin @TinyLionCoder and @ConnectionMach to never miss updates",
     instructionsPartTwo:
-      "$COO is now listed on AlgoAdoptAirdrop 🚀 (Say something unique about coo or aaa no copy and pasting) follow the creator to learn more @Ghettopigeons",
+      "Create a post on X saying ' $COO is now listed on AlgoAdoptAirdrop 🚀. Follow the creator to learn more @Ghettopigeons '",
     reward: 10,
     contactHandle: "@TLPCoin with your wallet address",
     expiryDate: new Date(Date.now() + 4 * 24 * 60 * 60 * 1000).toISOString(),
