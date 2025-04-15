@@ -254,14 +254,57 @@
   animation: shimmer 4s infinite linear;
 }
 
-/* Asset Table Wrapper */
-.assetTableWrapper {
+/* Table Container - Enhanced for mobile */
+.tableContainer {
   width: 100%;
   overflow-x: auto;
-  margin: var(--space-6) 0;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: var(--space-6);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
+  position: relative;
   background-color: white;
+}
+
+/* Shadow indicators for horizontal scroll */
+.tableContainer::before,
+.tableContainer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.75;
+}
+
+.tableContainer::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0));
+}
+
+.tableContainer::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(255,255,255,0.9), rgba(255,255,255,0));
+}
+
+/* Mobile scroll hint */
+.mobileScrollHint {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-500);
+  font-size: 0.75rem;
+  margin-bottom: var(--space-3);
+  gap: var(--space-2);
+}
+
+.mobileScrollHint::before,
+.mobileScrollHint::after {
+  content: "⟺";
+  font-size: 0.875rem;
+  color: var(--primary);
 }
 
 /* Asset Table */
@@ -669,7 +712,7 @@
   }
   
   .filterInput {
-    width: 100%;
+    width: 90%;
   }
   
   .pagination {
@@ -698,6 +741,15 @@
   
   .assetNameCell {
     min-width: 150px;
+  }
+  
+  /* Mobile table enhancements */
+  .mobileScrollHint {
+    display: flex;
+  }
+  
+  .assetTable {
+    min-width: 500px;
   }
 }
 
@@ -755,7 +807,7 @@
   }
   
   .assetNameCell {
-    min-width: 120px;
+    min-width: 110px; /* Reduced from 120px for better mobile fit */
     padding-left: var(--space-2) !important;
   }
   
@@ -775,6 +827,31 @@
   
   .lastUpdated {
     font-size: 0.65rem;
+  }
+  
+  /* Mobile-specific table improvements */
+  .tableContainer {
+    margin: 0 -1rem; /* Negative margin to extend slightly beyond container on small screens */
+    width: calc(100% + 2rem);
+    border-radius: 0; /* Remove border radius for full-width on mobile */
+  }
+  
+  .assetTable {
+    min-width: 450px; /* Slightly smaller minimum width for very small devices */
+  }
+  
+  /* Improve scrolling experience */
+  .tableContainer::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  .tableContainer::-webkit-scrollbar-track {
+    background: var(--gray-200);
+  }
+  
+  .tableContainer::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: var(--radius-full);
   }
 }
 
@@ -823,94 +900,3 @@
   content: "▼";
   font-size: 0.75rem;
 }
-
-.mobileScrollHint {
-  display: none; /* Hidden by default, shown on small screens */
-}
-
-/* Responsive table styles for mobile */
-@media (max-width: 768px) {
-  .tableContainer {
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    margin-bottom: var(--space-6);
-    box-shadow: var(--shadow-lg);
-    border-radius: var(--radius-lg);
-    position: relative;
-  }
-  
-  /* Shadow indicators for horizontal scroll */
-  .tableContainer::before,
-  .tableContainer::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 20px;
-    pointer-events: none;
-    z-index: 2;
-    opacity: 0.75;
-  }
-  
-  .tableContainer::before {
-    left: 0;
-    background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0));
-  }
-  
-  .tableContainer::after {
-    right: 0;
-    background: linear-gradient(to left, rgba(255,255,255,0.9), rgba(255,255,255,0));
-  }
-  
-  .assetTable {
-    min-width: 500px; /* Ensure minimum width for smaller screens */
-  }
-}
-
-/* Mobile-specific enhancements for very small screens */
-@media (max-width: 600px) {
-  /* Mobile-specific table improvements */
-  .tableContainer {
-    margin: 0 -1rem; /* Negative margin to extend slightly beyond container */
-    width: calc(100% + 2rem);
-    border-radius: 0; /* Remove border radius for full-width on mobile */
-  }
-  
-  .assetTable {
-    min-width: 450px; /* Slightly smaller minimum width for very small devices */
-  }
-  
-  /* Improve scrolling experience */
-  .tableContainer::-webkit-scrollbar {
-    height: 4px;
-  }
-  
-  .tableContainer::-webkit-scrollbar-track {
-    background: var(--gray-200);
-  }
-  
-  .tableContainer::-webkit-scrollbar-thumb {
-    background: var(--primary);
-    border-radius: var(--radius-full);
-  }
-  
-  /* Add scroll hint for mobile users */
-  .mobileScrollHint {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--gray-500);
-    font-size: 0.75rem;
-    margin-bottom: var(--space-3);
-    gap: var(--space-2);
-  }
-  
-  .mobileScrollHint::before,
-  .mobileScrollHint::after {
-    content: "⟺";
-    font-size: 0.875rem;
-    color: var(--primary);
-  }
-}
-
