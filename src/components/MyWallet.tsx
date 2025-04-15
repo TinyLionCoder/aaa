@@ -30,6 +30,7 @@ export const MyWallet = () => {
   const [filter, setFilter] = useState<string>("");
   const [totalPortfolioValue, setTotalPortfolioValue] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [refreshing, setRefreshing] = useState<boolean>(false); // New state for refresh animation
   const PAGE_SIZE = 10;
 
   useEffect(() => {
@@ -181,6 +182,15 @@ export const MyWallet = () => {
       console.error("Error fetching assets:", error);
     } finally {
       setLoading(false);
+      setRefreshing(false); // Reset refreshing state when done
+    }
+  };
+
+  // New function to handle manual refresh
+  const handleRefresh = () => {
+    if (walletAddress && !refreshing) {
+      setRefreshing(true);
+      fetchAssets(walletAddress);
     }
   };
 
@@ -236,14 +246,60 @@ export const MyWallet = () => {
     return asset.logoUrl || `https://app.perawallet.app/assets/images/tokens/${asset.assetId}.svg`;
   };
 
+  // Calculate the time since last refresh
+  const [lastRefreshTime, setLastRefreshTime] = useState<Date>(new Date());
+  const [timeSinceRefresh, setTimeSinceRefresh] = useState<string>("Just now");
+
+  useEffect(() => {
+    // Update last refresh time when a refresh is completed
+    if (!loading && !refreshing) {
+      setLastRefreshTime(new Date());
+    }
+  }, [loading, refreshing]);
+
+  useEffect(() => {
+    // Update the time since last refresh every minute
+    const updateTimeSinceRefresh = () => {
+      const now = new Date();
+      const diffInMinutes = Math.floor((now.getTime() - lastRefreshTime.getTime()) / (1000 * 60));
+      
+      if (diffInMinutes < 1) {
+        setTimeSinceRefresh("Just now");
+      } else if (diffInMinutes === 1) {
+        setTimeSinceRefresh("1 minute ago");
+      } else if (diffInMinutes < 60) {
+        setTimeSinceRefresh(`${diffInMinutes} minutes ago`);
+      } else {
+        const hours = Math.floor(diffInMinutes / 60);
+        setTimeSinceRefresh(`${hours} ${hours === 1 ? 'hour' : 'hours'} ago`);
+      }
+    };
+
+    updateTimeSinceRefresh();
+    const interval = setInterval(updateTimeSinceRefresh, 60000);
+    return () => clearInterval(interval);
+  }, [lastRefreshTime]);
+
   return (
     <div className={styles.container}>
       <h2 className={styles.heading}>My Wallet</h2>
       {walletAddress ? (
         <>
-          <p className={styles.walletAddress}>
-            Wallet Address: <span>{walletAddress}</span>
-          </p>
+          <div className={styles.walletHeader}>
+            <p className={styles.walletAddress}>
+              Wallet Address: <span>{walletAddress}</span>
+            </p>
+            <div className={styles.refreshSection}>
+              <button 
+                onClick={handleRefresh}
+                disabled={loading || refreshing}
+                className={`${styles.refreshButton} ${refreshing ? styles.spinning : ''}`}
+              >
+                {refreshing ? "Refreshing..." : "Refresh Assets"}
+              </button>
+              <span className={styles.lastUpdated}>Last updated: {timeSinceRefresh}</span>
+            </div>
+          </div>
           <p className={styles.totalPortfolioValue}>
             Total Portfolio Value: <span>${totalPortfolioValue.toFixed(2)}</span>
           </p>
@@ -264,42 +320,47 @@ export const MyWallet = () => {
                   className={styles.filterInput}
                 />
               </div>
-              <table className={styles.assetTable}>
-                <thead>
-                  <tr>
-                    <th>Asset Name</th>
-                    <th>Unit Name</th>
-                    <th>Amount</th>
-                    <th>Value (USD)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {displayedAssets.map((asset) => (
-                    <tr key={asset.assetId}>
-                      <td className={styles.assetNameCell}>
-                        {asset.logoUrl && (
-                          <img 
-                            src={getTokenLogoUrl(asset)} 
-                            alt={asset.name} 
-                            className={styles.assetLogo} 
-                            onError={(e) => {
-                              // If logo fails to load, replace with a default
-                              (e.target as HTMLImageElement).src = "https://app.perawallet.app/assets/images/tokens/unknown.svg";
-                            }}
-                          />
-                        )}
-                        <div>
-                          <span className={styles.assetSymbol}>{asset.unitName}</span>
-                          <div className={styles.assetName}>{asset.name}</div>
-                        </div>
-                      </td>
-                      <td>{asset.unitName}</td>
-                      <td>{asset.amount}</td>
-                      <td>{asset.usdValue?.toFixed(2) || "N/A"}</td>
+              {/* Mobile scroll hint only shows on small screens */}
+              <div className={styles.mobileScrollHint}>Scroll horizontally to view all data</div>
+              
+              <div className={styles.tableContainer}>
+                <table className={styles.assetTable}>
+                  <thead>
+                    <tr>
+                      <th>Asset Name</th>
+                      <th>Unit Name</th>
+                      <th>Amount</th>
+                      <th>Value (USD)</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {displayedAssets.map((asset) => (
+                      <tr key={asset.assetId}>
+                        <td className={styles.assetNameCell}>
+                          {asset.logoUrl && (
+                            <img 
+                              src={getTokenLogoUrl(asset)} 
+                              alt={asset.name} 
+                              className={styles.assetLogo} 
+                              onError={(e) => {
+                                // If logo fails to load, replace with a default
+                                (e.target as HTMLImageElement).src = "https://app.perawallet.app/assets/images/tokens/unknown.svg";
+                              }}
+                            />
+                          )}
+                          <div>
+                            <span className={styles.assetSymbol}>{asset.unitName}</span>
+                            <div className={styles.assetName}>{asset.name}</div>
+                          </div>
+                        </td>
+                        <td>{asset.unitName}</td>
+                        <td>{asset.amount}</td>
+                        <td>{asset.usdValue?.toFixed(2) || "N/A"}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
               <div className={styles.pagination}>
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}

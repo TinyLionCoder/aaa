@@ -130,10 +130,50 @@
   border-radius: var(--radius-full);
 }
 
+/* Wallet Header - New addition for refresh functionality */
+.walletHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .walletHeader {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* Refresh Section - New addition */
+.refreshSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+@media (min-width: 768px) {
+  .refreshSection {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
+
+/* Last Updated Text - New addition */
+.lastUpdated {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  font-style: italic;
+}
+
 /* Wallet Address */
 .walletAddress {
   font-size: 1.125rem;
-  margin-bottom: var(--space-6);
   color: var(--gray-700);
   background-color: var(--primary-lightest);
   padding: var(--space-4) var(--space-5);
@@ -144,6 +184,7 @@
   border: 1px solid var(--primary-light);
   box-shadow: var(--shadow-sm);
   transition: box-shadow var(--transition), transform var(--transition);
+  margin: 0; /* Remove margin as it's now handled by walletHeader */
 }
 
 .walletAddress:hover {
@@ -484,6 +525,54 @@
   margin-top: 2px;
 }
 
+/* Enhanced Refresh Button */
+.refreshButton {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-4);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  position: relative;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.refreshButton:hover:not(:disabled) {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.refreshButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.refreshButton:disabled {
+  background-color: var(--gray-400);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Spinning animation for the refresh button */
+.refreshButton.spinning::before {
+  content: "";
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  animation: spin 0.8s linear infinite;
+  margin-right: var(--space-2);
+}
+
 /* Responsive Design */
 @media (max-width: 992px) {
   .container {
@@ -519,6 +608,10 @@
   .assetName {
     max-width: 120px;
   }
+  
+  .lastUpdated {
+    font-size: 0.7rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -533,10 +626,25 @@
     margin-bottom: var(--space-4);
   }
   
+  .walletHeader {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  
+  .refreshSection {
+    width: 100%;
+    align-items: center;
+  }
+  
   .walletAddress {
     font-size: 0.9375rem;
     padding: var(--space-3) var(--space-4);
-    margin-bottom: var(--space-4);
+    width: 100%;
+  }
+  
+  .refreshButton {
+    width: 100%;
+    max-width: 200px;
   }
   
   .totalPortfolioValue {
@@ -659,6 +767,15 @@
     font-size: 0.6875rem;
     max-width: 80px;
   }
+  
+  .refreshButton {
+    font-size: 0.75rem;
+    padding: var(--space-1) var(--space-3);
+  }
+  
+  .lastUpdated {
+    font-size: 0.65rem;
+  }
 }
 
 /* Utility Classes */
@@ -707,29 +824,93 @@
   font-size: 0.75rem;
 }
 
-/* Refresh Button */
-.refreshButton {
-  background-color: var(--primary);
-  color: white;
-  border: none;
-  border-radius: var(--radius-md);
-  padding: var(--space-2) var(--space-4);
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all var(--transition);
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  margin-top: var(--space-4);
+.mobileScrollHint {
+  display: none; /* Hidden by default, shown on small screens */
 }
 
-.refreshButton:hover {
-  background-color: var(--primary-dark);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+/* Responsive table styles for mobile */
+@media (max-width: 768px) {
+  .tableContainer {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: var(--space-6);
+    box-shadow: var(--shadow-lg);
+    border-radius: var(--radius-lg);
+    position: relative;
+  }
+  
+  /* Shadow indicators for horizontal scroll */
+  .tableContainer::before,
+  .tableContainer::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 20px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.75;
+  }
+  
+  .tableContainer::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0));
+  }
+  
+  .tableContainer::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(255,255,255,0.9), rgba(255,255,255,0));
+  }
+  
+  .assetTable {
+    min-width: 500px; /* Ensure minimum width for smaller screens */
+  }
 }
 
-.refreshButton:active {
-  transform: translateY(0);
+/* Mobile-specific enhancements for very small screens */
+@media (max-width: 600px) {
+  /* Mobile-specific table improvements */
+  .tableContainer {
+    margin: 0 -1rem; /* Negative margin to extend slightly beyond container */
+    width: calc(100% + 2rem);
+    border-radius: 0; /* Remove border radius for full-width on mobile */
+  }
+  
+  .assetTable {
+    min-width: 450px; /* Slightly smaller minimum width for very small devices */
+  }
+  
+  /* Improve scrolling experience */
+  .tableContainer::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  .tableContainer::-webkit-scrollbar-track {
+    background: var(--gray-200);
+  }
+  
+  .tableContainer::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: var(--radius-full);
+  }
+  
+  /* Add scroll hint for mobile users */
+  .mobileScrollHint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray-500);
+    font-size: 0.75rem;
+    margin-bottom: var(--space-3);
+    gap: var(--space-2);
+  }
+  
+  .mobileScrollHint::before,
+  .mobileScrollHint::after {
+    content: "⟺";
+    font-size: 0.875rem;
+    color: var(--primary);
+  }
 }
+
