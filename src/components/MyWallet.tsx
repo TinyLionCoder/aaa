@@ -596,7 +596,7 @@ export const MyWallet = () => {
                         </div> */}
                       </div>
 
-                      <div className={styles.barChartContainer}>
+                      {/* <div className={styles.barChartContainer}>
                         <h3>Asset Values</h3>
                         <div className={styles.barWrapper}>
                           <Bar
@@ -605,7 +605,7 @@ export const MyWallet = () => {
                             height={220}
                           />
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   ) : (
                     <div className={styles.assetChart}>
