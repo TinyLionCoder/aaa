@@ -19,6 +19,7 @@ interface Asset {
   unitName: string;
   decimals: number;
   usdValue?: number; // Optional USD value
+  logoUrl?: string; // Added logo URL property
 }
 
 export const MyWallet = () => {
@@ -27,9 +28,9 @@ export const MyWallet = () => {
   const [filteredAssets, setFilteredAssets] = useState<Asset[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [filter, setFilter] = useState<string>("");
-  const [totalPortfolioValue, setTotalPortfolioValue] = useState<number>(0); // State for total portfolio value
-  const [currentPage, setCurrentPage] = useState<number>(1); // Current page for pagination
-  const PAGE_SIZE = 10; // Number of assets per page
+  const [totalPortfolioValue, setTotalPortfolioValue] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const PAGE_SIZE = 10;
 
   useEffect(() => {
     const appWalletWallet: any = localStorage.getItem("appWallet");
@@ -71,10 +72,14 @@ export const MyWallet = () => {
         `https://mainnet.api.perawallet.app/v1/public/assets/${assetId}`
       );
       const data = await response.json();
-      return data.verification_tier === "verified";
+      // Return both verification and logo URL
+      return {
+        verified: data.verification_tier === "verified",
+        logoUrl: data.logo || null // Extract logo URL
+      };
     } catch (error) {
       console.error(`Error verifying asset ID ${assetId}:`, error);
-      return false;
+      return { verified: false, logoUrl: null };
     }
   };
 
@@ -122,7 +127,9 @@ export const MyWallet = () => {
         const { name, unitName, decimals } = await fetchAssetDetails(
           asset["asset-id"]
         );
-        const isVerified = await fetchPeraVerification(asset["asset-id"]);
+        
+        // Get verification status and logo URL from Pera
+        const { verified: isVerified, logoUrl } = await fetchPeraVerification(asset["asset-id"]);
         const isTinymanPool = name.toLowerCase().includes("tinyman");
 
         let usdPrice = 0;
@@ -148,6 +155,7 @@ export const MyWallet = () => {
             unitName,
             decimals,
             usdValue,
+            logoUrl // Include logo URL in the asset data
           };
         }
 
@@ -223,6 +231,11 @@ export const MyWallet = () => {
     },
   };
 
+  // Default placeholder for token logos
+  const getTokenLogoUrl = (asset: Asset) => {
+    return asset.logoUrl || `https://app.perawallet.app/assets/images/tokens/${asset.assetId}.svg`;
+  };
+
   return (
     <div className={styles.container}>
       <h2 className={styles.heading}>My Wallet</h2>
@@ -263,7 +276,23 @@ export const MyWallet = () => {
                 <tbody>
                   {displayedAssets.map((asset) => (
                     <tr key={asset.assetId}>
-                      <td>{asset.name}</td>
+                      <td className={styles.assetNameCell}>
+                        {asset.logoUrl && (
+                          <img 
+                            src={getTokenLogoUrl(asset)} 
+                            alt={asset.name} 
+                            className={styles.assetLogo} 
+                            onError={(e) => {
+                              // If logo fails to load, replace with a default
+                              (e.target as HTMLImageElement).src = "https://app.perawallet.app/assets/images/tokens/unknown.svg";
+                            }}
+                          />
+                        )}
+                        <div>
+                          <span className={styles.assetSymbol}>{asset.unitName}</span>
+                          <div className={styles.assetName}>{asset.name}</div>
+                        </div>
+                      </td>
                       <td>{asset.unitName}</td>
                       <td>{asset.amount}</td>
                       <td>{asset.usdValue?.toFixed(2) || "N/A"}</td>

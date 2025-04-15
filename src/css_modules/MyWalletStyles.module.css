@@ -437,6 +437,53 @@
   margin: 0 var(--space-1);
 }
 
+/* Asset Logo Styling - Enhanced */
+.assetLogo {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: var(--space-2);
+  border: 1px solid var(--gray-200);
+  background-color: white;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.assetLogo:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-md);
+}
+
+/* Asset Name Cell - Enhanced */
+.assetNameCell {
+  display: flex;
+  align-items: center;
+  text-align: left !important;
+  padding-left: var(--space-4) !important;
+  min-width: 200px;
+}
+
+.assetSymbol {
+  font-weight: 600;
+  color: var(--gray-800);
+  display: block;
+  font-size: 0.9rem;
+}
+
+.assetName {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+  display: block;
+  margin-top: 2px;
+}
+
 /* Responsive Design */
 @media (max-width: 992px) {
   .container {
@@ -462,6 +509,15 @@
   .assetTable td {
     padding: var(--space-3) var(--space-4);
     font-size: 0.9375rem;
+  }
+  
+  .assetLogo {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .assetName {
+    max-width: 120px;
   }
 }
 
@@ -522,6 +578,19 @@
     padding: var(--space-2) !important;
     font-size: 0.8125rem !important;
   }
+  
+  .assetLogo {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .assetName {
+    max-width: 100px;
+  }
+  
+  .assetNameCell {
+    min-width: 150px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -570,6 +639,26 @@
     font-size: 0.75rem !important;
     min-width: 28px !important;
   }
+  
+  .assetLogo {
+    width: 18px;
+    height: 18px;
+    margin-right: var(--space-1);
+  }
+  
+  .assetNameCell {
+    min-width: 120px;
+    padding-left: var(--space-2) !important;
+  }
+  
+  .assetSymbol {
+    font-size: 0.8125rem;
+  }
+  
+  .assetName {
+    font-size: 0.6875rem;
+    max-width: 80px;
+  }
 }
 
 /* Utility Classes */
@@ -616,42 +705,6 @@
 .priceDown::before {
   content: "▼";
   font-size: 0.75rem;
-}
-
-/* Asset Logo Styling */
-.assetLogo {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: var(--space-2);
-  border: 1px solid var(--gray-200);
-  background-color: white;
-}
-
-/* Asset Name Cell */
-.assetNameCell {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: var(--space-2);
-  min-width: 120px;
-}
-
-.assetSymbol {
-  font-weight: 600;
-  color: var(--gray-800);
-}
-
-.assetName {
-  font-size: 0.75rem;
-  color: var(--gray-500);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 120px;
 }
 
 /* Refresh Button */
