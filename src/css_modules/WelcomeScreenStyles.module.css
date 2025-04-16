@@ -1,118 +1,224 @@
 .welcomeScreen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.welcomeCard {
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  padding: 3rem;
+  max-width: 800px;
+  width: 100%;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.welcomeTitle {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #4fd1c5;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.welcomeSubtitle {
+  font-size: 1.5rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  color: #e2e8f0;
+  font-weight: 500;
+}
+
+.welcomeContent {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #cbd5e0;
+}
+
+.welcomeFeatures {
+  margin: 2.5rem 0;
+  padding: 1.75rem;
+  background: rgba(26, 32, 44, 0.6);
+  border-radius: 8px;
+  border-left: 4px solid #4fd1c5;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.welcomeFeatures h3 {
+  margin-bottom: 1.25rem;
+  color: #4fd1c5;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.welcomeFeatures ul {
+  padding-left: 1.5rem;
+  list-style-type: none;
+}
+
+.welcomeFeatures li {
+  margin-bottom: 1rem;
+  position: relative;
+  padding-left: 1.75rem;
+}
+
+.welcomeFeatures li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #4fd1c5;
+  font-weight: bold;
+}
+
+.verifyButton {
+  display: block;
+  width: 100%;
+  padding: 1.25rem;
+  margin: 2.5rem 0;
+  background: linear-gradient(to right, #38b2ac, #319795);
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(49, 151, 149, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.verifyButton:hover {
+  background: linear-gradient(to right, #319795, #2c7a7b);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(49, 151, 149, 0.5);
+}
+
+.verifyButton:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(49, 151, 149, 0.5);
+}
+
+.welcomeNote {
+  text-align: center;
+  font-size: 0.95rem;
+  color: #a0aec0;
+  margin-top: 2rem;
+  font-style: italic;
+}
+
+/* Tablet Styles */
+@media screen and (max-width: 1024px) {
+  .welcomeScreen {
+    padding: 1.5rem;
   }
   
   .welcomeCard {
-    background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    padding: 3rem;
-    max-width: 800px;
-    width: 100%;
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    animation: fadeIn 0.6s ease-out;
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    padding: 2.5rem;
   }
   
   .welcomeTitle {
-    font-size: 2.25rem;
-    font-weight: 700;
-    margin-bottom: 0.75rem;
-    color: #4fd1c5;
-    text-align: center;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 2rem;
   }
   
   .welcomeSubtitle {
-    font-size: 1.5rem;
-    margin-bottom: 2.5rem;
-    text-align: center;
-    color: #e2e8f0;
-    font-weight: 500;
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+  }
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 768px) {
+  .welcomeScreen {
+    padding: 1rem;
+    align-items: flex-start;
+    overflow-y: auto;
+    height: 100%;
+  }
+  
+  .welcomeCard {
+    padding: 1.5rem;
+    max-width: 100%;
+    margin-top: 1rem;
+  }
+  
+  .welcomeTitle {
+    font-size: 1.75rem;
+  }
+  
+  .welcomeSubtitle {
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
   }
   
   .welcomeContent {
-    font-size: 1.125rem;
-    line-height: 1.7;
-    color: #cbd5e0;
+    font-size: 1rem;
+    line-height: 1.5;
   }
   
   .welcomeFeatures {
-    margin: 2.5rem 0;
-    padding: 1.75rem;
-    background: rgba(26, 32, 44, 0.6);
-    border-radius: 8px;
-    border-left: 4px solid #4fd1c5;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    margin: 1.5rem 0;
+    padding: 1.25rem;
   }
   
   .welcomeFeatures h3 {
-    margin-bottom: 1.25rem;
-    color: #4fd1c5;
-    font-size: 1.25rem;
-    font-weight: 600;
-  }
-  
-  .welcomeFeatures ul {
-    padding-left: 1.5rem;
-    list-style-type: none;
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
   }
   
   .welcomeFeatures li {
-    margin-bottom: 1rem;
-    position: relative;
-    padding-left: 1.75rem;
-  }
-  
-  .welcomeFeatures li:before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    color: #4fd1c5;
-    font-weight: bold;
+    margin-bottom: 0.75rem;
   }
   
   .verifyButton {
-    display: block;
-    width: 100%;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    font-size: 1.125rem;
+  }
+}
+
+/* Small Mobile Styles */
+@media screen and (max-width: 480px) {
+  .welcomeCard {
     padding: 1.25rem;
-    margin: 2.5rem 0;
-    background: linear-gradient(to right, #38b2ac, #319795);
-    color: white;
-    font-size: 1.25rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(49, 151, 149, 0.4);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
   }
   
-  .verifyButton:hover {
-    background: linear-gradient(to right, #319795, #2c7a7b);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 14px rgba(49, 151, 149, 0.5);
+  .welcomeTitle {
+    font-size: 1.5rem;
   }
   
-  .verifyButton:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 6px rgba(49, 151, 149, 0.5);
+  .welcomeSubtitle {
+    font-size: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .welcomeFeatures {
+    padding: 1rem;
+    margin: 1.25rem 0;
+  }
+  
+  .welcomeFeatures li {
+    font-size: 0.95rem;
+    padding-left: 1.5rem;
+  }
+  
+  .verifyButton {
+    padding: 0.875rem;
+    font-size: 1rem;
   }
   
   .welcomeNote {
-    text-align: center;
-    font-size: 0.95rem;
-    color: #a0aec0;
-    margin-top: 2rem;
-    font-style: italic;
+    font-size: 0.85rem;
+    margin-top: 1.5rem;
   }
+}
