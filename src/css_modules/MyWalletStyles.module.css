@@ -1,4 +1,4 @@
-/* Enhanced Portfolio Container with Modern Design Elements */
+/* Enhanced Wallet Styles with Performance Optimizations */
 
 :root {
   /* Color System */
@@ -25,22 +25,22 @@
   --font-sans: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   
   /* Spacing */
-  --space-1: 0.25rem;  /* 4px */
-  --space-2: 0.5rem;   /* 8px */
-  --space-3: 0.75rem;  /* 12px */
-  --space-4: 1rem;     /* 16px */
-  --space-5: 1.25rem;  /* 20px */
-  --space-6: 1.5rem;   /* 24px */
-  --space-8: 2rem;     /* 32px */
-  --space-10: 2.5rem;  /* 40px */
-  --space-12: 3rem;    /* 48px */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
   
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  /* Shadows - Optimized for performance */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
   
   /* Border Radius */
   --radius-sm: 0.25rem;
@@ -48,76 +48,62 @@
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
-  --radius-2xl: 1.5rem;
   --radius-full: 9999px;
   
-  /* Transitions */
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* Transitions - Hardware accelerated */
   --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Keyframe Animations */
+/* Keyframe Animations - Optimized */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  from { opacity: 0; transform: translate3d(0, 10px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
 /* Base Container */
 .container {
-  padding: var(--space-8);
-  text-align: center;
+  padding: var(--space-6);
   max-width: 900px;
   margin: var(--space-8) auto;
   font-family: var(--font-sans);
   background-color: white;
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
   border: 1px solid var(--gray-200);
   position: relative;
-  overflow: hidden;
-  animation: fadeIn 0.5s ease-out;
+  will-change: transform, opacity;
+  animation: fadeIn 0.3s ease-out;
 }
 
-/* Container gradient accent top border */
+/* Container gradient accent */
 .container::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 5px;
+  height: 4px;
   background: linear-gradient(to right, var(--primary), var(--secondary));
-  z-index: 1;
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-lg);
 }
 
 /* Enhanced Heading */
 .heading {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   margin-bottom: var(--space-6);
   color: var(--gray-900);
   font-weight: 700;
   letter-spacing: -0.025em;
   position: relative;
   display: inline-block;
-  padding-bottom: var(--space-3);
+  padding-bottom: var(--space-2);
 }
 
-/* Heading underline */
 .heading::after {
   content: "";
   position: absolute;
@@ -130,7 +116,7 @@
   border-radius: var(--radius-full);
 }
 
-/* Wallet Header - New addition for refresh functionality */
+/* Wallet Header - Responsive layout */
 .walletHeader {
   display: flex;
   flex-direction: column;
@@ -149,7 +135,7 @@
   }
 }
 
-/* Refresh Section - New addition */
+/* Refresh Section */
 .refreshSection {
   display: flex;
   flex-direction: column;
@@ -159,12 +145,11 @@
 
 @media (min-width: 768px) {
   .refreshSection {
-    flex-direction: column;
     align-items: flex-end;
   }
 }
 
-/* Last Updated Text - New addition */
+/* Last Updated Text */
 .lastUpdated {
   font-size: 0.75rem;
   color: var(--gray-500);
@@ -173,40 +158,70 @@
 
 /* Wallet Address */
 .walletAddress {
-  font-size: 1.125rem;
+  font-size: 0.875rem;
   color: var(--gray-700);
   background-color: var(--primary-lightest);
-  padding: var(--space-4) var(--space-5);
+  padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-lg);
-  display: inline-block;
-  word-break: break-all;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
   max-width: 100%;
-  border: 1px solid var(--primary-light);
+  border: 1px solid rgba(96, 165, 250, 0.2);
   box-shadow: var(--shadow-sm);
-  transition: box-shadow var(--transition), transform var(--transition);
-  margin: 0; /* Remove margin as it's now handled by walletHeader */
-}
-
-.walletAddress:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+  margin: 0;
 }
 
 .walletAddress span {
   font-weight: 600;
   color: var(--primary-dark);
+  white-space: nowrap;
+}
+
+/* Copy Button */
+.copyButton {
+  background-color: white;
+  color: var(--primary);
+  border: 1px solid var(--primary-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-1) var(--space-2);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.copyButton:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.copyButton:focus {
+  outline: 2px solid var(--primary-light);
+  outline-offset: 1px;
+}
+
+/* Error Message */
+.errorMessage {
+  color: var(--danger);
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius);
+  margin-bottom: var(--space-4);
+  font-size: 0.875rem;
 }
 
 /* Loading State */
 .loading {
-  font-size: 1.25rem;
+  font-size: 1rem;
   color: var(--gray-600);
-  font-style: italic;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-3);
   margin: var(--space-8) 0;
+  height: 100px;
 }
 
 /* Loading spinner */
@@ -216,77 +231,54 @@
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
-  border: 3px solid var(--primary-light);
+  border: 2px solid var(--primary-light);
   border-top-color: var(--primary);
+  will-change: transform;
   animation: spin 0.8s linear infinite;
 }
 
 /* Total Portfolio Value */
 .totalPortfolioValue {
-  font-size: 2rem;
-  font-weight: 800;
-  margin: var(--space-5) 0 var(--space-8);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: var(--space-4) 0 var(--space-6);
   color: var(--gray-900);
-  padding: var(--space-4) var(--space-6);
+  padding: var(--space-4) var(--space-5);
   background: linear-gradient(to right, var(--primary-lightest), var(--gray-50));
   border-radius: var(--radius-lg);
   display: inline-block;
   box-shadow: var(--shadow-md);
-  position: relative;
-  overflow: hidden;
 }
 
-/* Shimmering effect for portfolio value */
-.totalPortfolioValue::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0),
-    rgba(255, 255, 255, 0.3),
-    rgba(255, 255, 255, 0)
-  );
-  transform: rotate(30deg);
-  animation: shimmer 4s infinite linear;
+.totalPortfolioValue span {
+  color: var(--primary-dark);
 }
 
-/* Table Container - Enhanced for mobile */
+/* Table Container - Enhanced for mobile responsiveness */
 .tableContainer {
   width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   margin-bottom: var(--space-6);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  position: relative;
+  box-shadow: var(--shadow-md);
   background-color: white;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--gray-200);
 }
 
-/* Shadow indicators for horizontal scroll */
-.tableContainer::before,
-.tableContainer::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 20px;
-  pointer-events: none;
-  z-index: 2;
-  opacity: 0.75;
+/* Customize scrollbars */
+.tableContainer::-webkit-scrollbar {
+  height: 6px;
 }
 
-.tableContainer::before {
-  left: 0;
-  background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0));
+.tableContainer::-webkit-scrollbar-track {
+  background: var(--gray-200);
 }
 
-.tableContainer::after {
-  right: 0;
-  background: linear-gradient(to left, rgba(255,255,255,0.9), rgba(255,255,255,0));
+.tableContainer::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: var(--radius-full);
 }
 
 /* Mobile scroll hint */
@@ -300,11 +292,10 @@
   gap: var(--space-2);
 }
 
-.mobileScrollHint::before,
-.mobileScrollHint::after {
-  content: "⟺";
-  font-size: 0.875rem;
-  color: var(--primary);
+@media (max-width: 768px) {
+  .mobileScrollHint {
+    display: flex;
+  }
 }
 
 /* Asset Table */
@@ -312,40 +303,44 @@
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  font-size: 1rem;
-  background-color: white;
-  overflow: hidden;
+  font-size: 0.875rem;
 }
 
 .assetTable th {
   background: linear-gradient(to right, var(--primary), var(--primary-dark));
   color: white;
   font-weight: 600;
-  padding: var(--space-4) var(--space-5);
-  text-align: center;
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
   position: sticky;
   top: 0;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-  text-transform: uppercase;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .assetTable th:first-child {
+  padding-left: var(--space-4);
   border-top-left-radius: var(--radius-lg);
 }
 
 .assetTable th:last-child {
   border-top-right-radius: var(--radius-lg);
+  text-align: right;
+  padding-right: var(--space-5);
 }
 
 .assetTable td {
-  padding: var(--space-4) var(--space-5);
-  text-align: center;
-  color: var(--gray-700);
+  padding: var(--space-3) var(--space-4);
   border-bottom: 1px solid var(--gray-200);
-  white-space: nowrap;
-  transition: background-color var(--transition-fast);
+  vertical-align: middle;
+}
+
+.assetTable td:last-child {
+  text-align: right;
+  padding-right: var(--space-5);
+  font-weight: 500;
 }
 
 .assetTable tr:last-child td:first-child {
@@ -362,15 +357,14 @@
 
 .assetTable tr:hover {
   background-color: var(--primary-lightest);
-  cursor: pointer;
 }
 
 /* No Assets / No Wallet States */
 .noAssets,
 .noWallet {
-  font-size: 1.125rem;
-  margin: var(--space-8) 0;
-  padding: var(--space-6);
+  font-size: 1rem;
+  margin: var(--space-6) 0;
+  padding: var(--space-5);
   border-radius: var(--radius-lg);
   font-weight: 500;
   display: flex;
@@ -391,55 +385,49 @@
   border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
-.noAssets::before {
-  content: "⚠️";
-  font-size: 1.25rem;
-}
-
-.noWallet::before {
-  content: "❌";
-  font-size: 1.25rem;
+.noResults {
+  color: var(--gray-500);
+  font-size: 0.875rem;
+  margin-top: var(--space-2);
+  font-style: italic;
 }
 
 /* Chart Wrapper */
 .chartWrapper {
-  max-width: 500px;
-  margin: var(--space-8) auto;
+  max-width: 400px;
+  margin: var(--space-6) auto;
   padding: var(--space-4);
   background-color: white;
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
   border: 1px solid var(--gray-200);
-  transition: transform var(--transition), box-shadow var(--transition);
+  transition: transform var(--transition);
 }
 
-.chartWrapper:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-xl);
+.dataAttribution {
+  color: var(--gray-500);
+  font-size: 0.75rem;
+  margin-top: var(--space-3);
+  text-align: center;
 }
 
 /* Filter Container */
 .filterContainer {
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
   align-items: center;
-  margin: var(--space-6) 0;
-  gap: var(--space-3);
-  flex-wrap: wrap;
-}
-
-/* Filter Label */
-.filterLabel {
-  font-size: 1rem;
-  color: var(--gray-700);
-  font-weight: 500;
+  margin: var(--space-5) 0;
+  width: 100%;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Filter Input */
 .filterInput {
-  width: 300px;
-  padding: var(--space-3) var(--space-4);
-  font-size: 1rem;
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.875rem;
   border: 2px solid var(--gray-300);
   border-radius: var(--radius-md);
   outline: none;
@@ -450,7 +438,7 @@
 
 .filterInput:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
 }
 
 .filterInput::placeholder {
@@ -462,99 +450,90 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: var(--space-8);
+  margin-top: var(--space-5);
   gap: var(--space-2);
-  flex-wrap: wrap;
 }
 
 /* Page Button */
 .pageButton {
-  padding: var(--space-2) var(--space-4) !important;
-  font-size: 0.875rem !important;
-  border: 1px solid var(--primary) !important;
-  border-radius: var(--radius-md) !important;
-  background-color: white !important;
-  color: var(--primary) !important;
-  cursor: pointer !important;
-  transition: all var(--transition) !important;
-  font-weight: 500 !important;
-  min-width: 36px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  padding: var(--space-2) var(--space-4);
+  font-size: 0.875rem;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-md);
+  background-color: white;
+  color: var(--primary);
+  cursor: pointer;
+  transition: all var(--transition);
+  font-weight: 500;
+  min-width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pageButton:not(:disabled):hover {
-  background-color: var(--primary) !important;
-  color: white !important;
-  transform: translateY(-2px) !important;
-  box-shadow: var(--shadow-md) !important;
+  background-color: var(--primary);
+  color: white;
+  box-shadow: var(--shadow-md);
 }
 
 .pageButton:disabled {
-  background-color: var(--gray-100) !important;
-  color: var(--gray-400) !important;
-  border-color: var(--gray-300) !important;
-  cursor: not-allowed !important;
-}
-
-/* Active Page Button */
-.pageButtonActive {
-  background-color: var(--primary) !important;
-  color: white !important;
-  font-weight: 600 !important;
+  background-color: var(--gray-100);
+  color: var(--gray-400);
+  border-color: var(--gray-300);
+  cursor: not-allowed;
 }
 
 /* Page Info */
 .pageInfo {
-  padding: var(--space-3) var(--space-4) !important;
-  font-size: 0.875rem !important;
-  color: var(--gray-600) !important;
-  background-color: var(--gray-50) !important;
-  border-radius: var(--radius-md) !important;
-  margin-left: var(--space-2) !important;
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  background-color: var(--gray-50);
+  border-radius: var(--radius-md);
 }
 
-.pageDots {
-  font-size: 1.25rem;
-  color: var(--gray-400);
-  margin: 0 var(--space-1);
-}
-
-/* Asset Logo Styling - Enhanced */
+/* Asset Logo and Name Styling */
 .assetLogo {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   object-fit: cover;
   display: inline-block;
-  vertical-align: middle;
-  margin-right: var(--space-2);
+  flex-shrink: 0;
   border: 1px solid var(--gray-200);
   background-color: white;
-  box-shadow: var(--shadow-sm);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.assetLogo:hover {
-  transform: scale(1.1);
-  box-shadow: var(--shadow-md);
-}
-
-/* Asset Name Cell - Enhanced */
 .assetNameCell {
   display: flex;
   align-items: center;
-  text-align: left !important;
-  padding-left: var(--space-4) !important;
-  min-width: 200px;
+  text-align: left;
+  padding-left: var(--space-4);
+  min-width: 180px;
+  gap: var(--space-2);
 }
 
 .assetSymbol {
   font-weight: 600;
   color: var(--gray-800);
-  display: block;
-  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: 0.875rem;
+}
+
+.verifiedBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--success);
+  color: white;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  font-size: 10px;
+  margin-left: var(--space-1);
 }
 
 .assetName {
@@ -564,8 +543,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 140px;
-  display: block;
-  margin-top: 2px;
 }
 
 /* Enhanced Refresh Button */
@@ -589,12 +566,12 @@
 
 .refreshButton:hover:not(:disabled) {
   background-color: var(--primary-dark);
-  transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
-.refreshButton:active:not(:disabled) {
-  transform: translateY(0);
+.refreshButton:focus:not(:disabled) {
+  outline: 2px solid var(--primary-light);
+  outline-offset: 2px;
 }
 
 .refreshButton:disabled {
@@ -603,131 +580,120 @@
   opacity: 0.7;
 }
 
-/* Spinning animation for the refresh button */
+/* Spinning animation for refresh button */
+.refreshButton.spinning {
+  position: relative;
+  color: transparent;
+}
+
 .refreshButton.spinning::before {
   content: "";
-  display: inline-block;
-  width: 1rem;
-  height: 1rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  margin-top: -8px;
+  margin-left: -8px;
   border-radius: 50%;
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-top-color: white;
   animation: spin 0.8s linear infinite;
-  margin-right: var(--space-2);
 }
 
 /* Responsive Design */
 @media (max-width: 992px) {
   .container {
-    padding: var(--space-6);
+    padding: var(--space-5);
     margin: var(--space-6) var(--space-4);
   }
   
   .heading {
-    font-size: 1.5rem;
-  }
-  
-  .walletAddress {
-    font-size: 1rem;
-    padding: var(--space-3) var(--space-4);
+    font-size: 1.25rem;
   }
   
   .totalPortfolioValue {
-    font-size: 1.75rem;
-    padding: var(--space-3) var(--space-5);
-  }
-  
-  .assetTable th,
-  .assetTable td {
+    font-size: 1.25rem;
     padding: var(--space-3) var(--space-4);
-    font-size: 0.9375rem;
   }
   
-  .assetLogo {
-    width: 24px;
-    height: 24px;
-  }
-  
-  .assetName {
-    max-width: 120px;
-  }
-  
-  .lastUpdated {
-    font-size: 0.7rem;
+  .chartWrapper {
+    max-width: 350px;
   }
 }
 
 @media (max-width: 768px) {
   .container {
-    padding: var(--space-5);
+    padding: var(--space-4);
     margin: var(--space-4) var(--space-3);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
   }
   
   .heading {
-    font-size: 1.375rem;
+    font-size: 1.125rem;
     margin-bottom: var(--space-4);
   }
   
-  .walletHeader {
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-  
-  .refreshSection {
-    width: 100%;
-    align-items: center;
-  }
-  
   .walletAddress {
-    font-size: 0.9375rem;
-    padding: var(--space-3) var(--space-4);
+    font-size: 0.8125rem;
+    padding: var(--space-2) var(--space-3);
     width: 100%;
-  }
-  
-  .refreshButton {
-    width: 100%;
-    max-width: 200px;
   }
   
   .totalPortfolioValue {
-    font-size: 1.5rem;
-    margin: var(--space-4) 0 var(--space-6);
-    padding: var(--space-3) var(--space-4);
-  }
-  
-  .assetTable th {
-    font-size: 0.8125rem;
-  }
-  
-  .assetTable td {
-    font-size: 0.875rem;
-    padding: var(--space-3);
-  }
-  
-  .filterContainer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-2);
-  }
-  
-  .filterInput {
-    width: 90%;
+    font-size: 1.125rem;
+    margin: var(--space-3) 0 var(--space-5);
+    padding: var(--space-2) var(--space-3);
+    width: 100%;
   }
   
   .pagination {
-    gap: var(--space-1);
+    flex-wrap: wrap;
   }
   
-  .pageButton {
-    padding: var(--space-1) var(--space-3) !important;
-    font-size: 0.8125rem !important;
-    min-width: 32px !important;
+  .chartWrapper {
+    max-width: 300px;
   }
   
-  .pageInfo {
-    padding: var(--space-2) !important;
-    font-size: 0.8125rem !important;
+  .assetTable {
+    min-width: 450px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: var(--space-3);
+    margin: var(--space-2);
+    border-radius: var(--radius);
+  }
+  
+  .heading {
+    font-size: 1rem;
+  }
+  
+  .refreshButton {
+    font-size: 0.75rem;
+    padding: var(--space-1) var(--space-2);
+    min-width: 100px;
+  }
+  
+  .walletAddress span {
+    font-size: 0.75rem;
+  }
+  
+  .copyButton {
+    font-size: 0.6875rem;
+    padding: var(--space-1);
+  }
+  
+  .totalPortfolioValue {
+    font-size: 1rem;
+  }
+  
+  .assetTable th,
+  .assetTable td {
+    padding: var(--space-2);
+    font-size: 0.75rem;
   }
   
   .assetLogo {
@@ -735,168 +701,25 @@
     height: 20px;
   }
   
-  .assetName {
-    max-width: 100px;
-  }
-  
-  .assetNameCell {
-    min-width: 150px;
-  }
-  
-  /* Mobile table enhancements */
-  .mobileScrollHint {
-    display: flex;
-  }
-  
-  .assetTable {
-    min-width: 500px;
-  }
-}
-
-@media (max-width: 600px) {
-  .container {
-    padding: var(--space-4);
-    margin: var(--space-3) var(--space-2);
-    border-radius: var(--radius);
-  }
-  
-  .heading {
-    font-size: 1.25rem;
-  }
-  
-  .walletAddress {
-    font-size: 0.875rem;
-    padding: var(--space-2) var(--space-3);
-  }
-  
-  .totalPortfolioValue {
-    font-size: 1.375rem;
-    width: 100%;
-  }
-  
-  .assetTable th {
-    font-size: 0.75rem;
-    padding: var(--space-2);
-  }
-  
-  .assetTable td {
-    font-size: 0.8125rem;
-    padding: var(--space-2);
-  }
-  
-  .noAssets,
-  .noWallet {
-    font-size: 1rem;
-    padding: var(--space-4);
-  }
-  
-  .chartWrapper {
-    margin: var(--space-6) auto;
-  }
-  
-  .pageButton {
-    padding: var(--space-1) !important;
-    font-size: 0.75rem !important;
-    min-width: 28px !important;
-  }
-  
-  .assetLogo {
-    width: 18px;
-    height: 18px;
-    margin-right: var(--space-1);
-  }
-  
-  .assetNameCell {
-    min-width: 110px; /* Reduced from 120px for better mobile fit */
-    padding-left: var(--space-2) !important;
-  }
-  
   .assetSymbol {
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
   }
   
   .assetName {
     font-size: 0.6875rem;
-    max-width: 80px;
+    max-width: 100px;
   }
   
-  .refreshButton {
-    font-size: 0.75rem;
-    padding: var(--space-1) var(--space-3);
-  }
-  
-  .lastUpdated {
-    font-size: 0.65rem;
-  }
-  
-  /* Mobile-specific table improvements */
-  .tableContainer {
-    margin: 0 -1rem; /* Negative margin to extend slightly beyond container on small screens */
-    width: calc(100% + 2rem);
-    border-radius: 0; /* Remove border radius for full-width on mobile */
+  .chartWrapper {
+    max-width: 250px;
   }
   
   .assetTable {
-    min-width: 450px; /* Slightly smaller minimum width for very small devices */
+    min-width: 400px;
   }
   
-  /* Improve scrolling experience */
-  .tableContainer::-webkit-scrollbar {
-    height: 4px;
+  .pageButton {
+    min-width: 60px;
+    font-size: 0.75rem;
   }
-  
-  .tableContainer::-webkit-scrollbar-track {
-    background: var(--gray-200);
-  }
-  
-  .tableContainer::-webkit-scrollbar-thumb {
-    background: var(--primary);
-    border-radius: var(--radius-full);
-  }
-}
-
-/* Utility Classes */
-.success {
-  color: var(--success) !important;
-}
-
-.danger {
-  color: var(--danger) !important;
-}
-
-.warning {
-  color: var(--warning) !important;
-}
-
-.info {
-  color: var(--primary) !important;
-}
-
-/* Asset Price Change - Positive/Negative Styling */
-.priceUp {
-  color: var(--success);
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-}
-
-.priceUp::before {
-  content: "▲";
-  font-size: 0.75rem;
-}
-
-.priceDown {
-  color: var(--danger);
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-}
-
-.priceDown::before {
-  content: "▼";
-  font-size: 0.75rem;
 }
