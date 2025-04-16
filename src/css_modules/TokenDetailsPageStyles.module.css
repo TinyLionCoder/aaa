@@ -649,6 +649,28 @@
   }
 }
 
+.assetWithLogo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tokenLogoSmall {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+}
+
+.poolAssets {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
 /* Updated Mobile Responsive Styles */
 
 /* Base Mobile Improvements */

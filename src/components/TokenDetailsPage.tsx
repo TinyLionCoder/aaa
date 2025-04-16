@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import styles from "../css_modules/TokenDetailsPageStyles.module.css";
 import axios from "axios";
@@ -53,10 +53,28 @@ ChartJS.register(
   BarElement
 );
 
+interface Asset {
+  assetId: number;
+  amount: number;
+  name: string;
+  unitName: string;
+  decimals: number;
+  usdValue: number;
+  logoUrl: string | null;
+  verified: boolean;
+}
+
+interface AssetWithLogo {
+  id: number;
+  unitName: string;
+  logoUrl: string | null;
+}
+
 const TokenDetailsPage = () => {
   const location = useLocation();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [asset, setAsset] = useState<Asset | null>(null);
   const [tokenData, setTokenData] = useState<any>(null);
   const [priceHistory, setPriceHistory] = useState<
     { timestamp: number; price: number }[]
@@ -70,6 +88,54 @@ const TokenDetailsPage = () => {
   const [tvlHistory, setTvlHistory] = useState<
     { timestamp: number; tvl: number }[]
   >([]);
+  const [poolAssetLogos, setPoolAssetLogos] = useState<
+    Record<number, string | null>
+  >({});
+
+  // Fetch asset verification and logo from Pera - defined at the top level of the component
+  const fetchPeraVerification = useCallback(async (assetId: number) => {
+    try {
+      const response = await fetch(
+        `https://mainnet.api.perawallet.app/v1/public/assets/${assetId}`,
+        {
+          headers: { Accept: "application/json" },
+          signal: AbortSignal.timeout(5000), // 5 second timeout
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`API responded with status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      setAsset(data);
+      return {
+        verified: data.verification_tier === "verified",
+        logoUrl: data.logo || null,
+        usdValue: parseFloat(data.usd_value) || 0,
+      };
+    } catch (error) {
+      console.error(`Error verifying asset ID ${assetId}:`, error);
+      return { verified: false, logoUrl: null, usdValue: 0 };
+    }
+  }, []);
+
+  // Default placeholder for token logos - defined at the top level of the component
+  const getTokenLogoUrl = useCallback(
+    (assetId: number, logoUrl: string | null) => {
+      return (
+        logoUrl || `https://app.perawallet.app/assets/images/tokens/unknown.svg`
+      );
+    },
+    []
+  );
+
+  useEffect(() => {
+    if (assetID) {
+      fetchPeraVerification(parseInt(assetID));
+    }
+  }, [assetID, fetchPeraVerification]);
 
   useEffect(() => {
     const fetchRealTxData = async () => {
@@ -307,30 +373,72 @@ const TokenDetailsPage = () => {
 
         const assetIdArray = Array.from(assetIdsToFetch);
         const assetNameMap: Record<number, string> = {};
+        const logos: Record<number, string | null> = {};
 
-        await Promise.all(
-          assetIdArray.map(async (id) => {
-            try {
-              const res = await algoIndexerClient.lookupAssetByID(id).do();
-              assetNameMap[id] =
-                res.asset.params["unit-name"] || id?.toString();
-            } catch {
-              assetNameMap[id] = id?.toString();
-            }
-          })
-        );
+        // Process assets in batches to avoid overwhelming APIs
+        const BATCH_SIZE = 5;
+        const assetBatches = [];
+        for (let i = 0; i < assetIdArray.length; i += BATCH_SIZE) {
+          assetBatches.push(assetIdArray.slice(i, i + BATCH_SIZE));
+        }
 
-        // Step 7: Add unit names to pools
-        const poolsWithNames = [...poolsWithTVL, ...filteredPactPools].map(
+        for (const batch of assetBatches) {
+          await Promise.all(
+            batch.map(async (id) => {
+              try {
+                // Fetch asset details from indexer
+                const res = await algoIndexerClient.lookupAssetByID(id).do();
+                assetNameMap[id] =
+                  res.asset.params["unit-name"] || id?.toString();
+
+                // Fetch logo from Pera
+                const response = await fetch(
+                  `https://mainnet.api.perawallet.app/v1/public/assets/${id}`,
+                  {
+                    headers: { Accept: "application/json" },
+                    signal: AbortSignal.timeout(5000),
+                  }
+                );
+
+                if (response.ok) {
+                  const data = await response.json();
+                  logos[id] = data.logo || null;
+                } else {
+                  logos[id] = null;
+                }
+              } catch (error) {
+                console.error(
+                  `Error fetching details for asset ID ${id}:`,
+                  error
+                );
+                assetNameMap[id] = id?.toString();
+                logos[id] = null;
+              }
+            })
+          );
+
+          // Add small delay between batches to avoid rate limiting
+          if (batch !== assetBatches[assetBatches.length - 1]) {
+            await new Promise((resolve) => setTimeout(resolve, 500));
+          }
+        }
+
+        // Save all logos to state for use in rendering
+        setPoolAssetLogos(logos);
+
+        // Step 7: Add unit names and logos to pools
+        const poolsWithDetails = [...poolsWithTVL, ...filteredPactPools].map(
           (pool) => ({
             ...pool,
             asset_1_unit_name: assetNameMap[pool.asset_1_id] || pool.asset_1_id,
             asset_2_unit_name: assetNameMap[pool.asset_2_id] || pool.asset_2_id,
+            asset_1_logo_url: logos[pool.asset_1_id] || null,
+            asset_2_logo_url: logos[pool.asset_2_id] || null,
           })
         );
 
         // Step 8: Filter and set
-        const nonZeroPools = poolsWithNames.filter((p) => p.tvl_usd > 0);
+        const nonZeroPools = poolsWithDetails.filter((p) => p.tvl_usd > 0);
         setLiquidityPools(nonZeroPools);
       } catch (err) {
         console.error("Failed to fetch enriched liquidity pool data", err);
@@ -959,42 +1067,72 @@ const TokenDetailsPage = () => {
         </div>
 
         {/* Liquidity Pools */}
-        {liquidityPools.length > 0 && (
-          <div className={styles.section}>
-            <div className={styles.sectionHeader}>
-              <div className={styles.sectionIcon}>
-                <FaExchangeAlt />
-              </div>
-              <h2 className={styles.subTitle}>Liquidity Pools</h2>
+        <div className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <div className={styles.sectionIcon}>
+              <FaExchangeAlt />
             </div>
+            <h2 className={styles.subTitle}>Liquidity Pools</h2>
+          </div>
 
-            <div className={styles.sectionContent}>
-              <div className={styles.lpScrollBox}>
-                {liquidityPools.map((pool, index) => (
-                  <div key={index} className={styles.poolItem}>
-                    <div className={styles.poolItemHeader}>
-                      <span className={styles.poolProvider}>
-                        {pool.provider}
-                      </span>
-                      <span className={styles.poolTVL}>
-                        ${parseFloat(pool.tvl_usd || 0).toFixed(2)}
-                      </span>
-                    </div>
-                    <div className={styles.poolAssets}>
+          <div className={styles.sectionContent}>
+            <div className={styles.lpScrollBox}>
+              {liquidityPools.map((pool, index) => (
+                <div key={index} className={styles.poolItem}>
+                  <div className={styles.poolItemHeader}>
+                    <span className={styles.poolProvider}>{pool.provider}</span>
+                    <span className={styles.poolTVL}>
+                      ${parseFloat(pool.tvl_usd || 0).toFixed(2)}
+                    </span>
+                  </div>
+                  <div className={styles.poolAssets}>
+                    {/* First Token with Logo */}
+                    <div className={styles.assetWithLogo}>
+                      <img
+                        src={getTokenLogoUrl(
+                          pool.asset_1_id,
+                          pool.asset_1_logo_url
+                        )}
+                        alt={pool.asset_1_unit_name}
+                        className={styles.tokenLogoSmall}
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src =
+                            "https://app.perawallet.app/assets/images/tokens/unknown.svg";
+                        }}
+                        loading="lazy"
+                      />
                       <span className={styles.assetPair}>
                         {pool.asset_1_unit_name || pool.asset_1_id}
                       </span>
-                      <span>+</span>
+                    </div>
+
+                    <span>+</span>
+
+                    {/* Second Token with Logo */}
+                    <div className={styles.assetWithLogo}>
+                      <img
+                        src={getTokenLogoUrl(
+                          pool.asset_2_id,
+                          pool.asset_2_logo_url
+                        )}
+                        alt={pool.asset_2_unit_name}
+                        className={styles.tokenLogoSmall}
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src =
+                            "https://app.perawallet.app/assets/images/tokens/unknown.svg";
+                        }}
+                        loading="lazy"
+                      />
                       <span className={styles.assetPair}>
                         {pool.asset_2_unit_name || pool.asset_2_id}
                       </span>
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
