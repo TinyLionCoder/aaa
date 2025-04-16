@@ -96,7 +96,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
               <div className={styles.balanceAmount}>{aaaBalance.toFixed(1)} <span className={styles.currency}>AAA</span></div>
             ) : (
               <div className={styles.pendingBalance}>
-                <div className={styles.balanceAmount}>{aaaBalance} <span className={styles.currency}>AAA</span></div>
+                <div className={styles.balanceAmount}>{aaaBalance.toFixed(1)} <span className={styles.currency}>AAA</span></div>
                 <div className={styles.pendingMessage}>
                   <FaShieldAlt className={styles.warningIcon} /> Requires verification to claim rewards.
                 </div>

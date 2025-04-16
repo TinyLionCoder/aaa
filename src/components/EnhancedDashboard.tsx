@@ -20,6 +20,7 @@ import VotingAndReviews from "./VotingAndReviews";
 import ContestNotification from "./ContestNotification";
 import { CONTESTS } from "../constants/contests";
 import OnboardingGuide from "./OnBoarding";
+import WelcomeScreen from "./WelcomeScreen";
 
 interface EnhancedDashboardProps {
   userName: string;
@@ -49,6 +50,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
   const [loadingTotalMembers, setLoadingTotalMembers] = useState<boolean>(true);
   const [loadingTotalVerifiedMembers, setLoadingTotalVerifiedMembers] =
     useState<boolean>(true);
+  const [bypassWelcome, setBypassWelcome] = useState<boolean>(false);
 
   const apiClient = axios.create({
     baseURL: "https://aaa-api.onrender.com/api/v1/members",
@@ -97,8 +99,38 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
     }
   };
 
+  // Custom setActiveComponent handler to also bypass welcome screen if needed
+  const handleSetActiveComponent = (component: string) => {
+    setActiveComponent(component);
+
+    // If user is selecting a specific component (like setup/verify), allow bypassing welcome screen
+    if (
+      component === "setupAndVerify" ||
+      component === "buySellAAA" ||
+      component === "votingForAAA" ||
+      component === "stakingAndFarms" ||
+      component === "aaaTeam" ||
+      component === "myTeam" ||
+      component === "bestAlgoDefi" ||
+      component === "dashboard"
+    ) {
+      setBypassWelcome(true);
+    }
+  };
+
   // Map active component to corresponding JSX
   const renderActiveComponent = () => {
+    // Show welcome screen for unverified users, unless they're trying to verify or bypass is active
+    if (!verified && !bypassWelcome && activeComponent !== "setupAndVerify") {
+      return (
+        <WelcomeScreen
+          userName={userName}
+          setActiveComponent={handleSetActiveComponent}
+        />
+      );
+    }
+
+    // Otherwise show the selected component
     switch (activeComponent) {
       case "bestAlgoDefi":
         return <BestAlgoDefi />;
@@ -129,7 +161,12 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
       case "votingForAAA":
         return <VotingAndReviews />;
       case "onBoardingGuide":
-        return <OnboardingGuide />;
+        return (
+          <WelcomeScreen
+            userName={userName}
+            setActiveComponent={handleSetActiveComponent}
+          />
+        );
       case "contestNotification":
         return <ContestNotification contests={CONTESTS} />;
       case "dashboard":
@@ -163,7 +200,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
       <Sidebar
         verfied={verified}
         onLogout={onLogout}
-        setActiveComponent={setActiveComponent}
+        setActiveComponent={handleSetActiveComponent}
       />
 
       {/* Main Dashboard Content */}
