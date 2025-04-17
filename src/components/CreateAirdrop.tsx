@@ -92,9 +92,9 @@ export const CreateAirdrop = () => {
       case "all-members":
         return "Pro Tip: Keep tokens to max 0.1 ALGO per claim to attract quality collectors while maintaining engagement metrics.";
       case "diamond-hands":
-        return "Pro Tip: Diamond Hand holders respond best to exclusive perks. Consider adding special utility to these tokens.";
+        return "Pro Tip: Diamond Hand holders respond best to exclusive perks.";
       case "wealth-builders":
-        return "Pro Tip: LP providers value stability. Consider allocating 15-20% of your total supply to incentivize long-term holding.";
+        return "Pro Tip: LP providers value stability.";
       default:
         return "";
     }
