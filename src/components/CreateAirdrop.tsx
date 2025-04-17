@@ -410,7 +410,7 @@ export const CreateAirdrop = () => {
 
       {step === 3 && (
         <>
-          <h2 className={styles.subheading}>Deposit Your Tokens</h2>
+          <h2 className={styles.subheading}>Deposit Your Tokens By Clicking the Send Tokens Button below</h2>
           
           <div className={styles.cardSection}>
             <div className={styles.sectionTitle}>Airdrop Summary</div>
