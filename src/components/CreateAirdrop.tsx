@@ -478,7 +478,7 @@ export const CreateAirdrop = () => {
           
           <p className={styles.description}>
             Your airdrop is now <strong>live</strong> and ready to be claimed by
-            eligible users. You'll receive analytics and engagement metrics in your dashboard.
+            eligible users.
           </p>
           
           <div className={`${styles.statusBadge} ${styles.statusSuccess}`}>
