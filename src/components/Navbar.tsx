@@ -109,17 +109,6 @@ const Navbar = () => {
           {showFarmingDropdown && (
             <div className={styles.dropdownMenu}>
               <a
-                href="https://app.gainify.xyz"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  setMenuOpen(false);
-                  setShowFarmingDropdown(false);
-                }}
-              >
-                Gainify
-              </a>
-              <a
                 href="https://app.cometa.farm"
                 target="_blank"
                 rel="noopener noreferrer"
