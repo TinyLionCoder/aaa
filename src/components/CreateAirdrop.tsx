@@ -435,7 +435,7 @@ export const CreateAirdrop = () => {
           </div>
           
           <p className={styles.instructions}>
-            Click the address below to copy, then send your tokens to the airdrop wallet:
+            Click the address below to copy, for your reference.
           </p>
           
           <div 
@@ -451,7 +451,7 @@ export const CreateAirdrop = () => {
             disabled={loading}
             onClick={handleSendTokenTransaction}
           >
-            {loading ? "Sending..." : "Complete Token Transfer"}
+            {loading ? "Sending..." : "Send Tokens"}
           </button>
           
           {transactionStatus && (
@@ -483,24 +483,6 @@ export const CreateAirdrop = () => {
           
           <div className={`${styles.statusBadge} ${styles.statusSuccess}`}>
             Active
-          </div>
-          
-          <div className={styles.cardSection}>
-            <div className={styles.sectionTitle}>Benefits</div>
-            <div className={styles.summaryList}>
-              <div className={styles.summaryItem}>
-                <span className={styles.summaryLabel}>Priority Distribution:</span>
-                <span className={styles.summaryValue}>Enabled</span>
-              </div>
-              <div className={styles.summaryItem}>
-                <span className={styles.summaryLabel}>Analytics Dashboard:</span>
-                <span className={styles.summaryValue}>Enabled</span>
-              </div>
-              <div className={styles.summaryItem}>
-                <span className={styles.summaryLabel}>Custom Branding:</span>
-                <span className={styles.summaryValue}>Enabled</span>
-              </div>
-            </div>
           </div>
         </>
       )}
