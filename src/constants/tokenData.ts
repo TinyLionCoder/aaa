@@ -25,6 +25,8 @@ import exa from "../images/exa.png";
 import meta from "../images/meta.png";
 import compx from "../images/compx.png";
 import coo from "../images/coo.png";
+import fbet from "../images/fbet.png";
+import kosh from "../images/kosh.png";
 
 export default [
   {
@@ -318,6 +320,28 @@ export default [
     logo: coo,
     vestigeLink: "https://vestige.fi/asset/891226062",
     xLink: "https://x.com/ghettopigeons",
+    stableTVL: false,
+    useCaseToken: true,
+    memeToken: false,
+    wrappedAsset: false,
+  },
+  {
+    name: "FBET",
+    assetID: "2456033705",
+    logo: fbet,
+    vestigeLink: "https://vestige.fi/asset/2456033705",
+    xLink: "https://x.com/FanBetToken",
+    stableTVL: false,
+    useCaseToken: true,
+    memeToken: false,
+    wrappedAsset: false,
+  },
+  {
+    name: "KOSH",
+    assetID: "2583022095",
+    logo: kosh,
+    vestigeLink: "https://vestige.fi/asset/2583022095",
+    xLink: "https://x.com/kingofshekels",
     stableTVL: false,
     useCaseToken: true,
     memeToken: false,
