@@ -15,7 +15,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
+  background:
     radial-gradient(circle at 20% 30%, rgba(79, 209, 197, 0.08) 0%, transparent 50%),
     radial-gradient(circle at 80% 70%, rgba(99, 102, 241, 0.08) 0%, transparent 50%);
   z-index: 0;
@@ -24,7 +24,7 @@
 .welcomeCard {
   background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
   border-radius: 16px;
-  box-shadow: 
+  box-shadow:
     0 20px 50px rgba(0, 0, 0, 0.5),
     0 1px 2px rgba(255, 255, 255, 0.05),
     inset 0 1px 1px rgba(255, 255, 255, 0.05);
@@ -53,11 +53,9 @@
   height: 150%;
   top: -25%;
   left: -25%;
-  background: radial-gradient(
-    circle at center,
-    rgba(79, 209, 197, 0.15) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(circle at center,
+      rgba(79, 209, 197, 0.15) 0%,
+      transparent 70%);
   pointer-events: none;
   z-index: -1;
 }
@@ -132,7 +130,7 @@
   background: rgba(26, 32, 44, 0.6);
   border-radius: 12px;
   border-left: 4px solid #4fd1c5;
-  box-shadow: 
+  box-shadow:
     inset 0 1px 3px rgba(0, 0, 0, 0.3),
     0 5px 15px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(5px);
@@ -205,7 +203,7 @@
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 
+  box-shadow:
     0 10px 20px rgba(49, 151, 149, 0.3),
     0 3px 6px rgba(49, 151, 149, 0.2),
     inset 0 1px 1px rgba(255, 255, 255, 0.1);
@@ -226,7 +224,7 @@
 .verifyButton:hover {
   background: linear-gradient(135deg, #38b2ac 0%, #2c7a7b 100%);
   transform: translateY(-3px);
-  box-shadow: 
+  box-shadow:
     0 15px 25px rgba(49, 151, 149, 0.4),
     0 5px 10px rgba(49, 151, 149, 0.3),
     inset 0 1px 1px rgba(255, 255, 255, 0.2);
@@ -234,7 +232,7 @@
 
 .verifyButton:active {
   transform: translateY(1px);
-  box-shadow: 
+  box-shadow:
     0 5px 10px rgba(49, 151, 149, 0.2),
     inset 0 1px 1px rgba(0, 0, 0, 0.1);
 }
@@ -251,9 +249,17 @@
 }
 
 @keyframes buttonShine {
-  0% { left: -100px; }
-  20% { left: 100%; }
-  100% { left: 100%; }
+  0% {
+    left: -100px;
+  }
+
+  20% {
+    left: 100%;
+  }
+
+  100% {
+    left: 100%;
+  }
 }
 
 .welcomeNote {
@@ -272,20 +278,79 @@
   transform: translateY(0);
 }
 
+/* Add these styles to your WelcomeScreenStyles.module.css file */
+
+.videoSection {
+  margin: 2rem 0;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.videoSection.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.videoSection h3 {
+  color: #fff;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  background: linear-gradient(135deg, #7c3aed, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.videoContainer {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.tutorialVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.videoCaption {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  font-style: italic;
+}
+
 /* Tablet Styles */
 @media screen and (max-width: 1024px) {
   .welcomeScreen {
     padding: 1.5rem;
   }
-  
+
   .welcomeCard {
     padding: 2.5rem;
   }
-  
+
   .welcomeTitle {
     font-size: 2rem;
   }
-  
+
   .welcomeSubtitle {
     font-size: 1.25rem;
     margin-bottom: 2rem;
@@ -300,41 +365,41 @@
     overflow-y: auto;
     height: 100%;
   }
-  
+
   .welcomeCard {
     padding: 1.5rem;
     max-width: 100%;
     margin-top: 1rem;
   }
-  
+
   .welcomeTitle {
     font-size: 1.75rem;
   }
-  
+
   .welcomeSubtitle {
     font-size: 1.125rem;
     margin-bottom: 1.5rem;
   }
-  
+
   .welcomeContent {
     font-size: 1rem;
     line-height: 1.5;
   }
-  
+
   .welcomeFeatures {
     margin: 1.5rem 0;
     padding: 1.25rem;
   }
-  
+
   .welcomeFeatures h3 {
     font-size: 1.125rem;
     margin-bottom: 1rem;
   }
-  
+
   .welcomeFeatures li {
     margin-bottom: 0.75rem;
   }
-  
+
   .verifyButton {
     padding: 1rem;
     margin: 1.5rem 0;
@@ -347,42 +412,42 @@
   .welcomeCard {
     padding: 1.25rem;
   }
-  
+
   .welcomeTitle {
     font-size: 1.5rem;
   }
-  
+
   .welcomeTitle::after {
     width: 60px;
     height: 2px;
   }
-  
+
   .welcomeSubtitle {
     font-size: 1rem;
     margin-bottom: 1.25rem;
   }
-  
+
   .welcomeFeatures {
     padding: 1rem;
     margin: 1.25rem 0;
   }
-  
+
   .welcomeFeatures li {
     font-size: 0.95rem;
     padding-left: 1.5rem;
   }
-  
+
   .welcomeFeatures li:before {
     width: 20px;
     height: 20px;
     font-size: 12px;
   }
-  
+
   .verifyButton {
     padding: 0.875rem;
     font-size: 1rem;
   }
-  
+
   .welcomeNote {
     font-size: 0.85rem;
     margin-top: 1.5rem;

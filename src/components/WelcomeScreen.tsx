@@ -18,10 +18,11 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
       document.querySelector(`.${styles.welcomeSubtitle}`),
       document.querySelector(`.${styles.welcomeContent}`),
       document.querySelector(`.${styles.welcomeFeatures}`),
+      document.querySelector(`.${styles.videoSection}`),
       document.querySelector(`.${styles.verifyButton}`),
       document.querySelector(`.${styles.welcomeNote}`)
     ];
-
+    
     elements.forEach((el, index) => {
       if (el) {
         setTimeout(() => {
@@ -30,7 +31,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
       }
     });
   }, []);
-
+  
   return (
     <div className={styles.welcomeScreen}>
       <div className={styles.backgroundEffect}></div>
@@ -54,6 +55,20 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
               <li>Verified member badge and status</li>
               <li>Gain access to social contests</li>
             </ul>
+          </div>
+          
+          <div className={styles.videoSection}>
+            <h3>Quick Start Guide</h3>
+            <div className={styles.videoContainer}>
+              <iframe 
+                className={styles.tutorialVideo}
+                src="https://www.youtube.com/embed/v9VvR7i4a2c" 
+                title="AAA Platform Walkthrough"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowFullScreen
+              ></iframe>
+            </div>
+            <p className={styles.videoCaption}>Watch this short video to learn how to navigate the platform and maximize your rewards.</p>
           </div>
           
           <button
