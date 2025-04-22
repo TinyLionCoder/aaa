@@ -19,6 +19,8 @@ import {
   FaVoteYea,
   FaWineBottle,
   FaClipboardCheck,
+  FaClock,
+  FaCertificate,
 } from "react-icons/fa";
 import styles from "../css_modules/SidebarStyles.module.css";
 import { useNavigate } from "react-router-dom";
@@ -126,17 +128,6 @@ const Sidebar: React.FC<SidebarProps> = ({
                 >
                   <FaCogs className={styles.icon} />
                   <span>Staking and Farms</span>
-                </li>
-                <li
-                  className={`${styles.navItem} ${
-                    activeItem === "claimingAirdrops"
-                      ? styles.activeNavItem
-                      : ""
-                  }`}
-                  // onClick={() => handleItemClick("claimingAirdrops")}
-                >
-                  <FaHandHoldingUsd className={styles.icon} />
-                  <span>Claiming Airdrops (Coming Soon!)</span>
                 </li>
                 <li
                   className={`${styles.navItem} ${
@@ -308,6 +299,52 @@ const Sidebar: React.FC<SidebarProps> = ({
             </li>
           )}
 
+          <li className={styles.navItemDropdown}>
+            <div
+              onClick={() => toggleDropdown("comingSoon")}
+              className={styles.navItem}
+            >
+              <FaClock className={styles.icon} />
+              <span>Coming Soon</span>
+              {openDropdown === "comingSoon" ? (
+                <FaChevronDown />
+              ) : (
+                <FaChevronRight />
+              )}
+            </div>
+            {openDropdown === "comingSoon" && (
+              <ul className={styles.dropdown}>
+                <li
+                  className={`${styles.navItem} ${
+                    activeItem === "claimingAirdrops"
+                      ? styles.activeNavItem
+                      : ""
+                  }`}
+                >
+                  <FaFaucet className={styles.icon} />
+                  <span>How To Claim Airdrops</span>
+                </li>
+                <li
+                  className={`${styles.navItem} ${
+                    activeItem === "howToMintToken" ? styles.activeNavItem : ""
+                  }`}
+                >
+                  <FaCertificate className={styles.icon} />
+                  <span>How To Mint Token</span>
+                </li>
+                <li
+                  className={`${styles.navItem} ${
+                    activeItem === "howToRunAlgorandNode"
+                      ? styles.activeNavItem
+                      : ""
+                  }`}
+                >
+                  <FaCheck className={styles.icon} />
+                  <span>How To Run Algorand Node</span>
+                </li>
+              </ul>
+            )}
+          </li>
           {/* Logout Button */}
           <li className={styles.navItem}>
             <button onClick={onLogout} className={styles.logoutButton}>
