@@ -1,4 +1,3 @@
-import tdld from "../images/tdld.png";
 import nmi from "../images/nmi.png";
 import tlp from "../images/tlp.png";
 import rea from "../images/rea.png";
@@ -27,7 +26,9 @@ import compx from "../images/compx.png";
 import coo from "../images/coo.png";
 import fbet from "../images/fbet.png";
 import kosh from "../images/kosh.png";
+import fam from "../images/fam.png";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default [
   {
     name: "AAA",
@@ -342,6 +343,17 @@ export default [
     logo: kosh,
     vestigeLink: "https://vestige.fi/asset/2583022095",
     xLink: "https://x.com/kingofshekels",
+    stableTVL: false,
+    useCaseToken: true,
+    memeToken: false,
+    wrappedAsset: false,
+  },
+  {
+    name: "FAM",
+    assetID: "2935126632",
+    logo: fam,
+    vestigeLink: "https://vestige.fi/asset/2935126632",
+    xLink: "https://x.com/filippodotalgo",
     stableTVL: false,
     useCaseToken: true,
     memeToken: false,
