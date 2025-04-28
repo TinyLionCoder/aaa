@@ -12,10 +12,10 @@ const teamMembers = [
     bio: "Scott is the visionary behind AAA. With years of experience in the tech industry, he leads the team with passion and expertise.",
   },
   {
-    name: "HR Mandiv",
+    name: "Tiny Lion Coder",
     role: "Lead Developer",
     image: hr,
-    bio: "HR is in charge of the technical architecture, ensuring everything runs smoothly.",
+    bio: "He is in charge of the technical architecture, ensuring everything runs smoothly.",
   },
   {
     name: "Shawn Ziem",
